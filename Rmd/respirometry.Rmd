@@ -1,0 +1,215 @@
+---
+title: "Untitled"
+output: html_document
+date: "2023-07-07"
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Libraries #
+```{r}
+library(tidyverse)     # install.packages("tidyverse")
+library(respR)         # install.packages("respR")
+library(lubridate)     # install.packages("lubridate")
+```
+
+# PipeLine with Test Data #
+```{r}
+#################################################
+####### IMPORT FILES & REFORMAT FOR RESPR #######
+#################################################
+
+# Files have been "cleaned up" with the OxyFileClean_and_HeaderChange.py script. #  
+
+files <- list.files(path ="./data/Ch2/respirometry/sandbox/raw/", pattern = "*_cleaned.txt", full.names = T)
+
+df <- files %>%
+  set_names(.) %>%
+  map_df(read_table2, .id = "FileName") %>%
+  mutate(Genotype = str_extract(FileName, "(?<=ch)\\d+"),
+         Genotype = sprintf("Gen%02d", as.numeric(Genotype)),
+         percent_oxygen = as.numeric(percent_oxygen),
+         LightIntensity = as.numeric(str_extract(FileName, "(?<=_)\\d+(?=-ch)")),
+         Depth = case_when(
+           str_detect(FileName, "_Midd_") ~ "Midd",
+           str_detect(FileName, "_Shall_") ~ "Shall",
+           str_detect(FileName, "_Deep_") ~ "Deep",
+           TRUE ~ NA_character_
+         )
+  )
+
+df_clean <- df %>%
+  select(Genotype, Depth, LightIntensity, Time, percent_oxygen) %>%
+  spread(Genotype, percent_oxygen) 
+
+# Convert the time column to period class
+df_clean$Time <- hms(df_clean$Time)
+
+# Calculate the time difference in minutes from the first time entry
+df_clean$time_in_minutes <- as.numeric(df_clean$Time - df_clean$Time[1], "minutes")
+
+df_ready <- df_clean %>%
+  select(Depth, LightIntensity, Time = time_in_minutes, Gen01, Gen02, Gen03, Gen04, Gen05)
+
+#################################################
+########### respR::inspect() for loop ###########
+#################################################
+
+# Get the column names excluding "Time", "Depth", and "LightIntensity"
+data_cols <- names(df_ready)[-c(1, 2)]
+
+# Loop through each column (ignoring "Depth" and "LightIntensity")
+for (col in data_cols) {
+  # Check if the current column is not "Depth" or "LightIntensity"
+  if (!(col %in% c("Depth", "LightIntensity"))) {
+    # Select the "Time" and the current data column
+    data_subset <- df_ready[c("Time", col)]
+
+    # Get the column index based on the column name
+    col_index <- which(names(df_ready) == col)
+
+    # Apply the inspect() function on the subset
+    for (sub_col in 1:(ncol(data_subset) - 1)) {
+      pdf(paste0('data/Ch2/respirometry/sandbox/check_plots/', col, "_sandbox", ".pdf"))
+      inspect(data_subset[, c(1, sub_col + 1)])
+      dev.off()
+    }
+  }
+}
+
+#################################################
+########## respR::calc_rate() for loop ##########
+#################################################
+
+Genotype <- c("Gen01", "Gen02", "Gen03", "Gen04", "Gen05")
+
+# Initialize empty data frames to store results
+Master_resp_test <- data.frame()
+Master_photo_test <- data.frame()
+
+for (Geno in Genotype) {
+    # Extract data for the current genotype column
+    data_subset <- df_ready[c("Time", Geno)]
+    
+    # Respiration calculations
+    Resp <- calc_rate(data_subset[, c(1, 2)], from = 1, to = 7, by = "time", plot = TRUE)
+    pdf(paste0('data/Ch2/respirometry/sandbox/full_plots/', Geno, "_Resp.pdf"))
+    plot(Resp)
+    dev.off()
+    
+    # Photosynthesis calculations
+    Photo <- calc_rate(data_subset[, c(1, 2)], from = 7, to = 14, by = "time", plot = TRUE)
+    pdf(paste0('data/Ch2/respirometry/sandbox/full_plots/', Geno, "_Photo.pdf"))
+    plot(Photo)
+    dev.off()
+    
+    # Append the summary statistics to the corresponding data frame
+    Master_resp_test <- rbind(Master_resp_test, data.frame(Sample_name = Geno, Resp$summary))
+    Master_photo_test <- rbind(Master_photo_test, data.frame(Sample_name = Geno, Photo$summary))
+}
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Deep Respirometry Profiles Post Raw File Cleanup Scripts #
+```{r}
+###########################
+### 50 (Photosynthesis) ###
+###########################
+
+deep_50 <- list.files(path ="./data/Ch2/respirometry/deep/clean_50_no_filter", pattern = "*.txt", full.names = T)
+
+# Combine all deep 50 photosynthesis files for each chamber 
+combo_deep_50 <- deep_50 %>%
+  set_names(.) %>%
+  map_df(read_table2, .id = "FileName") %>%
+  mutate(PAR = 50) %>%
+  mutate(Depth = "deep")
+
+# Convert the time column to period class
+combo_deep_50$Time <- hms(combo_deep_50$Time)
+
+# Calculate the time difference in minutes from the first time entry
+combo_deep_50$time_in_minutes <- as.numeric(combo_deep_50$Time - combo_deep_50$Time[1], "minutes")
+
+df_deep_50 <- combo_deep_50 %>%
+  select(Time = time_in_minutes, percent_oxygen, Genotype, PAR, Depth) %>%
+  spread(Genotype, percent_oxygen) %>% 
+  rename(Gen01 = `1`, Gen02 = `2`,Gen03 = `3`, Gen04 = `4`, Gen05 = `5`, Gen06 = `6`, 
+         Gen07 = `7`, Gen08 = `8`) %>%
+  relocate(Time, Gen01:Gen08, PAR, Depth)
+
+# Check data for errors 
+inspect(df_deep_50, oxygen = 2:9)
+
+# Gen01
+Gen01 <- df_deep_50 %>%
+  select(Time, Gen01) %>%
+  calc_rate(from = 5, to = 20, by = "time")
+
+# Gen02
+Gen02 <- df_deep_50 %>%
+  select(Time, Gen02) %>%
+  calc_rate(from = 5, to = 20, by = "time")
+
+# Gen03
+Gen03 <- df_deep_50 %>%
+  select(Time, Gen03) %>%
+  calc_rate(from = 5, to = 20, by = "time")
+
+# Gen04
+Gen04 <- df_deep_50 %>%
+  select(Time, Gen04) %>%
+  calc_rate(from = 5, to = 20, by = "time")
+
+# Gen05
+Gen05 <- df_deep_50 %>%
+  select(Time, Gen05) %>%
+  calc_rate()
+
+# Gen06
+Gen06 <- df_deep_50 %>%
+  select(Time, Gen06) %>%
+  calc_rate(from = 5, to = 20, by = "time")
+
+# Gen07
+Gen07 <- df_deep_50 %>%
+  select(Time, Gen07) %>%
+  calc_rate()
+
+x <- summary(Gen07) %>% 
+  paste(summary(Gen07), collapse = ' ')
+```
+

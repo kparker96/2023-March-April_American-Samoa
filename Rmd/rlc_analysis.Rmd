@@ -1,0 +1,127 @@
+---
+title: "RLCs"
+output: html_document
+date: "2023-04-19"
+editor_options: 
+  chunk_output_type: console
+---
+# LOAD LIBRARIES #
+```{r}
+library(tidyverse)
+library(ggplot2)
+```
+
+# POPULATION AVERAGE RLCS #
+```{r}
+pop_ETR <- readxl::read_xlsx("data/Ch2/raw_RLCs/2023-04_AS_ETRs_Averages.xlsx")
+
+ggplot(pop_ETR, aes(x = PAR, y = AvgETR)) +
+      geom_line(aes(color = Depth), size = 1) +
+  theme_minimal() +
+  geom_vline(xintercept = 253.7, color = "red") +
+  geom_vline(xintercept = 377.3, color = "green")+ 
+  geom_vline(xintercept = 364.8, color = "blue")
+```
+
+```{r}
+# Install dependency libraries for phytotools 
+
+#install.packages("https://cran.r-project.org/src/contrib/Archive/rgdal/rgdal_1.6-6.tar.gz", repos=NULL, type="source")
+
+#install.packages("https://cran.r-project.org/src/contrib/Archive/terra/terra_1.7-37.tar.gz", repos=NULL, type="source")
+
+#install.packages("https://cran.r-project.org/src/contrib/Archive/raster/raster_3.6-14.tar.gz", repos=NULL, type="source")
+
+#install.packages("https://cran.r-project.org/src/contrib/Archive/insol/insol_1.2.tar.gz", repos=NULL, type="source")
+
+#install.packages("https://cran.r-project.org/src/contrib/Archive/deSolve/deSolve_1.34.tar.gz", repos=NULL, type="source")
+
+#install.packages("rootSolve")
+
+#install.packages("https://cran.r-project.org/src/contrib/Archive/coda/coda_0.19-3.tar.gz", repos=NULL, type="source")
+
+#install.packages("https://cran.r-project.org/src/contrib/Archive/FME/FME_1.3.tar.gz", repos=NULL, type="source")
+
+
+
+install.packages("https://cran.r-project.org/src/contrib/Archive/phytotools/phytotools_1.0.tar.gz", repos=NULL, type="source", dependencies = FALSE)
+
+
+```
+
+
+
+
+
+
+
+
+# MICHAELIS MENTEN #
+```{r}
+
+library(drc)
+model <- drm(PAR ~ AvgETR, data = pop_ETR, fct = MM.2())
+
+mml <- data.frame(PAR = seq(0, max(pop_ETR$PAR), length.out = 100))
+mml$AvgETR <- predict(model, newdata = mml)
+
+ggplot(pop_ETR, aes(x = PAR, y = AvgETR, color = Depth)) +
+  theme_bw() +
+  xlab("PAR") +
+  ylab("ETR") +
+  ggtitle("Michaelis-Menten kinetics") +
+  geom_point() +
+  ylim(0,90) +
+  geom_line(data = mml, aes(x = PAR, y = AvgETR), colour = "red")
+```
+
+
+
+
+# DEEP #
+```{r}
+deep <- readxl::read_xlsx("data/Ch2/raw_RLCs/2023-03-31_Deep_Mgris_RLCs.xlsx") %>%
+  group_by(Geno)
+
+deep$Geno <- as.character(deep$Geno)
+
+ggplot(deep, aes(x = PAR, y = ETR, color = Geno)) +
+  geom_line(size = 1) +
+  theme_bw()
+```
+
+# MIDD #
+```{r}
+midd <- readxl::read_xlsx("data/Ch2/raw_RLCs/2023-04-01_Midd_Mgris_RLCs.xlsx") %>%
+  group_by(Geno)
+
+midd$Geno <- as.character(midd$Geno)
+
+ggplot(midd, aes(x = PAR, y = ETR, color = Geno)) +
+  geom_line(size = 1) +
+  theme_bw()
+```
+
+# SHALLOW #
+```{r}
+shall <- readxl::read_xlsx("data/Ch2/raw_RLCs/2023-04-05_Shall_Mgris_RLCs.xlsx") %>%
+  group_by(Geno)
+
+shall$Geno <- as.character(shall$Geno)
+
+ggplot(midd, aes(x = PAR, y = ETR, color = Geno)) +
+  geom_line(size = 1) +
+  theme_bw()
+```
+
+# COMBINE DEPTH FILES #
+```{r}
+rlc_all_depth <- rbind(deep, midd, shall)
+
+ggplot(rlc_all_depth, aes(x = PAR, y = ETR, color = Geno)) +
+  geom_line(size = 1) +
+  facet_wrap(~Depth) +
+  theme_bw()
+```
+
+
