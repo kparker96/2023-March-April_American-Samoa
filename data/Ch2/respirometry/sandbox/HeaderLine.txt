@@ -1,2 +1,0 @@
-Genotype	Time	Logtime	Oxy_air_sat	Phase	Amp	TempC	air_sat	percent_oxygen	pO2	pO2_Torr	cO2	cO2_umol	Salinity	chlorinity	SalCorcO2	SalCorcO2_umol
-% air-sat.	% oxygen	pO2 (hPa)	pO2 (Torr)	cO2 [mg/L]	cO2 [µmol/L]	Salinity	chlorinity	SalCorcO2 [mg/L]	SalCorcO2 [µmol/L]

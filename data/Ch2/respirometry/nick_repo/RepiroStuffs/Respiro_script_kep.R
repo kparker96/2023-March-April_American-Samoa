@@ -10,7 +10,7 @@ library(respR)
 ##### Import and organize data #####
 ####                            ####
 
-setwd("./data/Ch2/respirometry/nick_repo/RepiroStuffs")
+# setwd("./data/Ch2/respirometry/nick_repo/RepiroStuffs")
 filelist<-read.delim("./filelist_check.txt")
 paste(filelist[1,1])
 
@@ -26,7 +26,7 @@ for (Data_row in 1:nrow(filelist)) {
     dev.off()
   }
 }
-  
+
   ####Main rate calling loop
   Master_resp<-read.table(text="",col.names=c("Sample_name","intercept_b0","rate_b1","rsq",
                                               "row","endrow","time","endtime","oxy","endoxy","rowlength","timelength","rate_twopoint"))

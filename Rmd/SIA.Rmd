@@ -1,0 +1,61 @@
+---
+title: "Untitled"
+output: html_document
+date: "2025-11-02"
+editor_options: 
+  chunk_output_type: console
+---
+```{r}
+library(tidyverse)
+library(readxl)
+```
+
+```{r}
+sia <- read_xlsx("data/Stable_Isotope_Data.xlsx") %>%
+  dplyr::select(Sample_ID:CN_ratio)
+
+sia$`%N` <- as.numeric(sia$`%N`)
+
+sia_df <- sia %>%
+  mutate(
+    Depth = case_when(
+      str_detect(Sample_ID, "Deep") ~ "Deep",
+      str_detect(Sample_ID, "Midd") ~ "Middle",
+      str_detect(Sample_ID, "Shall") ~ "Shallow",
+      TRUE ~ NA_character_
+    ),
+    Type = case_when(
+      str_detect(Sample_ID, "Host") ~ "Host",
+      str_detect(Sample_ID, "Zoox") ~ "Zoox",
+      str_detect(Sample_ID, "water") ~ "Water",
+      TRUE ~ NA_character_
+    ),
+    Replicate = if_else(str_detect(Sample_ID, "_r2$|R2$"), "R2", "R1")
+  ) 
+
+sia_df_test <- sia_df %>%
+  filter(Replicate == "R1",
+         Type == "Zoox" | Type == "Host") %>%
+  filter(!Tray_ID %in% c("D5", "D6", "D7", "D8", "F2"))
+
+sia_df_test_host <- sia_df_test %>%
+  filter(Type == "Host")
+
+ggplot(sia_df_test, aes(x = d13C, y = d15N, color = Depth)) +
+  geom_point(aes(shape = Type), size = 3) +
+  theme_bw() +
+  # stat_ellipse(type = "t", size = 1, linewidth = 1) +
+  scale_color_manual(values = c("#00004C", "#11569B", "#56A9DC"))+
+  xlim(-25,-10) +
+  ylim(3.5,7) +
+  theme(legend.position = "bottom")
+
+ggplot(sia_df_test, aes(x = `%C`, y = `%N`, color = Depth)) +
+  geom_point(aes(shape = Type)) +
+  theme_bw()
+
+ggplot(sia_df_test, aes(x = Depth, y = CN_ratio)) +
+  geom_boxplot() +
+  facet_wrap(~Type, scales = "free_y")
+```
+

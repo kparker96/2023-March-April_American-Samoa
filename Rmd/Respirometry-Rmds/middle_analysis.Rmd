@@ -1,0 +1,44 @@
+---
+title: "Untitled"
+output: html_document
+date: "2023-07-07"
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# LIB LOAD #
+```{r}
+library(tidyverse)     # install.packages("tidyverse")
+library(readxl)
+library("writexl")
+```
+
+# PIPELINE WITH TEST SAMPLES #
+```{r}
+#################################################
+#########        IMPORT FILES          ##########
+#########        RESPR OUTPUTS         ##########
+#################################################
+
+file_list <- list.files(path = "data/Ch2/respirometry/middle/final_rates", pattern = "*.xlsx", full.names = T)
+
+file_list_compiled <- sapply(file_list, read_excel, simplify=FALSE) %>% 
+  bind_rows(.id = "id")
+
+photo <- file_list_compiled %>%
+  filter(o2 == "Photosynthesis")
+
+ggplot(photo, aes(x = light, y = rate.output)) +
+  geom_point() +
+  facet_wrap(~Sample_name) +
+  ylim(0,0.011)
+
+ggplot(photo, aes(x = light, y = rate.output, color = Sample_name)) +
+  geom_point() +
+  ggtitle("Midd") +
+  ylim(-0.0025, 0.025)
+```

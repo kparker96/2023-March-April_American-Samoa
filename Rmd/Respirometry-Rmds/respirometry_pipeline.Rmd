@@ -1,0 +1,358 @@
+---
+title: "Untitled"
+output: html_document
+date: "2023-07-07"
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# LIB LOAD #
+```{r}
+library(tidyverse)     # install.packages("tidyverse")
+library(respR)         # install.packages("respR")
+library(lubridate)     # install.packages("lubridate")
+```
+
+# PIPELINE WITH TEST SAMPLES #
+```{r}
+#################################################
+######### IMPORT FILES FROM SANDBOX & ##########
+#########    REFORMAT FOR RESPR       ##########
+#################################################
+
+# Files have been "cleaned up" with the SuperOxyCalc_djb_heaupdate_kep.py script with updated HeaderLine.txt file #  
+
+files <- list.files(path ="./data/Ch2/respirometry/sandbox/", pattern = "*_cleaned.txt", full.names = T)
+
+df <- files %>%
+  set_names(.) %>%
+  map_df(read_table2, .id = "FileName") %>%
+  mutate(Genotype = str_extract(FileName, "(?<=ch)\\d+"),
+         Genotype = sprintf("Gen%02d", as.numeric(Genotype)),
+         SalCorcO2_umol_L = as.numeric(SalCorcO2_umol_L),
+         LightIntensity = as.numeric(str_extract(FileName, "(?<=_)\\d+(?=-ch)")),
+         Depth = case_when(
+           str_detect(FileName, "_Midd_") ~ "Midd",
+           str_detect(FileName, "_Shall_") ~ "Shall",
+           str_detect(FileName, "_Deep_") ~ "Deep",
+           TRUE ~ NA_character_
+         )
+  )
+
+df_clean <- df %>%
+  spread(Genotype, SalCorcO2_umol_L) %>%
+  select(Depth, LightIntensity, Time, Gen01, Gen02, Gen03, Gen04, Gen05) 
+   
+
+# Convert the time column to period class
+df_clean$Time <- hms(df_clean$Time)
+
+# Calculate the time difference in minutes from the first time entry
+df_clean$time_in_minutes <- as.numeric(df_clean$Time - df_clean$Time[1], "minutes")
+
+# Adjust the time_in_minutes column to start at 0
+df_clean$time_in_minutes <- df_clean$time_in_minutes - min(df_clean$time_in_minutes)
+
+# Finalize formatting for respR
+df_ready <- df_clean %>%
+  select(Time = time_in_minutes, Gen01, Gen02, Gen03, Gen04, Gen05)
+
+# df_Resp <-  Resp data from chambers with samples, when Resp is separate from                   Photo
+
+# df_Photo <- Photo data from chambers with samples, when Photo is separate from                 Resp
+
+# df_bg    <- Drift chamber for the experiment  
+df_bg_resp <- df_ready %>%
+  select(Time, Gen05) %>%
+  filter(Gen05 > 0) %>%
+  filter(Time > 0 & Time <= 15)
+
+df_bg_photo <- df_ready %>%
+  select(Time, Gen05) %>%
+  filter(Gen05 > 0) %>%
+  filter(Time > 15)
+
+```
+
+# Trying on one sample #
+```{r}
+Gen01 <- df_ready %>%
+  filter(Gen01 > 0) %>% # remove NA values
+  select(Time, Gen01)
+
+inspect(Gen01) 
+
+calc_rate(Gen01, plot = TRUE, from = 15, to = 30) %>%
+  summary()
+```
+
+```{r}
+#################################################
+########### respR::inspect() for loop ###########
+#################################################
+
+# Get the column names 
+data_cols <- names(df_ready)[2:length(names(df_ready))]
+
+# Loop through each column
+for (col in data_cols) {
+    # Select the "Time" and the current data column
+    data_subset <- drop_na(df_ready[c("Time", col)])
+      
+    pdf(paste0('data/Ch2/respirometry/sandbox/check_plots/', col, "_sandbox", ".pdf"))
+    inspect(data_subset)
+    
+    dev.off()
+    
+}
+```
+
+```{r}
+#################################################
+########        RESPIRATION ONLY         ########
+########       respR::calc_rate()        ########
+########      respR::calc_rate.bg()      ########
+########      respR::adjust_rate()       ########
+#################################################
+
+# Inspect respiration dataframes for blank chamber
+bg_insp_resp <- inspect(df_bg_resp)
+
+# calc_rate() for respiration blank chamber 
+bg_rate_resp <- calc_rate.bg(bg_insp_resp)
+
+# Initialize empty data frames to store results after calc_rate()
+master_resp<- data.frame() 
+
+# Initialize empty data frames to store results after adjust_rate() for blank chamber
+master_resp_adj <- data.frame()
+
+# Initialize empty data frames to store results after convert_rate() for biometrics/experiment
+master_resp_final <- data.frame()
+
+for (Geno in data_cols) {
+    # Extract data for the current genotype column
+    data_subset <- drop_na(df_ready[c("Time", Geno)])
+    
+    print(data_subset)
+    
+    # calc_rate()
+    resp <- calc_rate(data_subset, from = 15, to = 30, by = 'time', plot = TRUE)
+    pdf(paste0('data/Ch2/respirometry/sandbox/full_plots/', Geno, "_resp.pdf"))
+    plot(resp)
+    dev.off()
+    
+    # adjust_rate()
+    resp_adj <- adjust_rate(resp, by = bg_rate_resp, method = "value")
+    
+    # convert_rate()
+    resp_final <- convert_rate(resp_adj,              # rate adjusted for background
+                           oxy.unit = "umol/L",     # oxygen units of the original raw data
+                           time.unit = "min",            # time units of the original raw data
+                           output.unit = "umol/min/cm2", # output unit
+                           volume = 0.15444,         # effective volume of the respirometer (L)
+                           area = 0.0025)            # area of sample (m2)
+    
+    # Append the summary statistics from calc_rate() to the corresponding data frame
+    master_resp <- rbind(master_resp, data.frame(Sample_name = Geno,
+                                                             resp$summary))
+    
+    # Append the summary statistics from adjust_rate() to the corresponding data frame
+
+    master_resp_adj <- rbind(master_resp_adj, data.frame(Sample_name = Geno,
+                                                           resp_adj$summary))
+    
+    # Append the summary statistics from convert_rate() to the corresponding data frame
+    master_resp_final <- rbind(master_resp_final, data.frame(Sample_name = Geno,
+                                                             resp_final$summary))
+    
+}
+```
+
+```{r}
+#################################################
+########     PHOTOSYNTHESIS ONLY         ########
+########       respR::calc_rate()        ########
+########      respR::calc_rate.bg()      ########
+########      respR::adjust_rate()       ########
+#################################################
+
+# Inspect photosynthesis dataframes for blank chamber
+bg_insp_photo <- inspect(df_bg_photo)
+
+# calc_rate() for photosynthesis blank chamber 
+bg_rate_photo <- calc_rate.bg(bg_insp_photo)
+
+# Initialize empty data frames to store results after calc_rate()
+master_photo<- data.frame() 
+
+# Initialize empty data frames to store results after adjust_rate() for blank chamber
+master_photo_adj <- data.frame()
+
+# Initialize empty data frames to store results after convert_rate() for biometrics/experiment
+master_photo_final <- data.frame()
+
+for (Geno in data_cols) {
+    # Extract data for the current genotype column
+    data_subset <- drop_na(df_ready[c("Time", Geno)])
+    
+    print(data_subset)
+    
+    # calc_rate()
+    photo <- calc_rate(data_subset, from = 15, to = 30, by = 'time', plot = TRUE)
+    pdf(paste0('data/Ch2/respirometry/sandbox/full_plots/', Geno, "_photo.pdf"))
+    plot(photo)
+    dev.off()
+    
+    # adjust_rate()
+    photo_adj <- adjust_rate(photo, by = bg_rate_photo, method = "value")
+    
+    # convert_rate()
+    photo_final <- convert_rate(photo_adj,              # rate adjusted for background
+                           oxy.unit = "umol/L",     # oxygen units of the original raw data
+                           time.unit = "min",            # time units of the original raw data
+                           output.unit = "umol/min/cm2", # output unit
+                           volume = 0.15444,         # effective volume of the respirometer (L)
+                           area = 0.0025)            # area of sample (m2)
+    
+    # Append the summary statistics from calc_rate() to the corresponding data frame
+    master_photo <- rbind(master_photo, data.frame(Sample_name = Geno,
+                                                             photo$summary))
+    
+    # Append the summary statistics from adjust_rate() to the corresponding data frame
+
+    master_photo_adj <- rbind(master_photo_adj, data.frame(Sample_name = Geno,
+                                                           photo_adj$summary))
+    
+    # Append the summary statistics from convert_rate() to the corresponding data frame
+    master_photo_final <- rbind(master_photo_final, data.frame(Sample_name = Geno,
+                                                             photo_final$summary))
+    
+}
+
+
+```
+
+```{r}
+#################################################
+########  PHOTOSYNTHESIS & RESPIRATION   ########
+########       respR::calc_rate()        ########
+########      respR::calc_rate.bg()      ########
+########      respR::adjust_rate()       ########
+#################################################
+
+# Inspect respiration and photosynthesis dataframes for blank chamber
+bg_insp_resp <- inspect(df_bg_resp)
+bg_insp_photo <- inspect(df_bg_photo)
+
+# calc_rate() for respiration and photosynthesis blank chamber 
+bg_rate_resp <- calc_rate.bg(bg_insp_resp)
+bg_rate_photo <- calc_rate.bg(bg_insp_photo)
+
+# Initialize empty data frames to store results after calc_rate()
+master_resp <- data.frame()
+master_photo<- data.frame() 
+
+# Initialize empty data frames to store results after adjust_rate() for blank chamber
+master_resp_adj <- data.frame()
+master_photo_adj <- data.frame()
+
+# Initialize empty data frames to store results after convert_rate() for biometrics/experiment
+master_resp_final <- data.frame()
+master_photo_final <- data.frame()
+
+for (Geno in data_cols) {
+    # Extract data for the current genotype column
+    data_subset <- drop_na(df_ready[c("Time", Geno)])
+    
+    print(data_subset)
+    
+#### RESPIRATION CALCULATIONS ####
+    
+    # calc_rate()
+    resp <- calc_rate(data_subset, from = 0, to = 15, plot = TRUE)
+    pdf(paste0('data/Ch2/respirometry/sandbox/full_plots/', Geno, "_resp.pdf"))
+    print(resp)
+    dev.off()
+    
+    # adjust_rate()
+    resp_adj <- adjust_rate(resp, by = bg_rate_resp, method = "value")
+    
+    # convert_rate()
+    resp_final <- convert_rate(resp_adj,              # rate adjusted for background
+                           oxy.unit = "umol/L",     # oxygen units of the original raw data
+                           time.unit = "min",            # time units of the original raw data
+                           output.unit = "umol/min/cm2", # output unit
+                           volume = 0.15444,         # effective volume of the respirometer (L)
+                           area = 0.0025)            # area of sample (m2)
+
+    
+#### PHOTOSYNTHESIS CALCULATIONS ####
+    
+    # calc_rate()
+    photo <- calc_rate(data_subset, from = 15, to = 30, by = 'time', plot = TRUE)
+    pdf(paste0('data/Ch2/respirometry/sandbox/full_plots/', Geno, "_photo.pdf"))
+    plot(photo)
+    dev.off()
+    
+    # adjust_rate()
+    photo_adj <- adjust_rate(photo, by = bg_rate_photo, method = "value")
+    
+    # convert_rate()
+    photo_final <- convert_rate(photo_adj,              # rate adjusted for background
+                           oxy.unit = "umol/L",     # oxygen units of the original raw data
+                           time.unit = "min",            # time units of the original raw data
+                           output.unit = "umol/min/cm2", # output unit
+                           volume = 0.15444,         # effective volume of the respirometer (L)
+                           area = 0.0025)            # area of sample (m2)
+    
+    # Append the summary statistics from calc_rate() to the corresponding data frame
+    master_resp <- rbind(master_resp, data.frame(Sample_name = Geno,
+                                                           resp$summary))
+    
+    master_photo <- rbind(master_photo, data.frame(Sample_name = Geno,
+                                                             photo$summary))
+    
+    # Append the summary statistics from adjust_rate() to the corresponding data frame
+    master_resp_adj <- rbind(master_resp_adj, data.frame(Sample_name = Geno,
+                                                           resp_adj$summary))
+
+    master_photo_adj <- rbind(master_photo_adj, data.frame(Sample_name = Geno,
+                                                           photo_adj$summary))
+    
+    # Append the summary statistics from convert_rate() to the corresponding data frame
+    master_resp_final <- rbind(master_resp_final, data.frame(Sample_name = Geno,
+                                                             resp_final$summary))
+    master_photo_final <- rbind(master_photo_final, data.frame(Sample_name = Geno,
+                                                             photo_final$summary))
+    
+}
+
+```
+
+```{r}
+#################################################
+################ EXPORTING DATA  ################ 
+#################################################
+
+# Add column to note if Respiration or Photosynthesis rate
+master_resp_final <- master_resp_final %>%
+  mutate(o2 = "Respiration") 
+master_photo_final <- master_photo_final %>%
+  mutate(o2 = "Photosynthesis") 
+
+# Remove blank chamber and add in light intensity
+final_combined <- rbind(master_resp_final, master_photo_final) %>%
+  filter(Sample_name != "Gen05") %>% # remove blank chamber
+  mutate(light = 50) # add in light intensity 
+
+# Adjust file name for specific sample set 
+library("writexl")
+write_xlsx(final_combined, "data/Ch2/respirometry/sandbox/final_rates/sandbox_rates.xlsx")
+
+```
+

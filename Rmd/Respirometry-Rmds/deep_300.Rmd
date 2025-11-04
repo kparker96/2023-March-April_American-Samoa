@@ -1,0 +1,236 @@
+---
+title: "deep_300"
+output: html_document
+date: "2023-07-07"
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Load libraries 
+```{r libraries}
+library(tidyverse)     # install.packages("tidyverse")
+library(respR)         # install.packages("respR")
+library(lubridate)     # install.packages("lubridate")
+```
+
+# Import files for reformat for RespR
+```{r files and df}
+# Files have been "cleaned up" with the SuperOxyCalc_djb_heaupdate_kep.py script with updated HeaderLine.txt file #  
+
+files <- list.files(path ="./data/Ch2/respirometry/deep/300/", pattern = "*_cleaned.txt", full.names = T)
+
+df <- files %>%
+  set_names(.) %>%
+  map_df(read_table2, .id = "FileName") %>%
+  mutate(Genotype = str_extract(FileName, "(?<=ch)\\d+"),
+         Genotype = sprintf("Gen%02d", as.numeric(Genotype)),
+         SalCorcO2_umol_L = as.numeric(SalCorcO2_umol_L),
+         LightIntensity = as.numeric(str_extract(FileName, "(?<=_)\\d+(?=-ch)")),
+         Depth = case_when(
+           str_detect(FileName, "_Midd_") ~ "Midd",
+           str_detect(FileName, "_Shall_") ~ "Shall",
+           str_detect(FileName, "_Deep_") ~ "Deep",
+           TRUE ~ NA_character_
+         )
+  )
+```
+
+```{r df_clean}
+# create df clean
+df_clean <- df %>%
+  spread(Genotype, SalCorcO2_umol_L) %>%
+  select(Depth, LightIntensity, Time, Gen01, Gen02, Gen03, Gen04, Gen05, Gen06, Gen07, Gen08) 
+   
+# Convert the time column to period class
+df_clean$Time <- hms(df_clean$Time)
+
+# Calculate the time difference in minutes from the first time entry
+df_clean$time_in_minutes <- as.numeric(df_clean$Time - df_clean$Time[1], "minutes")
+
+# Adjust the time_in_minutes column to start at 0
+df_clean$time_in_minutes <- df_clean$time_in_minutes - min(df_clean$time_in_minutes)
+```
+
+```{r df_ready and drift chambers}
+# Finalize formatting for respR
+df_ready <- df_clean %>%
+  select(Time = time_in_minutes, Gen01, Gen02, Gen03, Gen04, Gen05, Gen06, Gen07, Gen08)
+
+# df_Resp <-  Resp data from chambers with samples, when Resp is separate from                   Photo
+
+# df_Photo <- Photo data from chambers with samples, when Photo is separate from                 Resp
+
+# df_bg    <- Drift chamber for the experiment  
+df_bg_photo <- df_ready %>%
+  select(Time, Gen08) %>%
+  filter(Gen08 > 0) %>%
+  filter(Time <= 20)
+
+df_bg_resp <- df_ready %>%
+  select(Time, Gen08) %>%
+  filter(Gen08 > 0) %>%
+  filter(Time > 22 & Time <= 38)
+
+```
+
+# respR::inspect() for loop
+```{r data_cols and data_subset}
+# Get the column names 
+data_cols <- names(df_ready)[2:length(names(df_ready))]
+
+# Loop through each column
+for (col in data_cols) {
+    # Select the "Time" and the current data column
+    data_subset <- drop_na(df_ready[c("Time", col)])
+      
+    pdf(paste0('data/Ch2/respirometry/deep/300/check_plots/', col, "_300", ".pdf"))
+    inspect(data_subset)
+    
+    dev.off()
+    
+}
+```
+
+# respR 
+```{r inspect and calc_rate for blank chambers}
+# respR::calc_rate()
+# respR::calc_rate.bg()
+# respR::adjust_rate()
+
+# Inspect respiration and photosynthesis dataframes for blank chamber
+bg_insp_photo <- inspect(df_bg_photo)
+bg_insp_resp <- inspect(df_bg_resp)
+
+# calc_rate() for respiration and photosynthesis blank chamber 
+bg_rate_photo <- calc_rate.bg(bg_insp_photo)
+bg_rate_resp <- calc_rate.bg(bg_insp_resp)
+```
+
+```{r make master data frames }
+# Initialize empty data frames to store results after calc_rate()
+master_photo<- data.frame()
+master_resp <- data.frame()
+
+# Initialize empty data frames to store results after adjust_rate() for blank chamber
+master_photo_adj <- data.frame()
+master_resp_adj <- data.frame()
+
+# Initialize empty data frames to store results after convert_rate() for biometrics/experiment
+master_photo_final <- data.frame()
+master_resp_final <- data.frame()
+```
+
+```{r import surface area measurements}
+surface_area <- read_excel("data/Ch2/respirometry/Fragment_Surface_Area.xlsx") %>%
+  filter(Depth == "Deep")
+
+```
+
+```{r run respR for photo and resp}
+for (Geno in data_cols) {
+    # Extract data for the current genotype column
+    data_subset <- drop_na(df_ready[c("Time", Geno)])
+    
+    print(data_subset)
+    
+    # Surface Area #
+    area_value <- surface_area$`SA(m2)`[surface_area$Genotype == Geno]
+    
+#### Photosynthesis Calculations ####
+    
+    # calc_rate()
+    photo <- calc_rate(data_subset, from = 0, to = 20, by = 'time', plot = TRUE)
+    pdf(paste0('data/Ch2/respirometry/deep/300/full_plots/', Geno, "_photo.pdf"))
+    plot(photo)
+    dev.off()
+    
+    # adjust_rate()
+    photo_adj <- adjust_rate(photo, by = bg_rate_photo, method = "value")
+    
+    # convert_rate()
+    photo_final <- convert_rate(photo_adj,              # rate adjusted for background
+                           oxy.unit = "umol/L",     # oxygen units of the original raw data
+                           time.unit = "min",            # time units of the original raw data
+                           output.unit = "umol/min/m2", # output unit
+                           volume = 0.15444,         # effective volume of the respirometer (L)
+                           area = area_value)            # area of sample (m2)
+    
+#### Respiration calculations ####
+    
+    # calc_rate()
+    resp <- calc_rate(data_subset, from = 22, to = 40, plot = TRUE)
+    pdf(paste0('data/Ch2/respirometry/deep/300/full_plots/', Geno, "_resp.pdf"))
+    print(resp)
+    dev.off()
+    
+    # adjust_rate()
+    resp_adj <- adjust_rate(resp, by = bg_rate_resp, method = "value")
+    
+    # convert_rate()
+    resp_final <- convert_rate(resp_adj,              # rate adjusted for background
+                           oxy.unit = "umol/L",     # oxygen units of the original raw data
+                           time.unit = "min",            # time units of the original raw data
+                           output.unit = "umol/min/m2", # output unit
+                           volume = 0.15444,         # effective volume of the respirometer (L)
+                           area = area_value)            # area of sample (m2)
+
+    
+    # Append the summary statistics from calc_rate() to the corresponding data frame
+    master_photo <- rbind(master_photo, data.frame(Sample_name = Geno,
+                                                             photo$summary))
+    
+    master_resp <- rbind(master_resp, data.frame(Sample_name = Geno,
+                                                           resp$summary))
+    
+    # Append the summary statistics from adjust_rate() to the corresponding data frame
+    master_photo_adj <- rbind(master_photo_adj, data.frame(Sample_name = Geno,
+                                                           photo_adj$summary))
+    
+    master_resp_adj <- rbind(master_resp_adj, data.frame(Sample_name = Geno,
+                                                           resp_adj$summary))
+
+    
+    # Append the summary statistics from convert_rate() to the corresponding data frame
+    master_photo_final <- rbind(master_photo_final, data.frame(Sample_name = Geno,
+                                                             photo_final$summary))
+    
+    master_resp_final <- rbind(master_resp_final, data.frame(Sample_name = Geno,
+                                                             resp_final$summary))
+    
+}
+```
+
+# Export Data
+```{r final_combined}
+# Add column to note if Respiration or Photosynthesis rate
+master_photo_final <- master_photo_final %>%
+  mutate(o2 = "Photosynthesis") 
+
+master_resp_final <- master_resp_final %>%
+  mutate(o2 = "Respiration") 
+
+# Remove blank chamber and add in light intensity
+final_combined <- rbind(master_resp_final, master_photo_final) %>%
+  # filter(Sample_name != "Gen07") %>% # remove blank chamber
+  mutate(light = 300) # add in light intensity 
+
+# Adjust file name for specific sample set 
+library("writexl")
+write_xlsx(final_combined, "data/Ch2/respirometry/deep/final_rates/300_rates.xlsx")
+
+write.csv(final_combined, "data/Ch2/respirometry/deep/final_rates/300_rates.csv", row.names = FALSE)
+
+```
+
+# Double Check 
+```{r}
+df_plot <- df_ready %>%
+  gather(key = Geno, value = o2, -Time)
+  
+ggplot(df_plot, aes(x = Time, y = o2, color = Geno)) + geom_point() + ylim(c(115,190)) + facet_wrap(~Geno, scales = "free")
+```
+

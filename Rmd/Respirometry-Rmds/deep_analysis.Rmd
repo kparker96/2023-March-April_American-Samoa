@@ -1,0 +1,124 @@
+---
+title: "Untitled"
+output: html_document
+date: "2023-07-07"
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Load libraries 
+```{r libraries}
+library(tidyverse)     # install.packages("tidyverse")
+library(readxl)
+library("writexl")
+```
+
+# Import RespR output files (from Deep_XX.md files)
+```{r file_list}
+# Import files
+file_list <- list.files(path = "data/Ch2/respirometry/deep/final_rates", pattern = "*.csv", full.names = T)
+
+# Compile data from all light intensities
+file_list_compiled <- sapply(file_list, read_delim, simplify=FALSE) %>% 
+  bind_rows(.id = "id") %>%
+  select(Sample_name, intercept_b0, slope_b1, rsq, o2, light, rate.output) %>%
+  filter(rsq > 0.8) # filter out bad linear fits and blank chambers (Gen08)
+
+# Visualize Raw Photosynthesis 
+ggplot(file_list_compiled, aes(x = light, y = rate.output, 
+                               color = Sample_name)) +
+  geom_point() +
+  ylim(0,1500)
+
+# Visualize Raw Respiration 
+ggplot(file_list_compiled, aes(x = light, 
+                               y = rate.output, 
+                               color = Sample_name)) +
+  geom_point() +
+  ylim(-1500, 0) 
+```
+
+# Create Master Table 
+```{r master_df}
+
+# Expand Respiration and Photosynthesis values into specific columns 
+master_df <- file_list_compiled %>%
+  pivot_wider(
+    id_cols = c(Sample_name, light),
+    names_from = o2,
+    values_from = c(intercept_b0, slope_b1, rsq, rate.output),
+    names_sep = "_"
+  ) %>%
+  rename(
+    respiration_intercept_b0 = intercept_b0_Respiration,
+    respiration_slope_b1 = slope_b1_Respiration,
+    respiration_rsq = rsq_Respiration,
+    respiration_raw = rate.output_Respiration,
+    photosynthesis_intercept_b0 = intercept_b0_Photosynthesis,
+    photosynthesis_slope_b1 = slope_b1_Photosynthesis,
+    photosynthesis_rsq = rsq_Photosynthesis,
+    photosynthesis_raw = rate.output_Photosynthesis
+  ) %>%
+  mutate(net_photosynthesis = photosynthesis_raw + respiration) %>%
+  mutate(gross_photosynthesis = photosynthesis_raw + abs(respiration))
+
+ggplot(master_df, aes(x = light, y = gross_photosynthesis)) +
+  geom_point()
+
+no_light_meas <- master_df %>%
+  filter(light == 50) %>%
+  filter(!is.na(respiration)) %>%
+  select(Sample_name, respiration_intercept_b0, 
+         respiration_slope_b1, respiration_rsq, respiration, light)
+ 
+avg_no_light_meas <- no_light_meas %>% 
+  group_by(light) %>%
+  summarize(
+    mean_gross_photosynthesis = mean(respiration, na.rm = TRUE),
+    sd_gross_photosynthesis = sd(respiration, na.rm = TRUE),
+    n = n(),
+    se_gross_photosynthesis = sd_gross_photosynthesis /sqrt(n)) %>%
+  mutate(light = 0)
+
+
+avg_gross_photosynthesis <- master_df %>%
+  group_by(light) %>%
+  summarize(
+    mean_gross_photosynthesis = mean(gross_photosynthesis, na.rm = TRUE),
+    sd_gross_photosynthesis = sd(gross_photosynthesis, na.rm = TRUE),
+    n = n(),
+    se_gross_photosynthesis = sd_gross_photosynthesis / sqrt(n)
+  )
+
+avg_gross_photo_df <- rbind(avg_gross_photosynthesis,
+                            avg_no_light_meas)
+
+ggplot(avg_gross_photo_df, aes(x = light, y = mean_gross_photosynthesis)) +
+  geom_point(size = 3) +                                  # plot the means as points
+  geom_errorbar(aes(ymin = mean_gross_photosynthesis - se_gross_photosynthesis,
+                    ymax = mean_gross_photosynthesis + se_gross_photosynthesis),
+                width = 5) +                              # add SE error bars, width controls bar width
+  labs(x = "Light level", y = "Mean Gross Photosynthesis") +
+  theme_minimal() +
+  xlim(-10, 800) +
+  ylim(-600, 1400)
+
+gross_start_vals <- list(
+  Pmax = max(avg_gross_photo_df$mean_gross_photosynthesis), 
+  alpha = 0.01, beta = 0.001)
+
+gross_fit <- nls(mean_gross_photosynthesis ~ Pmax * (1 - exp(-alpha * light / Pmax)) * exp(-beta * light / Pmax),
+           data = avg_gross_photo_df,
+           start = gross_start_vals,
+           algorithm = "port",
+           lower = c(0, 0, 0))
+
+summary(gross_fit)
+  
+
+```
+
