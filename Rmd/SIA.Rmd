@@ -1,5 +1,5 @@
 ---
-title: "Untitled"
+title: "SIA"
 output: html_document
 date: "2025-11-02"
 editor_options: 
@@ -8,10 +8,12 @@ editor_options:
 ```{r}
 library(tidyverse)
 library(readxl)
+library(car)
 ```
 
-```{r}
-sia <- read_xlsx("data/Stable_Isotope_Data.xlsx") %>%
+# Load SIA Data
+```{r sia_df}
+sia <- read_xlsx("data/SIA/Stable_Isotope_Data.xlsx") %>%
   dplyr::select(Sample_ID:CN_ratio)
 
 sia$`%N` <- as.numeric(sia$`%N`)
@@ -32,7 +34,174 @@ sia_df <- sia %>%
     ),
     Replicate = if_else(str_detect(Sample_ID, "_r2$|R2$"), "R2", "R1")
   ) 
+```
 
+# Compare Replicates
+```{r}
+#Separate R1 and R2 to get separate columns and then combine 
+
+R1 <- sia_df %>%
+  filter(Replicate == "R1") %>%
+  select(Sample_ID, Type, Depth, R1_d15N = d15N, R1_d13C = d13C, R1_CN_ratio = CN_ratio) %>%
+  mutate(Sample_ID = str_remove(Sample_ID, "_Host"),
+         Sample_ID = str_remove(Sample_ID, "_Zoox"))
+
+R2 <- sia_df %>%
+  filter(Replicate == "R2") %>%
+  mutate(Sample_ID = str_remove(Sample_ID, "_Host_r2"),
+         Sample_ID = str_remove(Sample_ID, "_Zoox_r2")) %>%
+  select(Sample_ID, Type, Depth, R2_d15N = d15N, R2_d13C = d13C, R2_CN_ratio = CN_ratio)
+
+rep_comp <- left_join(R1, R2) %>%
+  filter(Type != "Water")
+
+# Check Shallow
+ggplot(rep_comp %>% filter(Depth == "Shallow"), aes(x = R1_d13C, y = R2_d13C, shape = Type, color = Sample_ID)) +
+  geom_point(size = 2) +
+  facet_wrap(~Type) +
+  geom_abline(intercept = 0, slope = 1, linetype = "dashed", color = "black") +
+  ggtitle("Shallow: Rep Check d13C") +
+  theme(legend.position = "bottom")
+
+ggplot(rep_comp %>% filter(Depth == "Shallow"), aes(x = R1_d15N, y = R2_d15N, shape = Type, color = Sample_ID)) +
+  geom_point(size = 2) +
+  facet_wrap(~Type) +
+  geom_abline(intercept = 0, slope = 1, linetype = "dashed", color = "black") +
+  ggtitle("Shallow: Rep Check d15N") +
+  theme(legend.position = "bottom")
+
+# Check Midd
+ggplot(rep_comp %>% filter(Depth == "Middle"), aes(x = R1_d13C, y = R2_d13C, shape = Type, color = Sample_ID)) +
+  geom_point(size = 2) +
+  facet_wrap(~Type) +
+  geom_abline(intercept = 0, slope = 1, linetype = "dashed", color = "black") +
+  ggtitle("Middle: Rep Check d13C") +
+  theme(legend.position = "bottom")
+
+ggplot(rep_comp %>% filter(Depth == "Middle"), aes(x = R1_d15N, y = R2_d15N, shape = Type, color = Sample_ID)) +
+  geom_point(size = 2) +
+  facet_wrap(~Type) +
+  geom_abline(intercept = 0, slope = 1, linetype = "dashed", color = "black") +
+  ggtitle("Middle: Rep Check d15N") +
+  theme(legend.position = "bottom")
+
+# Check Deep
+ggplot(rep_comp %>% filter(Depth == "Deep"), aes(x = R1_d13C, y = R2_d13C, shape = Type, color = Sample_ID)) +
+  geom_point(size = 2) +
+  facet_wrap(~Type) +
+  geom_abline(intercept = 0, slope = 1, linetype = "dashed", color = "black") +
+  ggtitle("Deep: Rep Check d13C") +
+  theme(legend.position = "bottom")
+
+ggplot(rep_comp %>% filter(Depth == "Deep"), aes(x = R1_d15N, y = R2_d15N, shape = Type, color = Sample_ID)) +
+  geom_point(size = 2) +
+  facet_wrap(~Type) +
+  geom_abline(intercept = 0, slope = 1, linetype = "dashed", color = "black") +
+  ggtitle("Deep: Rep Check d15N") +
+  theme(legend.position = "bottom")
+
+# Standard Deviation between samples
+rep_comp_sd <- rep_comp %>%
+  mutate(
+    sd_d13C = apply(select(., R1_d13C, R2_d13C), 1, sd, na.rm = TRUE),
+    sd_d15N = apply(select(., R1_d15N, R2_d15N), 1, sd, na.rm = TRUE),
+    sd_CN_ratio = apply(select(., R1_CN_ratio, R2_CN_ratio), 1, sd, na.rm = TRUE))
+  
+rep_comp_sd_sum <- rep_comp_sd %>%
+  group_by(Type, Depth) %>%
+  summarize(
+    mean_sd_d13C = mean(sd_d13C, na.rm = TRUE),
+    mean_sd_d15N = mean(sd_d15N, na.rm = TRUE),
+    mean_sd_CN_ratio = mean(sd_CN_ratio, na.rm = TRUE)
+  )
+
+rep_comp %>%
+  mutate(sd_d13C = apply(select(., R1_d13C, R2_d13C), 1, sd, na.rm = TRUE)) %>%
+  ggplot(aes(x = Depth, y = sd_d13C, fill = Type)) +
+  geom_boxplot(alpha = 0.7) +
+  labs(y = "Within-sample SD of δ13C", title = "Analytical precision by Depth and Type") +
+  theme_minimal()
+
+rep_comp %>%
+  mutate(sd_d15N = apply(select(., R1_d15N, R2_d15N), 1, sd, na.rm = TRUE)) %>%
+  ggplot(aes(x = Depth, y = sd_d15N, fill = Type)) +
+  geom_boxplot(alpha = 0.7) +
+  labs(y = "Within-sample SD of δ15N", title = "Analytical precision by Depth and Type") +
+  theme_minimal()
+
+
+rep_comp %>%
+  mutate(
+    diff_d13C = abs(R1_d13C - R2_d13C),
+    diff_d15N = abs(R1_d15N - R2_d15N)
+  ) %>%
+  group_by(Type, Depth) %>%
+  summarize(
+    mean_diff_d13C = mean(diff_d13C, na.rm = TRUE),
+    mean_diff_d15N = mean(diff_d15N, na.rm = TRUE),
+    n = n()
+  )
+```
+
+# Filter Samples with sd > 1‰ for d13C or >0.5‰ for d15N
+```{r}
+rep_comp_sd_filtered <- rep_comp_sd %>%
+  filter(sd_d13C < 1 & sd_d15N < 0.5) %>%
+  mutate(mean_d13C = (R1_d13C + R2_d13C)/2) %>%
+  mutate(mean_d15N = (R1_d15N + R2_d15N)/2) %>%
+  mutate(mean_CN_ratio = (R1_CN_ratio + R2_CN_ratio/2))
+
+sia_df_clean <- rep_comp_sd_filtered %>%
+  select(Sample_ID, Type, Depth, mean_d13C, mean_d15N, mean_CN_ratio)
+
+
+ggplot(sia_df_clean, aes(x = mean_d13C, y = mean_d15N, color = Depth, 
+                         shape = Type)) +
+  geom_point(aes(shape = Type), size = 3) +
+  theme_bw() +
+ 
+# Ellipse for Host (solid)
+  
+  stat_ellipse(data = subset(sia_df_clean, Type == "Host"), aes(group = Depth),
+    type = "t", size = 1, linetype = "solid") +
+  
+# Ellipse for Zoox (dashed)
+ 
+   stat_ellipse(data = subset(sia_df_clean, Type == "Zoox"), aes(group = Depth),
+    type = "t", size = 1, linetype = "dashed") +
+  
+  scale_color_manual(values = c("#00004C", "#11569B", "#56A9DC"))+
+  theme(legend.position = "bottom") 
+
+ggplot(sia_df_clean %>% filter(Type == "Host"), aes(x = Depth, y = mean_CN_ratio, fill = Depth)) +
+  geom_boxplot() +
+  facet_wrap(~Type) +
+  scale_fill_manual(values = c("#00004C", "#11569B", "#56A9DC")) +
+  theme_bw() +
+  ylab("C:N") +
+  xlab("") +
+  theme(legend.position = "none")
+
+sia_df_clean_host <- sia_df_clean %>%
+  filter(Type == "Host")
+
+leveneTest(mean_CN_ratio ~ Depth, data = sia_df_clean_host)
+
+kruskal.test(mean_CN_ratio ~ Depth, data = sia_df_clean_host)
+
+library(FSA)
+dunnTest(mean_CN_ratio ~ Depth, data = sia_df_clean_host, method = "bh")
+
+sia_df_clean_zoox <- sia_df_clean %>%
+  filter(Type == "Zoox")
+
+leveneTest(mean_CN_ratio ~ Depth, data = sia_df_clean_zoox)
+zoox_anova <- aov(mean_CN_ratio ~ Depth, data = sia_df_clean_zoox)
+
+summary(zoox_anova)
+```
+
+```{r}
 sia_df_test <- sia_df %>%
   filter(Replicate == "R1",
          Type == "Zoox" | Type == "Host") %>%

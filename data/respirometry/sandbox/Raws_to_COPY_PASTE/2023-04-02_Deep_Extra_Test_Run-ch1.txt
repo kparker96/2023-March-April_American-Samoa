@@ -1,0 +1,50 @@
+4/2/2023/9:25 AM SW ver:OXY10v3_33
+Header Ch-1
+Description: 2023-04-02_Deep_Extra_01
+IDENTIFICATION
+PHIboard number   : v1231473
+PM number         : 00000000
+Serial number     : S DLK 0001 000022   
+MUX channel       : ON - 01
+
+PARAMETERS
+Signal LED current: 050
+Ref LED current   : 076
+Ref LED amplitude : 99400
+Frequency         : 006
+Sending interval  : 0001
+Averaging         : 3
+Internal temp     : 20.0 C
+
+SYSTEM SETTINGS
+APL function      : ON
+Temp compensation : OFF
+Analog out        : OFF
+RS232 echo        : OFF
+Oxygen unit       : %a.s.
+
+CALIBRATION
+Sensor type       : 2
+0%a.s.phase 1     : 58.45 at 029.0°C amp 030300
+100.00%a.s.phase 2: 26.34 at 029.0°C amp 015300
+Date   (ddmmyy)   : 270313
+Pressure (mBar)   : 1013
+
+FIRMWARE
+Code 3.016 (IAP)  : 08/20/04, 09:50:56
+Xilinx built      : 01/05/04 (MM/DD/YY)
+
+Pressure [hPa]: 1013
+Date/dd:mm:yy;Time/hh:mm:ss;Logtime/min;Oxy/% air sat.;Phase/°;Amp;Temp/°C
+4/2/2023;9:25:26 AM;0.00;85.960;27.930;13346.000;29.000
+4/2/2023;9:25:28 AM;0.03;86.560;27.850;13354.000;29.000
+4/2/2023;9:25:43 AM;0.28;86.170;27.900;13373.000;29.000
+4/2/2023;9:25:57 AM;0.53;86.120;27.910;13352.000;29.000
+4/2/2023;9:26:12 AM;0.78;85.500;27.980;13388.000;29.000
+4/2/2023;9:26:28 AM;1.03;85.750;27.950;12994.000;29.000
+4/2/2023;9:26:43 AM;1.28;85.720;27.960;11838.000;29.000
+4/2/2023;9:26:58 AM;1.53;85.410;28.000;11863.000;29.000
+4/2/2023;9:27:13 AM;1.78;86.950;27.800;11864.000;29.000
+4/2/2023;9:27:28 AM;2.03;86.260;27.890;11866.000;29.000
+4/2/2023;9:27:43 AM;2.28;86.240;27.890;11892.000;29.000
+4/2/2023;9:27:58 AM;2.53;85.400;28.000;11928.000;29.000

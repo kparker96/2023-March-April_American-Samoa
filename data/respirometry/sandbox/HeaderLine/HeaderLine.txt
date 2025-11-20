@@ -1,0 +1,3 @@
+Date/dd:mm:yy;Time/hh:mm:ss;Logtime/min;Oxy/% air sat.;Phase/°;Amp;Temp/°C
+Date;Time;Logtime_min;OxyPercent_airsat;Phase;Amp;TempC
+per_air-sat	per_oxygen	pO2_hPa	pO2_Torr	cO2_mg_L	cO2_umol_L	Salinity	chlorinity	SalCorcO2_mg_L	SalCorcO2_umol_L

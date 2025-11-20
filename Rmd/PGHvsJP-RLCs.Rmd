@@ -1,0 +1,208 @@
+---
+title: "RLCs-JP"
+output: html_document
+date: "2025-11-19"
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Load Libraries
+```{r libraries}
+rm(list=ls())# empty the workspace
+# check that phytotools is installed
+
+#### Libraries ####
+library(sp)
+#library(rdgal)
+library(terra)
+library(raster)
+library(insol)
+library(deSolve)
+library(coda)
+library(FME)
+library(phytotools)
+library(readxl)
+library(tidyverse)
+```
+
+# Load Data
+```{r rlc.data}
+rlc.Deep <- read_xlsx("data/raw_RLCs/2023-03-31_Deep_Mgris_RLCs.xlsx")
+
+rlc.Deep.data <- data.frame(
+  par = rlc.Deep$PAR,
+  etr = rlc.Deep$ETR,
+  id = c(rep("Deep", 7)),
+  individual = paste(rlc.Deep$Depth, rlc.Deep$Geno, sep = "_"),
+  stringsAsFactors=FALSE
+)
+
+rlc.Midd <- read_xlsx("data/raw_RLCs/2023-04-01_Midd_Mgris_RLCs.xlsx")
+
+rlc.Midd.data <- data.frame(
+  par = rlc.Midd$PAR,
+  etr = rlc.Midd$ETR,
+  id = c(rep("Midd", 6)),
+  individual = paste(rlc.Midd$Depth, rlc.Midd$Geno, sep = "_"),
+  stringsAsFactors=FALSE
+)
+
+rlc.Shall <- read_xlsx("data/raw_RLCs/2023-04-05_Shall_Mgris_RLCs.xlsx")
+
+rlc.Shall.data <- data.frame(
+  par = rlc.Shall$PAR,
+  etr = rlc.Shall$ETR,
+  id = c(rep("Shall", 6)),
+  individual = paste(rlc.Shall$Depth, rlc.Shall$Geno, sep = "_"),
+  stringsAsFactors=FALSE
+)
+
+rlc.data <- rbind(rlc.Deep.data, rlc.Midd.data, rlc.Shall.data)
+```
+
+# Phytotools Loop - Compare PGH vs JP Models
+```{r}
+calc_metrics <- function(actual, predicted) {
+  ss_total <- sum((actual - mean(actual))^2)
+  ss_resid <- sum((actual - predicted)^2)
+  r2 <- 1 - ss_resid / ss_total
+  rmse <- sqrt(mean((actual - predicted)^2))
+  return(list(R2 = r2, RMSE = rmse))
+}
+
+safeAIC <- function(actual, predicted, k) {
+  n <- length(actual)
+  rss <- sum((actual - predicted)^2)
+  aic <- n * log(rss/n) + 2 * k
+  return(aic)
+}
+
+model.compare <- data.frame()
+
+# Initialize data frames for storing predictions and parameters 
+ncurves <- length(unique(rlc.data$individual)) # number of unique ids in the data 
+individuals <- unique(rlc.data$individual) # store the unique ids
+
+rlc.predictions <- rlc.data
+rlc.predictions$fit <- NA
+
+rlc.parameters <- data.frame(
+  individual = individuals,
+  alpha = 0, 
+  beta = 0, 
+  ETRmax = 0, 
+  Ek = 0, 
+  ps = 0
+)
+```
+
+```{r}
+calc_metrics <- function(actual, predicted) {
+  ss_total <- sum((actual - mean(actual))^2)
+  ss_resid <- sum((actual - predicted)^2)
+  r2 <- 1 - ss_resid / ss_total
+  rmse <- sqrt(mean((actual - predicted)^2))
+  return(list(R2 = r2, RMSE = rmse))
+}
+
+safeAIC <- function(actual, predicted, k) {
+  n <- length(actual)
+  rss <- sum((actual - predicted)^2)
+  aic <- n * log(rss/n) + 2 * k
+  return(aic)
+}
+```
+
+```{r}
+JP.results <- data.frame()
+individuals <- unique(rlc.data$individual)
+ncurves <- length(individuals)
+
+for (i in 1:ncurves) {
+
+  temp.ind <- individuals[i]
+  temp.data <- rlc.data[rlc.data$individual == temp.ind, ]
+
+  PAR <- temp.data$par
+  ETR <- temp.data$etr
+
+  # Set safe starting values
+  start_alpha <- 0.2
+  start_pmax <- max(ETR, na.rm = TRUE)
+
+  # ---- Safely fit JP with Port (bounded) ----
+  fit_JP <- try(
+    fitJP(PAR, ETR, fitmethod = "Port",
+          start = c(alpha = start_alpha, pmax = start_pmax),
+          lower = c(0, 0)),
+    silent = TRUE
+  )
+
+  # ---- If fit fails ----
+  if (inherits(fit_JP, "try-error") ||
+      length(fit_JP$alpha) == 0 ||
+      length(fit_JP$pmax) == 0) {
+
+    JP.results <- rbind(JP.results, data.frame(
+      individual = temp.ind,
+      model = "JP",
+      alpha = NA,
+      beta = NA,
+      pmax_or_ps = NA,
+      ETRmax = NA,
+      Ek = NA,
+      R2 = NA,
+      RMSE = NA,
+      AIC = NA
+    ))
+    next
+  }
+
+  # ---- Extract parameters ----
+  alpha_jp <- fit_JP$alpha[1]
+  pmax_jp  <- fit_JP$pmax[1]
+
+  # ---- Derived ----
+  ETRmax_jp <- pmax_jp
+  Ek_jp     <- pmax_jp / alpha_jp
+
+  # ---- Predictions ----
+  pred_JP <- (alpha_jp * PAR * pmax_jp) / (alpha_jp * PAR + pmax_jp)
+
+  # ---- Metrics ----
+  met_JP <- calc_metrics(ETR, pred_JP)
+  aic_JP <- safeAIC(ETR, pred_JP, k = 2)
+
+  # ---- Store Results ----
+  JP.results <- rbind(JP.results, data.frame(
+    individual = temp.ind,
+    model = "JP",
+    alpha = alpha_jp,
+    beta = NA,
+    pmax_or_ps = pmax_jp,
+    ETRmax = ETRmax_jp,
+    Ek = Ek_jp,
+    R2 = met_JP$R2,
+    RMSE = met_JP$RMSE,
+    AIC = aic_JP
+  ))
+}
+
+```
+
+
+
+
+
+# Plot individual curves
+```{r}
+ggplot(model.compare, aes(x = par, y = etr, color = individual)) +
+  geom_point(size = 1.5) + # Observed data
+  geom_line(aes(y = fit, alpha = 0.1), size = 1.5, alpha = 0.6) +
+  facet_wrap(~id, ncol = 1) +
+  theme_bw()
+```

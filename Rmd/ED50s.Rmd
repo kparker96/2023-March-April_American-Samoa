@@ -1,0 +1,611 @@
+---
+title: "ED50s"
+output: html_document
+date: "2025-02-18"
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Load Libraries
+```{r libraries}
+library(tidyverse)   
+library(lmerTest)
+library(emmeans)
+library(sjPlot)
+library(drc)
+library(car)
+library(writexl)
+library(readxl)
+library(rempsyc)
+library(data.table)
+library(Rmisc) 
+library(flextable)
+library(openxlsx)
+
+# Avoid conflict functions with tidyverse
+library(conflicted)
+fxns <- c("mutate", "select", "arrange", "filter", "summarise", "rename")
+for (f in fxns) {
+  conflict_prefer(f, "dplyr", quiet = TRUE)
+}
+```
+
+# Import Data 
+```{r Allpam}
+# Shallow Montipora grisea
+Shall <- read.xlsx("data/PAM/2023-04-05_Mgris_Fagatele_Shallow_PAM.xlsx") %>%
+  mutate(Depth = "Shallow") %>%
+  rename(Temperature = Temp) %>%
+  filter(Geno != 7) # Remove colony not used in other analyses (SIA, ITS2, etc)
+
+# Deep Montipora grisea
+Deep <- read.xlsx("data/PAM/2023-03-30_Mgris_Pspec_Fagatele_Deep_PAM.xlsx") %>%
+  filter(Genus == "Montipora")
+
+# Combine all Datasets 
+Allpam <- rbind(Shall, Deep) %>%
+  mutate(Species = paste0(Genus, " ", Species)) %>%
+  select(Species, Geno, Depth, Temperature, FvFm = PAM)
+
+# Adjust item class in dataframe
+Allpam$Geno<-as.factor(Allpam$Geno)
+Allpam$Temperature<- as.integer(Allpam$Temperature)
+Allpam<-as.data.frame(Allpam)
+
+Shallpam <- Allpam %>%
+  filter(Depth == "Shallow")
+
+Deeppam <- Allpam %>%
+  filter(Depth == "Deep")
+```
+
+# Shallow and Deep DRC
+```{r}
+# Both Depths Together
+Alldrc <- drm(FvFm ~ Temperature, curveid = Depth, data = Allpam, fct = LL.3(names = c('hill', 'max', 'ed50')))
+
+summary(Alldrc)
+plot(Alldrc)
+
+compParm(Alldrc, "ed50", "-")
+```
+
+# Shallow DRCs
+```{r drcs}
+# Shall drc
+Shalldrc <- drm(FvFm ~ Temperature, data = Shallpam, fct = LL.3(names = c('hill', 'max', 'ed50')))
+
+summary(Shalldrc)
+plot(Shalldrc)
+
+Shalldrc_geno <- drm(FvFm ~ Temperature, curveid = Geno, data = Shallpam, fct = LL.3(names = c('hill', 'max', 'ed50')))
+
+summary(Shalldrc_geno)
+plot(Shalldrc_geno)
+
+# Create ED df 
+Shalldrc_ED_geno <- ED(Shalldrc_geno, c(5,50,95), interval = "delta", level = 0.95)
+Shalldrc_ED_geno_df <- as.data.frame(Shalldrc_ED_geno) %>%
+  rownames_to_column(var = "rowname") %>%
+  separate(rowname, into = c("ignore", "Geno", "ED_level"), sep = ":") %>%
+  select(-ignore) %>%
+  mutate(ED_level = case_when(
+    ED_level == "5"  ~ "ED05",
+    ED_level == "50" ~ "ED50",
+    ED_level == "95" ~ "ED95"))
+
+
+# Extract Values from model 
+
+#ED05 Estimates
+ShallED05_geno <- Shalldrc_ED_geno_df[Shalldrc_ED_geno_df$ED_level == "ED05",
+                                    "Estimate"]
+
+ShallED05_se_geno <- Shalldrc_ED_geno_df[Shalldrc_ED_geno_df$ED_level == "ED05", 
+                                  "Std. Error"]
+
+# ED50 Estimates
+ShallED50_geno <- Shalldrc_ED_geno_df[Shalldrc_ED_geno_df$ED_level == "ED50",
+                                    "Estimate"]
+
+ShallED50_se_geno <- Shalldrc_ED_geno_df[Shalldrc_ED_geno_df$ED_level == "ED50", 
+                                  "Std. Error"]
+
+# ED95 Estimates
+
+ShallED95_geno <- Shalldrc_ED_geno_df[Shalldrc_ED_geno_df$ED_level == "ED95",
+                                    "Estimate"]
+
+ShallED95_se_geno <- Shalldrc_ED_geno_df[Shalldrc_ED_geno_df$ED_level == "ED95", 
+                                  "Std. Error"]
+```
+
+# Deep DRC
+```{r}
+# Deep drc 
+Deepdrc <- drm(FvFm ~ Temperature, data = Deeppam, fct = LL.3(names = c('hill', 'max', 'ed50')))
+
+summary(Deepdrc)
+plot(Deepdrc)
+
+Deepdrc_geno <- drm(FvFm ~ Temperature, curveid = Geno, data = Deeppam, fct = LL.3(names = c('hill', 'max', 'ed50')))
+
+summary(Deepdrc_geno)
+plot(Deepdrc_geno)
+
+# Create ED df 
+Deepdrc_ED_geno <- ED(Deepdrc_geno, c(5,50,95), interval = "delta", level = 0.95)
+Deepdrc_ED_geno_df <- as.data.frame(Deepdrc_ED_geno) %>%
+  rownames_to_column(var = "rowname") %>%
+  separate(rowname, into = c("ignore", "Geno", "ED_level"), sep = ":") %>%
+  select(-ignore) %>%
+  mutate(ED_level = case_when(
+    ED_level == "5"  ~ "ED05",
+    ED_level == "50" ~ "ED50",
+    ED_level == "95" ~ "ED95"))
+
+# Extract Values from model 
+
+#ED05 Estimates
+DeepED05_geno <- Deepdrc_ED_geno_df[Deepdrc_ED_geno_df$ED_level == "ED05",
+                                    "Estimate"]
+
+DeepED05_se_geno <- Deepdrc_ED_geno_df[Deepdrc_ED_geno_df$ED_level == "ED05", 
+                                  "Std. Error"]
+
+# ED50 Estimates
+DeepED50_geno <- Deepdrc_ED_geno_df[Deepdrc_ED_geno_df$ED_level == "ED50",
+                                    "Estimate"]
+
+DeepED50_se_geno <- Deepdrc_ED_geno_df[Deepdrc_ED_geno_df$ED_level == "ED50", 
+                                  "Std. Error"]
+
+# ED95 Estimates
+
+DeepED95_geno <- Deepdrc_ED_geno_df[Deepdrc_ED_geno_df$ED_level == "ED95",
+                                    "Estimate"]
+
+DeepED95_se_geno <- Deepdrc_ED_geno_df[Deepdrc_ED_geno_df$ED_level == "ED95", 
+                                  "Std. Error"]
+```
+
+
+# Compare Hill and Max
+```{r}
+Shalldrc_geno_df <- data.frame(Parameter = names(coef(Shalldrc_geno)),
+                      Estimate = coef(Shalldrc_geno)) %>%
+  separate(Parameter, into = c("Param", "Group"), sep = ":") %>%
+  pivot_wider(names_from = Param, values_from = Estimate)
+
+Deepdrc_geno_df <- data.frame(Parameter = names(coef(Deepdrc_geno)),
+                      Estimate = coef(Deepdrc_geno)) %>%
+  separate(Parameter, into = c("Param", "Group"), sep = ":") %>%
+  pivot_wider(names_from = Param, values_from = Estimate)
+
+# Hill
+var.test(Shalldrc_geno_df$hill, Deepdrc_geno_df$hill) # Equal variances 
+
+ShallvDeep_hill <- t.test(Shalldrc_geno_df$hill, Deepdrc_geno_df$hill, 
+                          var.equal = TRUE)
+ShallvDeep_hill 
+
+# Max
+var.test(Shalldrc_geno_df$max, Deepdrc_geno_df$max) # Equal variances 
+
+ShallvDeep_max <- t.test(Shalldrc_geno_df$max, Deepdrc_geno_df$max, 
+                          var.equal = TRUE)
+ShallvDeep_max 
+
+# ____________________________________________________________________ #
+hill_tidy <- tidy(ShallvDeep_hill) %>%
+  mutate(Parameter = "Hill")
+
+max_tidy <- tidy(ShallvDeep_max) %>%
+  mutate(Parameter = "Max")
+
+hill_max_summary <- bind_rows(hill_tidy, max_tidy) %>%
+  select(Parameter, Shall = estimate1, Deep = estimate2, estimate, statistic, p.value, conf.low, conf.high)
+
+hill_max_summary
+```
+
+# Individual Model Fits
+```{r Individual fits summary table}
+Shall_Genos <- Shalldrc_ED_geno_df %>%
+  mutate(Depth = "Shallow") %>%
+  select(Depth, Geno, ED_level, ED = Estimate, SE = `Std. Error`, Upper, Lower) 
+
+Deep_Genos <- Deepdrc_ED_geno_df %>%
+  mutate(Depth = "Deep") %>%
+  select(Depth, Geno, ED_level, ED = Estimate, SE = `Std. Error`, Upper, Lower) 
+
+Genos <- rbind(Shall_Genos, Deep_Genos)
+
+Genos_table <- nice_table(Genos)
+
+save_as_docx(Genos_table, path = "Plots/ED50s/geno_table.docx")
+
+```
+
+# Compare ED50s and Calculate 95% CI
+```{r t-test and CI calculation}
+# Test Variances
+var.test(DeepED05_geno, ShallED05_geno) # Equal variances 
+var.test(DeepED50_geno, ShallED50_geno) # Equal variances 
+var.test(DeepED95_geno, ShallED95_geno) # Unequal variances
+
+# T-Test to compare Depth EDs 
+ShallvDeep_ED05 <- t.test(ShallED05_geno, DeepED05_geno, var.equal = TRUE)
+ShallvDeep_ED50 <- t.test(ShallED50_geno, DeepED50_geno, var.equal = TRUE)
+ShallvDeep_ED95 <- t.test(ShallED95_geno, DeepED95_geno, var.equal = FALSE)
+
+ShallvDeep_ED05
+ShallvDeep_ED50
+ShallvDeep_ED95
+
+
+summary_all_EDs <- bind_rows(
+  tidy(t.test(DeepED05_geno, ShallED05_geno, var.equal = TRUE))  %>%
+    mutate(ED = "ED05"), tidy(t.test(DeepED50_geno, ShallED50_geno,
+                                     var.equal = TRUE))  %>% 
+    mutate(ED = "ED50"),
+  tidy(t.test(DeepED95_geno, ShallED95_geno, var.equal = FALSE)) %>%
+    mutate(ED = "ED95")) %>%
+  select(ED, Deep = estimate1, Shall = estimate2, statistic, p.value, conf.low, conf.high)
+
+# _____________________________________________________________________ #
+
+# 95% Confidence Intervals for all EDs
+# Sample sizes
+n_Shall <- length(ShallED50_geno)
+n_Deep <- length(DeepED50_geno)
+
+# _____________________________________________________________________ #
+
+# Means and SDs 
+
+# ED05
+mean_Shall_ED05 <- mean(ShallED05_geno)
+mean_Deep_ED05 <- mean(DeepED05_geno)
+sd_Shall_ED05 <- sd(ShallED05_geno)
+sd_Deep_ED05 <- sd(DeepED05_geno)
+
+# ED50
+mean_Shall_ED50 <- mean(ShallED50_geno)
+mean_Deep_ED50 <- mean(DeepED50_geno)
+sd_Shall_ED50 <- sd(ShallED50_geno)
+sd_Deep_ED50 <- sd(DeepED50_geno)
+
+# ED95
+mean_Shall_ED95 <- mean(ShallED95_geno)
+mean_Deep_ED95 <- mean(DeepED95_geno)
+sd_Shall_ED95 <- sd(ShallED95_geno)
+sd_Deep_ED95 <- sd(DeepED95_geno)
+
+# _____________________________________________________________________ #
+
+# Standard errors
+
+# ED05
+se_Shall_ED05 <- sd_Shall_ED05 / sqrt(n_Shall)
+se_Deep_ED05 <- sd_Deep_ED05 / sqrt(n_Deep)
+
+# ED50
+se_Shall_ED50 <- sd_Shall_ED50 / sqrt(n_Shall)
+se_Deep_ED50 <- sd_Deep_ED50 / sqrt(n_Deep)
+
+# ED95
+se_Shall_ED95 <- sd_Shall_ED95 / sqrt(n_Shall)
+se_Deep_ED95 <- sd_Deep_ED95 / sqrt(n_Deep)
+
+# _____________________________________________________________________ #
+
+# Critical t-value for 95% CI (two-tailed)
+t_crit_Shall <- qt(0.975, df = n_Shall - 1)
+t_crit_Deep <- qt(0.975, df = n_Deep - 1)
+
+# _____________________________________________________________________ #
+
+# Confidence intervals
+
+# ED50
+CI_Shall_ED05 <- c(mean_Shall_ED05 - t_crit_Shall * se_Shall_ED05,
+                   mean_Shall_ED05 + t_crit_Shall * se_Shall_ED05)
+CI_Deep_ED05 <- c(mean_Deep_ED05 - t_crit_Deep * se_Deep_ED05,
+                  mean_Deep_ED05 + t_crit_Deep * se_Deep_ED05)
+
+CI_Shall_ED05
+CI_Deep_ED05
+
+ED05_param_table <- data.frame(
+  Depth = c("Shallow", "Deep"),
+  ED05 = c(mean_Shall_ED05, mean_Deep_ED05),
+  se = c(se_Shall_ED05, se_Deep_ED05),
+  sd = c(sd_Shall_ED05, sd_Deep_ED05),
+  CI_lower = c(CI_Shall_ED05[1], CI_Deep_ED05[1]),
+  CI_upper = c(CI_Shall_ED05[2], CI_Deep_ED05[2])
+)
+
+# ED50
+CI_Shall_ED50 <- c(mean_Shall_ED50 - t_crit_Shall * se_Shall_ED50,
+                   mean_Shall_ED50 + t_crit_Shall * se_Shall_ED50)
+CI_Deep_ED50 <- c(mean_Deep_ED50 - t_crit_Deep * se_Deep_ED50,
+                  mean_Deep_ED50 + t_crit_Deep * se_Deep_ED50)
+
+CI_Shall_ED50
+CI_Deep_ED50
+
+ED50_param_table <- data.frame(
+  Depth = c("Shallow", "Deep"),
+  ED50 = c(mean_Shall_ED50, mean_Deep_ED50),
+  se = c(se_Shall_ED50, se_Deep_ED50),
+  sd = c(sd_Shall_ED50, sd_Deep_ED50),
+  CI_lower = c(CI_Shall_ED50[1], CI_Deep_ED50[1]),
+  CI_upper = c(CI_Shall_ED50[2], CI_Deep_ED50[2])
+)
+
+# ED95
+CI_Shall_ED95 <- c(mean_Shall_ED95 - t_crit_Shall * se_Shall_ED95,
+                   mean_Shall_ED95 + t_crit_Shall * se_Shall_ED95)
+CI_Deep_ED95 <- c(mean_Deep_ED95 - t_crit_Deep * se_Deep_ED95,
+                  mean_Deep_ED95 + t_crit_Deep * se_Deep_ED95)
+
+CI_Shall_ED95
+CI_Deep_ED95
+
+ED95_param_table <- data.frame(
+  Depth = c("Shallow", "Deep"),
+  ED95 = c(mean_Shall_ED95, mean_Deep_ED95),
+  se = c(se_Shall_ED95, se_Deep_ED95),
+  sd = c(sd_Shall_ED95, sd_Deep_ED95),
+  CI_lower = c(CI_Shall_ED95[1], CI_Deep_ED95[1]),
+  CI_upper = c(CI_Shall_ED95[2], CI_Deep_ED95[2])
+)
+```
+
+```{r model predictions}
+# Create prediction data frame across temperature range
+Shallnewdata <- expand.grid(
+  Temp = seq(min(28), max(41), length.out = 100),
+  Depth = unique(Shallpam$Depth)) 
+
+Deepnewdata <- expand.grid(
+  Temp = seq(min(28), max(41), length.out = 100),
+  Depth = unique(Deeppam$Depth))
+
+# Get predictions with standard errors
+Shallpreds <- as.data.frame(predict(Shalldrc, newdata = Shallnewdata, se.fit = TRUE))
+Deeppreds <- as.data.frame(predict(Deepdrc, newdata = Deepnewdata, se.fit = TRUE))
+
+Shallnewdata$fit <- Shallpreds$Prediction       # predicted value
+Shallnewdata$se <- Shallpreds$SE                # standard error
+
+Deepnewdata$fit <- Deeppreds$Prediction     # predicted value
+Deepnewdata$se <- Deeppreds$SE                # standard error
+
+# Calculate 95% CI
+Shallnewdata$lower <- Shallnewdata$fit - 1.96 * Shallnewdata$se
+Shallnewdata$upper <- Shallnewdata$fit + 1.96 * Shallnewdata$se
+
+Deepnewdata$lower <- Deepnewdata$fit - 1.96 * Deepnewdata$se
+Deepnewdata$upper <- Deepnewdata$fit + 1.96 * Deepnewdata$se
+```
+
+# ED50 Plot
+```{r ED50 Plot}
+pop_fits <- ggplot() +
+  
+  # Specify Depth colors
+  scale_color_manual(values = c("Shallow" = "#3B82F6", 
+                                "Deep" = "#0A2472"),
+                     guide = guide_legend(override.aes = list(
+                         fill = c('#3B82F6', '#0A2472'),color = NA, 
+                         alpha = 1))) +
+  
+  scale_fill_manual(values = c("Shallow" = "#3B82F6", 
+                             "Deep" = "#0A2472")) +
+  
+  # Adjust x and y axis limits/breaks
+  scale_x_continuous(limits=c(28.5,41), breaks=c(29,31,33,35,37,39,41), 
+                     expand = c(-0.01,0)) +
+  
+  scale_y_continuous(limits=c(-0.005, 0.75), expand = c(0,0))  +
+  
+  # Add in predicted model curves 
+  geom_line(data = Shallnewdata, aes(x = Temp, y = fit, color = Depth),
+            linewidth = 1.2) +
+  
+  geom_line(data = Deepnewdata, aes(x = Temp, y = fit, color = Depth), 
+            linewidth = 1.2) +
+  
+  # Add confidence intervals around curve 
+  geom_ribbon(data = Shallnewdata, aes(x = Temp, ymin = lower, ymax = upper,
+                                    fill = Depth), alpha = 0.2) +
+  
+  geom_ribbon(data = Deepnewdata, aes(x = Temp, ymin = lower, ymax = upper, 
+                                  fill = Depth), alpha = 0.2) +
+
+  # Add ED50 line
+  geom_segment(data = ED50_param_table, 
+             aes(x = ED50, xend = ED50, y = -Inf, yend = 0.71, color = Depth), 
+             linewidth = 0.75) +
+  
+  # Add confidence interval shading around ED50 line 
+  geom_rect(data = ED50_param_table, 
+          aes(xmin = CI_lower, xmax = CI_upper, ymin = -Inf, ymax = 0.71, 
+              fill = Depth), alpha = 0.15, inherit.aes = FALSE) +
+  
+  # Add ED50 labels
+  annotate("text",x = 35.8, y = 0.695,
+           label = paste0(round(mean_Shall_ED50, 2), "°C"), color = '#3B82F6', 
+           fontface = 'bold', size = 4) + 
+    
+  annotate("text",x = 38.1, y = 0.695,
+           label = paste0(round(mean_Deep_ED50, 2), "°C"), color = '#0A2472', 
+           fontface = 'bold', size = 4) +
+ 
+   # Add data poShallts for each fragment (n = 120)
+  geom_point(data = Allpam, aes(x = Temperature, y = FvFm, 
+                                           color = Depth), alpha = 0.75) +
+  
+  # Add significance distinctions
+  geom_segment(aes(x = 36.47, xend = 37.45, y = 0.72, yend = 0.72),
+               color = "black", size = 0.6) + # Horizontal Bracket 
+  
+  geom_segment(aes(x = 36.46, xend = 36.46, y = 0.72, yend = 0.712), 
+               color = "black", size = 0.6) +  # Left vertical tick (upward)
+  
+  geom_segment(aes(x = 37.45, xend = 37.45, y = 0.72, yend = 0.712), 
+               color = "black", size = 0.6) + # Right vertical tick (upward) 
+  
+  annotate("text", x = (36.47 + 37.45) / 2, y = 0.725, label = "**", 
+           size = 6) +
+  
+# Theme 
+  theme_classic() +
+  theme(plot.title = element_text(hjust = 0.5, size = 20), 
+        legend.position = c(0.1,0.08),
+        legend.title = element_blank(),
+        legend.text = element_text(size = 14),
+        axis.title = element_text(size = 15),
+        axis.text = element_text(size = 13),
+         plot.margin = margin(t = 0.25, r = 0, b = 0, l = 0, unit = "cm"),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank()) +
+  labs(x = expression("Temperature (" * degree * "C)"), y = bquote(F[v]/F[m]))
+
+ggsave(
+  filename = "Plots/ED50s/drc.pdf",  # Name of the output file
+  plot = pop_fits,               # Specify the plot to save
+  width = 7,                       # Width in inches
+  height = 5                        # Height in inches
+)
+
+ggsave(
+  filename = "Plots/ED50s/drc.png",  # Name of the output file
+  plot = pop_fits,               # Specify the plot to save
+  width = 7,                       # Width in inches
+  height = 5                        # Height in inches
+)
+```
+
+# ED05, ED50, & ED95 Plot
+```{r}
+
+pop_fits_allEDs <- ggplot() +
+  
+  # Specify Depth colors
+  scale_color_manual(values = c("Shallow" = "#3B82F6", 
+                                "Deep" = "#0A2472"),
+                     guide = guide_legend(override.aes = list(
+                         fill = c('#3B82F6', '#0A2472'),color = NA, 
+                         alpha = 1))) +
+  
+  scale_fill_manual(values = c("Shallow" = "#3B82F6", 
+                             "Deep" = "#0A2472")) +
+  
+  # Adjust x and y axis limits/breaks
+  scale_x_continuous(limits=c(28.5,43), breaks=c(29,31,33,35,37,39,41,43), 
+                     expand = c(-0.01,0)) +
+  
+  scale_y_continuous(limits=c(-0.005, 0.75), expand = c(0,0))  +
+  
+  # Add in predicted model curves 
+  geom_line(data = Shallnewdata, aes(x = Temp, y = fit, color = Depth),
+            linewidth = 1.2) +
+  
+  geom_line(data = Deepnewdata, aes(x = Temp, y = fit, color = Depth), 
+            linewidth = 1.2) +
+  
+  # Add confidence intervals around curve 
+  geom_ribbon(data = Shallnewdata, aes(x = Temp, ymin = lower, ymax = upper,
+                                    fill = Depth), alpha = 0.2) +
+  
+  geom_ribbon(data = Deepnewdata, aes(x = Temp, ymin = lower, ymax = upper, 
+                                  fill = Depth), alpha = 0.2) +
+
+  # Add ED Lines
+  # ED05
+  geom_segment(data = ED05_param_table, 
+             aes(x = ED05, xend = ED05, y = -Inf, yend = 0.71, 
+                 color = Depth), linewidth = 0.75) +
+  
+  # ED50
+  geom_segment(data = ED50_param_table, 
+             aes(x = ED50, xend = ED50, y = -Inf, yend = 0.71, 
+                 color = Depth), linewidth = 0.75) +
+  
+  # Add confidence interval shading around ED50 line 
+  geom_rect(data = ED50_param_table, 
+          aes(xmin = CI_lower, xmax = CI_upper, ymin = -Inf, ymax = 0.71, 
+              fill = Depth), alpha = 0.15, inherit.aes = FALSE) +
+  
+   # ED95
+  geom_segment(data = ED95_param_table, 
+             aes(x = ED95, xend = ED95, y = -Inf, yend = 0.71, 
+                 color = Depth), linewidth = 0.75) +
+
+  
+  # Add ED50 labels
+  annotate("text",x = 35.8, y = 0.695,
+           label = paste0(round(mean_Shall_ED50, 2), "°C"), 
+           color = '#3B82F6', 
+           fontface = 'bold', size = 4) + 
+    
+  annotate("text",x = 38.1, y = 0.695,
+           label = paste0(round(mean_Deep_ED50, 2), "°C"), 
+           color = '#0A2472', 
+           fontface = 'bold', size = 4) +
+ 
+   # Add data points for each fragment 
+  geom_point(data = Allpam, aes(x = Temperature, y = FvFm, 
+                                           color = Depth), alpha = 0.75) +
+  
+  # Add significance distinctions
+  geom_segment(aes(x = 36.47, xend = 37.45, y = 0.72, yend = 0.72),
+               color = "black", size = 0.6) + # Horizontal Bracket 
+  
+  geom_segment(aes(x = 36.46, xend = 36.46, y = 0.72, yend = 0.712), 
+               color = "black", size = 0.6) +  # Left vertical tick (upward)
+  
+  geom_segment(aes(x = 37.45, xend = 37.45, y = 0.72, yend = 0.712), 
+               color = "black", size = 0.6) + # Right vertical tick (upward) 
+  
+  annotate("text", x = (36.47 + 37.45) / 2, y = 0.725, label = "**", 
+           size = 6) +
+  
+# Theme 
+  theme_classic() +
+  theme(plot.title = element_text(hjust = 0.5, size = 20), 
+        legend.position = c(0.1,0.08),
+        legend.title = element_blank(),
+        legend.text = element_text(size = 14),
+        axis.title = element_text(size = 15),
+        axis.text = element_text(size = 13),
+         plot.margin = margin(t = 0.25, r = 0, b = 0, l = 0, unit = "cm"),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank()) +
+  labs(x = expression("Temperature (" * degree * "C)"), y = bquote(F[v]/F[m]))
+
+
+
+
+ggsave(
+  filename = "Plots/ED50s/drc_allEDs.pdf",  # Name of the output file
+  plot = pop_fits_allEDs,               # Specify the plot to save
+  width = 7,                       # Width in inches
+  height = 5                        # Height in inches
+)
+
+ggsave(
+  filename = "Plots/ED50s/drc_allEDs.png",  # Name of the output file
+  plot = pop_fits_allEDs,               # Specify the plot to save
+  width = 7,                       # Width in inches
+  height = 5                        # Height in inches
+)
+```
+

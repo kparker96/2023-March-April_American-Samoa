@@ -26,7 +26,7 @@ library(lubridate)     # install.packages("lubridate")
 
 # Files have been "cleaned up" with the SuperOxyCalc_djb_heaupdate_kep.py script with updated HeaderLine.txt file #  
 
-files <- list.files(path ="./data/Ch2/respirometry/sandbox/", pattern = "*_cleaned.txt", full.names = T)
+files <- list.files(path ="./data/respirometry/sandbox/", pattern = "*_cleaned.txt", full.names = T)
 
 df <- files %>%
   set_names(.) %>%
@@ -103,7 +103,7 @@ for (col in data_cols) {
     # Select the "Time" and the current data column
     data_subset <- drop_na(df_ready[c("Time", col)])
       
-    pdf(paste0('data/Ch2/respirometry/sandbox/check_plots/', col, "_sandbox", ".pdf"))
+    pdf(paste0('data/respirometry/sandbox/check_plots/', col, "_sandbox", ".pdf"))
     inspect(data_subset)
     
     dev.off()
@@ -142,7 +142,7 @@ for (Geno in data_cols) {
     
     # calc_rate()
     resp <- calc_rate(data_subset, from = 15, to = 30, by = 'time', plot = TRUE)
-    pdf(paste0('data/Ch2/respirometry/sandbox/full_plots/', Geno, "_resp.pdf"))
+    pdf(paste0('data/respirometry/sandbox/full_plots/', Geno, "_resp.pdf"))
     plot(resp)
     dev.off()
     
@@ -204,7 +204,7 @@ for (Geno in data_cols) {
     
     # calc_rate()
     photo <- calc_rate(data_subset, from = 15, to = 30, by = 'time', plot = TRUE)
-    pdf(paste0('data/Ch2/respirometry/sandbox/full_plots/', Geno, "_photo.pdf"))
+    pdf(paste0('data/respirometry/sandbox/full_plots/', Geno, "_photo.pdf"))
     plot(photo)
     dev.off()
     
@@ -275,7 +275,7 @@ for (Geno in data_cols) {
     
     # calc_rate()
     resp <- calc_rate(data_subset, from = 0, to = 15, plot = TRUE)
-    pdf(paste0('data/Ch2/respirometry/sandbox/full_plots/', Geno, "_resp.pdf"))
+    pdf(paste0('data/respirometry/sandbox/full_plots/', Geno, "_resp.pdf"))
     print(resp)
     dev.off()
     
@@ -295,7 +295,7 @@ for (Geno in data_cols) {
     
     # calc_rate()
     photo <- calc_rate(data_subset, from = 15, to = 30, by = 'time', plot = TRUE)
-    pdf(paste0('data/Ch2/respirometry/sandbox/full_plots/', Geno, "_photo.pdf"))
+    pdf(paste0('data/respirometry/sandbox/full_plots/', Geno, "_photo.pdf"))
     plot(photo)
     dev.off()
     
@@ -352,7 +352,7 @@ final_combined <- rbind(master_resp_final, master_photo_final) %>%
 
 # Adjust file name for specific sample set 
 library("writexl")
-write_xlsx(final_combined, "data/Ch2/respirometry/sandbox/final_rates/sandbox_rates.xlsx")
+write_xlsx(final_combined, "data/respirometry/sandbox/final_rates/sandbox_rates.xlsx")
 
 ```
 

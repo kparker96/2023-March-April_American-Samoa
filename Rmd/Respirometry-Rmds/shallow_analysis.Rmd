@@ -24,7 +24,7 @@ library("writexl")
 #########        RESPR OUTPUTS         ##########
 #################################################
 
-file_list <- list.files(path = "data/Ch2/respirometry/shallow/final_rates", pattern = "*.xlsx", full.names = T)
+file_list <- list.files(path = "data/respirometry/shallow/final_rates", pattern = "*.xlsx", full.names = T)
 
 file_list_compiled <- sapply(file_list, read_excel, simplify=FALSE) %>% 
   bind_rows(.id = "id")

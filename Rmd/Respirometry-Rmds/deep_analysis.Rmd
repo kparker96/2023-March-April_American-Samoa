@@ -1,5 +1,5 @@
 ---
-title: "Untitled"
+title: "Deep Analysis"
 output: html_document
 date: "2023-07-07"
 editor_options: 
@@ -20,7 +20,7 @@ library("writexl")
 # Import RespR output files (from Deep_XX.md files)
 ```{r file_list}
 # Import files
-file_list <- list.files(path = "data/Ch2/respirometry/deep/final_rates", pattern = "*.csv", full.names = T)
+file_list <- list.files(path = "data/respirometry/deep/final_rates", pattern = "*.csv", full.names = T)
 
 # Compile data from all light intensities
 file_list_compiled <- sapply(file_list, read_delim, simplify=FALSE) %>% 

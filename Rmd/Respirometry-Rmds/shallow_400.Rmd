@@ -21,7 +21,7 @@ library(lubridate)     # install.packages("lubridate")
 ```{r files and df}
 # Files have been "cleaned up" with the SuperOxyCalc_djb_heaupdate_kep.py script with updated HeaderLine.txt file #  
 
-files <- list.files(path ="./data/Ch2/respirometry/shallow/400/", pattern = "*_cleaned.txt", full.names = T)
+files <- list.files(path ="./data/respirometry/shallow/400/", pattern = "*_cleaned.txt", full.names = T)
 
 df <- files %>%
   set_names(.) %>%
@@ -86,7 +86,7 @@ for (col in data_cols) {
     # Select the "Time" and the current data column
     data_subset <- drop_na(df_ready[c("Time", col)])
       
-    pdf(paste0('data/Ch2/respirometry/shallow/400/check_plots/', col, "_400", ".pdf"))
+    pdf(paste0('data/respirometry/shallow/400/check_plots/', col, "_400", ".pdf"))
     inspect(data_subset)
     
     dev.off()
@@ -134,7 +134,7 @@ for (Geno in data_cols) {
     
     # calc_rate()
     photo <- calc_rate(data_subset, from = 0, to = 15, by = 'time', plot = TRUE)
-    pdf(paste0('data/Ch2/respirometry/shallow/400/full_plots/', Geno, "_photo.pdf"))
+    pdf(paste0('data/respirometry/shallow/400/full_plots/', Geno, "_photo.pdf"))
     plot(photo)
     dev.off()
     
@@ -153,7 +153,7 @@ for (Geno in data_cols) {
     
     # calc_rate()
     resp <- calc_rate(data_subset, from = 22, to = 35, plot = TRUE)
-    pdf(paste0('data/Ch2/respirometry/shallow/400/full_plots/', Geno, "_resp.pdf"))
+    pdf(paste0('data/respirometry/shallow/400/full_plots/', Geno, "_resp.pdf"))
     print(resp)
     dev.off()
     
@@ -210,7 +210,7 @@ final_combined <- rbind(master_resp_final, master_photo_final) %>%
 
 # Adjust file name for specific sample set 
 library("writexl")
-write_xlsx(final_combined, "data/Ch2/respirometry/shallow/final_rates/400_rates.xlsx")
+write_xlsx(final_combined, "data/respirometry/shallow/final_rates/400_rates.xlsx")
 
 ```
 
