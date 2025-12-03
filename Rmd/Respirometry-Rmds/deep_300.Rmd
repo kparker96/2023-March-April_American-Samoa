@@ -125,9 +125,14 @@ master_resp_final <- data.frame()
 ```
 
 ```{r import surface area measurements}
-surface_area <- read_excel("data/respirometry/Fragment_Surface_Area.xlsx") %>%
+frag_data <- read_excel("data/respirometry/Fragment_Surface_Area_and_Volume.xlsx") %>%
   filter(Depth == "Deep")
 
+surface_area <- frag_data %>%
+  select(Sample, Genotype, `SA(m2)`)
+
+effective_volume <- frag_data %>%
+  select(Sample, Genotype, effective_volume)
 ```
 
 ```{r run respR for photo and resp}
@@ -139,6 +144,7 @@ for (Geno in data_cols) {
     
     # Surface Area #
     area_value <- surface_area$`SA(m2)`[surface_area$Genotype == Geno]
+    volume_value <- effective_volume$effective_volume[effective_volume$Genotype == Geno]
     
 #### Photosynthesis Calculations ####
     
@@ -156,7 +162,7 @@ for (Geno in data_cols) {
                            oxy.unit = "umol/L",     # oxygen units of the original raw data
                            time.unit = "min",            # time units of the original raw data
                            output.unit = "umol/min/m2", # output unit
-                           volume = 0.15444,         # effective volume of the respirometer (L)
+                           volume = volume_value,         # effective volume of the respirometer (L)
                            area = area_value)            # area of sample (m2)
     
 #### Respiration calculations ####

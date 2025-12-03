@@ -131,9 +131,8 @@ frag_data <- read_excel("data/respirometry/Fragment_Surface_Area_and_Volume.xlsx
 surface_area <- frag_data %>%
   select(Sample, Genotype, `SA(m2)`)
 
-frag_data %>%
-  select(Sample, Genotype, `Buoyant_Weight(g)`) %>%
-  mutate(volume = `Buoyant_Weight(g)`/1.025)
+effective_volume <- frag_data %>%
+  select(Sample, Genotype, effective_volume)
 ```
 
 ```{r run respR for photo and resp}
@@ -156,15 +155,16 @@ for (Geno in data_cols) {
     
     # Surface Area #
     area_value <- surface_area$`SA(m2)`[surface_area$Genotype == Geno]
+    volume_value <- effective_volume$effective_volume[effective_volume$Genotype == Geno]
     
     # convert_rate()
     photo_final <- convert_rate(photo_adj,              # rate adjusted for background
                            oxy.unit = "umol/L",     # oxygen units of the original raw data
                            time.unit = "min",            # time units of the original raw data
                            output.unit = "umol/min/m2", # output unit
-                           volume = 0.15444,         # effective volume of the respirometer (L)
-                           area = area_value)            # area of sample (m2)
-    
+                           volume = volume_value,         # effective volume of the respirometer (L)
+                           area = area_value)             # area of sample (m2)
+                          
 #### Respiration calculations ####
     
     # calc_rate()
@@ -181,7 +181,7 @@ for (Geno in data_cols) {
                            oxy.unit = "umol/L",     # oxygen units of the original raw data
                            time.unit = "min",            # time units of the original raw data
                            output.unit = "umol/min/m2", # output unit
-                           volume = 0.15444,         # effective volume of the respirometer (L)
+                           volume = volume_value,         # effective volume of the respirometer (L)
                            area = area_value)            # area of sample (m2)
 
     
@@ -211,7 +211,7 @@ for (Geno in data_cols) {
 ```
 
 # Export Data
-```{r final_combined}
+```{r final combined}
 # Add column to note if Respiration or Photosynthesis rate
 master_photo_final <- master_photo_final %>%
   mutate(o2 = "Photosynthesis") 
@@ -223,7 +223,10 @@ master_resp_final <- master_resp_final %>%
 final_combined <- rbind(master_resp_final, master_photo_final) %>%
   # filter(Sample_name != "Gen07") %>% # remove blank chamber
   mutate(light = 50) # add in light intensity 
+```
 
+
+```{r export to xlsx}
 # Adjust file name for specific sample set 
 library("writexl")
 write_xlsx(final_combined, "data/respirometry/deep/final_rates/50_rates.xlsx")

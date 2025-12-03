@@ -1,0 +1,168 @@
+---
+title: "Pigment"
+output: html_document
+date: "2025-11-20"
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Load libraries
+```{r}
+library(tidyverse)
+library(readxl)
+library(ggplot2)
+```
+
+# Load Data
+```{r}
+# Surface Area
+sa <- read_xlsx("data/frag_data/Surface_Area.xlsx") %>%
+  select(Sample, sa_cm2 = `Surface area (cm2)`) %>%
+  filter(Sample != "Shall_05") # removing "bad" chlorophyll sample
+
+# Path to raw Chlorophyll data file 
+path <- "data/frag_data/Chlorophyll_Conct.xlsx"
+
+# Blank acetone/filter sample 
+Blank <- read_xlsx(path, sheet = "Blank") %>%
+  mutate(Depth = "Blank", Geno = "Blank")
+
+# Deep 
+Deep_01 <- read_xlsx(path, sheet = "Deep_01") %>%
+  mutate(Depth = "Deep", Geno = "01")
+Deep_02 <- read_xlsx(path,sheet = "Deep_02") %>%
+  mutate(Depth = "Deep", Geno = "02")
+Deep_03 <- read_xlsx(path, sheet = "Deep_03") %>%
+  mutate(Depth = "Deep", Geno = "03")
+Deep_04 <- read_xlsx(path, sheet = "Deep_04") %>%
+  mutate(Depth = "Deep", Geno = "04")
+Deep_05 <- read_xlsx(path, sheet = "Deep_05") %>%
+  mutate(Depth = "Deep", Geno = "05")
+Deep_06 <- read_xlsx(path, sheet = "Deep_06") %>%
+  mutate(Depth = "Deep", Geno = "06")
+Deep_07 <- read_xlsx(path, sheet = "Deep_07") %>%
+  mutate(Depth = "Deep", Geno = "07")
+
+Deep_df <- rbind(Deep_01, Deep_02, Deep_03, Deep_04, Deep_05, Deep_06, Deep_07)
+
+ggplot(Deep_df, aes(x = umol, y = Absorbance, color = Geno)) +
+  geom_line()
+
+# Midd 
+Midd_01 <- read_xlsx(path, sheet = "Midd_01") %>%
+  mutate(Depth = "Midd", Geno = "01")
+Midd_02 <- read_xlsx(path,sheet = "Midd_02") %>%
+  mutate(Depth = "Midd", Geno = "02")
+Midd_03 <- read_xlsx(path, sheet = "Midd_03") %>%
+  mutate(Depth = "Midd", Geno = "03")
+Midd_04 <- read_xlsx(path, sheet = "Midd_04") %>%
+  mutate(Depth = "Midd", Geno = "04")
+Midd_05 <- read_xlsx(path, sheet = "Midd_05") %>%
+  mutate(Depth = "Midd", Geno = "05")
+Midd_06 <- read_xlsx(path, sheet = "Midd_06") %>%
+  mutate(Depth = "Midd", Geno = "06")
+
+Midd_df <- rbind(Midd_01, Midd_02, Midd_03, Midd_04, Midd_05, Midd_06)
+
+ggplot(Midd_df, aes(x = umol, y = Absorbance, color = Geno)) +
+  geom_line()
+
+# Shall 
+Shall_01 <- read_xlsx(path, sheet = "Shall_01") %>%
+  mutate(Depth = "Shall", Geno = "01")
+Shall_02 <- read_xlsx(path,sheet = "Shall_02") %>%
+  mutate(Depth = "Shall", Geno = "02")
+Shall_03 <- read_xlsx(path, sheet = "Shall_03") %>%
+  mutate(Depth = "Shall", Geno = "03")
+Shall_04 <- read_xlsx(path, sheet = "Shall_04") %>%
+  mutate(Depth = "Shall", Geno = "04")
+Shall_05 <- read_xlsx(path, sheet = "Shall_05") %>%
+  mutate(Depth = "Shall", Geno = "05")
+Shall_06 <- read_xlsx(path, sheet = "Shall_06") %>%
+  mutate(Depth = "Shall", Geno = "06")
+
+Shall_df <- rbind(Shall_01, Shall_02, Shall_03, Shall_04, Shall_06)
+
+ggplot(Shall_df, aes(x = umol, y = Absorbance, color = Geno)) +
+  geom_line()
+
+ggplot(Shall_05, aes(x = umol, y = Absorbance, color = Geno)) +
+  geom_line()
+
+# Combine All 
+
+all_df <- rbind(Deep_df, Midd_df, Shall_df) %>%
+  mutate(Depth_Geno = paste0(Depth, "_", Geno))
+```
+
+# Visualize Spec
+```{r}
+ggplot(all_df, aes(x = umol, y = Absorbance, color = Depth, 
+                   group = Depth_Geno)) +
+  geom_line() +
+  scale_color_manual(values = c('darkblue', 'dodgerblue3', '#78bae3')) +
+  theme_bw()
+```
+
+# Extract Pigment Values
+```{r}
+pigment_spec <- all_df %>%
+  filter(umol == 480.212 | umol == 664.145 | umol == 630.454 | umol == 750.183) %>%
+  pivot_wider(names_from = "umol", 
+              names_prefix = "umol",
+              values_from = "Absorbance") %>%
+  rename(Sample = Depth_Geno, A480 = umol480.212, A630 = umol630.454, A664 = umol664.145, 
+         A750 = umol750.183) %>%
+  left_join(sa)
+
+pigment_calc <- pigment_spec %>%
+  mutate(Chl_a = (-0.4574) * (A630 - A750) + (11.4754) * (A664 - A750), # Ritchie 2006 
+         Chl_c = (23.3900)  * (A630 - A750) - (3.5322)   * (A664 - A750), # Ritchie 2006
+         # From ChatGPT, need to confirm further 
+         Peridinin = ((A480 - A750) - (0.043 * Chl_a + 0.021 * Chl_c))/(0.63),
+         
+         # total Chl of Extract (2mL of Acetone)
+         Chl_a_total = Chl_a * 2,
+         Chl_c_total = Chl_c * 2,
+         Peridinin_total = Peridinin * 2,
+         total_pigment_ug = Chl_a_total + Chl_c_total + Peridinin_total,
+         
+         # normalized to surface area
+         Chl_a_per_cm2 = Chl_a_total/sa_cm2,
+         Chl_c_per_cm2 = Chl_c_total/sa_cm2,
+         Perid_per_cm2 = Peridinin_total/sa_cm2,
+         total_pigment_cm2 = Chl_a_per_cm2 + Chl_c_per_cm2 + Perid_per_cm2) 
+```
+
+# Visualize pigment differences
+```{r}
+pigment_plot_total <- pigment_calc %>%
+  select(Sample, Depth, Chl_a_total, Chl_c_total, Peridinin_total) %>%
+  gather(key = Pigment, value  = ug_pigment, -Sample, -Depth )
+
+ggplot(pigment_plot_total, aes(x = Sample, y = ug_pigment, fill = Pigment)) +
+  geom_bar(stat = "identity", position = "stack") +
+  facet_wrap(~Depth, scales = "free_x") +
+  scale_y_continuous(expand = c(0,0)) +
+  scale_fill_manual(values = c("#486345", "#7fad79", '#78bae3')) +
+  theme_bw() +
+  theme(axis.text.x = element_blank())
+
+pigment_plot_per_cm2 <- pigment_calc %>%
+  select(Sample, Depth, Chl_a_per_cm2, Chl_c_per_cm2, Perid_per_cm2) %>%
+  gather(key = Pigment, value  = ug_cm2_pigment, -Sample, -Depth )
+
+ggplot(pigment_plot_per_cm2, aes(x = Sample, y = ug_cm2_pigment, fill = Pigment)) +
+  geom_bar(stat = "identity", position = "stack") +
+  facet_wrap(~Depth, scales = "free_x") +
+  scale_y_continuous(expand = c(0,0.01)) +
+  scale_fill_manual(values = c("#486345", "#7fad79", '#78bae3')) +
+  theme_bw() +
+  theme(axis.text.x = element_blank())
+
+```
+

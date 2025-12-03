@@ -15,6 +15,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)     # install.packages("tidyverse")
 library(respR)         # install.packages("respR")
 library(lubridate)     # install.packages("lubridate")
+library(readxl)
 ```
 
 # Import files for reformat for RespR
@@ -123,6 +124,17 @@ master_photo_final <- data.frame()
 master_resp_final <- data.frame()
 ```
 
+```{r import surface area measurements}
+frag_data <- read_excel("data/respirometry/Fragment_Surface_Area_and_Volume.xlsx") %>%
+  filter(Depth == "Shall")
+
+surface_area <- frag_data %>%
+  select(Sample, Genotype, `SA(m2)`)
+
+effective_volume <- frag_data %>%
+  select(Sample, Genotype, effective_volume)
+```
+
 ```{r run respR for photo and resp}
 for (Geno in data_cols) {
     # Extract data for the current genotype column
@@ -141,13 +153,17 @@ for (Geno in data_cols) {
     # adjust_rate()
     photo_adj <- adjust_rate(photo, by = bg_rate_photo, method = "value")
     
+    # Surface Area #
+    area_value <- surface_area$`SA(m2)`[surface_area$Genotype == Geno]
+    volume_value <- effective_volume$effective_volume[effective_volume$Genotype == Geno]
+    
     # convert_rate()
     photo_final <- convert_rate(photo_adj,              # rate adjusted for background
                            oxy.unit = "umol/L",     # oxygen units of the original raw data
                            time.unit = "min",            # time units of the original raw data
-                           output.unit = "umol/min/cm2", # output unit
-                           volume = 0.15444,         # effective volume of the respirometer (L)
-                           area = 0.0025)            # area of sample (m2)
+                           output.unit = "umol/min/m2", # output unit
+                           volume = volume_value,         # effective volume of the respirometer (L)
+                           area = area_value)            # area of sample (m2)
     
 #### Respiration calculations ####
     
@@ -164,9 +180,9 @@ for (Geno in data_cols) {
     resp_final <- convert_rate(resp_adj,              # rate adjusted for background
                            oxy.unit = "umol/L",     # oxygen units of the original raw data
                            time.unit = "min",            # time units of the original raw data
-                           output.unit = "umol/min/cm2", # output unit
-                           volume = 0.15444,         # effective volume of the respirometer (L)
-                           area = 0.0025)            # area of sample (m2)
+                           output.unit = "umol/min/m2", # output unit
+                           volume = volume_value,         # effective volume of the respirometer (L)
+                           area = area_value)            # area of sample (m2)
 
     
     # Append the summary statistics from calc_rate() to the corresponding data frame
@@ -211,6 +227,8 @@ final_combined <- rbind(master_resp_final, master_photo_final) %>%
 # Adjust file name for specific sample set 
 library("writexl")
 write_xlsx(final_combined, "data/respirometry/shallow/final_rates/300_rates.xlsx")
+
+write_csv(final_combined, "data/respirometry/shallow/final_rates/300_rates.csv")
 
 ```
 

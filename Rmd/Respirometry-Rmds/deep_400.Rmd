@@ -126,11 +126,15 @@ master_resp_final <- data.frame()
 ```
 
 ```{r import surface area measurements}
-surface_area <- read_excel("data/respirometry/Fragment_Surface_Area.xlsx") %>%
+frag_data <- read_excel("data/respirometry/Fragment_Surface_Area_and_Volume.xlsx") %>%
   filter(Depth == "Deep")
 
-```
+surface_area <- frag_data %>%
+  select(Sample, Genotype, `SA(m2)`)
 
+effective_volume <- frag_data %>%
+  select(Sample, Genotype, effective_volume)
+```
 
 ```{r run respR for photo and resp}
 for (Geno in data_cols) {
@@ -152,13 +156,14 @@ for (Geno in data_cols) {
     
     # adjust_rate()
     photo_adj <- adjust_rate(photo, by = bg_rate_photo, method = "value")
+    volume_value <- effective_volume$effective_volume[effective_volume$Genotype == Geno]
     
     # convert_rate()
     photo_final <- convert_rate(photo_adj,              # rate adjusted for background
                            oxy.unit = "umol/L",     # oxygen units of the original raw data
                            time.unit = "min",            # time units of the original raw data
                            output.unit = "umol/min/m2", # output unit
-                           volume = 0.15444,         # effective volume of the respirometer (L)
+                           volume = volume_value,         # effective volume of the respirometer (L)
                            area = area_value)            # area of sample (m2)
     
 #### Respiration calculations ####
@@ -177,7 +182,7 @@ for (Geno in data_cols) {
                            oxy.unit = "umol/L",     # oxygen units of the original raw data
                            time.unit = "min",            # time units of the original raw data
                            output.unit = "umol/min/m2", # output unit
-                           volume = 0.15444,         # effective volume of the respirometer (L)
+                           volume = volume_value,         # effective volume of the respirometer (L)
                            area = area_value)            # area of sample (m2)
 
     

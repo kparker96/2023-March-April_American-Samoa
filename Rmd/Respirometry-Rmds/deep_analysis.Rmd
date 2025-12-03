@@ -63,23 +63,23 @@ master_df <- file_list_compiled %>%
     photosynthesis_rsq = rsq_Photosynthesis,
     photosynthesis_raw = rate.output_Photosynthesis
   ) %>%
-  mutate(net_photosynthesis = photosynthesis_raw + respiration) %>%
-  mutate(gross_photosynthesis = photosynthesis_raw + abs(respiration))
+  mutate(net_photosynthesis = photosynthesis_raw + respiration_raw) %>%
+  mutate(gross_photosynthesis = photosynthesis_raw + abs(respiration_raw))
 
 ggplot(master_df, aes(x = light, y = gross_photosynthesis)) +
   geom_point()
 
 no_light_meas <- master_df %>%
   filter(light == 50) %>%
-  filter(!is.na(respiration)) %>%
+  filter(!is.na(respiration_raw)) %>%
   select(Sample_name, respiration_intercept_b0, 
-         respiration_slope_b1, respiration_rsq, respiration, light)
+         respiration_slope_b1, respiration_rsq, respiration_raw, light)
  
 avg_no_light_meas <- no_light_meas %>% 
   group_by(light) %>%
   summarize(
-    mean_gross_photosynthesis = mean(respiration, na.rm = TRUE),
-    sd_gross_photosynthesis = sd(respiration, na.rm = TRUE),
+    mean_gross_photosynthesis = mean(respiration_raw, na.rm = TRUE),
+    sd_gross_photosynthesis = sd(respiration_raw, na.rm = TRUE),
     n = n(),
     se_gross_photosynthesis = sd_gross_photosynthesis /sqrt(n)) %>%
   mutate(light = 0)
@@ -97,15 +97,15 @@ avg_gross_photosynthesis <- master_df %>%
 avg_gross_photo_df <- rbind(avg_gross_photosynthesis,
                             avg_no_light_meas)
 
-ggplot(avg_gross_photo_df, aes(x = light, y = mean_gross_photosynthesis)) +
+ggplot(avg_gross_photo_df, aes(x = light, y = mean_gross_photosynthesis/10000)) +
   geom_point(size = 3) +                                  # plot the means as points
-  geom_errorbar(aes(ymin = mean_gross_photosynthesis - se_gross_photosynthesis,
-                    ymax = mean_gross_photosynthesis + se_gross_photosynthesis),
+  geom_errorbar(aes(ymin = (mean_gross_photosynthesis - se_gross_photosynthesis)/10000,
+                    ymax = (mean_gross_photosynthesis + se_gross_photosynthesis)/10000),
                 width = 5) +                              # add SE error bars, width controls bar width
   labs(x = "Light level", y = "Mean Gross Photosynthesis") +
   theme_minimal() +
   xlim(-10, 800) +
-  ylim(-600, 1400)
+  ylim(-0.1, 0.25)
 
 gross_start_vals <- list(
   Pmax = max(avg_gross_photo_df$mean_gross_photosynthesis), 

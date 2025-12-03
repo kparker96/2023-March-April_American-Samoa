@@ -1,0 +1,271 @@
+---
+title: "PvsI"
+output: html_document
+date: "2025-11-25"
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Load libraries 
+```{r libraries}
+library(tidyverse)     # install.packages("tidyverse")
+library(readxl)
+library("writexl")
+```
+
+# Load RespR output files
+```{r}
+# Deep #
+deep_file_list <- list.files(path = "data/respirometry/deep/final_rates", pattern = "*.csv", full.names = T)
+
+# Compile data from all light intensities
+deep_df <- sapply(deep_file_list, read_delim, simplify=FALSE) %>% 
+  bind_rows(.id = "id") %>%
+  select(Sample_name, intercept_b0, slope_b1, rsq, o2, light, rate.output) %>%
+  mutate(depth = "Deep")
+
+# Midd # 
+midd_file_list <- list.files(path = "data/respirometry/middle/final_rates", pattern = "*.csv", full.names = T)
+
+# Compile data from all light intensities
+midd_df <- sapply(midd_file_list, read_delim, simplify=FALSE) %>% 
+  bind_rows(.id = "id") %>%
+  select(Sample_name, intercept_b0, slope_b1, rsq, o2, light, rate.output) %>%
+  mutate(depth ="Middle")
+
+# Shall # 
+shall_file_list <- list.files(path = "data/respirometry/shallow/final_rates", pattern = "*.csv", full.names = T)
+
+# Compile data from all light intensities
+shall_df <- sapply(shall_file_list, read_delim, simplify=FALSE) %>% 
+  bind_rows(.id = "id") %>%
+  select(Sample_name, intercept_b0, slope_b1, rsq, o2, light, rate.output) %>%
+  mutate(depth ="Shallow")
+
+```
+
+# Make Master df
+```{r}
+df <- rbind(deep_df, midd_df, shall_df)
+
+df_clean <- df %>%
+  rename(geno = Sample_name) %>%
+  mutate(sample_name = paste0(geno, "_", light, "_", depth)) %>%
+  mutate(unique_id = paste0(sample_name, "_", o2)) %>%
+  mutate(rate.output.adjusted = rate.output/10000) %>%
+  select(sample_name, geno, light, depth, o2, intercept_b0, slope_b1, rate.output.adjusted, rsq, unique_id) 
+
+df_filter <- df_clean %>%
+  filter(rsq > 0.8) # filter out bad samples and blanks 
+
+bad_data <- as.data.frame(setdiff(df_clean$unique_id, df_filter$unique_id))
+
+master_df <- df_filter %>%
+  select(-unique_id) %>%
+  pivot_wider(id_cols = c(sample_name, light, depth),
+              names_from = o2,
+              values_from = c(intercept_b0, slope_b1, rsq, rate.output.adjusted),
+              names_sep = "_") %>%
+  rename(respiration_intercept_b0 = intercept_b0_Respiration,
+         respiration_slope_b1 = slope_b1_Respiration,
+         respiration_rsq = rsq_Respiration,
+         respiration = rate.output.adjusted_Respiration,
+         photosynthesis_intercept_b0 = intercept_b0_Photosynthesis,
+         photosynthesis_slope_b1 = slope_b1_Photosynthesis,
+         photosynthesis_rsq = rsq_Photosynthesis,
+         net_photosynthesis = rate.output.adjusted_Photosynthesis) %>%
+  mutate(gross_photosynthesis = net_photosynthesis + abs(respiration)) %>%
+  mutate(light_depth = paste0(light, "_", depth)) 
+```
+
+# Gross Photosynthesis 
+```{r average gross photosynthesis}
+# Create (0,0) point for gross photosynthesis 
+# unique depths
+depths <- unique(master_df$depth)
+
+# create zero-light rows
+zero_points <- data.frame(
+  light_depth = paste0("0_", depths),
+  mean_gross_photosynthesis = 0,
+  sd_gross_photosynthesis = 0,
+  n = 1,  # or 0 if you prefer
+  se_gross_photosynthesis = 0,
+  light = 0,
+  depth = depths
+)
+
+avg_gross_photosynthesis <- master_df %>%
+  group_by(light_depth) %>%
+  summarize(
+    mean_gross_photosynthesis = mean(gross_photosynthesis, na.rm = TRUE),
+    sd_gross_photosynthesis = sd(gross_photosynthesis, na.rm = TRUE),
+    n = n(),
+    se_gross_photosynthesis = sd_gross_photosynthesis / sqrt(n)
+  ) %>%
+  mutate(light = sub("_.*", "", light_depth)) %>%
+  mutate(depth = sub(".*_", "", light_depth))
+
+avg_gross_photo_df <- rbind(avg_gross_photosynthesis,
+                            zero_points)
+
+avg_gross_photosynthesis$light <- as.numeric(avg_gross_photosynthesis$light)
+avg_gross_photo_df$light <- as.numeric(avg_gross_photo_df$light)
+```
+
+```{r model fitting - Webb 1974 (Exponential Model)}
+
+# Set light
+I <- c(0, 50, 100, 200, 300, 400, 500, 600, 800)
+
+# ---------------------------------------------------------------------------- #
+
+# Deep 
+deep_df <- avg_gross_photo_df %>% 
+  filter(depth == "Deep") %>%
+  arrange(by = light)
+
+deep_P <- deep_df$mean_gross_photosynthesis
+
+deep_Pmax_start  <- max(deep_P)
+deep_alpha_start <- (deep_P[3] - deep_P[2]) / (I[3] - I[2]) 
+
+deep_fit <- nlsLM(
+  deep_P ~ Pmax * (1 - exp(-alpha * I / Pmax)),
+  start = list(Pmax = deep_Pmax_start, alpha = deep_alpha_start),
+  control = nls.lm.control(maxiter = 200))
+
+deep_coefs <- data.frame(
+  Pmax = coef(deep_fit)["Pmax"],
+  alpha = coef(deep_fit)["alpha"],
+  depth = "Deep",
+  row.names = NULL) %>%
+  mutate(Ek = Pmax/alpha) %>%
+  select(depth, Pmax, alpha, Ek)
+
+deep_I <- seq(min(I), max(I), length.out = 800)
+
+deep_pred_df <- tibble(
+  light = deep_I,
+  deep_P_pred = predict(deep_fit, newdata = tibble(I = deep_I)))
+
+# ---------------------------------------------------------------------------- #
+
+# Midd 
+midd_df <- avg_gross_photo_df %>% 
+  filter(depth == "Middle") %>%
+  arrange(by = light)
+
+midd_P <- midd_df$mean_gross_photosynthesis
+
+midd_Pmax_start  <- max(midd_P)
+midd_alpha_start <- (midd_P[3] - midd_P[2]) / (I[3] - I[2]) 
+
+midd_fit <- nlsLM(
+  midd_P ~ Pmax * (1 - exp(-alpha * I / Pmax)),
+  start = list(Pmax = midd_Pmax_start, alpha = midd_alpha_start),
+  control = nls.lm.control(maxiter = 200))
+
+midd_coefs <- data.frame(
+  Pmax = coef(midd_fit)["Pmax"],
+  alpha = coef(midd_fit)["alpha"],
+  depth = "Middle",
+  row.names = NULL) %>%
+  mutate(Ek = Pmax/alpha) %>%
+  select(depth, Pmax, alpha, Ek)
+
+midd_I <- seq(min(I), max(I), length.out = 800)
+
+midd_pred_df <- tibble(
+  light = midd_I,
+  midd_P_pred = predict(midd_fit, newdata = tibble(I = midd_I)))
+
+# ---------------------------------------------------------------------------- #
+
+# Shallow 
+shall_df <- avg_gross_photo_df %>% 
+  filter(depth == "Shallow") %>%
+  arrange(by = light)
+
+shall_P <- shall_df$mean_gross_photosynthesis
+
+shall_Pmax_start  <- max(shall_P)
+shall_alpha_start <- (shall_P[3] - shall_P[2]) / (I[3] - I[2]) 
+
+shall_fit <- nlsLM(
+  shall_P ~ Pmax * (1 - exp(-alpha * I / Pmax)),
+  start = list(Pmax = shall_Pmax_start, alpha = shall_alpha_start),
+  control = nls.lm.control(maxiter = 200))
+
+shall_coefs <- data.frame(
+  Pmax = coef(shall_fit)["Pmax"],
+  alpha = coef(shall_fit)["alpha"],
+  depth = "Shallow",
+  row.names = NULL) %>%
+  mutate(Ek = Pmax/alpha) %>%
+  select(depth, Pmax, alpha, Ek)
+
+shall_I <- seq(min(I), max(I), length.out = 800)
+
+shall_pred_df <- tibble(
+  light = shall_I,
+  shall_P_pred = predict(shall_fit, newdata = tibble(I = shall_I)))
+
+
+```
+
+```{r plot gross photosynthesis}
+ggplot(avg_gross_photosynthesis, aes(x = light, y = mean_gross_photosynthesis, color = depth)) +
+  geom_point(size = 3) + # plot the means as points
+# geom_errorbar(aes(ymin = (mean_gross_photosynthesis - se_gross_photosynthesis),
+#                   ymax = (mean_gross_photosynthesis + se_gross_photosynthesis))) +
+  
+  # Add in 0,0 point
+  geom_point(data = zero_points, 
+             aes(x = light, y = mean_gross_photosynthesis), size = 3, color = "black") +
+  
+  # Deep model and Ek
+  geom_line(data = deep_pred_df, aes(x = light, y = deep_P_pred), color = 'darkblue', linewidth = 1, alpha = 0.7) +
+  geom_vline(xintercept = deep_coefs$Ek, linetype = "dashed", linewidth = 0.75, color = 'darkblue', alpha = 0.7) +
+  
+  # Middle model and Ek
+  geom_line(data = midd_pred_df, aes(x = light, y = midd_P_pred), color = 'dodgerblue3', linewidth = 1, alpha = 0.7) +
+  geom_vline(xintercept = midd_coefs$Ek, linetype = "dashed", linewidth = 0.75, color = 'dodgerblue3', alpha = 0.7) +
+  
+    
+  # Shallow model and Ek
+  geom_line(data = shall_pred_df, aes(x = light, y = shall_P_pred), color = '#78bae3', linewidth = 1, alpha = 0.7) +
+  geom_vline(xintercept = shall_coefs$Ek, linetype = "dashed", linewidth = 0.75, color = '#78bae3', alpha = 0.7) +
+  
+  scale_color_manual(values=c('darkblue', 'dodgerblue3', '#78bae3')) +
+  labs(y = expression(µ*mol~O[2] / min / cm^2), x = "PAR (µmol)") +
+  scale_y_continuous(expand = c(0,0.005)) +
+  scale_x_continuous(expand = c(0.02,0)) +
+  theme_classic() +
+  theme(legend.title = element_blank(),
+        legend.position = c(0.93, 0.085))
+  #facet_wrap(~depth, ncol = 1)
+```
+
+# Net Photosynthesis
+```{r}
+no_light_meas <- master_df %>%
+  filter(light == 50) %>%
+  filter(!is.na(respiration)) %>%
+  select(sample_name, depth, respiration_intercept_b0, 
+         respiration_slope_b1, respiration_rsq, respiration, light, depth, light_depth)
+
+avg_no_light_meas <- no_light_meas %>% 
+  group_by(light_depth) %>%
+  summarize(
+    mean_gross_photosynthesis = mean(respiration, na.rm = TRUE),
+    sd_gross_photosynthesis = sd(respiration, na.rm = TRUE),
+    n = n(),
+    se_gross_photosynthesis = sd_gross_photosynthesis /sqrt(n)) %>%
+  mutate(light = 0) %>%
+  mutate(depth = sub(".*_", "", light_depth))
+```
