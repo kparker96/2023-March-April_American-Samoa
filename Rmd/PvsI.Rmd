@@ -14,11 +14,12 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r libraries}
 library(tidyverse)     # install.packages("tidyverse")
 library(readxl)
-library("writexl")
+library(writexl)
+library(minpack.lm)
 ```
 
 # Load RespR output files
-```{r}
+```{r deep mid and shall df}
 # Deep #
 deep_file_list <- list.files(path = "data/respirometry/deep/final_rates", pattern = "*.csv", full.names = T)
 
@@ -49,7 +50,7 @@ shall_df <- sapply(shall_file_list, read_delim, simplify=FALSE) %>%
 ```
 
 # Make Master df
-```{r}
+```{r master_df}
 df <- rbind(deep_df, midd_df, shall_df)
 
 df_clean <- df %>%
@@ -219,7 +220,9 @@ shall_pred_df <- tibble(
 ```
 
 ```{r plot gross photosynthesis}
-ggplot(avg_gross_photosynthesis, aes(x = light, y = mean_gross_photosynthesis, color = depth)) +
+pop_gross_PS <- 
+  ggplot(avg_gross_photosynthesis, aes(x = light, y = mean_gross_photosynthesis, 
+                                       color = depth)) +
   geom_point(size = 3) + # plot the means as points
 # geom_errorbar(aes(ymin = (mean_gross_photosynthesis - se_gross_photosynthesis),
 #                   ymax = (mean_gross_photosynthesis + se_gross_photosynthesis))) +
@@ -249,6 +252,21 @@ ggplot(avg_gross_photosynthesis, aes(x = light, y = mean_gross_photosynthesis, c
   theme(legend.title = element_blank(),
         legend.position = c(0.93, 0.085))
   #facet_wrap(~depth, ncol = 1)
+
+ggsave(
+  filename = "Plots/PvsI/pop_gross_PS.pdf",  # Name of the output file
+  plot = pop_gross_PS,                      # Specify the plot to save
+  width = 7,                            # Width in inches
+  height = 5                            # Height in inches
+)
+
+ggsave(
+  filename = "Plots/PvsI/pop_gross_PS.png",  # Name of the output file
+  plot = pop_gross_PS,                      # Specify the plot to save
+  width = 7,                            # Width in inches
+  height = 5                            # Height in inches
+)
+
 ```
 
 # Net Photosynthesis
