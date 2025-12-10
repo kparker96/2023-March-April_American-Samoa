@@ -1,0 +1,6 @@
+ITS2 type profile UID	Clade	Majority ITS2 sequence	Associated species	ITS2 profile abundance local	ITS2 profile abundance DB	ITS2 type profile	Sequence accession / SymPortal UID	Average defining sequence proportions and [stdev]
+1159159	C	C15	None	18	62	C15-C15vd-C15ev-C15ww	517-70044-4073-1932	0.761[0.017]-0.165[0.019]-0.042[0.012]-0.031[0.005]
+1160361	C	C3	None	2	142	C3	32	1.000[0.000]
+1158218	C	C3	None	1	2	C3-C115d-C1	32-2-358	0.830[nan]-0.085[nan]-0.085[nan]
+1158998	C	C15	None	1	1	C15-C15vd-C15ev	517-70044-4073	0.831[nan]-0.144[nan]-0.024[nan]
+1161119	D	D4	None	5	11	D4/D1ab-D1-D6-D1ns-D1nt	854-853-1674-933-68161-212300	0.303[0.022]-0.225[0.026]-0.187[0.046]-0.153[0.016]-0.084[0.026]-0.048[0.008]

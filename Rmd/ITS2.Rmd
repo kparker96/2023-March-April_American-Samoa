@@ -1,0 +1,87 @@
+---
+title: "ITS2"
+output: html_document
+date: "2025-12-04"
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Load Libraries
+```{r}
+library(ggplot2)
+library(writexl)
+```
+
+
+# Relative Abundance
+```{r read raw data and Fig S4}
+raw_lines <- readLines("data/ITS2/its2_type_profiles/553_20250131T130103_DBV_20250201T092521.profiles.relative.abund_and_meta.txt")
+
+# Find where the actual abundance data starts
+data_start <- grep("^216", raw_lines)[1]
+
+# Split the file
+metadata_lines <- raw_lines[1:(data_start - 1)]
+data_lines <- raw_lines[data_start:(length(raw_lines)-2)]
+extra_lines <- raw_lines[(length(raw_lines)-1):length(raw_lines)]
+
+
+# Read metadata table
+meta <- read.delim(text = paste(metadata_lines, collapse = "\n"), header = FALSE, sep = "\t", stringsAsFactors = FALSE)
+
+    # transpose table
+   meta_t <- as.data.frame(t(meta[ , -2]))
+    # set the first row as column names
+    colnames(meta_t) <- meta_t[1, ]
+    # remove first row
+    meta_t <- meta_t[-1, ]
+
+
+# Read abundance data
+relabund <- read.delim(text = paste(data_lines, collapse = "\n"), header = FALSE, sep = "\t", stringsAsFactors = FALSE)
+
+    # Add headers from last row of meta
+    headers <- as.character(meta[nrow(meta), 3:7])
+
+    # Create full header vector
+    full_headers <- c("sample_id", "sample_name", headers)
+
+    # Assign to relabund
+    colnames(relabund) <- full_headers
+
+    # Reshape dataframe to long format
+    relabund_long <- relabund %>% 
+      pivot_longer(cols = 3:ncol(relabund), 
+                   names_to = "ITS2_type_profile", 
+                   values_to = "relative_abundance") %>% 
+      mutate(Depth = case_when(grepl("Deep", sample_name) ~ "Deep",
+                               grepl("Shall", sample_name) ~ "Shallow",
+                               grepl("Midd", sample_name) ~ "Middle")) 
+    
+write_xlsx(relabund, "data/ITS2/ITS2_type_relabund.xlsx")
+    
+
+# Plot Relative Abundance 
+ggplot(relabund_long, aes(x = sample_name,y = relative_abundance,fill = ITS2_type_profile)) +
+  geom_bar(stat = "identity") +
+  facet_wrap(~Depth, scales = "free_x") +
+  scale_y_continuous(expand = c(0, 0)) +
+  coord_cartesian(ylim = c(0, 1)) +
+  scale_fill_manual(values = c( "lightblue1","#1F5C99","#123a61", "#0b2238", "#C5E384")) +
+  theme_bw() +
+  labs(y = "Relative Abundance", fill = "Type Profile") +
+  theme(axis.text.x = element_blank(),
+        axis.title.x = element_blank(),
+        axis.ticks = element_blank(),
+        legend.spacing.x = unit(0.2, "cm"),  
+        legend.spacing.y = unit(0.1, "cm"),  
+        legend.key.size = unit(0.8, "lines"), 
+        legend.text = element_text(margin = margin(r = 2, unit = "pt")),
+        legend.title = element_blank(),
+  legend.position = "bottom",
+  legend.direction = "vertical")
+```

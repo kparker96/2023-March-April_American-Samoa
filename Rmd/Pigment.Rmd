@@ -164,5 +164,22 @@ ggplot(pigment_plot_per_cm2, aes(x = Sample, y = ug_cm2_pigment, fill = Pigment)
   theme_bw() +
   theme(axis.text.x = element_blank())
 
+write.xlsx(pigment_plot_per_cm2, "data/frag_data/pigment_per_cm2.xlsx")
+
+ggplot(pigment_plot_per_cm2, aes(x = Depth, y = ug_cm2_pigment, fill = Pigment)) +
+  geom_boxplot()
+```
+
+# Stats
+```{r}
+pigment_stats <- pigment_calc %>%
+  select(Sample, Depth, Chl_a_per_cm2:total_pigment_cm2)
+
+anova_mod <- aov(Chl_a_per_cm2 ~ Depth, data = pigment_stats)
+
+summary(anova_mod)
+
+TukeyHSD(anova_mod)
+
 ```
 

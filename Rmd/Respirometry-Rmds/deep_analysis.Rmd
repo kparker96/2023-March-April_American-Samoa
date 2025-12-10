@@ -118,7 +118,5 @@ gross_fit <- nls(mean_gross_photosynthesis ~ Pmax * (1 - exp(-alpha * light / Pm
            lower = c(0, 0, 0))
 
 summary(gross_fit)
-  
-
 ```
 

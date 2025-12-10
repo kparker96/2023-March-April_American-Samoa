@@ -25,6 +25,7 @@ library(data.table)
 library(Rmisc) 
 library(flextable)
 library(openxlsx)
+library(broom)
 
 # Avoid conflict functions with tidyverse
 library(conflicted)
@@ -607,5 +608,26 @@ ggsave(
   width = 7,                       # Width in inches
   height = 5                        # Height in inches
 )
+```
+
+
+```{r}
+deep_df <- Deepdrc_ED_geno_df %>%
+  mutate(depth = "Deep")
+
+shall_df <- Shalldrc_ED_geno_df %>%
+  mutate(depth = "Shall")
+
+ED_df <- rbind(deep_df, shall_df) %>%
+  select(Geno, ED_level, Estimate, depth) %>%
+  mutate(depth_Geno = paste0(depth, "_0", Geno))
+
+ggplot(ED_df, aes(x = ED_level, y = Estimate, fill = depth)) +
+  geom_boxplot()
+
+ED_df_master <- ED_df %>%
+  pivot_wider(names_from = ED_level, values_from = Estimate)
+
+write.xlsx(ED_df_master, file = "data/PAM/ED_df_master.xlsx")
 ```
 

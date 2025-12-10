@@ -1,0 +1,17 @@
+---
+title: "Light_and_Temp"
+output: html_document
+date: "2025-12-05"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+
+```
+
+# Fagatele_SPOT-30365R_2022-12-15_2023-02-02.csv    <- Dec 15 2022 - Feb 1 2023
+# 2023-2024_Hobo_Fagatele_Shallow_10_Bouy_clean.txt <- Jan 24 2023 - Jan 17 2024 
+# 2023-2024_Hobo_Fagatele_Shallow_10_Bouy_clean.txt <- Jan 23 2023 - Jan 19 2024 
