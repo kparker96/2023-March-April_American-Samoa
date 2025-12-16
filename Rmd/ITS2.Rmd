@@ -12,8 +12,10 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Load Libraries
 ```{r}
+library(tidyverse)
 library(ggplot2)
 library(writexl)
+library(vegan)
 ```
 
 
@@ -63,10 +65,9 @@ relabund <- read.delim(text = paste(data_lines, collapse = "\n"), header = FALSE
                                grepl("Midd", sample_name) ~ "Middle")) 
     
 write_xlsx(relabund, "data/ITS2/ITS2_type_relabund.xlsx")
-    
 
 # Plot Relative Abundance 
-ggplot(relabund_long, aes(x = sample_name,y = relative_abundance,fill = ITS2_type_profile)) +
+rel_abund_ITS2 <- ggplot(relabund_long, aes(x = sample_name,y = relative_abundance,fill = ITS2_type_profile)) +
   geom_bar(stat = "identity") +
   facet_wrap(~Depth, scales = "free_x") +
   scale_y_continuous(expand = c(0, 0)) +
@@ -84,4 +85,60 @@ ggplot(relabund_long, aes(x = sample_name,y = relative_abundance,fill = ITS2_typ
         legend.title = element_blank(),
   legend.position = "bottom",
   legend.direction = "vertical")
+
+ggsave(
+  filename = "Plots/ITS2/rel_abund_ITS2.pdf",  # Name of the output file
+  plot = rel_abund_ITS2,                      # Specify the plot to save
+  width = 7,                            # Width in inches
+  height = 5                            # Height in inches
+)
+
+ggsave(
+  filename = "Plots/ITS2/rel_abund_ITS2.png",  # Name of the output file
+  plot = rel_abund_ITS2,                      # Specify the plot to save
+  width = 7,                            # Width in inches
+  height = 5                            # Height in inches
+)
 ```
+
+# Bray Curtis Dissimilarity
+```{r PERMANOVA ITS2 Type}
+# Do the overall ITS2 type compositions differ between sites (Inshore vs Offshore) based on their relative abundances?
+relabund <- relabund %>%
+  mutate(Depth = case_when(
+    grepl("Deep", sample_name) ~ "Deep",
+    grepl("Midd", sample_name) ~ "Middle",
+    grepl("Shall", sample_name) ~ "Shallow")) 
+ # gather(key = "ITS2_type", value = "rel_ab", -Site, -sample_id, -sample_name)
+
+its2_types <- relabund[, 3:(ncol(relabund)-1)]  # adjust column indices if needed
+
+set.seed(123)
+
+disp <- betadisper(vegdist(its2_types, method="bray"), relabund$Depth)
+
+anova(disp)
+
+ITS2_type_permanova <- adonis2(its2_types ~ Depth, data = relabund, method = "bray")
+
+ITS2_type_permanova
+```
+
+# Shallow vs Deep
+```{r}
+shallvsdeep <- relabund %>%
+  filter(Depth == "Deep" | Depth == "Shallow")
+
+its2_types <- shallvsdeep[, 3:(ncol(shallvsdeep)-1)]  # adjust column indices if needed
+
+set.seed(123)
+
+disp <- betadisper(vegdist(its2_types, method="bray"), shallvsdeep$Depth)
+
+anova(disp)
+
+ITS2_type_permanova <- adonis2(its2_types ~ Depth, data = shallvsdeep, method = "bray")
+
+ITS2_type_permanova
+```
+

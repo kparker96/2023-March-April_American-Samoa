@@ -215,8 +215,6 @@ shall_I <- seq(min(I), max(I), length.out = 800)
 shall_pred_df <- tibble(
   light = shall_I,
   shall_P_pred = predict(shall_fit, newdata = tibble(I = shall_I)))
-
-
 ```
 
 ```{r plot gross photosynthesis}
@@ -224,7 +222,7 @@ pop_gross_PS <-
   ggplot(avg_gross_photosynthesis, aes(x = light, y = mean_gross_photosynthesis, 
                                        color = depth)) +
   geom_point(size = 3) + # plot the means as points
-# geom_errorbar(aes(ymin = (mean_gross_photosynthesis - se_gross_photosynthesis),
+#  geom_errorbar(aes(ymin = (mean_gross_photosynthesis - se_gross_photosynthesis),
 #                   ymax = (mean_gross_photosynthesis + se_gross_photosynthesis))) +
   
   # Add in 0,0 point
@@ -245,7 +243,8 @@ pop_gross_PS <-
   geom_vline(xintercept = shall_coefs$Ek, linetype = "dashed", linewidth = 0.75, color = '#78bae3', alpha = 0.7) +
   
   scale_color_manual(values=c('darkblue', 'dodgerblue3', '#78bae3')) +
-  labs(y = expression(µ*mol~O[2] / min / cm^2), x = "PAR (µmol)") +
+  labs(y = expression(paste("mean ", µ*mol~O[2] / min / cm^2)),
+     x = "PAR (µmol)") +
   scale_y_continuous(expand = c(0,0.005)) +
   scale_x_continuous(expand = c(0.02,0)) +
   theme_classic() +
@@ -266,6 +265,13 @@ ggsave(
   width = 7,                            # Width in inches
   height = 5                            # Height in inches
 )
+
+# Coefficients
+shall_coefs
+midd_coefs
+deep_coefs
+
+rbind(shall_coefs, midd_coefs, deep_coefs)
 
 ```
 

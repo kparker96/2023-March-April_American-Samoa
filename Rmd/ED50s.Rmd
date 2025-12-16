@@ -495,7 +495,7 @@ ggsave(
 ```
 
 # ED05, ED50, & ED95 Plot
-```{r}
+```{r drc with all EDs}
 
 pop_fits_allEDs <- ggplot() +
   
@@ -610,8 +610,7 @@ ggsave(
 )
 ```
 
-
-```{r}
+```{r ED Boxplot}
 deep_df <- Deepdrc_ED_geno_df %>%
   mutate(depth = "Deep")
 
@@ -629,5 +628,10 @@ ED_df_master <- ED_df %>%
   pivot_wider(names_from = ED_level, values_from = Estimate)
 
 write.xlsx(ED_df_master, file = "data/PAM/ED_df_master.xlsx")
+```
+
+# Relative ED50
+```{r}
+
 ```
 

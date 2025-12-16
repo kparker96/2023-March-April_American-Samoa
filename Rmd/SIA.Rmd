@@ -10,6 +10,7 @@ library(tidyverse)
 library(readxl)
 library(car)
 library(FSA)
+library(writexl)
 ```
 
 # Load SIA Data
@@ -151,59 +152,58 @@ rep_comp %>%
   )
 ```
 
-# Filter Samples with sd > 1‰ for d13C or >0.5‰ for d15N
-```{r rep_comp_sd_filtered}
-# filter sd for d13C and d15N to remove "bad" data
-rep_comp_sd_filtered <- rep_comp_sd %>%
-  filter(sd_d13C < 1 & sd_d15N < 0.5) %>%
+
+# Plot Mean SIA data
+```{r}
+sia_df_means <- rep_comp %>%
   mutate(mean_d13C = (R1_d13C + R2_d13C)/2) %>%
   mutate(mean_d15N = (R1_d15N + R2_d15N)/2) %>%
   mutate(mean_CN_ratio = (R1_CN_ratio + R2_CN_ratio/2))
 
-sia_df_clean <- rep_comp_sd_filtered %>%
-  select(Sample_ID, Type, Depth, mean_d13C, mean_d15N, mean_CN_ratio)
 
-mean_dSI_filtered <- 
-  ggplot(sia_df_clean, aes(x = mean_d13C, y = mean_d15N, color = Depth, 
+ggplot(sia_df_means, aes(x = mean_d13C, y = mean_d15N, color = Depth, 
                          shape = Type)) +
   geom_point(aes(shape = Type), size = 3) +
   theme_bw() +
  
 # Ellipse for Host (solid)
-  stat_ellipse(data = subset(sia_df_clean, Type == "Host"), aes(group = Depth),
+  stat_ellipse(data = subset(sia_df_means, Type == "Host"), aes(group = Depth),
     type = "t", size = 1, linetype = "solid") +
   
 # Ellipse for Zoox (dashed)
-   stat_ellipse(data = subset(sia_df_clean, Type == "Zoox"), aes(group = Depth),
+   stat_ellipse(data = subset(sia_df_means, Type == "Zoox"), aes(group = Depth),
     type = "t", size = 1, linetype = "dashed") +
   
   scale_color_manual(values = c("#00004C", "#11569B", "#56A9DC"))+
   theme(legend.position = "bottom") +
-  facet_wrap(~Type)
+  facet_wrap(~Type, scales = "free")
 
 ggsave(
-  filename = "Plots/SIA/mean_dSI_filtered.pdf",  # Name of the output file
-  plot = mean_dSI_filtered,                      # Specify the plot to save
+  filename = "Plots/SIA/mean_dSI.pdf",  # Name of the output file
+  plot = mean_dSI,                      # Specify the plot to save
   width = 7,                            # Width in inches
   height = 5                            # Height in inches
 )
 
 ggsave(
-  filename = "Plots/SIA/mean_dSI_filtered.png",  # Name of the output file
-  plot = mean_dSI_filtered,                      # Specify the plot to save
+  filename = "Plots/SIA/mean_dSI.png",  # Name of the output file
+  plot = mean_dSI,                      # Specify the plot to save
   width = 7,                            # Width in inches
   height = 5                            # Height in inches
 )
 
-CN_ratio <- ggplot(sia_df_clean, aes(x = Depth, y = mean_CN_ratio, fill = Depth)) +
+ggplot(sia_df_means, aes(x = Depth, y = mean_CN_ratio, color = Depth)) +
   geom_boxplot() +
+  geom_point(size = 2) +
   facet_wrap(~Type) +
-  scale_fill_manual(values = c("#00004C", "#11569B", "#56A9DC")) +
+  scale_color_manual(values = c("#00004C", "#11569B", "#56A9DC")) +
   theme_bw() +
   ylab("C:N") +
   xlab("") +
   theme(legend.position = "none") +
   facet_wrap(~Type, scales = "free")
+
+# write_xlsx(sia_df_clean, "data/SIA/sia_means_df_clean.xlsx")
 
 ggsave(
   filename = "Plots/SIA/CN_ratio.pdf",  # Name of the output file
@@ -219,6 +219,104 @@ ggsave(
   height = 5                            # Height in inches
 )
 ```
+
+# CN Stats on all means
+```{r}
+# Host C:N 
+sia_df_host <- sia_df_means %>%
+  filter(Type == "Host")
+
+# Homogeneity of Variances 
+leveneTest(mean_CN_ratio ~ Depth, data = sia_df_host) # no sig diff: p = 0.51
+
+aov_host <- aov(mean_CN_ratio ~ Depth, data = sia_df_host) # sig diff: p = 0.003
+summary(aov_host)
+
+TukeyHSD(aov_host)
+
+#_______________________________________________________________________________#
+
+# Zoox C:N
+sia_df_zoox <- sia_df_means %>%
+  filter(Type == "Zoox")
+
+# Homogeneity of Variances 
+leveneTest(mean_CN_ratio ~ Depth, data = sia_df_zoox) # sig diff p = 0.04
+
+# Kruskal Test
+kruskal.test(mean_CN_ratio ~ Depth, data = sia_df_zoox) # no sig diff p = 0.5
+
+# Welch Anova
+oneway.test(mean_CN_ratio ~ Depth, data = sia_df_zoox, var.equal = FALSE)
+
+
+```
+
+# Holobiont means 
+```{r}
+holo_means <- rep_comp %>%
+  pivot_wider(
+    id_cols = c(Sample_ID, Depth),
+    names_from = Type,
+    values_from = c(
+      R1_d15N, R1_d13C, R1_CN_ratio,
+      R2_d15N, R2_d13C, R2_CN_ratio),
+    names_glue = "{.value}_{Type}") %>%
+  mutate(mean_d13C = (R1_d13C_Host + R2_d13C_Host + R1_d13C_Zoox + R2_d13C_Zoox)/4) %>%
+  mutate(mean_d15N = (R1_d15N_Host + R2_d15N_Host + R1_d15N_Zoox + R2_d15N_Zoox)/4) %>%
+  mutate(mean_CN = (R1_CN_ratio_Host + R2_CN_ratio_Host + R1_CN_ratio_Zoox + R1_CN_ratio_Zoox)/4) %>%
+  select(Sample_ID, Depth, mean_d13C, mean_d15N, mean_CN)
+
+
+ggplot(holo_means, aes(x = mean_d13C, y = mean_d15N, color = Depth, shape = Depth)) +
+  geom_point(aes(shape = Depth), size = 3) +
+  theme_bw() +
+ 
+# Ellipse for Host (solid)
+  stat_ellipse(data = holo_means, aes(group = Depth),
+    type = "t", size = 1, linetype = "solid") +
+  
+  scale_color_manual(values = c("#00004C", "#11569B", "#56A9DC"))+
+  theme(legend.position = "bottom") +
+  ggtitle("Holobiont SIA")
+
+```
+
+
+
+
+
+
+
+
+
+# Filter Samples with sd > 1‰ for d13C or >0.5‰ for d15N
+```{r rep_comp_sd_filtered}
+#bad_samples <- rep_comp %>%
+# mutate(
+#    diff_d13C = abs(R1_d13C - R2_d13C),
+#    diff_d15N = abs(R1_d15N - R2_d15N)) %>%
+#  filter(diff_d13C > 0.5 | diff_d15N > 0.5) %>%
+#  select(Sample_ID, Type, Depth, diff_d13C, diff_d15N)
+
+#bad_samples %>%
+#  group_by(Depth, Type) %>%
+#  summarise(n_lost = n())
+
+# filter sd for d13C and d15N to remove "bad" data
+#rep_comp_sd_filtered <- rep_comp_sd %>%
+#  filter(sd_d13C < 1 & sd_d15N < 0.5) %>%
+#  mutate(mean_d13C = (R1_d13C + R2_d13C)/2) %>%
+#  mutate(mean_d15N = (R1_d15N + R2_d15N)/2) %>%
+#  mutate(mean_CN_ratio = (R1_CN_ratio + R2_CN_ratio/2))
+
+#sia_df_clean <- rep_comp_sd_filtered %>%
+#  select(Sample_ID, Type, Depth, mean_d13C, mean_d15N, mean_CN_ratio)
+```
+
+
+
+
 
 # C:N Stats Comparison on filtered data
 ```{r}
@@ -248,33 +346,3 @@ zoox_anova <- aov(mean_CN_ratio ~ Depth, data = sia_df_clean_zoox)
 
 summary(zoox_anova) # not sig effect of depth on C:N
 ```
-
-
-```{r}
-sia_df_test <- sia_df %>%
-  filter(Replicate == "R1",
-         Type == "Zoox" | Type == "Host") %>%
-  filter(!Tray_ID %in% c("D5", "D6", "D7", "D8", "F2")) # Remove large outliers
-
-sia_df_test_host <- sia_df_test %>%
-  filter(Type == "Host")
-
-ggplot(sia_df_test, aes(x = d13C, y = d15N, color = Depth)) +
-  geom_point(aes(shape = Type), size = 3) +
-  theme_bw() +
-  stat_ellipse(type = "t", size = 1, linewidth = 1) +
-  scale_color_manual(values = c("#00004C", "#11569B", "#56A9DC"))+
-  xlim(-25,-10) +
-  ylim(3.5,7) +
-  theme(legend.position = "bottom") +
-  facet_wrap(~Type)
-
-ggplot(sia_df_test, aes(x = `%C`, y = `%N`, color = Depth)) +
-  geom_point(aes(shape = Type)) +
-  stat_ellipse(type = "t", size = 1, linewidth = 1) +
-  facet_wrap(~Type, scales = "free") +
-  theme_bw() +
-  theme(legend.position = "bottom")
-
-```
-

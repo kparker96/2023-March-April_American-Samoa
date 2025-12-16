@@ -13,6 +13,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r}
 library(tidyverse)
 library(readxl)
+library(ggplot2)
 ```
 
 # Load data
@@ -24,6 +25,8 @@ sample_data <- read_xlsx("data/frag_data/2023-AS_NMS_Mgris_collections.xlsx")
 ITS2 <- read_xlsx("data/ITS2/ITS2_type_relabund.xlsx")
 
 pigment <- read_xlsx("data/frag_data/pigment_per_cm2.xlsx")
+
+SIA <- read_xlsx("data/SIA/sia_means_df_clean.xlsx")
 ```
 
 # Make master dataframe 
@@ -46,12 +49,17 @@ ITS2_abun <- ITS2 %>%
 pigment_df <- pigment %>%
   pivot_wider(names_from = Pigment, values_from = ug_cm2_pigment) %>%
   select(depth_Geno = Sample, Chl_a_per_cm2:Perid_per_cm2)
-  
+
+SIA_df <- SIA %>%
+  mutate(depth_Geno = substring(Sample_ID, first = 13)) %>%
+  select(-Sample_ID, -Depth)
 
 master_df <- EDs %>%
   left_join(metadata, by = "depth_Geno") %>%
   left_join(ITS2_abun, by = "depth_Geno") %>%
-  left_join(pigment_df, by = "depth_Geno")
+  left_join(pigment_df, by = "depth_Geno") %>%
+  left_join(SIA_df, by = "depth_Geno")
+  
 ```
 
 # Cross comparing things
@@ -73,6 +81,19 @@ ggplot(dom_syms, aes(x = Abundance, y = ED50, color = SymType)) +
 ggplot(master_df, aes(x = Chl_c_per_cm2, y = ED50, color = depth)) +
   geom_point() +
   ggtitle("Chlorophyll C vs ED50")
+
+# SIA 
+ggplot(master_df, aes(x = mean_CN_ratio, y = ED50, color = depth)) +
+  geom_point() +
+    ggtitle("C:N vs ED50")
+
+ggplot(master_df, aes(x = mean_d13C, y = ED50, color = depth)) +
+  geom_point() +
+    ggtitle("C:N vs ED50")
+
+ggplot(master_df, aes(x = mean_d15N, y = ED50, color = depth)) +
+  geom_point() +
+    ggtitle("C:N vs ED50")
 
 # Colony Depth
 ggplot(master_df, aes(x = colony_depth, y = C15_C15vd_C15ev_C15ww)) +

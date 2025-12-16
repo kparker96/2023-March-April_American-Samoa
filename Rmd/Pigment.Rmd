@@ -105,7 +105,9 @@ ggplot(all_df, aes(x = umol, y = Absorbance, color = Depth,
                    group = Depth_Geno)) +
   geom_line() +
   scale_color_manual(values = c('darkblue', 'dodgerblue3', '#78bae3')) +
-  theme_bw()
+  theme_bw() +
+  facet_wrap(~Depth) +
+  theme(legend.position = "none")
 ```
 
 # Extract Pigment Values
@@ -175,11 +177,24 @@ ggplot(pigment_plot_per_cm2, aes(x = Depth, y = ug_cm2_pigment, fill = Pigment))
 pigment_stats <- pigment_calc %>%
   select(Sample, Depth, Chl_a_per_cm2:total_pigment_cm2)
 
-anova_mod <- aov(Chl_a_per_cm2 ~ Depth, data = pigment_stats)
+# Chl_a
+anova_Chl_a <- aov(Chl_a_per_cm2 ~ Depth, data = pigment_stats)
 
-summary(anova_mod)
+summary(anova_Chl_a)
+TukeyHSD(anova_Chl_a)
 
-TukeyHSD(anova_mod)
+# Chl_c
+anova_Chl_c <- aov(Chl_c_per_cm2 ~ Depth, data = pigment_stats)
+
+summary(anova_Chl_c)
+TukeyHSD(anova_Chl_c)
+
+# Perid
+anova_Perid <- aov(Perid_per_cm2 ~ Depth, data = pigment_stats)
+
+summary(anova_Perid)
+TukeyHSD(anova_Perid)
+
 
 ```
 
