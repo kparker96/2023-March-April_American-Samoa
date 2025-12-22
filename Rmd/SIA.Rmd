@@ -283,13 +283,6 @@ ggplot(holo_means, aes(x = mean_d13C, y = mean_d15N, color = Depth, shape = Dept
 ```
 
 
-
-
-
-
-
-
-
 # Filter Samples with sd > 1‰ for d13C or >0.5‰ for d15N
 ```{r rep_comp_sd_filtered}
 #bad_samples <- rep_comp %>%
