@@ -1,0 +1,279 @@
+---
+title: "PvsE-ColonyFits"
+output: html_document
+date: "2026-01-02"
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Load libraries 
+```{r libraries}
+library(tidyverse)     # install.packages("tidyverse")
+library(readxl)
+library(writexl)
+library(minpack.lm)
+library(purrr)
+library(broom)
+library(car)
+```
+
+# Load RespR output files
+```{r deep mid and shall df}
+# Deep #
+deep_file_list <- list.files(path = "data/respirometry/deep/final_rates", pattern = "*.csv", full.names = T)
+
+# Compile data from all light intensities
+deep_df <- sapply(deep_file_list, read_delim, simplify=FALSE) %>% 
+  bind_rows(.id = "id") %>%
+  select(Sample_name, intercept_b0, slope_b1, rsq, o2, light, rate.output) %>%
+  mutate(depth = "Deep") %>% 
+  filter(Sample_name != "Gen08") # remove blank chamber 
+
+# Midd # 
+midd_file_list <- list.files(path = "data/respirometry/middle/final_rates", pattern = "*.csv", full.names = T)
+
+# Compile data from all light intensities
+midd_df <- sapply(midd_file_list, read_delim, simplify=FALSE) %>% 
+  bind_rows(.id = "id") %>%
+  select(Sample_name, intercept_b0, slope_b1, rsq, o2, light, rate.output) %>%
+  mutate(depth ="Middle") %>% 
+  filter(Sample_name != "Gen07") # remove blank chamber 
+
+# Shall # 
+shall_file_list <- list.files(path = "data/respirometry/shallow/final_rates", pattern = "*.csv", full.names = T)
+
+# Compile data from all light intensities
+shall_df <- sapply(shall_file_list, read_delim, simplify=FALSE) %>% 
+  bind_rows(.id = "id") %>%
+  select(Sample_name, intercept_b0, slope_b1, rsq, o2, light, rate.output) %>%
+  mutate(depth ="Shallow") %>% 
+  filter(Sample_name != "Gen07") # remove blank chamber 
+
+```
+
+# Make Master df
+```{r master_df}
+df <- rbind(deep_df, midd_df, shall_df)
+
+df_clean <- df %>%
+  rename(geno = Sample_name) %>%
+  mutate(sample_name = paste0(geno, "_", light, "_", depth)) %>%
+  mutate(unique_id = paste0(sample_name, "_", o2)) %>%
+  mutate(rate.output.adjusted = rate.output/10000) %>%
+  select(sample_name, geno, light, depth, o2, intercept_b0, slope_b1, rate.output.adjusted, rsq, unique_id) 
+
+#df_filter <- df_clean %>%
+#  filter(rsq > 0.8) # filter out bad samples and blanks 
+
+#bad_data <- as.data.frame(setdiff(df_clean$unique_id, df_filter$unique_id))
+
+master_df <- df_clean %>%
+  select(-unique_id) %>%
+  pivot_wider(id_cols = c(sample_name, light, depth),
+              names_from = o2,
+              values_from = c(intercept_b0, slope_b1, rsq, rate.output.adjusted),
+              names_sep = "_") %>%
+  rename(respiration_intercept_b0 = intercept_b0_Respiration,
+         respiration_slope_b1 = slope_b1_Respiration,
+         respiration_rsq = rsq_Respiration,
+         respiration = rate.output.adjusted_Respiration,
+         photosynthesis_intercept_b0 = intercept_b0_Photosynthesis,
+         photosynthesis_slope_b1 = slope_b1_Photosynthesis,
+         photosynthesis_rsq = rsq_Photosynthesis,
+         net_photosynthesis = rate.output.adjusted_Photosynthesis) %>%
+  mutate(gross_photosynthesis = net_photosynthesis + abs(respiration)) %>%
+  mutate(light_depth = paste0(light, "_", depth)) %>%
+  mutate(geno_depth = paste0(str_sub(sample_name, start = 1, end = 5), 
+                             "_", depth)) %>%
+  mutate(geno = str_sub(sample_name, end = 5)) %>%
+
+  # removing non-biological outliers 
+  filter(gross_photosynthesis < 0.6) %>%
+  filter(net_photosynthesis < 0.6) %>%
+  filter(sample_name != "Gen01_300_Deep")
+```
+
+# loop samples throug exponential equation
+```{r}
+results_df <- master_df %>%
+  select(sample_name, light, geno_depth, gross_photosynthesis) %>%
+  filter(!is.na(gross_photosynthesis)) %>%
+  group_by(geno_depth) %>%
+  arrange(light, .by_group = TRUE) %>%
+  group_modify(~{
+    df <- .x
+    I <- df$light
+    P <- df$gross_photosynthesis
+
+    # Compute P_diff_300_200 safely
+    idx_200 <- which(I == 200)
+    idx_300 <- which(I == 300)
+    P_diff <- if(length(idx_200) == 1 & length(idx_300) == 1){
+      P[idx_300] - P[idx_200]
+    } else {
+      NA_real_
+    }
+
+    # Only attempt fit if at least 2 points
+    if(length(P) >= 2){
+      # Use two lowest light points for starting slope
+      low_idx <- order(I)[1:2]
+      alpha_start <- (P[low_idx[2]] - P[low_idx[1]]) / (I[low_idx[2]] - I[low_idx[1]])
+      alpha_start <- max(alpha_start, 1e-6)  # prevent zero
+
+      Pmax_start <- max(P, na.rm = TRUE)
+
+      # Fit curve with lower bounds
+      fit <- tryCatch({
+        nlsLM(P ~ Pmax * (1 - exp(-alpha * I / Pmax)),
+              data = df,
+              start = list(Pmax = Pmax_start, alpha = alpha_start),
+              lower = c(0, 0),
+              upper = c(Inf, Inf),
+              control = nls.lm.control(maxiter = 200))
+      }, error = function(e) return(NULL))
+
+      if(!is.null(fit)){
+        coefs <- coef(fit)
+        tibble(
+          Pmax = coefs["Pmax"],
+          alpha = coefs["alpha"],
+          Ek = coefs["Pmax"]/coefs["alpha"],
+          P_diff_300_200 = P_diff
+        )
+      } else {
+        tibble(Pmax = NA, alpha = NA, Ek = NA, P_diff_300_200 = P_diff)
+      }
+
+    } else {
+      tibble(Pmax = NA, alpha = NA, Ek = NA, P_diff_300_200 = P_diff)
+    }
+
+  }) %>%
+  ungroup()
+
+results_df <- results_df %>%
+  mutate(depth = str_sub(geno_depth, start = 7), 
+         geno = str_sub(geno_depth, end = 5))
+  
+
+# Create a sequence of light values for prediction
+light_seq <- seq(0, 800, length.out = 200)  # adjust max as needed
+
+# Generate predictions for each geno_depth
+pred_df <- results_df %>%
+  filter(!is.na(Pmax)) %>%  # only for groups with a fit
+  select(geno_depth, Pmax, alpha) %>%
+  group_by(geno_depth) %>%
+  group_modify(~{
+    df <- .x
+    tibble(
+      light = light_seq,
+      P_pred = df$Pmax * (1 - exp(-df$alpha * light_seq / df$Pmax))
+    )
+  }) %>%
+  ungroup() %>%
+  mutate(geno = str_sub(geno_depth,start = 1, end = 5),
+         depth = str_sub(geno_depth,start = 7)) 
+```
+
+```{r}
+# Deep 
+ggplot() +
+  geom_line(data = pred_df %>% filter(depth == "Deep"), 
+            aes(x = light, y = P_pred, color = geno_depth), size = 1) +
+  geom_point(data = master_df %>% filter(depth == "Deep"), 
+             aes(x = light, y = gross_photosynthesis, color = geno_depth)) +
+  geom_vline(data = results_df %>% filter(depth == "Deep"),
+             aes(xintercept = Ek, color = geno_depth)) +
+  theme_minimal() +
+  theme(legend.position = "none") +
+  facet_wrap(~geno) +
+  ggtitle("Deep Gross Photosynthesis")
+
+# Middle 
+ggplot() +
+  geom_line(data = pred_df %>% filter(depth == "Middle"), 
+            aes(x = light, y = P_pred, color = geno_depth), size = 1) +
+  geom_point(data = master_df %>% filter(depth == "Middle"), 
+             aes(x = light, y = gross_photosynthesis, color = geno_depth)) +
+  geom_vline(data = results_df %>% filter(depth == "Middle"),
+             aes(xintercept = Ek, color = geno_depth)) +
+  theme_minimal() +
+  theme(legend.position = "none") +
+  facet_wrap(~geno) +
+  ggtitle("Middle Gross Photosynthesis")
+
+# Shallow 
+ggplot() +
+  geom_line(data = pred_df %>% filter(depth == "Shallow"), 
+            aes(x = light, y = P_pred, color = geno_depth), size = 1) +
+  geom_point(data = master_df %>% filter(depth == "Shallow"), 
+             aes(x = light, y = gross_photosynthesis, color = geno_depth)) +
+  geom_vline(data = results_df %>% filter(depth == "Shallow"),
+             aes(xintercept = Ek, color = geno_depth)) +
+  theme_minimal() +
+  theme(legend.position = "none") +
+  facet_wrap(~geno) +
+  ggtitle("Shallow Gross Photoshynthesis")
+```
+
+```{r}
+
+# Pmax
+leveneTest(Pmax ~ depth, data = results_df)
+
+# alpha
+leveneTest(alpha ~ depth, data = results_df)
+
+# Ek
+leveneTest(Ek ~ depth, data = results_df)
+
+ggplot(results_df, aes(x = depth, y = Pmax)) + geom_boxplot()
+ggplot(results_df, aes(x = depth, y = alpha)) + geom_boxplot()
+ggplot(results_df, aes(x = depth, y = Ek)) + geom_boxplot()
+
+# Pmax
+anova_Pmax <- aov(Pmax ~ depth, data = results_df)
+summary(anova_Pmax)
+
+# alpha
+anova_alpha <- aov(alpha ~ depth, data = results_df)
+summary(anova_alpha)
+
+# Ek
+anova_Ek <- aov(Ek ~ depth, data = results_df)
+summary(anova_Ek)
+
+TukeyHSD(anova_Pmax)
+TukeyHSD(anova_alpha)
+TukeyHSD(anova_Ek)
+```
+
+```{r}
+avg_gross_photosynthesis <- master_df %>%
+  group_by(light_depth) %>%
+  summarize(
+    mean_gross_photosynthesis = mean(gross_photosynthesis, na.rm = TRUE),
+    sd_gross_photosynthesis = sd(gross_photosynthesis, na.rm = TRUE),
+    n = n(),
+    se_gross_photosynthesis = sd_gross_photosynthesis / sqrt(n)
+  ) %>%
+  mutate(light = sub("_.*", "", light_depth)) %>%
+  mutate(depth = sub(".*_", "", light_depth))
+
+avg_gross_photosynthesis$light <- as.numeric(avg_gross_photosynthesis$light)
+
+ggplot(avg_gross_photosynthesis, aes(x = light, 
+                                     y = mean_gross_photosynthesis)) +
+         geom_point()
+```
+
+```{r}
+
+```
+

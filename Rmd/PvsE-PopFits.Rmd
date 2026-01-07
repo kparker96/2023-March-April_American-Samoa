@@ -27,7 +27,9 @@ deep_file_list <- list.files(path = "data/respirometry/deep/final_rates", patter
 deep_df <- sapply(deep_file_list, read_delim, simplify=FALSE) %>% 
   bind_rows(.id = "id") %>%
   select(Sample_name, intercept_b0, slope_b1, rsq, o2, light, rate.output) %>%
-  mutate(depth = "Deep")
+  mutate(depth = "Deep") %>% 
+  filter(Sample_name != "Gen08") # remove blank chamber 
+
 
 # Midd # 
 midd_file_list <- list.files(path = "data/respirometry/middle/final_rates", pattern = "*.csv", full.names = T)
@@ -36,7 +38,8 @@ midd_file_list <- list.files(path = "data/respirometry/middle/final_rates", patt
 midd_df <- sapply(midd_file_list, read_delim, simplify=FALSE) %>% 
   bind_rows(.id = "id") %>%
   select(Sample_name, intercept_b0, slope_b1, rsq, o2, light, rate.output) %>%
-  mutate(depth ="Middle")
+  mutate(depth ="Middle") %>% 
+  filter(Sample_name != "Gen07") # remove blank chamber 
 
 # Shall # 
 shall_file_list <- list.files(path = "data/respirometry/shallow/final_rates", pattern = "*.csv", full.names = T)
@@ -45,7 +48,8 @@ shall_file_list <- list.files(path = "data/respirometry/shallow/final_rates", pa
 shall_df <- sapply(shall_file_list, read_delim, simplify=FALSE) %>% 
   bind_rows(.id = "id") %>%
   select(Sample_name, intercept_b0, slope_b1, rsq, o2, light, rate.output) %>%
-  mutate(depth ="Shallow")
+  mutate(depth ="Shallow") %>% 
+  filter(Sample_name != "Gen07") # remove blank chamber 
 
 ```
 
@@ -60,12 +64,12 @@ df_clean <- df %>%
   mutate(rate.output.adjusted = rate.output/10000) %>%
   select(sample_name, geno, light, depth, o2, intercept_b0, slope_b1, rate.output.adjusted, rsq, unique_id) 
 
-df_filter <- df_clean %>%
-  filter(rsq > 0.8) # filter out bad samples and blanks 
+# df_filter <- df_clean %>%
+# filter(rsq > 0.8) # filter out bad samples and blanks 
 
-bad_data <- as.data.frame(setdiff(df_clean$unique_id, df_filter$unique_id))
+# bad_data <- as.data.frame(setdiff(df_clean$unique_id, df_filter$unique_id))
 
-master_df <- df_filter %>%
+master_df <- df_clean %>%
   select(-unique_id) %>%
   pivot_wider(id_cols = c(sample_name, light, depth),
               names_from = o2,
@@ -80,7 +84,11 @@ master_df <- df_filter %>%
          photosynthesis_rsq = rsq_Photosynthesis,
          net_photosynthesis = rate.output.adjusted_Photosynthesis) %>%
   mutate(gross_photosynthesis = net_photosynthesis + abs(respiration)) %>%
-  mutate(light_depth = paste0(light, "_", depth)) 
+  mutate(light_depth = paste0(light, "_", depth)) %>%
+  # removing non-biological outliers 
+  filter(gross_photosynthesis < 0.6) %>%
+  filter(net_photosynthesis < 0.6) %>%
+  filter(sample_name != "Gen01_300_Deep")
 ```
 
 # Gross Photosynthesis 
@@ -152,7 +160,8 @@ deep_I <- seq(min(I), max(I), length.out = 800)
 
 deep_pred_df <- tibble(
   light = deep_I,
-  deep_P_pred = predict(deep_fit, newdata = tibble(I = deep_I)))
+  deep_P_pred = predict(deep_fit, newdata = tibble(I = deep_I))) %>%
+  mutate(depth = "Deep")
 
 # ---------------------------------------------------------------------------- #
 
@@ -183,7 +192,8 @@ midd_I <- seq(min(I), max(I), length.out = 800)
 
 midd_pred_df <- tibble(
   light = midd_I,
-  midd_P_pred = predict(midd_fit, newdata = tibble(I = midd_I)))
+  midd_P_pred = predict(midd_fit, newdata = tibble(I = midd_I))) %>%
+  mutate(depth = "Middle")
 
 # ---------------------------------------------------------------------------- #
 
@@ -214,16 +224,16 @@ shall_I <- seq(min(I), max(I), length.out = 800)
 
 shall_pred_df <- tibble(
   light = shall_I,
-  shall_P_pred = predict(shall_fit, newdata = tibble(I = shall_I)))
+  shall_P_pred = predict(shall_fit, newdata = tibble(I = shall_I))) %>%
+  mutate(depth = "Shallow")
 ```
 
 ```{r plot gross photosynthesis}
-pop_gross_PS <- 
   ggplot(avg_gross_photosynthesis, aes(x = light, y = mean_gross_photosynthesis, 
                                        color = depth)) +
   geom_point(size = 3) + # plot the means as points
-#  geom_errorbar(aes(ymin = (mean_gross_photosynthesis - se_gross_photosynthesis),
-#                   ymax = (mean_gross_photosynthesis + se_gross_photosynthesis))) +
+ geom_errorbar(aes(ymin = (mean_gross_photosynthesis -se_gross_photosynthesis),
+                  ymax = (mean_gross_photosynthesis + se_gross_photosynthesis))) +
   
   # Add in 0,0 point
   geom_point(data = zero_points, 
@@ -231,16 +241,15 @@ pop_gross_PS <-
   
   # Deep model and Ek
   geom_line(data = deep_pred_df, aes(x = light, y = deep_P_pred), color = 'darkblue', linewidth = 1, alpha = 0.7) +
-  geom_vline(xintercept = deep_coefs$Ek, linetype = "dashed", linewidth = 0.75, color = 'darkblue', alpha = 0.7) +
+#  geom_vline(data = deep_coefs, aes(xintercept = Ek), linetype = "dashed", color = "darkblue", linewidth = 0.75, alpha = 0.7) +
   
   # Middle model and Ek
   geom_line(data = midd_pred_df, aes(x = light, y = midd_P_pred), color = 'dodgerblue3', linewidth = 1, alpha = 0.7) +
-  geom_vline(xintercept = midd_coefs$Ek, linetype = "dashed", linewidth = 0.75, color = 'dodgerblue3', alpha = 0.7) +
+#  geom_vline(data = midd_coefs, aes(xintercept = Ek), linetype = "dashed", color = "dodgerblue3", linewidth = 0.75, alpha = 0.7) +
   
-    
   # Shallow model and Ek
   geom_line(data = shall_pred_df, aes(x = light, y = shall_P_pred), color = '#78bae3', linewidth = 1, alpha = 0.7) +
-  geom_vline(xintercept = shall_coefs$Ek, linetype = "dashed", linewidth = 0.75, color = '#78bae3', alpha = 0.7) +
+ # geom_vline(data = shall_coefs, aes(xintercept = Ek), linetype = "dashed", color = "#78bae3", linewidth = 0.75,alpha = 0.7) +
   
   scale_color_manual(values=c('darkblue', 'dodgerblue3', '#78bae3')) +
   labs(y = expression(paste("mean ", µ*mol~O[2] / min / cm^2)),
@@ -250,7 +259,6 @@ pop_gross_PS <-
   theme_classic() +
   theme(legend.title = element_blank(),
         legend.position = c(0.93, 0.085))
-  #facet_wrap(~depth, ncol = 1)
 
 ggsave(
   filename = "Plots/PvsI/pop_gross_PS.pdf",  # Name of the output file
