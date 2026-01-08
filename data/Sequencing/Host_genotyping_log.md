@@ -632,22 +632,188 @@ index genome
       Line rate: 6 (line is 64 bytes)
       Lines per side: 1 (side is 64 bytes)
       Offset rate: 4 (one in 16)
-      FTable chars: 10
-      Strings: unpacked
-      Max bucket size: default
-      Max bucket size, sqrt multiplier: default
-      Max bucket size, len divisor: 4
-      Difference-cover sample period: 1024
-      Endianness: little
-      Actual local endianness: little
-      Sanity checking: disabled
-      Assertions: disabled
-      Random seed: 0
-      Sizeofs: void*:8, int:4, long:8, size_t:8
-    Input files DNA, FASTA:
-      full_genome_scaffolds_Mgri_0.1.fasta
-    Building a SMALL index
-    Reading reference sizes
+      ...
+      
+    [kpark049@turing1 mgris_genome]$ ls
+    full_genome_scaffolds_Mgri_0.1.1.bt2  full_genome_scaffolds_Mgri_0.1.fasta
+    full_genome_scaffolds_Mgri_0.1.2.bt2  full_genome_scaffolds_Mgri_0.1.rev.1.bt2
+    full_genome_scaffolds_Mgri_0.1.3.bt2  full_genome_scaffolds_Mgri_0.1.rev.2.bt2
+    full_genome_scaffolds_Mgri_0.1.4.bt2
+
+Now ready to run Bowtie2 
+
+## 2026-01-07: Running BowTie2
+Making a scripts folder to try and keep things organized 
+
+    [kpark049@turing1 2023-Mgri-NMSAS]$ mkdir scripts
+    
+    [kpark049@turing1 2023-Mgri-NMSAS]$ ls
+    bam  fastqs  mgris_genome  scripts
+    
+    [kpark049@turing1 2023-Mgri-NMSAS]$ cd scripts/
+
+2026-01-07_bowtie2_mapping.slurm
+
+    [kpark049@turing1 scripts]$ nano 2026-01-07_bowtie2_mapping.slurm
+    
+    #!/bin/bash -l
+
+    #SBATCH --job-name=hologenome_mapping_2026-01-06
+    #SBATCH --output=%A_%a_%x.out
+    #SBATCH --error=%A_%a_%x.err
+    #SBATCH --mail-type=ALL
+    #SBATCH --mail-user=kpark049@odu.edu
+    #SBATCH --partition=main
+    #SBATCH --array=1-33      # One array task per sample
+    #SBATCH --ntasks=1
+    #SBATCH --mem=30G
+    #SBATCH --time=7-00:00:00
+
+    ## Load modules
+    module load container_env
+    module load bowtie2
+
+    ## Define directories and files
+    BASEDIR=/cm/shared/courses/dbarshis/barshislab/KatieP/taxons/Montipora_grisea/2023-Mgri-NMSAS
+    FASTQDIR=$BASEDIR/fastqs/trimmed_fastqs           # path to trimmed fastq.gz files
+    OUTDIR=$BASEDIR/bam                                # output directory for BAM files
+    SAMPLELIST=$BASEDIR/fastqs/sample_data/sample_list.txt    # list of sample prefixes
+
+    ## Keep a record of the SLURM job
+    echo "SLURM_JOB_ID: $SLURM_JOB_ID"
+
+    ## Select the sample for this array task
+    SAMPLEFILE=$(head -n $SLURM_ARRAY_TASK_ID $SAMPLELIST | tail -n 1)
+    echo "Processing sample: $SAMPLEFILE"
+
+    ## Define output BAM prefix
+    SAMPLEOUT=$OUTDIR/$SAMPLEFILE
+
+    ## Run Bowtie2 mapping (paired-end)
+    crun.bowtie2 bowtie2 -q --phred33 --very-sensitive -p 16 \
+        -I 0 -X 1500 --fr \
+        -x $BASEDIR/mgris_genome/full_genome_scaffolds_Mgri_0.1 \
+        -1 $FASTQDIR/${SAMPLEFILE}_R1_trimmed.fastq.gz \
+        -2 $FASTQDIR/${SAMPLEFILE}_R2_trimmed.fastq.gz \
+        -S $SAMPLEOUT.sam
+
+    # Unload Bowtie2, load GATK
+    module unload bowtie2
+    module load gatk
+
+    GATK='crun.gatk gatk'
+
+    # Sort by queryname
+    $GATK --java-options "-Xmx30G" SortSam \
+      --INPUT $SAMPLEOUT.sam \
+      --OUTPUT $SAMPLEOUT.qsorted.bam \
+      --SORT_ORDER queryname
+
+    # Remove SAM to save space
+    rm $SAMPLEOUT.sam
+
+    # Mark duplicates and remove them
+    $GATK --java-options "-Xmx30G" MarkDuplicates \
+      -I $SAMPLEOUT.qsorted.bam \
+      -O $SAMPLEOUT.qsorted_dedup.bam \
+      --REMOVE_DUPLICATES true \
+      --METRICS_FILE $SAMPLEOUT.dupmetrics.txt
+
+    # Sort by coordinate for downstream analysis
+    $GATK --java-options "-Xmx30G" SortSam \
+      --INPUT $SAMPLEOUT.qsorted_dedup.bam \
+      --OUTPUT $SAMPLEOUT.qsorted_dedup_coordsorted.bam \
+      --SORT_ORDER coordinate
+
+    # Cleanup intermediate files
+    rm $SAMPLEOUT.qsorted.bam $SAMPLEOUT.qsorted_dedup.bam
+
+    # Optional: validate final BAM
+    $GATK --java-options "-Xmx30G" ValidateSamFile \
+      -I $SAMPLEOUT.qsorted_dedup_coordsorted.bam \
+      -O $SAMPLEOUT.val.txt \
+      -M VERBOSE
+
+    echo "Finished processing $SAMPLEFILE"
+
+    [kpark049@turing1 scripts]$ salloc
+    salloc: Pending job allocation 10785186
+    salloc: job 10785186 queued and waiting for resources
+    salloc: job 10785186 has been allocated resources
+    salloc: Granted job allocation 10785186
+    salloc: Nodes coreV3-23-027 are ready for job
+    
+    [kpark049@coreV3-23-027 scripts]$ sbatch 2026-01-07_bowtie2_mapping.slurm
+    Submitted batch job 10785187
+
+Submitted 01-07-2026 @ 9:40PM
+
+## 2026-01-08: Bowtie2 Re-do
+
+**First attempt did not work**
+Based on .err output, Bowtie2 worked correctly, but then I ran into errors with GATK commands 
+
+- Bowtie2 ran successfully (got a full alignment summary).
+- GATK failed immediately due to a container / Java POSIX library issue.
+- Because of that:
+	- no BAMs were created
+	- script still tried to rm files that never existed
+	- ended up with an empty bam/ directory
+
+Switching to samtools to avoid future Java POSIX library issues on hpc 
+
+[kpark049@coreV4-21-k80-001 scripts]$ nano 2026-01-08_bowtie2_samtools.slurm
+    #!/bin/bash -l
+
+    #SBATCH --job-name=hologenome_mapping
+    #SBATCH --output=%A_%a_%x.out
+    #SBATCH --error=%A_%a_%x.err
+    #SBATCH --mail-user=kpark049@odu.edu
+    #SBATCH --partition=main
+    #SBATCH --array=1-33
+    #SBATCH --ntasks=1
+    #SBATCH --cpus-per-task=16
+    #SBATCH --mem=30G
+    #SBATCH --time=3-00:00:00
+
+    module load bowtie2
+    module load samtools
+
+    BASEDIR=/cm/shared/courses/dbarshis/barshislab/KatieP/taxons/Montipora_grisea/2023-Mgri-NMSAS
+    FASTQDIR=$BASEDIR/fastqs/trimmed_fastqs
+    OUTDIR=$BASEDIR/bam
+    SAMPLELIST=$BASEDIR/fastqs/sample_data/sample_list.txt
+    REF=$BASEDIR/mgris_genome/full_genome_scaffolds_Mgri_0.1
+
+    mkdir -p $OUTDIR
+
+    SAMPLE=$(sed -n "${SLURM_ARRAY_TASK_ID}p" $SAMPLELIST)
+    echo "Processing $SAMPLE"
+
+    # Align and pipe directly to BAM
+    bowtie2 --very-sensitive -p 16 \
+      -x $REF \
+      -1 $FASTQDIR/${SAMPLE}_R1_trimmed.fastq.gz \
+      -2 $FASTQDIR/${SAMPLE}_R2_trimmed.fastq.gz | \
+    samtools view -bS - | \
+    samtools sort -@ 16 -o $OUTDIR/${SAMPLE}.sorted.bam
+
+    # Index BAM
+    samtools index $OUTDIR/${SAMPLE}.sorted.bam
+
+    echo "Finished $SAMPLE"
+    
+    [kpark049@turing1 scripts]$ salloc
+    salloc: Pending job allocation 10785540
+    salloc: job 10785540 queued and waiting for resources
+    salloc: job 10785540 has been allocated resources
+    salloc: Granted job allocation 10785540
+    salloc: Nodes coreV4-21-k80-001 are ready for job
+
+    [kpark049@coreV4-21-k80-001 scripts]$ sbatch 2026-01-08_bowtie2_samtools.slurm
+    Submitted batch job 10785541
+    
+
 
 
 
