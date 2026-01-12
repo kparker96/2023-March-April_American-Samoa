@@ -226,10 +226,14 @@ shall_pred_df <- tibble(
   light = shall_I,
   shall_P_pred = predict(shall_fit, newdata = tibble(I = shall_I))) %>%
   mutate(depth = "Shallow")
+
+coefs_df <- rbind(shall_coefs, midd_coefs, deep_coefs)
 ```
 
 ```{r plot gross photosynthesis}
-  ggplot(avg_gross_photosynthesis, aes(x = light, y = mean_gross_photosynthesis, 
+pop_gross_PS <- 
+  ggplot(avg_gross_photosynthesis, aes(x = light, 
+                                       y = mean_gross_photosynthesis, 
                                        color = depth)) +
   geom_point(size = 3) + # plot the means as points
  geom_errorbar(aes(ymin = (mean_gross_photosynthesis -se_gross_photosynthesis),
@@ -237,41 +241,55 @@ shall_pred_df <- tibble(
   
   # Add in 0,0 point
   geom_point(data = zero_points, 
-             aes(x = light, y = mean_gross_photosynthesis), size = 3, color = "black") +
+             aes(x = light, y = mean_gross_photosynthesis), size = 3, 
+             color = "transparent") +
   
   # Deep model and Ek
-  geom_line(data = deep_pred_df, aes(x = light, y = deep_P_pred), color = 'darkblue', linewidth = 1, alpha = 0.7) +
-#  geom_vline(data = deep_coefs, aes(xintercept = Ek), linetype = "dashed", color = "darkblue", linewidth = 0.75, alpha = 0.7) +
+  geom_line(data = deep_pred_df, aes(x = light, y = deep_P_pred), 
+            color = 'darkblue', linewidth = 1, alpha = 0.7) +
+  geom_vline(data = deep_coefs, aes(xintercept = Ek), linetype = "longdash",
+             color = "darkblue", linewidth = 0.75, alpha = 0.7) +
   
   # Middle model and Ek
-  geom_line(data = midd_pred_df, aes(x = light, y = midd_P_pred), color = 'dodgerblue3', linewidth = 1, alpha = 0.7) +
-#  geom_vline(data = midd_coefs, aes(xintercept = Ek), linetype = "dashed", color = "dodgerblue3", linewidth = 0.75, alpha = 0.7) +
+  geom_line(data = midd_pred_df, aes(x = light, y = midd_P_pred),
+            color = 'dodgerblue3', linewidth = 1, alpha = 0.7) +
+  geom_vline(data = midd_coefs, aes(xintercept = Ek), linetype = "longdash",
+             color = "dodgerblue3", linewidth = 0.75, alpha = 0.7) +
   
   # Shallow model and Ek
-  geom_line(data = shall_pred_df, aes(x = light, y = shall_P_pred), color = '#78bae3', linewidth = 1, alpha = 0.7) +
- # geom_vline(data = shall_coefs, aes(xintercept = Ek), linetype = "dashed", color = "#78bae3", linewidth = 0.75,alpha = 0.7) +
+  geom_line(data = shall_pred_df, aes(x = light, y = shall_P_pred), 
+            color = '#78bae3', linewidth = 1, alpha = 0.7) +
+ geom_vline(data = shall_coefs, aes(xintercept = Ek), linetype = "longdash",
+            color = "#78bae3", linewidth = 0.75,alpha = 0.7) +
   
   scale_color_manual(values=c('darkblue', 'dodgerblue3', '#78bae3')) +
   labs(y = expression(paste("mean ", µ*mol~O[2] / min / cm^2)),
      x = "PAR (µmol)") +
-  scale_y_continuous(expand = c(0,0.005)) +
-  scale_x_continuous(expand = c(0.02,0)) +
-  theme_classic() +
+  scale_y_continuous(limits = c(0,0.32), expand = c(0,0)) +
+  scale_x_continuous(expand = c(0,0)) +
+  theme_bw() +
   theme(legend.title = element_blank(),
-        legend.position = c(0.93, 0.085))
+        legend.position = "bottom",
+        strip.text = element_text(size = 11),
+        axis.text = element_text(size = 10),
+        legend.text = element_text(size = 10),
+        panel.spacing = unit(0.75, "lines"),
+        legend.background = element_rect(fill = "transparent"),
+        legend.margin = margin(t = -10, r = 0, b = 0, l = 0)) +
+  facet_wrap(~depth)
 
 ggsave(
   filename = "Plots/PvsI/pop_gross_PS.pdf",  # Name of the output file
   plot = pop_gross_PS,                      # Specify the plot to save
-  width = 7,                            # Width in inches
-  height = 5                            # Height in inches
+  width = 8.5,                            # Width in inches
+  height = 3                            # Height in inches
 )
 
 ggsave(
   filename = "Plots/PvsI/pop_gross_PS.png",  # Name of the output file
   plot = pop_gross_PS,                      # Specify the plot to save
-  width = 7,                            # Width in inches
-  height = 5                            # Height in inches
+  width = 8.5,                            # Width in inches
+  height = 3                            # Height in inches
 )
 
 # Coefficients
@@ -282,6 +300,61 @@ deep_coefs
 rbind(shall_coefs, midd_coefs, deep_coefs)
 
 ```
+
+# Check goodness of fit for model
+```{r}
+
+# Split observed data into numeric light and depth
+obs_df <- avg_gross_photosynthesis %>%
+  tidyr::separate(light_depth, into = c("light", "depth"), sep = "_") %>%
+  mutate(light = as.numeric(light)) %>%
+  select(light, depth, mean_gross_photosynthesis)
+
+# Combine predicted curves
+pred_df <- bind_rows(
+  deep_pred_df %>% rename(P_pred = deep_P_pred),
+  midd_pred_df %>% rename(P_pred = midd_P_pred),
+  shall_pred_df %>% rename(P_pred = shall_P_pred)
+)
+
+# For each depth, interpolate predicted P at the observed light
+obs_with_pred <- obs_df %>%
+  group_by(depth) %>%
+  mutate(
+    P_pred = approx(x = pred_df$light[pred_df$depth == first(depth)],
+                    y = pred_df$P_pred[pred_df$depth == first(depth)],
+                    xout = light)$y,
+    residual = mean_gross_photosynthesis - P_pred
+  ) %>%
+  ungroup()
+
+head(obs_with_pred)
+
+# plot residuals
+ggplot(obs_with_pred, aes(x = light, y = residual, color = depth)) +
+  geom_point(size = 2) +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  theme_minimal() +
+  labs(
+    x = "Light (µmol photons m⁻² s⁻¹)",
+    y = "Residual (Observed - Predicted)",
+    title = "Residuals of Photosynthesis Fits"
+  )
+
+library(Metrics)
+
+fit_metrics <- obs_with_pred %>%
+  group_by(depth) %>%
+  summarise(
+    RMSE = rmse(mean_gross_photosynthesis, P_pred),
+    R2   = cor(mean_gross_photosynthesis, P_pred)^2
+  )
+
+fit_metrics
+
+```
+
+
 
 # Net Photosynthesis
 ```{r}

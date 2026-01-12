@@ -775,7 +775,8 @@ Switching to samtools to avoid future Java POSIX library issues on hpc
     #SBATCH --cpus-per-task=16
     #SBATCH --mem=30G
     #SBATCH --time=3-00:00:00
-
+	
+    module load container_env
     module load bowtie2
     module load samtools
 
@@ -791,12 +792,12 @@ Switching to samtools to avoid future Java POSIX library issues on hpc
     echo "Processing $SAMPLE"
 
     # Align and pipe directly to BAM
-    bowtie2 --very-sensitive -p 16 \
+    crun.bowtie2 bowtie2 --very-sensitive -p 16 \
       -x $REF \
       -1 $FASTQDIR/${SAMPLE}_R1_trimmed.fastq.gz \
       -2 $FASTQDIR/${SAMPLE}_R2_trimmed.fastq.gz | \
-    samtools view -bS - | \
-    samtools sort -@ 16 -o $OUTDIR/${SAMPLE}.sorted.bam
+    crun.samtools samtools view -bS - | \
+    crun.samtools samtools sort -@ 16 -o $OUTDIR/${SAMPLE}.sorted.bam
 
     # Index BAM
     samtools index $OUTDIR/${SAMPLE}.sorted.bam
@@ -810,13 +811,184 @@ Switching to samtools to avoid future Java POSIX library issues on hpc
     salloc: Granted job allocation 10785540
     salloc: Nodes coreV4-21-k80-001 are ready for job
 
-    [kpark049@coreV4-21-k80-001 scripts]$ sbatch 2026-01-08_bowtie2_samtools.slurm
-    Submitted batch job 10785541
+      [kpark049@coreV3-23-027 scripts]$ sbatch 2026-01-08_bowtie2_samtools.slurm
+    Submitted batch job 10785659
+
+submitted 2026-01-08 @ 7:13PM 
+
+## 2026-01-12: Check Mapping  
+    [kpark049@turing1 bam]$ pwd
+    /cm/shared/courses/dbarshis/barshislab/KatieP/taxons/Montipora_grisea/2023-Mgri-NMSAS/bam
     
+    [kpark049@turing1 bam]$ ls
+    23313Brs_2023-ASGWAS-S08deep-Mgri-01_R24069.sorted.bam  23313Brs_2023-ASGWAS-S08deep-Mgri-07_R24074.sorted.bam
+    23313Brs_2023-ASGWAS-S08deep-Mgri-01_R24073.sorted.bam  23313Brs_2023-ASGWAS-S08midd-Mgri-02_R24069.sorted.bam
+    23313Brs_2023-ASGWAS-S08deep-Mgri-01_R24074.sorted.bam  23313Brs_2023-ASGWAS-S08midd-Mgri-02_R24073.sorted.bam
+    23313Brs_2023-ASGWAS-S08deep-Mgri-02_R24069.sorted.bam  23313Brs_2023-ASGWAS-S08midd-Mgri-02_R24074.sorted.bam
+    23313Brs_2023-ASGWAS-S08deep-Mgri-02_R24073.sorted.bam  23313Brs_2023-ASGWAS-S08midd-Mgri-05_R24069.sorted.bam
+    23313Brs_2023-ASGWAS-S08deep-Mgri-02_R24074.sorted.bam  23313Brs_2023-ASGWAS-S08midd-Mgri-05_R24073.sorted.bam
+    23313Brs_2023-ASGWAS-S08deep-Mgri-03_R24069.sorted.bam  23313Brs_2023-ASGWAS-S08midd-Mgri-05_R24074.sorted.bam
+    23313Brs_2023-ASGWAS-S08deep-Mgri-03_R24073.sorted.bam  23313Brs_2023-ASGWAS-S08shall-Mgri-01_R24069.sorted.bam
+    23313Brs_2023-ASGWAS-S08deep-Mgri-03_R24074.sorted.bam  23313Brs_2023-ASGWAS-S08shall-Mgri-01_R24073.sorted.bam
+    23313Brs_2023-ASGWAS-S08deep-Mgri-04_R24069.sorted.bam  23313Brs_2023-ASGWAS-S08shall-Mgri-01_R24074.sorted.bam
+    23313Brs_2023-ASGWAS-S08deep-Mgri-04_R24073.sorted.bam  23313Brs_2023-ASGWAS-S08shall-Mgri-02_R24069.sorted.bam
+    23313Brs_2023-ASGWAS-S08deep-Mgri-04_R24074.sorted.bam  23313Brs_2023-ASGWAS-S08shall-Mgri-02_R24073.sorted.bam
+    23313Brs_2023-ASGWAS-S08deep-Mgri-05_R24069.sorted.bam  23313Brs_2023-ASGWAS-S08shall-Mgri-02_R24074.sorted.bam
+    23313Brs_2023-ASGWAS-S08deep-Mgri-05_R24073.sorted.bam  23313Brs_2023-ASGWAS-S08shall-Mgri-06_R24069.sorted.bam
+    23313Brs_2023-ASGWAS-S08deep-Mgri-05_R24074.sorted.bam  23313Brs_2023-ASGWAS-S08shall-Mgri-06_R24073.sorted.bam
+    23313Brs_2023-ASGWAS-S08deep-Mgri-07_R24069.sorted.bam  23313Brs_2023-ASGWAS-S08shall-Mgri-06_R24074.sorted.bam
+    23313Brs_2023-ASGWAS-S08deep-Mgri-07_R24073.sorted.bam
 
 
+Run parse_bowtie_out
+
+    [kpark049@turing1 scripts]$ nano parse_bowtie_output.sh
+    
+    #!/bin/bash
+
+    ls *hologenome_mapping*.err > mapping_errfile_list.txt
+
+    # create data file and add header if it is empty
+    header="jobid\tsample\tconcordantly_0_times\tconcordantly_1_time\tconcordantly_2_or_more_times\toverall_rate" #assign header value
+    outfile="bowtie_mapping_summary.tsv"
+
+    if [ ! -s "$outfile" ]; then
+      # file is empty or does not exist
+        echo -e "$header" > "$outfile"
+    fi
+
+    for FILE in `cat mapping_errfile_list.txt`; do
+        # parse mapping rates from botwtie2 otuput
+        jobid=$(echo $FILE | cut -d "_" -f1,2)
+        sample=$(head -3 $jobid'_hologenome_mapping.out' | tail -1)
+        con0=$(grep -oP '\d+\.\d+%?' $jobid'_hologenome_mapping.err' | head -2 | tail -1)
+        con1=$(grep -oP '\d+\.\d+%?' $jobid'_hologenome_mapping.err' | head -3 | tail -1)
+        con2=$(grep -oP '\d+\.\d+%?' $jobid'_hologenome_mapping.err' | head -4 | tail -1)
+        overall=$(grep -oP '\d+\.\d+%? overall alignment rate' $jobid'_hologenome_mapping.err' | cut -d" " -f1)
+
+        # Append data to output file
+        echo -e "$jobid\t$sample\t$con0\t$con1\t$con2\t$overall" >> "$outfile"
+
+    done
+
+    [kpark049@coreV3-23-027 scripts]$ sbatch parse_bowtie_output.sh
+    Submitted batch job 10786037
+
+Job submitted 2026-12-01 @ 10:47am (finished in 1 minute)
+
+Output from head bowtie_mapping_summary.tsv
+
+| jobid | sample concordantly_0_times | concordantly_1_time | concordantly_2_or_more_times | overall_rate |
+| ----- | ---------------------------- | ------------------- | ---------------------------- | ------------ |
+| 10785659_10 | 23313Brs_2023-ASGWAS-S08deep-Mgri-04_R24069 | 93.65% 0.47% | 5.89% | 7.71% |
+| 10785659_11 | 23313Brs_2023-ASGWAS-S08deep-Mgri-04_R24073 | 94.11% 0.41% | 5.48% | 7.05% |
+| 10785659_12 | 23313Brs_2023-ASGWAS-S08deep-Mgri-04_R24074 | 94.14% 0.44% | 5.42% | 7.08% |
+| 10785659_13 | 23313Brs_2023-ASGWAS-S08deep-Mgri-05_R24069 | 92.31% 2.58% | 5.11% | 9.73% |
+| 10785659_14 | 23313Brs_2023-ASGWAS-S08deep-Mgri-05_R24073 | 92.33% 2.61% | 5.06% | 9.55% |
+| 10785659_15 | 23313Brs_2023-ASGWAS-S08deep-Mgri-05_R24074 | 92.33% 2.62% | 5.05% | 9.53% |
+| 10785659_16 | 23313Brs_2023-ASGWAS-S08deep-Mgri-07_R24069 | 89.73% 1.22% | 9.06% | 12.22% |
+| 10785659_17 | 23313Brs_2023-ASGWAS-S08deep-Mgri-07_R24073 | 90.37% 1.13% | 8.50% | 11.33% |
+| 10785659_18 | 23313Brs_2023-ASGWAS-S08deep-Mgri-07_R24074 | 90.21% 1.18% | 8.61% | 11.55% |
+| 10785659_19 | 23313Brs_2023-ASGWAS-S08midd-Mgri-02_R24069 | 96.63% 0.77% | 2.60% | 4.58% |
+| 10785659_1 | 23313Brs_2023-ASGWAS-S08deep-Mgri-01_R24069 | 88.22% 0.72% | 11.06% 13.29% |
+| 10785659_20 | 23313Brs_2023-ASGWAS-S08midd-Mgri-02_R24073 | 96.89% 0.71% | 2.41% | 4.14% |
+| 10785659_21 | 23313Brs_2023-ASGWAS-S08midd-Mgri-02_R24074 | 96.79% 0.74% | 2.48% | 4.31% |
+| 10785659_22 | 23313Brs_2023-ASGWAS-S08midd-Mgri-05_R24069 | 94.25% 1.90% | 3.85% | 7.45% |
+| 10785659_23 | 23313Brs_2023-ASGWAS-S08midd-Mgri-05_R24073 | 94.28% 1.94% | 3.79% | 7.25% |
+| 10785659_24 | 23313Brs_2023-ASGWAS-S08midd-Mgri-05_R24074 | 94.25% 1.95% | 3.80% | 7.30% |
+| 10785659_25 | 23313Brs_2023-ASGWAS-S08shall-Mgri-01_R24069 | 87.13% 3.22% | 9.65% | 15.29% |
+| 10785659_26 | 23313Brs_2023-ASGWAS-S08shall-Mgri-01_R24073 | 87.49% 3.17% | 9.35% | 14.65% |
+| 10785659_27 | 23313Brs_2023-ASGWAS-S08shall-Mgri-01_R24074 | 87.39% 3.20% | 9.41% | 14.82% |
+| 10785659_28 | 23313Brs_2023-ASGWAS-S08shall-Mgri-02_R24069 | 94.91% 0.98% | 4.11% | 6.43% |
+| 10785659_29 | 23313Brs_2023-ASGWAS-S08shall-Mgri-02_R24073 | 95.25% 0.93% | 3.83% | 5.91% |
+| 10785659_2 | 23313Brs_2023-ASGWAS-S08deep-Mgri-01_R24073 | 89.09% 0.68% | 10.24% 12.23% |
+| 10785659_30 | 23313Brs_2023-ASGWAS-S08shall-Mgri-02_R24074 | 95.12% 0.96% | 3.92% | 6.09% |
+| 10785659_31 | 23313Brs_2023-ASGWAS-S08shall-Mgri-06_R24069 | 92.05% 2.45% | 5.50% | 9.97% |
+| 10785659_32 | 23313Brs_2023-ASGWAS-S08shall-Mgri-06_R24073 | 92.20% 2.48% | 5.32% | 9.57% |
+| 10785659_33 | 23313Brs_2023-ASGWAS-S08shall-Mgri-06_R24074 | 92.09% 2.51% | 5.40% | 9.74% |
+| 10785659_3 | 23313Brs_2023-ASGWAS-S08deep-Mgri-01_R24074 | 89.23% 0.71% | 10.06% 12.10% |
+| 10785659_4 | 23313Brs_2023-ASGWAS-S08deep-Mgri-02_R24069 | 91.03% 3.17% | 5.80% | 11.10% |
+| 10785659_5 | 23313Brs_2023-ASGWAS-S08deep-Mgri-02_R24073 | 91.00% 3.23% | 5.78% | 11.00% |
+| 10785659_6 | 23313Brs_2023-ASGWAS-S08deep-Mgri-02_R24074 | 91.05% 3.23% | 5.72% | 10.92% |
+| 10785659_7 | 23313Brs_2023-ASGWAS-S08deep-Mgri-03_R24069 | 58.72% 0.70% | 40.58% 43.97% |
+| 10785659_8 | 23313Brs_2023-ASGWAS-S08deep-Mgri-03_R24073 | 60.17% 0.64% | 39.19% 42.34% |
+| 10785659_9 | 23313Brs_2023-ASGWAS-S08deep-Mgri-03_R24074 | 61.31% 0.70% | 37.99% 41.11% |
 
 
+    [kpark049@coreV3-23-027 bam]$ nano mapping_stats.sh
+    
+    #!/bin/bash -l
+    #SBATCH --job-name=hologenome_flagstat
+    #SBATCH --output=%x_%A.out
+    #SBATCH --error=%x_%A.err
+    #SBATCH --mail-user=kpark049@odu.edu
+    #SBATCH --partition=main
+    #SBATCH --ntasks=1
+    #SBATCH --cpus-per-task=4
+    #SBATCH --mem=10G
+    #SBATCH --time=1:00:00
+
+
+    # Load container environment and samtools
+    module load container_env
+    module load samtools
+
+
+    # Header
+    echo -e "Sample\tTotal_Reads\tMapped_Reads\tPercent_Mapped" > mapping_summary.txt
+
+    # Loop over BAM files using crun.samtools
+    for bam in *.sorted.bam; do
+        stats=$(crun.samtools samtools flagstat "$bam")
+        total=$(echo "$stats" | head -1 | awk '{print $1}')
+        mapped=$(echo "$stats" | grep "mapped (" | head -1 | awk '{print $1}')
+        percent=$(echo "$stats" | grep "mapped (" | head -1 | awk -F'[()%]' '{print $2}')
+        echo -e "${bam}\t${total}\t${mapped}\t${percent}" >> mapping_summary.txt
+    done
+
+    echo "Done! Summary saved to mapping_summary.txt"
+
+    
+    [kpark049@coreV3-23-027 bam]$ sbatch mapping_stats.sh
+	Submitted batch job 10786052
+
+**Mapping Summary:**
+
+| Sample | Total_Reads | Mapped_Reads | Percent_Mapped |
+| ------ | ----------- | ------------ | -------------- |
+| 23313Brs_2023-ASGWAS-S08deep-Mgri-01_R24069.sorted.bam | 42713250 | 5676640 | 13.29 |
+| 23313Brs_2023-ASGWAS-S08deep-Mgri-01_R24073.sorted.bam | 46756170 | 5716000 | 12.23 |
+| 23313Brs_2023-ASGWAS-S08deep-Mgri-01_R24074.sorted.bam | 45321122 | 5481768 | 12.10 |
+| 23313Brs_2023-ASGWAS-S08deep-Mgri-02_R24069.sorted.bam | 97349794 | 10802395 | 11.10 |
+| 23313Brs_2023-ASGWAS-S08deep-Mgri-02_R24073.sorted.bam | 105100970 | 11559373 | 11.00 |
+| 23313Brs_2023-ASGWAS-S08deep-Mgri-02_R24074.sorted.bam | 103038672 | 11256874 | 10.92 |
+| 23313Brs_2023-ASGWAS-S08deep-Mgri-03_R24069.sorted.bam | 17518774 | 7702299 | 43.97 |
+| 23313Brs_2023-ASGWAS-S08deep-Mgri-03_R24073.sorted.bam | 18308850 | 7752242 | 42.34 |
+| 23313Brs_2023-ASGWAS-S08deep-Mgri-03_R24074.sorted.bam | 17819342 | 7325372 | 41.11 |
+| 23313Brs_2023-ASGWAS-S08deep-Mgri-04_R24069.sorted.bam | 80407554 | 6200103 | 7.71 |
+| 23313Brs_2023-ASGWAS-S08deep-Mgri-04_R24073.sorted.bam | 86195240 | 6077739 | 7.05 |
+| 23313Brs_2023-ASGWAS-S08deep-Mgri-04_R24074.sorted.bam | 84182216 | 5957276 | 7.08 |
+| 23313Brs_2023-ASGWAS-S08deep-Mgri-05_R24069.sorted.bam | 136595062 | 13283947 | 9.73 |
+| 23313Brs_2023-ASGWAS-S08deep-Mgri-05_R24073.sorted.bam | 147144524 | 14052736 | 9.55 |
+| 23313Brs_2023-ASGWAS-S08deep-Mgri-05_R24074.sorted.bam | 145126306 | 13829963 | 9.53 |
+| 23313Brs_2023-ASGWAS-S08deep-Mgri-07_R24069.sorted.bam | 53354702 | 6517592 | 12.22 |
+| 23313Brs_2023-ASGWAS-S08deep-Mgri-07_R24073.sorted.bam | 58312668 | 6609226 | 11.33 |
+| 23313Brs_2023-ASGWAS-S08deep-Mgri-07_R24074.sorted.bam | 56801084 | 6559416 | 11.55 |
+| 23313Brs_2023-ASGWAS-S08midd-Mgri-02_R24069.sorted.bam | 155694572 | 7125469 | 4.58 |
+| 23313Brs_2023-ASGWAS-S08midd-Mgri-02_R24073.sorted.bam | 161445058 | 6689489 | 4.14 |
+| 23313Brs_2023-ASGWAS-S08midd-Mgri-02_R24074.sorted.bam | 159415146 | 6867473 | 4.31 |
+| 23313Brs_2023-ASGWAS-S08midd-Mgri-05_R24069.sorted.bam | 93856408 | 6989145 | 7.45 |
+| 23313Brs_2023-ASGWAS-S08midd-Mgri-05_R24073.sorted.bam | 100567906 | 7295931 | 7.25 |
+| 23313Brs_2023-ASGWAS-S08midd-Mgri-05_R24074.sorted.bam | 100338396 | 7326814 | 7.30 |
+| 23313Brs_2023-ASGWAS-S08shall-Mgri-01_R24069.sorted.bam | 77470154 | 11843271 | 15.29 |
+| 23313Brs_2023-ASGWAS-S08shall-Mgri-01_R24073.sorted.bam | 84458274 | 12376147 | 14.65 |
+| 23313Brs_2023-ASGWAS-S08shall-Mgri-01_R24074.sorted.bam | 82792894 | 12270165 | 14.82 |
+| 23313Brs_2023-ASGWAS-S08shall-Mgri-02_R24069.sorted.bam | 111026334 | 7140105 | 6.43 |
+| 23313Brs_2023-ASGWAS-S08shall-Mgri-02_R24073.sorted.bam | 119177910 | 7046392 | 5.91 |
+| 23313Brs_2023-ASGWAS-S08shall-Mgri-02_R24074.sorted.bam | 117079110 | 7135559 | 6.09 |
+| 23313Brs_2023-ASGWAS-S08shall-Mgri-06_R24069.sorted.bam | 99957040 | 9969633 | 9.97 |
+| 23313Brs_2023-ASGWAS-S08shall-Mgri-06_R24073.sorted.bam | 106624196 | 10198730 | 9.57 |
+| 23313Brs_2023-ASGWAS-S08shall-Mgri-06_R24074.sorted.bam | 105190212 | 10249431 | 9.74 |
 
 
 

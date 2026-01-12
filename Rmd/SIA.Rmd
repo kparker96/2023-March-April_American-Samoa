@@ -165,6 +165,9 @@ ggplot(sia_df_means, aes(x = mean_d13C, y = mean_d15N, color = Depth,
                          shape = Type)) +
   geom_point(aes(shape = Type), size = 3) +
   theme_bw() +
+  scale_color_manual(values = c("#00004C", "#11569B", "#56A9DC"))+
+  theme(legend.position = "bottom") +
+  facet_wrap(~Type, scales = "free") +
  
 # Ellipse for Host (solid)
   stat_ellipse(data = subset(sia_df_means, Type == "Host"), aes(group = Depth),
@@ -172,11 +175,20 @@ ggplot(sia_df_means, aes(x = mean_d13C, y = mean_d15N, color = Depth,
   
 # Ellipse for Zoox (dashed)
    stat_ellipse(data = subset(sia_df_means, Type == "Zoox"), aes(group = Depth),
-    type = "t", size = 1, linetype = "dashed") +
+    type = "t", size = 1, linetype = "dashed") 
   
-  scale_color_manual(values = c("#00004C", "#11569B", "#56A9DC"))+
-  theme(legend.position = "bottom") +
-  facet_wrap(~Type, scales = "free")
+
+ggplot(sia_df_means, aes(x = Depth, y = mean_d13C, fill = Depth)) +
+  geom_boxplot() +
+  scale_fill_manual(values = c("#00004C", "#11569B", "#56A9DC")) +
+  facet_wrap(~Type) +
+  theme(legend.position = "none")
+
+ggplot(sia_df_means, aes(x = Depth, y = mean_d15N, fill = Depth)) +
+  geom_boxplot() +
+  scale_fill_manual(values = c("#00004C", "#11569B", "#56A9DC")) +
+  facet_wrap(~Type) +
+  theme(legend.position = "none")
 
 ggsave(
   filename = "Plots/SIA/mean_dSI.pdf",  # Name of the output file
