@@ -1,4 +1,0 @@
-7530-458116
-OS REV: 1.08 Sensor Cal: 1657263600 Averages: 30
-Time (sec),  Bat (Volts),   T (deg C),  PAR (umol/(s m^2))  Ax (mg), Ay (mg), Az (mg)
-1696688880, +3.46, +28.083,    -0.3, +1040.0,  +174.0,   +86.0
