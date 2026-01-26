@@ -1,0 +1,24 @@
+4163t [SYS] [INFO] Loading hardware config
+4478t [SYS] [INFO] Charger connected.
+5478t [SYS] [INFO] Detected 3000mA charger.
+5484t [SYS] [WARNING] Power switch OFF. Entering charge only mode.
+4802t [SYS] [INFO] Loading hardware config
+5120t [SYS] [INFO] Initialize sensors
+5189t [SYS] [INFO] Starting barometer filter with parameters:
+size: 200
+percentile: 10.00
+downsamplingRate: 50
+alpha: 1.0000387
+5200t [SYS] [INFO] Error initializing BARO
+5215t [SYS] [INFO] Init values CALR: 000000BC CALM: 188, CALP: 0
+5216t [SYS] [INFO] APP_NAME: spotter-dbg
+5216t [SYS] [INFO] UID: 203630325847500600340023
+5216t [SYS] [INFO] FW Version: v2.1.0
+5216t [SYS] [INFO] GIT SHA: FE6412C3
+5216t [SYS] [INFO] Build ID: 327474a8ac3d2ce7f13558b38d652813dea54022
+5217t [SYS] [INFO] BSP: pluteus_v3.1
+5217t [SYS] [INFO] Reset Reason: Invalid reset or first power on since flashing
+5217t [SYS] [INFO] Main Deck HW Version: 01
+5219t [SYS] [INFO] Upper Deck HW Version: 01
+5545t [SYS] [INFO] IMEI: 300534064008050
+35120t [SYS] [ERROR] rebootctl reset 1. Source: 7

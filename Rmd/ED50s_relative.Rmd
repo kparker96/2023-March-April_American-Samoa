@@ -61,16 +61,18 @@ Deeppam <- Allpam %>%
 
 # Calculate relative values
 ```{r}
-Shallpam_max <- max(Shallpam$FvFm)
-Deeppam_max <- max(Deeppam$FvFm)
-
 Shallpam_relative <- Shallpam %>%
-  mutate(relative_FvFm = FvFm/Shallpam_max)
+  group_by(Geno) %>%
+  mutate(max_FvFm = max(FvFm)) %>%
+  mutate(relative_FvFm = FvFm/max_FvFm) 
 
 Deeppam_relative <- Deeppam %>%
-  mutate(relative_FvFm = FvFm/Deeppam_max)
+  group_by(Geno) %>%
+  mutate(max_FvFm = max(FvFm)) %>%
+  mutate(relative_FvFm = FvFm/max_FvFm) 
 
-Allpam_relative <- rbind(Shallpam_relative, Deeppam_relative)
+Allpam_relative <- rbind(Shallpam_relative, Deeppam_relative) %>%
+  select(-FvFm, -max_FvFm)
 ```
 
 # Shallow and Deep DRC
@@ -182,7 +184,6 @@ DeepED95_geno <- Deepdrc_relative_ED_geno_df[Deepdrc_relative_ED_geno_df$ED_leve
 DeepED95_se_geno <- Deepdrc_relative_ED_geno_df[Deepdrc_relative_ED_geno_df$ED_level == "ED95", 
                                   "Std. Error"]
 ```
-
 
 # Compare Hill and Max
 ```{r}
@@ -409,27 +410,27 @@ Deepnewdata$upper <- Deepnewdata$fit + 1.96 * Deepnewdata$se
 rel_ED50 <- ggplot() +
   
   # Specify Depth colors
-  scale_color_manual(values = c("Shallow" = "#3B82F6", 
-                                "Deep" = "#0A2472"),
+  scale_color_manual(values = c("Shallow" = "#6BAED6", 
+                                "Deep" = "darkblue"),
                      guide = guide_legend(override.aes = list(
-                         fill = c('#3B82F6', '#0A2472'),color = NA, 
+                         fill = c('#6BAED6', 'darkblue'),color = NA, 
                          alpha = 1))) +
   
-  scale_fill_manual(values = c("Shallow" = "#3B82F6", 
-                             "Deep" = "#0A2472")) +
+  scale_fill_manual(values = c("Shallow" = "#6BAED6", 
+                             "Deep" = "darkblue")) +
   
   # Adjust x and y axis limits/breaks
   scale_x_continuous(limits=c(28.5,41), breaks=c(29,31,33,35,37,39,41), 
                      expand = c(-0.01,0)) +
   
-  scale_y_continuous(limits=c(-0.005, 1.1), expand = c(0,0))  +
+  scale_y_continuous(limits=c(-0.01, 1.1), expand = c(0,0))  +
   
   # Add in predicted model curves 
   geom_line(data = Shallnewdata, aes(x = Temp, y = fit, color = Depth),
-            linewidth = 1.2) +
+            linewidth = 0.5) +
   
   geom_line(data = Deepnewdata, aes(x = Temp, y = fit, color = Depth), 
-            linewidth = 1.2) +
+            linewidth = 0.5) +
 
   
   # Add confidence intervals around curve 
@@ -442,7 +443,7 @@ rel_ED50 <- ggplot() +
   # Add ED50 line
   geom_segment(data = ED50_param_table, 
              aes(x = ED50, xend = ED50, y = -Inf, yend = 1, color = Depth), 
-             linewidth = 0.75) +
+             linewidth = 0.5) +
   
   # Add confidence interval shading around ED50 line 
   geom_rect(data = ED50_param_table, 
@@ -451,55 +452,58 @@ rel_ED50 <- ggplot() +
   
   # Add ED50 labels
   annotate("text",x = 35.8, y = 0.98,
-           label = paste0(round(mean_Shall_ED50, 2), "°C"), color = '#3B82F6', 
-           fontface = 'bold', size = 4) + 
+           label = paste0(round(mean_Shall_ED50, 2), "°C"), color = '#6BAED6', 
+           fontface = 'bold', size = 2.5) + 
     
   annotate("text",x = 38.1, y = 0.98,
-           label = paste0(round(mean_Deep_ED50, 2), "°C"), color = '#0A2472', 
-           fontface = 'bold', size = 4) +
+           label = paste0(round(mean_Deep_ED50, 2), "°C"), color = 'darkblue', 
+           fontface = 'bold', size = 2.5) +
  
    # Add data points for each fragment (n = 120)
   geom_point(data = Allpam_relative, aes(x = Temperature, y = relative_FvFm, 
-                                           color = Depth), alpha = 0.75) +
+                                           color = Depth), alpha = 0.75, size = 1) +
   
   # Add significance distinctions
   geom_segment(aes(x = 36.47, xend = 37.45, y = 1.01, yend = 1.01),
-               color = "black", size = 0.6) + # Horizontal Bracket 
+               color = "black", size = 0.4) + # Horizontal Bracket 
   
   geom_segment(aes(x = 36.46, xend = 36.46, y = 1.01, yend = 1), 
-               color = "black", size = 0.6) +  # Left vertical tick (upward)
+               color = "black", size = 0.4) +  # Left vertical tick (upward)
   
   geom_segment(aes(x = 37.45, xend = 37.45, y = 1.01, yend = 1), 
-               color = "black", size = 0.6) + # Right vertical tick (upward) 
+               color = "black", size = 0.4) + # Right vertical tick (upward) 
   
   annotate("text", x = (36.46 + 37.45) / 2, y = 1.02, label = "**", 
-           size = 6) +
+           size = 3) +
   
 # Theme 
   theme_classic() +
-  theme(plot.title = element_text(hjust = 0.5, size = 20), 
-        legend.position = c(0.1,0.08),
+  theme(legend.position = c(0.1,0.1),
+        legend.background = element_rect(fill = "transparent"),
         legend.title = element_blank(),
-        legend.text = element_text(size = 14),
-        axis.title = element_text(size = 15),
-        axis.text = element_text(size = 13),
-         plot.margin = margin(t = 0.25, r = 0, b = 0, l = 0, unit = "cm"),
+        legend.text = element_text(size = 6),
+        legend.key.size = unit(0.5, "cm"),
+        axis.title = element_text(size = 8),
+        axis.text = element_text(size = 7),
+        plot.margin = margin(t = 0.25, r = 0, b = 0, l = 0, unit = "cm"),
         panel.grid.major = element_blank(),
         panel.grid.minor = element_blank()) +
-  labs(x = expression("Temperature (" * degree * "C)"), y = bquote(F[v]/F[m]))
+  labs(x = expression("Temperature (" * degree * "C)"), y = bquote("Relative  " * F[v]/F[m]))
 
 ggsave(
   filename = "Plots/ED50s/rel_drc.pdf",  # Name of the output file
   plot = rel_ED50,               # Specify the plot to save
-  width = 7,                       # Width in inches
-  height = 5                        # Height in inches
+  width = 5,                       # Width in inches
+  height = 4,                        # Height in inches
+  dpi = 300
 )
 
 ggsave(
   filename = "Plots/ED50s/rel_drc.png",  # Name of the output file
   plot = rel_ED50,               # Specify the plot to save
-  width = 7,                       # Width in inches
-  height = 5                        # Height in inches
+  width = 4,                       # Width in inches
+  height = 3,                        # Height in inches
+  dpi = 300
 )
 ```
 

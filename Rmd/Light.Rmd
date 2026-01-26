@@ -1,0 +1,291 @@
+---
+title: "Light"
+output: html_document
+date: "2026-01-13"
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Load libraries
+```{r}
+library(tidyverse)
+library(ggplot2)
+library(hms)
+library(writexl)
+library(lubridate)
+library(readxl)
+```
+
+# Import Data
+```{r}
+# 2022 Shallow and Deep Light 
+# Shallow - 13m 
+FT_13_light <- read.delim("./data/environmental/light/2022-FagateleShallowPAR_13m/CAT.txt",
+                        sep = ",", skip = 5) %>%
+  # remove first row with units
+  slice(-1) 
+
+# Deep - 38m 
+FT_38_light <- read.delim("./data/environmental/light/2022-FagateleDeepPAR_38m/CAT.txt",
+                        sep = ",", skip = 5) %>%
+  slice(-1) # remove first row with units 
+
+
+# ----------------------------------------------------------------- #
+
+# 2023 Shallow and Deep Light 
+# Shallow - 08m 
+FT_08_light <- read.delim("./data/environmental/light/2023-FagateleShallowPAR_8m/CAT.txt",
+                        sep = ",", skip = 5) %>%
+  
+  # remove first row with units 
+  slice(-1)
+
+# Deep - 40m 
+FT_40_light <- read.delim("./data/environmental/light/2023-FagateleDeepPAR_40m/CAT.txt",
+                        sep = ",", skip = 5) %>%
+  # remove first row with units 
+  slice(-1)
+
+```
+
+# Combine Shallow and Deep 
+```{r}
+# Combine Shallow 
+shallow_2022_light <- FT_13_light %>%
+  mutate(sensor.depth = "13m",
+         depth = "Shallow")
+  
+shallow_2023_light <- FT_08_light %>%
+  mutate(sensor.depth = "08m",
+         depth = "Shallow")
+
+shallow_light_df <- bind_rows(
+  shallow_2022_light %>%
+    select(-Samoa.Standard.Time, -UTC_Date_._Time),
+  shallow_2023_light %>%
+    select(-Hawaii.Standard.Time, -UTC_Date_._Time)) %>%
+  mutate(Unix.Timestamp = as.numeric(Unix.Timestamp), 
+         Samoa.Standard.Time = as.POSIXct(Unix.Timestamp, 
+                                          origin = "1970-01-01", 
+                                          tz = "Pacific/Pago_Pago"), 
+         Date = as.Date(Samoa.Standard.Time, 
+                        tz = "Pacific/Pago_Pago"), 
+         Time = as_hms(Samoa.Standard.Time),
+         Year = year(Samoa.Standard.Time)) %>%
+  select(DateTime = Samoa.Standard.Time, Date, Time, Year, PAR, depth, sensor.depth) %>%
+  mutate(Year_depth = paste0(Year, "_", depth))
+
+# ----------------------------------------------------------------- #
+
+# Combine Deep
+deep_2022_light <- FT_38_light %>%
+  mutate(sensor.depth = "38m",
+         depth = "Deep")
+  
+deep_2023_light <- FT_40_light %>%
+  mutate(sensor.depth = "40m",
+         depth = "Deep")
+
+deep_light_df <- bind_rows(
+  deep_2022_light %>%
+    select(-Samoa.Standard.Time, -UTC_Date_._Time),
+  deep_2023_light %>%
+    select(-Hawaii.Standard.Time, -UTC_Date_._Time)) %>%
+  mutate(Unix.Timestamp = as.numeric(Unix.Timestamp), 
+         Samoa.Standard.Time = as.POSIXct(Unix.Timestamp, origin = "1970-01-01", 
+                                          tz = "Pacific/Pago_Pago"), 
+         Date = as.Date(Samoa.Standard.Time, tz = "Pacific/Pago_Pago"), 
+         Time = as_hms(Samoa.Standard.Time),
+         Year = year(Samoa.Standard.Time)) %>%
+  select(DateTime = Samoa.Standard.Time, Date, Time, Year, PAR, depth, sensor.depth) %>%
+  mutate(Year_depth = paste0(Year, "_", depth))
+
+light_df <- rbind(shallow_light_df, deep_light_df)
+
+light_df$PAR <- as.numeric(light_df$PAR)
+
+```
+
+# Calculate Daily Max and Plot 2022 
+```{r}
+# Start and end date for window of data
+start_date_2022 <- as.POSIXct("2022-03-08 00:00:01", 
+                      tz = "Pacific/Pago_Pago")
+end_date_2022 <-   as.POSIXct("2022-08-31 23:59:59",
+                      tz = "Pacific/Pago_Pago")
+# ----------------------------------------------------------------- #
+
+# Calculate Daily Max 
+daily_max_2022 <- light_df %>%
+  filter(DateTime > start_date_2022 & DateTime < end_date_2022) %>% 
+  group_by(Date, depth) %>%
+  slice_max(PAR, n = 1, with_ties = FALSE) %>%
+  ungroup() %>%
+  select(DateTime, Date, max_PAR = PAR, Time_of_max = Time, Year, depth, Year_depth, sensor.depth)
+
+shallow_daily_max_mean_2022 <- mean(daily_max_2022[daily_max_2022$depth == "Shallow", ]$max_PAR, 
+     na.rm = TRUE)
+
+deep_daily_max_mean_2022 <- mean(daily_max_2022[daily_max_2022$depth == "Deep", ]$max_PAR, 
+     na.rm = TRUE)
+
+# ----------------------------------------------------------------- #
+
+# Plot Daily Max 
+p_light_series <- ggplot(daily_max_2022, aes(x = Date, y = max_PAR, color = depth)) +
+  geom_point(size = 0.7) +
+  geom_line(linewidth = 0.65) +
+  geom_hline(yintercept = shallow_daily_max_mean_2022, linewidth = 0.7, linetype = "dashed",
+             color = "#6BAED6") +
+  geom_hline(yintercept = deep_daily_max_mean_2022, linewidth = 0.7, linetype = "dashed",
+             color = "darkblue") +
+  scale_y_continuous(breaks = c(0,200,400, 600, 800, 1000), limits = c(0,1000),  expand = c(0,0)) +
+  scale_color_manual(values = c("darkblue", "#6BAED6")) +
+  scale_x_date(date_breaks = "1 month", date_labels = "%b %Y",  
+               limits = c(as.Date("2022-03-09"),
+                          as.Date("2022-09-05"))) +
+  theme_bw() +
+  labs(y = expression(paste("Maximum Daily PAR (", µ*mol / s / m^2,
+                            ")")), x = "") +
+  theme(legend.position = "bottom",
+        legend.title = element_blank())
+
+saveRDS(p_light_series, "Plots/Fig_1/p_light_series.rds")
+
+p_light_density <- ggplot(daily_max_2022, aes(x = max_PAR, fill = depth, color = depth)) +
+  geom_density(alpha = 0.8) +
+  coord_flip() +
+  scale_x_continuous(breaks = c(0,200,400, 600, 800, 1000), limits = c(0,1000), expand = c(0.001,0)) +
+  scale_y_continuous(expand = c(0.001,0)) +
+  scale_fill_manual(values = c("darkblue", "#6BAED6")) +
+  scale_color_manual(values = c("darkblue", "#6BAED6")) +
+  theme_bw() +
+  labs(x = expression(paste("Maximum Daily PAR (", µ*mol / s / m^2,
+                            ")")), y = "Density") +
+  theme(legend.position = "bottom",
+        legend.title = element_blank())
+
+saveRDS(p_light_density, "Plots/Fig_1/p_light_density.rds")
+```
+
+# Calculate Daily Max and Plot 2023 
+```{r}
+# Start and end date for window of data
+start_date_2023 <- as.POSIXct("2023-01-24 00:00:01", 
+                      tz = "Pacific/Pago_Pago")
+end_date_2023 <-   as.POSIXct("2023-03-05 23:59:59",
+                      tz = "Pacific/Pago_Pago")
+# ----------------------------------------------------------------- #
+
+# Calculate Daily Max 
+daily_max_2023 <- light_df %>%
+  filter(DateTime > start_date_2023 & DateTime < end_date_2023) %>% 
+  group_by(Date, depth) %>%
+  slice_max(PAR, n = 1, with_ties = FALSE) %>%
+  ungroup() %>%
+  select(DateTime, Date, max_PAR = PAR, Time_of_max = Time, Year, depth, Year_depth, sensor.depth)
+
+shallow_daily_max_mean_2023 <- mean(daily_max_2023[daily_max_2023$depth == "Shallow", ]$max_PAR, 
+     na.rm = TRUE)
+
+deep_daily_max_mean_2023 <- mean(daily_max_2023[daily_max_2023$depth == "Deep", ]$max_PAR, 
+     na.rm = TRUE)
+
+# ----------------------------------------------------------------- #
+
+# Plot Daily Max 
+ggplot(daily_max_2023, aes(x = Date, y = max_PAR, color = sensor.depth)) +
+  geom_point() +
+  geom_line(linewidth = 0.75) +
+  geom_hline(yintercept = shallow_daily_max_mean_2023, linetype = "dashed",
+             color = "#6BAED6") +
+  geom_hline(yintercept = deep_daily_max_mean_2023, linetype = "dashed",
+             color = "darkblue") +
+  scale_y_continuous(breaks = c(0,200,400, 600, 800, 1000, 1200, 1400), limits = c(0,1400),  expand = c(0,0)) +
+  scale_color_manual(values = c("#6BAED6", "darkblue")) +
+  scale_x_date(date_breaks = "1 month", date_labels = "%b", expand = c(0.04,0)) +
+  theme_bw() +
+  labs(y = expression(paste("Maximum Daily PAR (", µ*mol / s / m^2,
+                            ")")), x = "") +
+  theme(legend.position = "bottom",
+        legend.title = element_blank())
+
+ggplot(daily_max_2023, aes(x = max_PAR, fill = sensor.depth)) +
+  geom_density(alpha = 0.8) +
+  coord_flip() +
+  scale_x_continuous(breaks = c(0,200,400, 600, 800, 1000, 1200, 1400), limits = c(0,1400), expand = c(0.001,0)) +
+  scale_y_continuous(expand = c(0.001,0)) +
+  scale_fill_manual(values = c("#6BAED6", "darkblue")) +
+  theme_bw() +
+  labs(x = expression(paste("Maximum Daily PAR (", µ*mol / s / m^2,
+                            ")")), y = "Density") +
+  theme(legend.position = "bottom",
+        legend.title = element_blank())
+```
+
+```{r}
+daily_max_all <- rbind(daily_max_2022, daily_max_2023) %>%
+ mutate(doy = yday(Date))
+
+ggplot(daily_max_all,
+       aes(x = doy,
+           y = max_PAR,
+           color = Year_depth,
+           group = Year_depth)) +
+  geom_line(alpha = 0.8) +
+  scale_x_continuous(
+    breaks = c(1, 32, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335),
+    labels = month.abb
+  ) +
+  labs(
+    x = "Month",
+    y = "Daily Max PAR",
+    color = "Year"
+  )
+```
+
+# Incorporate Sunrise/Sunset Times
+```{r}
+shallow_2022 <- shallow_2022_light %>%
+  select(Samoa.Standard.Time, PAR, sensor.depth, depth) %>%
+  mutate(Samoa.Standard.Time = ymd_hms(trimws(Samoa.Standard.Time), 
+                                       tz = "Pacific/Pago_Pago"),
+    Date = as.Date(Samoa.Standard.Time))
+
+# Import Sunrise/Sunset Time 
+sun_time <- read_xlsx("./data/environmental/light/2022-Sunrise_Sunset_time_Fagatele.xlsx")
+
+sun_time_clean <- sun_time %>%
+  mutate(Date = as.Date(Date),Sunrise = ymd_hm(
+      paste(Date,sprintf("%02d:%02d", Rise %/% 100, Rise %% 100)),
+      tz = "Pacific/Pago_Pago"),
+      Sunset = ymd_hm(paste(Date, 
+                            sprintf("%02d:%02d", Set %/% 100, 
+                                    Set %% 100)),
+                      tz = "Pacific/Pago_Pago")) %>%
+  select(Date, Sunrise, Sunset)
+
+test <- left_join(shallow_2022, sun_time_clean, by = "Date") %>%
+  select(Date, Samoa.Standard.Time, Sunrise, Sunset, PAR, depth, sensor.depth) 
+
+attr(test$Samoa.Standard.Time, "tzone")
+attr(test$Sunrise, "tzone") 
+attr(test$Sunset, "tzone")
+
+test$PAR <- as.numeric(test$PAR) 
+
+test <- test %>%
+  filter(Samoa.Standard.Time <= Sunset & Samoa.Standard.Time >= Sunrise)
+
+ggplot(test, aes(x = Samoa.Standard.Time, y = PAR)) +
+  geom_point()
+  
+
+```
+
+

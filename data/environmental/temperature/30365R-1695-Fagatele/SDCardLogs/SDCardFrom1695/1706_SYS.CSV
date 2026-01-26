@@ -1,0 +1,111 @@
+millis,type,message
+16535,DEBUG,SD Card init SUCCESS!
+16556,WARN,Recovered from SD failure - resets: 2
+16588,DEBUG,ext ram fail reset count: 0
+16609,INFO,session id: 1706
+16619,INFO,reset source: 0
+16635,INFO,Device Id: 65477320
+16654,INFO,Firmware SHA: 93CE0B95
+16672,INFO,MAX_SAMPLE_GAP_S: 3.00
+16685,INFO,SPIKE_G_TH: 3.00
+16691,INFO,MAX_MESSAGE_LEN_FULL: 301
+16699,INFO,MAX_MESSAGE_LEN_BASIC: 51
+16707,INFO,MAX_MESSAGE_LEN_SM: 341
+16709,INFO,MESSAGE_QUEUE_LEN: 10
+16715,INFO,STRICT_NMEA: 1
+16721,INFO,MAIN_DECK_HW_VERSION: 7
+16734,INFO,F_MIN: 0.03
+16738,INFO,F_MAX: 0.80
+16754,INFO, sysConfig | sd reset max: 5
+16766,INFO, sysConfig | wd enable: 1
+16775,INFO, sysConfig | prod log mode: 1
+16783,INFO, sysConfig | log filt sd: 1
+16791,INFO, sysConfig | log gps sd: 1
+16799,INFO, sysConfig | gps log lvl: 0
+16807,INFO, sysConfig | log pow sd: 1
+16816,INFO, sysConfig | log nmea sd: 1
+16826,INFO, sysConfig | log irid sd: 1
+16834,INFO, sysConfig | log fft sd: 1
+16842,INFO, sysConfig | log spec sd: 0
+16855,INFO, sysConfig | log speca sd: 0
+16863,INFO, sysConfig | log dre sd: 1
+16871,INFO, sysConfig | log message sd: 1
+16879,INFO, sysConfig | statistics mode: 0
+16889,INFO, sysConfig | log gmn sd: 1
+16898,INFO, sysConfig | min messages period basic: 0
+16908,INFO, sysConfig | min messages period full: 0
+16920,INFO, sysConfig | gps power lvl: 1
+16928,INFO, sysConfig | log gmn 1s: 0
+16936,INFO, sysConfig | log bin sd: 0
+16945,INFO, sysConfig | message samples basic: 2
+16955,INFO, sysConfig | self test: 0
+16967,INFO, sysConfig | self test reset max: 2
+16977,INFO, sysConfig | vis led enable: 1
+16988,INFO, sysConfig | log sst sd: 1
+16996,INFO, sysConfig | external hardware reset max: 5
+17008,INFO, sysConfig | sst sampling period: 1
+17018,INFO, sysConfig | sst n samples to avg: 6
+17029,INFO, sysConfig | partition thresh bin: 7
+17039,INFO, sysConfig | gps sleep enable: 1
+17047,INFO, sysConfig | idle checkin period: 3
+17057,INFO, sysConfig | bridge enable: 1
+17068,INFO, sysConfig | log smdata sd: 1
+17321,INFO,External hw available: 00000100
+17350,INFO,Initializing Bridge
+19869,INFO,Starting Bridge Self Test
+21446,INFO,Bridge initialized
+21866,INFO,powerData | solV: 5.68
+22153,INFO,powerData | solI: 0.50
+22347,INFO,powerData | battV: 3.10
+22366,INFO,powerData | battI: -0.64
+22386,INFO,powerData | busV: 2.95
+22407,INFO,powerData | busI: 1.48
+22425,INFO,powerData | BQ status reg: 173
+22446,INFO,powerData | Fault reg: 0
+22466,INFO,powerData | Charge status: 2
+22484,INFO,powerData | DPM status: 1
+22517,INFO,Loaded OP MODE: 40962
+22603,DEBUG,Iridium fail reset count: 0
+25217,INFO,imei: 300434065477320
+25843,DEBUG,GPS fail reset count: 0
+31291,ERROR, sysError | BattV: 1
+31315,ERROR, sysError | BusV: 3
+31338,ERROR, sysError | BusI: 2
+31438,WARN,Disabling IridiumMessageSender transmissions
+58859,INFO,GpsSigErr changed to NO_ERR
+58882,INFO,Starting collection m: 0 t: 0 at 1670183451.00
+60137,INFO,Remote config out of sync
+60160,INFO,submitting message: 50 byte / 400 bit messsage: 
+60213,DEBUG,m 0 sub to Q at i 0 count: 0
+60235,DEBUG,1 msgs in Q
+68571,INFO,Max CNO changed from -1 to 47
+171180,INFO,Starting analysis m: 0 t: 0 e: 0
+172558,INFO,Completed analysis m: 0 t: 0 e: 0
+222318,INFO,Starting analysis m: 0 t: 0 e: 1
+223907,INFO,Completed analysis m: 0 t: 0 e: 1
+273479,INFO,Starting analysis m: 0 t: 0 e: 2
+275003,INFO,Completed analysis m: 0 t: 0 e: 2
+300003,INFO,powerData | solV: 5.69
+300025,INFO,powerData | solI: 0.50
+300046,INFO,powerData | battV: 3.27
+300066,INFO,powerData | battI: 0.64
+300089,INFO,powerData | busV: 3.47
+300109,INFO,powerData | busI: 0.07
+300128,INFO,powerData | BQ status reg: 173
+300150,INFO,powerData | Fault reg: 0
+300173,INFO,powerData | Charge status: 2
+300193,INFO,powerData | DPM status: 1
+324616,INFO,Starting analysis m: 0 t: 0 e: 3
+326162,INFO,Completed analysis m: 0 t: 0 e: 3
+348295,INFO,Max CNO changed from 47 to 44
+374925,WARN,BACK IN TIME 1670183767.00 to 1670183766.40
+375314,WARN,BACK IN TIME 1670183767.00 to 1670183766.80
+375719,WARN,SMALL SAMPLE PERIOD: from 1670183767.00 to 1670183767.20
+376127,WARN,BAD TIMEBASE from 1670183767.00 to 1670183767.60
+376518,WARN,BAD TIMEBASE from 1670183767.00 to 1670183768.00
+376915,WARN,BAD TIMEBASE from 1670183767.00 to 1670183768.40
+377321,WARN,BAD TIMEBASE from 1670183767.00 to 1670183768.80
+377722,WARN,BAD TIMEBASE from 1670183767.00 to 1670183769.20
+378122,WARN,BAD TIMEBASE from 1670183767.00 to 1670183769.60
+378511,WARN,BAD TIMEBASE from 1670183767.00 to 1670183770.00
+378916,WARN,EXCEED MAX GAP: dt: 3.40 from 1670183767.00 to 1670183770.40

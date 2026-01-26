@@ -1,0 +1,110 @@
+millis,type,message
+15347,DEBUG,SD Card init SUCCESS!
+15368,WARN,Recovered from SD failure - resets: 2
+15400,DEBUG,ext ram fail reset count: 0
+15421,INFO,session id: 1001
+15431,INFO,reset source: 0
+15448,INFO,Device Id: 65477320
+15466,INFO,Firmware SHA: 93CE0B95
+15484,INFO,MAX_SAMPLE_GAP_S: 3.00
+15497,INFO,SPIKE_G_TH: 3.00
+15503,INFO,MAX_MESSAGE_LEN_FULL: 301
+15511,INFO,MAX_MESSAGE_LEN_BASIC: 51
+15519,INFO,MAX_MESSAGE_LEN_SM: 341
+15521,INFO,MESSAGE_QUEUE_LEN: 10
+15529,INFO,STRICT_NMEA: 1
+15534,INFO,MAIN_DECK_HW_VERSION: 7
+15546,INFO,F_MIN: 0.03
+15550,INFO,F_MAX: 0.80
+15566,INFO, sysConfig | sd reset max: 5
+15579,INFO, sysConfig | wd enable: 1
+15587,INFO, sysConfig | prod log mode: 1
+15595,INFO, sysConfig | log filt sd: 1
+15603,INFO, sysConfig | log gps sd: 1
+15611,INFO, sysConfig | gps log lvl: 0
+15620,INFO, sysConfig | log pow sd: 1
+15628,INFO, sysConfig | log nmea sd: 1
+15638,INFO, sysConfig | log irid sd: 1
+15646,INFO, sysConfig | log fft sd: 1
+15654,INFO, sysConfig | log spec sd: 0
+15667,INFO, sysConfig | log speca sd: 0
+15675,INFO, sysConfig | log dre sd: 1
+15683,INFO, sysConfig | log message sd: 1
+15691,INFO, sysConfig | statistics mode: 0
+15702,INFO, sysConfig | log gmn sd: 1
+15710,INFO, sysConfig | min messages period basic: 0
+15720,INFO, sysConfig | min messages period full: 0
+15732,INFO, sysConfig | gps power lvl: 1
+15740,INFO, sysConfig | log gmn 1s: 0
+15749,INFO, sysConfig | log bin sd: 0
+15757,INFO, sysConfig | message samples basic: 2
+15767,INFO, sysConfig | self test: 0
+15779,INFO, sysConfig | self test reset max: 2
+15790,INFO, sysConfig | vis led enable: 1
+15800,INFO, sysConfig | log sst sd: 1
+15808,INFO, sysConfig | external hardware reset max: 5
+15820,INFO, sysConfig | sst sampling period: 1
+15831,INFO, sysConfig | sst n samples to avg: 6
+15841,INFO, sysConfig | partition thresh bin: 7
+15851,INFO, sysConfig | gps sleep enable: 1
+15859,INFO, sysConfig | idle checkin period: 3
+15869,INFO, sysConfig | bridge enable: 1
+15880,INFO, sysConfig | log smdata sd: 1
+16134,INFO,External hw available: 00000100
+16160,INFO,Initializing Bridge
+18681,INFO,Starting Bridge Self Test
+19791,INFO,Bridge initialized
+19972,INFO,powerData | solV: 5.64
+19994,INFO,powerData | solI: 0.43
+20013,INFO,powerData | battV: 3.17
+20033,INFO,powerData | battI: -0.92
+20051,INFO,powerData | busV: 3.01
+20072,INFO,powerData | busI: 1.60
+20090,INFO,powerData | BQ status reg: 173
+20111,INFO,powerData | Fault reg: 0
+20131,INFO,powerData | Charge status: 2
+20150,INFO,powerData | DPM status: 1
+20183,INFO,Loaded OP MODE: 40962
+20269,DEBUG,Iridium fail reset count: 0
+22882,INFO,imei: 300434065477320
+23511,DEBUG,GPS fail reset count: 0
+28979,ERROR, sysError | BattV: 1
+29007,ERROR, sysError | BusV: 3
+29032,ERROR, sysError | BusI: 2
+29128,WARN,Disabling IridiumMessageSender transmissions
+51021,INFO,GpsSigErr changed to NO_ERR
+51044,INFO,Starting collection m: 0 t: 0 at 1668974041.00
+51947,INFO,Remote config out of sync
+51970,INFO,submitting message: 50 byte / 400 bit messsage: 
+52021,DEBUG,m 0 sub to Q at i 0 count: 0
+52047,DEBUG,1 msgs in Q
+66193,INFO,Max CNO changed from -1 to 46
+162797,INFO,Starting analysis m: 0 t: 0 e: 0
+164145,INFO,Completed analysis m: 0 t: 0 e: 0
+177152,WARN,BACK IN TIME 1668974167.00 to 1668974166.40
+177559,WARN,BACK IN TIME 1668974167.00 to 1668974166.80
+177958,WARN,SMALL SAMPLE PERIOD: from 1668974167.00 to 1668974167.20
+178352,WARN,BAD TIMEBASE from 1668974167.00 to 1668974167.60
+178753,WARN,BAD TIMEBASE from 1668974167.00 to 1668974168.00
+179156,WARN,BAD TIMEBASE from 1668974167.00 to 1668974168.40
+179560,WARN,BAD TIMEBASE from 1668974167.00 to 1668974168.80
+179957,WARN,BAD TIMEBASE from 1668974167.00 to 1668974169.20
+180350,WARN,BAD TIMEBASE from 1668974167.00 to 1668974169.60
+180748,WARN,BAD TIMEBASE from 1668974167.00 to 1668974170.00
+181147,WARN,EXCEED MAX GAP: dt: 3.40 from 1668974167.00 to 1668974170.40
+293470,INFO,Starting analysis m: 0 t: 0 e: 1
+295012,INFO,Completed analysis m: 0 t: 0 e: 1
+300003,INFO,powerData | solV: 5.78
+300027,INFO,powerData | solI: 0.33
+300048,INFO,powerData | battV: 3.32
+300066,INFO,powerData | battI: 0.37
+300087,INFO,powerData | busV: 3.46
+300105,INFO,powerData | busI: 0.09
+300126,INFO,powerData | BQ status reg: 173
+300148,INFO,powerData | Fault reg: 0
+300169,INFO,powerData | Charge status: 2
+300191,INFO,powerData | DPM status: 1
+344635,INFO,Starting analysis m: 0 t: 0 e: 2
+346351,INFO,Completed analysis m: 0 t: 0 e: 2
+395769,INFO,Starting analysis m: 0 t: 0 e: 3
+397316,INFO,Completed analysis m: 0 t: 0 e: 3

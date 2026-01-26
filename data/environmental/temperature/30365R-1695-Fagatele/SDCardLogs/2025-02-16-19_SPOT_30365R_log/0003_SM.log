@@ -1,0 +1,354 @@
+2025-02-16T05:30:01.031Z [SM] [INFO] Starting message. Epoch: 1739683801 (GPS epoch: 1739683801 Diff 0)
+2025-02-16T05:30:01.035Z [SM] [INFO] Next SM event in 1800 seconds.
+2025-02-16T05:30:01.035Z [SM] [INFO] Scheduling orch callback to execute in 1800 sec which should be epoch 1739685601
+2025-02-19T06:58:30.488Z [SM] [INFO] Starting message. Epoch: 1739948311 (GPS epoch: 1739948311 Diff 0)
+2025-02-19T06:58:30.492Z [SM] [INFO] Next SM event in 1800 seconds.
+2025-02-19T06:58:30.492Z [SM] [INFO] Scheduling orch callback to execute in 1800 sec which should be epoch 1739950111
+2025-02-19T07:28:30.167Z [SM] [INFO] StandardMessage first 30 min period
+2025-02-19T07:28:30.167Z [SM] [INFO] Saving location 0. Epoch: 1739950109 Lat: -14 -2067049 Lon: -170 -44144932025-02-19T07:28:30.167Z [SM] [INFO] Starting message. Epoch: 1739950111 (GPS epoch: 1739950109 Diff 2)
+2025-02-19T07:28:30.167Z [SM] [INFO] Next SM event in 1800 seconds.
+2025-02-19T07:28:30.167Z [SM] [INFO] Scheduling orch callback to execute in 1800 sec which should be epoch 1739951911
+2025-02-19T07:28:30.269Z [SM] [INFO] StandardMessage stats received!
+2025-02-19T07:28:30.269Z [SM] [INFO] status: 80
+2025-02-19T07:28:30.269Z [SM] [INFO] battV: 3.840 V
+2025-02-19T07:28:30.269Z [SM] [INFO] battP: -0.576 W
+2025-02-19T07:28:30.269Z [SM] [INFO] solarV: 0.064 V
+2025-02-19T07:28:30.269Z [SM] [INFO] intTemp: 29.74 C
+2025-02-19T07:28:30.269Z [SM] [INFO] intHum: 40.1 %RH
+2025-02-19T07:28:30.269Z [SM] [INFO] sst: N/A
+2025-02-19T07:28:30.269Z [SM] [INFO] pressure: N/A
+2025-02-19T07:58:29.945Z [SM] [INFO] StandardMessage second 30 min period
+2025-02-19T07:58:29.945Z [SM] [INFO] Saving location 1. Epoch: 1739951909 Lat: -14 -2067245 Lon: -170 -4414298
+2025-02-19T07:58:29.945Z [SM] [INFO] Starting message. Epoch: 1739951911 (GPS epoch: 1739951909 Diff 2)
+2025-02-19T07:58:29.945Z [SM] [INFO] Next SM event in 1800 seconds.
+2025-02-19T07:58:29.945Z [SM] [INFO] Scheduling orch callback to execute in 1800 sec which should be epoch 1739953711
+2025-02-19T07:58:29.945Z [SM] [INFO] Finished data collection period, triggering analysis
+2025-02-19T07:58:30.042Z [SM] [INFO] StandardMessage stats received!
+2025-02-19T07:58:30.042Z [SM] [INFO] status: 80
+2025-02-19T07:58:30.042Z [SM] [INFO] battV: 3.837 V
+2025-02-19T07:58:30.042Z [SM] [INFO] battP: -0.530 W
+2025-02-19T07:58:30.042Z [SM] [INFO] solarV: 0.064 V
+2025-02-19T07:58:30.042Z [SM] [INFO] intTemp: 28.92 C
+2025-02-19T07:58:30.046Z [SM] [INFO] intHum: 39.9 %RH
+2025-02-19T07:58:30.046Z [SM] [INFO] sst: N/A
+2025-02-19T07:58:30.046Z [SM] [INFO] pressure: N/A
+2025-02-19T07:58:30.046Z [SM] [INFO] Message 3 added to queue.
+2025-02-19T08:28:29.625Z [SM] [INFO] StandardMessage first 30 min period
+2025-02-19T08:28:29.625Z [SM] [INFO] Saving location 0. Epoch: 1739953709 Lat: -14 -2066229 Lon: -170 -44143502025-02-19T08:28:29.625Z [SM] [INFO] Starting message. Epoch: 1739953711 (GPS epoch: 1739953709 Diff 2)
+2025-02-19T08:28:29.625Z [SM] [INFO] Next SM event in 1800 seconds.
+2025-02-19T08:28:29.625Z [SM] [INFO] Scheduling orch callback to execute in 1800 sec which should be epoch 1739955511
+2025-02-19T08:28:29.722Z [SM] [INFO] StandardMessage stats received!
+2025-02-19T08:28:29.726Z [SM] [INFO] status: 80
+2025-02-19T08:28:29.726Z [SM] [INFO] battV: 3.831 V
+2025-02-19T08:28:29.726Z [SM] [INFO] battP: -0.530 W
+2025-02-19T08:28:29.726Z [SM] [INFO] solarV: 0.064 V
+2025-02-19T08:28:29.726Z [SM] [INFO] intTemp: 28.57 C
+2025-02-19T08:28:29.726Z [SM] [INFO] intHum: 39.9 %RH
+2025-02-19T08:28:29.726Z [SM] [INFO] sst: N/A
+2025-02-19T08:28:29.726Z [SM] [INFO] pressure: N/A
+2025-02-19T08:58:29.402Z [SM] [INFO] StandardMessage second 30 min period
+2025-02-19T08:58:29.402Z [SM] [INFO] Saving location 1. Epoch: 1739955508 Lat: -14 -2066453 Lon: -170 -4414374
+2025-02-19T08:58:29.402Z [SM] [INFO] Starting message. Epoch: 1739955511 (GPS epoch: 1739955508 Diff 3)
+2025-02-19T08:58:29.402Z [SM] [INFO] Next SM event in 1800 seconds.
+2025-02-19T08:58:29.402Z [SM] [INFO] Scheduling orch callback to execute in 1800 sec which should be epoch 1739957311
+2025-02-19T08:58:29.402Z [SM] [INFO] Finished data collection period, triggering analysis
+2025-02-19T08:58:29.503Z [SM] [INFO] StandardMessage stats received!
+2025-02-19T08:58:29.503Z [SM] [INFO] status: 80
+2025-02-19T08:58:29.503Z [SM] [INFO] battV: 3.826 V
+2025-02-19T08:58:29.503Z [SM] [INFO] battP: -0.531 W
+2025-02-19T08:58:29.503Z [SM] [INFO] solarV: 0.073 V
+2025-02-19T08:58:29.503Z [SM] [INFO] intTemp: 28.26 C
+2025-02-19T08:58:29.503Z [SM] [INFO] intHum: 39.8 %RH
+2025-02-19T08:58:29.503Z [SM] [INFO] sst: N/A
+2025-02-19T08:58:29.503Z [SM] [INFO] pressure: N/A
+2025-02-19T08:58:29.507Z [SM] [INFO] Message 5 added to queue.
+2025-02-19T09:28:29.078Z [SM] [INFO] StandardMessage first 30 min period
+2025-02-19T09:28:29.078Z [SM] [INFO] Saving location 0. Epoch: 1739957308 Lat: -14 -2067363 Lon: -170 -44146372025-02-19T09:28:29.082Z [SM] [INFO] Starting message. Epoch: 1739957311 (GPS epoch: 1739957308 Diff 3)
+2025-02-19T09:28:29.082Z [SM] [INFO] Next SM event in 1800 seconds.
+2025-02-19T09:28:29.082Z [SM] [INFO] Scheduling orch callback to execute in 1800 sec which should be epoch 1739959111
+2025-02-19T09:28:29.179Z [SM] [INFO] StandardMessage stats received!
+2025-02-19T09:28:29.179Z [SM] [INFO] status: 80
+2025-02-19T09:28:29.179Z [SM] [INFO] battV: 3.818 V
+2025-02-19T09:28:29.179Z [SM] [INFO] battP: -0.534 W
+2025-02-19T09:28:29.179Z [SM] [INFO] solarV: 0.075 V
+2025-02-19T09:28:29.179Z [SM] [INFO] intTemp: 28.22 C
+2025-02-19T09:28:29.179Z [SM] [INFO] intHum: 39.8 %RH
+2025-02-19T09:28:29.183Z [SM] [INFO] sst: N/A
+2025-02-19T09:28:29.183Z [SM] [INFO] pressure: N/A
+2025-02-19T09:58:28.855Z [SM] [INFO] StandardMessage second 30 min period
+2025-02-19T09:58:28.855Z [SM] [INFO] Saving location 1. Epoch: 1739959108 Lat: -14 -2067512 Lon: -170 -4415019
+2025-02-19T09:58:28.859Z [SM] [INFO] Starting message. Epoch: 1739959111 (GPS epoch: 1739959108 Diff 3)
+2025-02-19T09:58:28.859Z [SM] [INFO] Next SM event in 1800 seconds.
+2025-02-19T09:58:28.859Z [SM] [INFO] Scheduling orch callback to execute in 1800 sec which should be epoch 1739960911
+2025-02-19T09:58:28.859Z [SM] [INFO] Finished data collection period, triggering analysis
+2025-02-19T09:58:28.957Z [SM] [INFO] StandardMessage stats received!
+2025-02-19T09:58:28.957Z [SM] [INFO] status: 80
+2025-02-19T09:58:28.957Z [SM] [INFO] battV: 3.812 V
+2025-02-19T09:58:28.957Z [SM] [INFO] battP: -0.530 W
+2025-02-19T09:58:28.957Z [SM] [INFO] solarV: 0.072 V
+2025-02-19T09:58:28.957Z [SM] [INFO] intTemp: 28.21 C
+2025-02-19T09:58:28.957Z [SM] [INFO] intHum: 39.7 %RH
+2025-02-19T09:58:28.957Z [SM] [INFO] sst: N/A
+2025-02-19T09:58:28.957Z [SM] [INFO] pressure: N/A
+2025-02-19T09:58:28.960Z [SM] [INFO] Message 6 added to queue.
+2025-02-19T10:28:28.535Z [SM] [INFO] StandardMessage first 30 min period
+2025-02-19T10:28:28.535Z [SM] [INFO] Saving location 0. Epoch: 1739960908 Lat: -14 -2067389 Lon: -170 -44145292025-02-19T10:28:28.535Z [SM] [INFO] Starting message. Epoch: 1739960911 (GPS epoch: 1739960908 Diff 3)
+2025-02-19T10:28:28.535Z [SM] [INFO] Next SM event in 1800 seconds.
+2025-02-19T10:28:28.535Z [SM] [INFO] Scheduling orch callback to execute in 1800 sec which should be epoch 1739962711
+2025-02-19T10:28:28.636Z [SM] [INFO] StandardMessage stats received!
+2025-02-19T10:28:28.636Z [SM] [INFO] status: 80
+2025-02-19T10:28:28.636Z [SM] [INFO] battV: 3.805 V
+2025-02-19T10:28:28.636Z [SM] [INFO] battP: -0.527 W
+2025-02-19T10:28:28.636Z [SM] [INFO] solarV: 0.072 V
+2025-02-19T10:28:28.636Z [SM] [INFO] intTemp: 28.15 C
+2025-02-19T10:28:28.636Z [SM] [INFO] intHum: 39.5 %RH
+2025-02-19T10:28:28.636Z [SM] [INFO] sst: N/A
+2025-02-19T10:28:28.636Z [SM] [INFO] pressure: N/A
+2025-02-19T10:58:28.312Z [SM] [INFO] StandardMessage second 30 min period
+2025-02-19T10:58:28.312Z [SM] [INFO] Saving location 1. Epoch: 1739962708 Lat: -14 -2066783 Lon: -170 -4414294
+2025-02-19T10:58:28.312Z [SM] [INFO] Starting message. Epoch: 1739962711 (GPS epoch: 1739962708 Diff 3)
+2025-02-19T10:58:28.312Z [SM] [INFO] Next SM event in 1800 seconds.
+2025-02-19T10:58:28.316Z [SM] [INFO] Scheduling orch callback to execute in 1800 sec which should be epoch 1739964511
+2025-02-19T10:58:28.316Z [SM] [INFO] Finished data collection period, triggering analysis
+2025-02-19T10:58:28.414Z [SM] [INFO] StandardMessage stats received!
+2025-02-19T10:58:28.414Z [SM] [INFO] status: 80
+2025-02-19T10:58:28.414Z [SM] [INFO] battV: 3.795 V
+2025-02-19T10:58:28.414Z [SM] [INFO] battP: -0.534 W
+2025-02-19T10:58:28.414Z [SM] [INFO] solarV: 0.073 V
+2025-02-19T10:58:28.414Z [SM] [INFO] intTemp: 27.96 C
+2025-02-19T10:58:28.414Z [SM] [INFO] intHum: 39.5 %RH
+2025-02-19T10:58:28.414Z [SM] [INFO] sst: N/A
+2025-02-19T10:58:28.414Z [SM] [INFO] pressure: N/A
+2025-02-19T10:58:28.417Z [SM] [INFO] Message 8 added to queue.
+2025-02-19T11:28:27.992Z [SM] [INFO] StandardMessage first 30 min period
+2025-02-19T11:28:27.992Z [SM] [INFO] Saving location 0. Epoch: 1739964507 Lat: -14 -2066759 Lon: -170 -44145832025-02-19T11:28:27.992Z [SM] [INFO] Starting message. Epoch: 1739964511 (GPS epoch: 1739964507 Diff 4)
+2025-02-19T11:28:27.992Z [SM] [INFO] Next SM event in 1800 seconds.
+2025-02-19T11:28:27.992Z [SM] [INFO] Scheduling orch callback to execute in 1800 sec which should be epoch 1739966311
+2025-02-19T11:28:28.093Z [SM] [INFO] StandardMessage stats received!
+2025-02-19T11:28:28.093Z [SM] [INFO] status: 80
+2025-02-19T11:28:28.093Z [SM] [INFO] battV: 3.785 V
+2025-02-19T11:28:28.093Z [SM] [INFO] battP: -0.558 W
+2025-02-19T11:28:28.093Z [SM] [INFO] solarV: 0.072 V
+2025-02-19T11:28:28.093Z [SM] [INFO] intTemp: 27.81 C
+2025-02-19T11:28:28.093Z [SM] [INFO] intHum: 39.2 %RH
+2025-02-19T11:28:28.093Z [SM] [INFO] sst: N/A
+2025-02-19T11:28:28.093Z [SM] [INFO] pressure: N/A
+2025-02-19T11:58:27.769Z [SM] [INFO] StandardMessage second 30 min period
+2025-02-19T11:58:27.769Z [SM] [INFO] Saving location 1. Epoch: 1739966307 Lat: -14 -2066814 Lon: -170 -4414643
+2025-02-19T11:58:27.769Z [SM] [INFO] Starting message. Epoch: 1739966311 (GPS epoch: 1739966307 Diff 4)
+2025-02-19T11:58:27.769Z [SM] [INFO] Next SM event in 1800 seconds.
+2025-02-19T11:58:27.769Z [SM] [INFO] Scheduling orch callback to execute in 1800 sec which should be epoch 1739968111
+2025-02-19T11:58:27.769Z [SM] [INFO] Finished data collection period, triggering analysis
+2025-02-19T11:58:27.867Z [SM] [INFO] StandardMessage stats received!
+2025-02-19T11:58:27.871Z [SM] [INFO] status: 80
+2025-02-19T11:58:27.871Z [SM] [INFO] battV: 3.777 V
+2025-02-19T11:58:27.871Z [SM] [INFO] battP: -0.519 W
+2025-02-19T11:58:27.871Z [SM] [INFO] solarV: 0.075 V
+2025-02-19T11:58:27.871Z [SM] [INFO] intTemp: 27.53 C
+2025-02-19T11:58:27.871Z [SM] [INFO] intHum: 39.3 %RH
+2025-02-19T11:58:27.871Z [SM] [INFO] sst: N/A
+2025-02-19T11:58:27.871Z [SM] [INFO] pressure: N/A
+2025-02-19T11:58:27.871Z [SM] [INFO] Message 9 added to queue.
+2025-02-19T12:28:27.449Z [SM] [INFO] StandardMessage first 30 min period
+2025-02-19T12:28:27.449Z [SM] [INFO] Saving location 0. Epoch: 1739968107 Lat: -14 -2066620 Lon: -170 -44142142025-02-19T12:28:27.449Z [SM] [INFO] Starting message. Epoch: 1739968111 (GPS epoch: 1739968107 Diff 4)
+2025-02-19T12:28:27.449Z [SM] [INFO] Next SM event in 1800 seconds.
+2025-02-19T12:28:27.449Z [SM] [INFO] Scheduling orch callback to execute in 1800 sec which should be epoch 1739969911
+2025-02-19T12:28:27.546Z [SM] [INFO] StandardMessage stats received!
+2025-02-19T12:28:27.546Z [SM] [INFO] status: 80
+2025-02-19T12:28:27.546Z [SM] [INFO] battV: 3.767 V
+2025-02-19T12:28:27.546Z [SM] [INFO] battP: -0.538 W
+2025-02-19T12:28:27.546Z [SM] [INFO] solarV: 0.088 V
+2025-02-19T12:28:27.546Z [SM] [INFO] intTemp: 27.58 C
+2025-02-19T12:28:27.546Z [SM] [INFO] intHum: 39.3 %RH
+2025-02-19T12:28:27.546Z [SM] [INFO] sst: N/A
+2025-02-19T12:28:27.550Z [SM] [INFO] pressure: N/A
+2025-02-19T12:58:27.222Z [SM] [INFO] StandardMessage second 30 min period
+2025-02-19T12:58:27.222Z [SM] [INFO] Saving location 1. Epoch: 1739969906 Lat: -14 -2066508 Lon: -170 -4413987
+2025-02-19T12:58:27.222Z [SM] [INFO] Starting message. Epoch: 1739969911 (GPS epoch: 1739969906 Diff 5)
+2025-02-19T12:58:27.222Z [SM] [INFO] Next SM event in 1800 seconds.
+2025-02-19T12:58:27.226Z [SM] [INFO] Scheduling orch callback to execute in 1800 sec which should be epoch 1739971711
+2025-02-19T12:58:27.226Z [SM] [INFO] Finished data collection period, triggering analysis
+2025-02-19T12:58:27.324Z [SM] [INFO] StandardMessage stats received!
+2025-02-19T12:58:27.324Z [SM] [INFO] status: 80
+2025-02-19T12:58:27.324Z [SM] [INFO] battV: 3.760 V
+2025-02-19T12:58:27.324Z [SM] [INFO] battP: -0.522 W
+2025-02-19T12:58:27.324Z [SM] [INFO] solarV: 0.088 V
+2025-02-19T12:58:27.324Z [SM] [INFO] intTemp: 27.57 C
+2025-02-19T12:58:27.324Z [SM] [INFO] intHum: 39.3 %RH
+2025-02-19T12:58:27.324Z [SM] [INFO] sst: N/A
+2025-02-19T12:58:27.324Z [SM] [INFO] pressure: N/A
+2025-02-19T12:58:27.328Z [SM] [INFO] Message 11 added to queue.
+2025-02-19T13:28:26.902Z [SM] [INFO] StandardMessage first 30 min period
+2025-02-19T13:28:26.902Z [SM] [INFO] Saving location 0. Epoch: 1739971706 Lat: -14 -2066904 Lon: -170 -44145022025-02-19T13:28:26.902Z [SM] [INFO] Starting message. Epoch: 1739971711 (GPS epoch: 1739971706 Diff 5)
+2025-02-19T13:28:26.902Z [SM] [INFO] Next SM event in 1800 seconds.
+2025-02-19T13:28:26.902Z [SM] [INFO] Scheduling orch callback to execute in 1800 sec which should be epoch 1739973511
+2025-02-19T13:28:27.003Z [SM] [INFO] StandardMessage stats received!
+2025-02-19T13:28:27.003Z [SM] [INFO] status: 80
+2025-02-19T13:28:27.003Z [SM] [INFO] battV: 3.752 V
+2025-02-19T13:28:27.003Z [SM] [INFO] battP: -0.545 W
+2025-02-19T13:28:27.003Z [SM] [INFO] solarV: 0.081 V
+2025-02-19T13:28:27.003Z [SM] [INFO] intTemp: 27.68 C
+2025-02-19T13:28:27.003Z [SM] [INFO] intHum: 39.2 %RH
+2025-02-19T13:28:27.003Z [SM] [INFO] sst: N/A
+2025-02-19T13:28:27.003Z [SM] [INFO] pressure: N/A
+2025-02-19T13:58:26.679Z [SM] [INFO] StandardMessage second 30 min period
+2025-02-19T13:58:26.679Z [SM] [INFO] Saving location 1. Epoch: 1739973506 Lat: -14 -2066922 Lon: -170 -4414154
+2025-02-19T13:58:26.679Z [SM] [INFO] Starting message. Epoch: 1739973511 (GPS epoch: 1739973506 Diff 5)
+2025-02-19T13:58:26.679Z [SM] [INFO] Next SM event in 1800 seconds.
+2025-02-19T13:58:26.679Z [SM] [INFO] Scheduling orch callback to execute in 1800 sec which should be epoch 1739975311
+2025-02-19T13:58:26.679Z [SM] [INFO] Finished data collection period, triggering analysis
+2025-02-19T13:58:26.777Z [SM] [INFO] StandardMessage stats received!
+2025-02-19T13:58:26.777Z [SM] [INFO] status: 80
+2025-02-19T13:58:26.777Z [SM] [INFO] battV: 3.745 V
+2025-02-19T13:58:26.777Z [SM] [INFO] battP: -0.533 W
+2025-02-19T13:58:26.777Z [SM] [INFO] solarV: 0.081 V
+2025-02-19T13:58:26.777Z [SM] [INFO] intTemp: 27.71 C
+2025-02-19T13:58:26.777Z [SM] [INFO] intHum: 39.1 %RH
+2025-02-19T13:58:26.777Z [SM] [INFO] sst: N/A
+2025-02-19T13:58:26.777Z [SM] [INFO] pressure: N/A
+2025-02-19T13:58:26.777Z [SM] [INFO] Message 12 added to queue.
+2025-02-19T14:28:26.355Z [SM] [INFO] StandardMessage first 30 min period
+2025-02-19T14:28:26.355Z [SM] [INFO] Saving location 0. Epoch: 1739975306 Lat: -14 -2066816 Lon: -170 -44143202025-02-19T14:28:26.355Z [SM] [INFO] Starting message. Epoch: 1739975311 (GPS epoch: 1739975306 Diff 5)
+2025-02-19T14:28:26.359Z [SM] [INFO] Next SM event in 1800 seconds.
+2025-02-19T14:28:26.359Z [SM] [INFO] Scheduling orch callback to execute in 1800 sec which should be epoch 1739977111
+2025-02-19T14:28:26.457Z [SM] [INFO] StandardMessage stats received!
+2025-02-19T14:28:26.457Z [SM] [INFO] status: 80
+2025-02-19T14:28:26.457Z [SM] [INFO] battV: 3.734 V
+2025-02-19T14:28:26.457Z [SM] [INFO] battP: -0.695 W
+2025-02-19T14:28:26.457Z [SM] [INFO] solarV: 0.083 V
+2025-02-19T14:28:26.457Z [SM] [INFO] intTemp: 27.98 C
+2025-02-19T14:28:26.457Z [SM] [INFO] intHum: 38.9 %RH
+2025-02-19T14:28:26.457Z [SM] [INFO] sst: N/A
+2025-02-19T14:28:26.457Z [SM] [INFO] pressure: N/A
+2025-02-19T14:58:26.132Z [SM] [INFO] StandardMessage second 30 min period
+2025-02-19T14:58:26.132Z [SM] [INFO] Saving location 1. Epoch: 1739977106 Lat: -14 -2066590 Lon: -170 -4413940
+2025-02-19T14:58:26.132Z [SM] [INFO] Starting message. Epoch: 1739977111 (GPS epoch: 1739977106 Diff 5)
+2025-02-19T14:58:26.136Z [SM] [INFO] Next SM event in 1800 seconds.
+2025-02-19T14:58:26.136Z [SM] [INFO] Scheduling orch callback to execute in 1800 sec which should be epoch 1739978911
+2025-02-19T14:58:26.136Z [SM] [INFO] Finished data collection period, triggering analysis
+2025-02-19T14:58:26.234Z [SM] [INFO] StandardMessage stats received!
+2025-02-19T14:58:26.234Z [SM] [INFO] status: 80
+2025-02-19T14:58:26.234Z [SM] [INFO] battV: 3.731 V
+2025-02-19T14:58:26.234Z [SM] [INFO] battP: -0.568 W
+2025-02-19T14:58:26.234Z [SM] [INFO] solarV: 0.082 V
+2025-02-19T14:58:26.234Z [SM] [INFO] intTemp: 27.86 C
+2025-02-19T14:58:26.234Z [SM] [INFO] intHum: 38.8 %RH
+2025-02-19T14:58:26.234Z [SM] [INFO] sst: N/A
+2025-02-19T14:58:26.234Z [SM] [INFO] pressure: N/A
+2025-02-19T14:58:26.238Z [SM] [INFO] Message 14 added to queue.
+2025-02-19T15:28:25.812Z [SM] [INFO] StandardMessage first 30 min period
+2025-02-19T15:28:25.812Z [SM] [INFO] Saving location 0. Epoch: 1739978905 Lat: -14 -2066741 Lon: -170 -44142852025-02-19T15:28:25.812Z [SM] [INFO] Starting message. Epoch: 1739978911 (GPS epoch: 1739978905 Diff 6)
+2025-02-19T15:28:25.812Z [SM] [INFO] Next SM event in 1800 seconds.
+2025-02-19T15:28:25.812Z [SM] [INFO] Scheduling orch callback to execute in 1800 sec which should be epoch 1739980711
+2025-02-19T15:28:25.914Z [SM] [INFO] StandardMessage stats received!
+2025-02-19T15:28:25.914Z [SM] [INFO] status: 80
+2025-02-19T15:28:25.914Z [SM] [INFO] battV: 3.726 V
+2025-02-19T15:28:25.914Z [SM] [INFO] battP: -0.554 W
+2025-02-19T15:28:25.914Z [SM] [INFO] solarV: 0.080 V
+2025-02-19T15:28:25.914Z [SM] [INFO] intTemp: 27.81 C
+2025-02-19T15:28:25.914Z [SM] [INFO] intHum: 38.8 %RH
+2025-02-19T15:28:25.914Z [SM] [INFO] sst: N/A
+2025-02-19T15:28:25.914Z [SM] [INFO] pressure: N/A
+2025-02-19T15:58:25.589Z [SM] [INFO] StandardMessage second 30 min period
+2025-02-19T15:58:25.589Z [SM] [INFO] Saving location 1. Epoch: 1739980705 Lat: -14 -2067432 Lon: -170 -4414583
+2025-02-19T15:58:25.589Z [SM] [INFO] Starting message. Epoch: 1739980711 (GPS epoch: 1739980705 Diff 6)
+2025-02-19T15:58:25.589Z [SM] [INFO] Next SM event in 1800 seconds.
+2025-02-19T15:58:25.589Z [SM] [INFO] Scheduling orch callback to execute in 1800 sec which should be epoch 1739982511
+2025-02-19T15:58:25.593Z [SM] [INFO] Finished data collection period, triggering analysis
+2025-02-19T15:58:25.691Z [SM] [INFO] StandardMessage stats received!
+2025-02-19T15:58:25.691Z [SM] [INFO] status: 80
+2025-02-19T15:58:25.691Z [SM] [INFO] battV: 3.709 V
+2025-02-19T15:58:25.691Z [SM] [INFO] battP: -0.868 W
+2025-02-19T15:58:25.691Z [SM] [INFO] solarV: 0.080 V
+2025-02-19T15:58:25.691Z [SM] [INFO] intTemp: 27.73 C
+2025-02-19T15:58:25.691Z [SM] [INFO] intHum: 38.8 %RH
+2025-02-19T15:58:25.691Z [SM] [INFO] sst: N/A
+2025-02-19T15:58:25.691Z [SM] [INFO] pressure: N/A
+2025-02-19T15:58:25.695Z [SM] [INFO] Message 15 added to queue.
+2025-02-19T16:28:25.269Z [SM] [INFO] StandardMessage first 30 min period
+2025-02-19T16:28:25.269Z [SM] [INFO] Saving location 0. Epoch: 1739982505 Lat: -14 -2066974 Lon: -170 -44143232025-02-19T16:28:25.269Z [SM] [INFO] Starting message. Epoch: 1739982511 (GPS epoch: 1739982505 Diff 6)
+2025-02-19T16:28:25.269Z [SM] [INFO] Next SM event in 1800 seconds.
+2025-02-19T16:28:25.269Z [SM] [INFO] Scheduling orch callback to execute in 1800 sec which should be epoch 1739984311
+2025-02-19T16:28:25.367Z [SM] [INFO] StandardMessage stats received!
+2025-02-19T16:28:25.367Z [SM] [INFO] status: 80
+2025-02-19T16:28:25.367Z [SM] [INFO] battV: 3.687 V
+2025-02-19T16:28:25.371Z [SM] [INFO] battP: -1.221 W
+2025-02-19T16:28:25.371Z [SM] [INFO] solarV: 0.078 V
+2025-02-19T16:28:25.371Z [SM] [INFO] intTemp: 28.03 C
+2025-02-19T16:28:25.371Z [SM] [INFO] intHum: 38.7 %RH
+2025-02-19T16:28:25.371Z [SM] [INFO] sst: N/A
+2025-02-19T16:28:25.371Z [SM] [INFO] pressure: N/A
+2025-02-19T16:58:25.046Z [SM] [INFO] StandardMessage second 30 min period
+2025-02-19T16:58:25.046Z [SM] [INFO] Saving location 1. Epoch: 1739984305 Lat: -14 -2067176 Lon: -170 -4414409
+2025-02-19T16:58:25.046Z [SM] [INFO] Starting message. Epoch: 1739984311 (GPS epoch: 1739984305 Diff 6)
+2025-02-19T16:58:25.046Z [SM] [INFO] Next SM event in 1800 seconds.
+2025-02-19T16:58:25.046Z [SM] [INFO] Scheduling orch callback to execute in 1800 sec which should be epoch 1739986111
+2025-02-19T16:58:25.046Z [SM] [INFO] Finished data collection period, triggering analysis
+2025-02-19T16:58:25.144Z [SM] [INFO] StandardMessage stats received!
+2025-02-19T16:58:25.144Z [SM] [INFO] status: 80
+2025-02-19T16:58:25.144Z [SM] [INFO] battV: 3.682 V
+2025-02-19T16:58:25.144Z [SM] [INFO] battP: -1.001 W
+2025-02-19T16:58:25.144Z [SM] [INFO] solarV: 0.072 V
+2025-02-19T16:58:25.144Z [SM] [INFO] intTemp: 27.78 C
+2025-02-19T16:58:25.144Z [SM] [INFO] intHum: 38.5 %RH
+2025-02-19T16:58:25.144Z [SM] [INFO] sst: N/A
+2025-02-19T16:58:25.144Z [SM] [INFO] pressure: N/A
+2025-02-19T16:58:25.148Z [SM] [INFO] Message 17 added to queue.
+2025-02-19T17:28:24.722Z [SM] [INFO] StandardMessage first 30 min period
+2025-02-19T17:28:24.722Z [SM] [INFO] Saving location 0. Epoch: 1739986104 Lat: -14 -2067574 Lon: -170 -44143632025-02-19T17:28:24.722Z [SM] [INFO] Starting message. Epoch: 1739986111 (GPS epoch: 1739986104 Diff 7)
+2025-02-19T17:28:24.722Z [SM] [INFO] Next SM event in 1800 seconds.
+2025-02-19T17:28:24.726Z [SM] [INFO] Scheduling orch callback to execute in 1800 sec which should be epoch 1739987911
+2025-02-19T17:28:24.824Z [SM] [INFO] StandardMessage stats received!
+2025-02-19T17:28:24.824Z [SM] [INFO] status: 80
+2025-02-19T17:28:24.824Z [SM] [INFO] battV: 3.672 V
+2025-02-19T17:28:24.824Z [SM] [INFO] battP: -1.015 W
+2025-02-19T17:28:24.824Z [SM] [INFO] solarV: 0.392 V
+2025-02-19T17:28:24.824Z [SM] [INFO] intTemp: 27.88 C
+2025-02-19T17:28:24.824Z [SM] [INFO] intHum: 38.6 %RH
+2025-02-19T17:28:24.824Z [SM] [INFO] sst: N/A
+2025-02-19T17:28:24.824Z [SM] [INFO] pressure: N/A
+2025-02-19T17:58:24.500Z [SM] [INFO] StandardMessage second 30 min period
+2025-02-19T17:58:24.500Z [SM] [INFO] Saving location 1. Epoch: 1739987904 Lat: -14 -2067086 Lon: -170 -4414480
+2025-02-19T17:58:24.500Z [SM] [INFO] Starting message. Epoch: 1739987911 (GPS epoch: 1739987904 Diff 7)
+2025-02-19T17:58:24.500Z [SM] [INFO] Next SM event in 1800 seconds.
+2025-02-19T17:58:24.500Z [SM] [INFO] Scheduling orch callback to execute in 1800 sec which should be epoch 1739989711
+2025-02-19T17:58:24.500Z [SM] [INFO] Finished data collection period, triggering analysis
+2025-02-19T17:58:24.601Z [SM] [INFO] StandardMessage stats received!
+2025-02-19T17:58:24.601Z [SM] [INFO] status: 80
+2025-02-19T17:58:24.601Z [SM] [INFO] battV: 3.669 V
+2025-02-19T17:58:24.601Z [SM] [INFO] battP: -0.834 W
+2025-02-19T17:58:24.601Z [SM] [INFO] solarV: 2.172 V
+2025-02-19T17:58:24.601Z [SM] [INFO] intTemp: 27.73 C
+2025-02-19T17:58:24.601Z [SM] [INFO] intHum: 38.7 %RH
+2025-02-19T17:58:24.601Z [SM] [INFO] sst: N/A
+2025-02-19T17:58:24.601Z [SM] [INFO] pressure: N/A
+2025-02-19T17:58:24.605Z [SM] [INFO] Message 18 added to queue.
+2025-02-19T18:28:24.179Z [SM] [INFO] StandardMessage first 30 min period
+2025-02-19T18:28:24.179Z [SM] [INFO] Saving location 0. Epoch: 1739989704 Lat: -14 -2067186 Lon: -170 -44142622025-02-19T18:28:24.179Z [SM] [INFO] Starting message. Epoch: 1739989711 (GPS epoch: 1739989704 Diff 7)
+2025-02-19T18:28:24.179Z [SM] [INFO] Next SM event in 1800 seconds.
+2025-02-19T18:28:24.179Z [SM] [INFO] Scheduling orch callback to execute in 1800 sec which should be epoch 1739991511
+2025-02-19T18:28:24.277Z [SM] [INFO] StandardMessage stats received!
+2025-02-19T18:28:24.277Z [SM] [INFO] status: 80
+2025-02-19T18:28:24.277Z [SM] [INFO] battV: 3.665 V
+2025-02-19T18:28:24.277Z [SM] [INFO] battP: -0.718 W
+2025-02-19T18:28:24.277Z [SM] [INFO] solarV: 3.984 V
+2025-02-19T18:28:24.277Z [SM] [INFO] intTemp: 27.93 C
+2025-02-19T18:28:24.277Z [SM] [INFO] intHum: 38.6 %RH
+2025-02-19T18:28:24.277Z [SM] [INFO] sst: N/A
+2025-02-19T18:28:24.277Z [SM] [INFO] pressure: N/A
+2025-02-19T18:58:23.953Z [SM] [INFO] StandardMessage second 30 min period
+2025-02-19T18:58:23.953Z [SM] [INFO] Saving location 1. Epoch: 1739991504 Lat: -14 -2067196 Lon: -170 -4414623
+2025-02-19T18:58:23.953Z [SM] [INFO] Starting message. Epoch: 1739991511 (GPS epoch: 1739991504 Diff 7)
+2025-02-19T18:58:23.953Z [SM] [INFO] Next SM event in 1800 seconds.
+2025-02-19T18:58:23.953Z [SM] [INFO] Scheduling orch callback to execute in 1800 sec which should be epoch 1739993311
+2025-02-19T18:58:23.953Z [SM] [INFO] Finished data collection period, triggering analysis
+2025-02-19T18:58:24.054Z [SM] [INFO] StandardMessage stats received!
+2025-02-19T18:58:24.054Z [SM] [INFO] status: 80
+2025-02-19T18:58:24.054Z [SM] [INFO] battV: 3.659 V
+2025-02-19T18:58:24.054Z [SM] [INFO] battP: -0.702 W
+2025-02-19T18:58:24.054Z [SM] [INFO] solarV: 3.911 V
+2025-02-19T18:58:24.054Z [SM] [INFO] intTemp: 27.73 C
+2025-02-19T18:58:24.054Z [SM] [INFO] intHum: 38.5 %RH
+2025-02-19T18:58:24.054Z [SM] [INFO] sst: N/A
+2025-02-19T18:58:24.054Z [SM] [INFO] pressure: N/A
+2025-02-19T18:58:24.058Z [SM] [INFO] Message 20 added to queue.

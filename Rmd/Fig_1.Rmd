@@ -1,0 +1,98 @@
+---
+title: "Fig_1"
+output: html_document
+date: "2026-01-20"
+editor_options: 
+  chunk_output_type: console
+---
+
+# Load Libraries
+```{r}
+library(ggplot2)
+library(patchwork) 
+library(ggpubr)
+library(cowplot)
+```
+
+# Load Environmental Plot Pieces
+```{r}
+p1 <- readRDS("Plots/Fig_1/p_temp_series.rds") 
+
+p2 <- readRDS("Plots/Fig_1/p_temp_range.rds")
+
+p3 <- readRDS("Plots/Fig_1/p_light_series.rds")
+
+p4 <- readRDS("Plots/Fig_1/p_light_density.rds")
+```
+
+```{r}
+p1_clean <- p1 +
+  theme(legend.position = "none",
+        axis.title.y = element_text(size = 8),
+        axis.text = element_text(size = 6.5)) 
+
+p2_clean <- p2 +
+  theme(legend.position = "none",
+        axis.title.y = element_text(size = 8),
+        axis.text = element_text(size = 6.5))
+```
+
+```{r}
+p3_clean <- p3 + 
+  theme(plot.margin = margin(10, 0, 0, 0),
+        legend.position = "none",
+        axis.title.y = element_text(size = 8),
+        axis.text = element_text(size = 6.5))
+
+p4_clean <- p4 +
+  theme_minimal() +
+  theme(axis.text = element_blank(),
+        axis.title = element_blank(),
+        axis.ticks = element_blank(),
+        plot.margin = margin(10, 0, 0, 0),
+        legend.position = "none",
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        plot.background = element_rect(colour  = "white"))
+
+p_light <- plot_grid(
+  p3_clean, p4_clean,
+  ncol = 2,
+  rel_widths = c(4, 1),   # main plot wider, marginal density narrow
+  align = "h",             # horizontal alignment
+  axis = "tb",             # align top & bottom axes
+  greedy = TRUE            # removes extra spacing between panels
+)
+```
+
+```{r}
+top_row <- ggarrange(
+  p1_clean, p2_clean,
+  ncol = 2, 
+  align = "hv",
+  labels = c("A", "B"))
+
+Fig_1 <- ggarrange(
+  top_row, p_light,
+  ncol = 1,
+  labels = c("", "C"),
+  align = "h") 
+
+Fig_1
+
+ggsave(
+  filename = "Plots/Fig_1/Fig_1.png",
+  plot = Fig_1,
+  width = 180,
+  height = 120,
+  units = "mm",
+  dpi = 300)
+```
+
+```{r}
+ universal_legend <- p1 + geom_point(aes(x = Date, y = Temperature, fill = Depth),
+              shape = 22, size = 8, color = NA, alpha = 0) +
+  scale_fill_manual(values = c("darkblue", "dodgerblue3", "#6BAED6")) +
+  guides(fill = guide_legend(override.aes = list(shape = 22, size = 8,
+        color = NA, alpha = 1)), color = "none") 
+```

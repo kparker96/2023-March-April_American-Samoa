@@ -1,0 +1,4 @@
+7530-458116
+OS REV: 1.08 Sensor Cal: 1657263600 Averages: 30
+Time (sec),  Bat (Volts),   T (deg C),  PAR (umol/(s m^2))  Ax (mg), Ay (mg), Az (mg)
+1692601800, +3.45, +28.484,    -0.3, +1055.0,  +227.0,    +0.0

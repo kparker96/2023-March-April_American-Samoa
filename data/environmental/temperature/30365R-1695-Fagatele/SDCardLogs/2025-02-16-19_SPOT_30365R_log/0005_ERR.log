@@ -1,0 +1,14 @@
+436t [ERR] [INFO] IoExpErrorState changed from N/A to OK
+614t [ERR] [INFO] PotErrorState changed from N/A to OK
+618t [ERR] [INFO] ChargerErrorState changed from N/A to OK
+748t [ERR] [INFO] busmonErrorState changed from N/A to OK
+750t [ERR] [INFO] SolarErrorState changed from N/A to LOW
+750t [ERR] [INFO] BattErrorState changed from N/A to OK
+750t [ERR] [INFO] BusVErrorState changed from N/A to OK
+750t [ERR] [INFO] BusIErrorState changed from N/A to OK
+823t [ERR] [INFO] HtuErrorState changed from N/A to OK
+834t [ERR] [INFO] BaroErrorState changed from N/A to INIT_ERR
+1536t [ERR] [INFO] IridiumErrorState changed from N/A to OK
+3792t [ERR] [INFO] GpsErrorState changed from N/A to NO_SIGNAL
+4506t [ERR] [INFO] Visibility LEDErrorState changed from N/A to OK
+5862t [ERR] [INFO] bridgeErrorState changed from N/A to OK

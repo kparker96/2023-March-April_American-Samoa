@@ -1,0 +1,42 @@
+> summary(DeepDailyMerged)
+     Date              DayRange          DayMin          DayMax         DayMean     
+ Length:454         Min.   :0.0240   Min.   :27.36   Min.   :27.63   Min.   :27.52  
+ Class :character   1st Qu.:0.1200   1st Qu.:27.95   1st Qu.:28.34   1st Qu.:28.20  
+ Mode  :character   Median :0.2740   Median :28.46   Median :29.02   Median :28.89  
+                    Mean   :0.4036   Mean   :28.44   Mean   :28.84   Mean   :28.73  
+                    3rd Qu.:0.6000   3rd Qu.:28.93   3rd Qu.:29.34   3rd Qu.:29.20  
+                    Max.   :1.6800   Max.   :29.52   Max.   :29.78   Max.   :29.66  
+> summary(ShallowDailyMerged)
+     Date              DayRange          DayMin          DayMax         DayMean     
+ Length:454         Min.   :0.0500   Min.   :27.46   Min.   :27.65   Min.   :27.59  
+ Class :character   1st Qu.:0.1240   1st Qu.:28.22   1st Qu.:28.42   1st Qu.:28.31  
+ Mode  :character   Median :0.1740   Median :28.88   Median :29.10   Median :28.98  
+                    Mean   :0.2063   Mean   :28.73   Mean   :28.94   Mean   :28.83  
+                    3rd Qu.:0.2470   3rd Qu.:29.22   3rd Qu.:29.48   3rd Qu.:29.33  
+                    Max.   :0.9800   Max.   :29.72   Max.   :30.06   Max.   :29.84 
+                    
+> t.test(DeepDailyMerged$DayMean, ShallowDailyMerged$DayMean, alternative="less")
+
+	Welch Two Sample t-test
+
+data:  DeepDailyMerged$DayMean and ShallowDailyMerged$DayMean
+t = -2.3936, df = 904.93, p-value = 0.008443
+alternative hypothesis: true difference in means is less than 0
+95 percent confidence interval:
+        -Inf -0.02986998
+sample estimates:
+mean of x mean of y 
+ 28.72941  28.82511 
+
+> t.test(DeepDailyMerged$DayRange, ShallowDailyMerged$DayRange, alternative="greater")
+
+	Welch Two Sample t-test
+
+data:  DeepDailyMerged$DayRange and ShallowDailyMerged$DayRange
+t = 11.179, df = 562.33, p-value < 2.2e-16
+alternative hypothesis: true difference in means is greater than 0
+95 percent confidence interval:
+ 0.1682307       Inf
+sample estimates:
+mean of x mean of y 
+0.4036167 0.2063062 

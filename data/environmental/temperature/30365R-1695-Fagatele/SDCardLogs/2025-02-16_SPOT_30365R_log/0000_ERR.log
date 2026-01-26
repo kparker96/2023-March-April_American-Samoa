@@ -1,0 +1,9 @@
+4163t [ERR] [INFO] IoExpErrorState changed from N/A to OK
+4341t [ERR] [INFO] PotErrorState changed from N/A to OK
+4345t [ERR] [INFO] ChargerErrorState changed from N/A to OK
+4475t [ERR] [INFO] busmonErrorState changed from N/A to OK
+4477t [ERR] [INFO] SolarErrorState changed from N/A to LOW
+4477t [ERR] [INFO] BattErrorState changed from N/A to OK
+4477t [ERR] [INFO] BusVErrorState changed from N/A to OK
+4477t [ERR] [INFO] BusIErrorState changed from N/A to OK
+751674t [ERR] [INFO] ChargerErrorState changed from OK to CHARGE_ERR

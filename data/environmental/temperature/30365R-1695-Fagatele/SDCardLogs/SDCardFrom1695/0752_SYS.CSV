@@ -1,0 +1,781 @@
+millis,type,message
+14915,DEBUG,SD Card init SUCCESS!
+14936,DEBUG,ext ram fail reset count: 0
+14952,INFO,session id: 752
+14962,INFO,reset source: 1
+14981,INFO,Device Id: 65477320
+14999,INFO,Firmware SHA: 93CE0B95
+15017,INFO,MAX_SAMPLE_GAP_S: 3.00
+15030,INFO,SPIKE_G_TH: 3.00
+15036,INFO,MAX_MESSAGE_LEN_FULL: 301
+15044,INFO,MAX_MESSAGE_LEN_BASIC: 51
+15050,INFO,MAX_MESSAGE_LEN_SM: 341
+15054,INFO,MESSAGE_QUEUE_LEN: 10
+15060,INFO,STRICT_NMEA: 1
+15067,INFO,MAIN_DECK_HW_VERSION: 7
+15075,INFO,F_MIN: 0.03
+15083,INFO,F_MAX: 0.80
+15099,INFO, sysConfig | sd reset max: 5
+15112,INFO, sysConfig | wd enable: 1
+15120,INFO, sysConfig | prod log mode: 1
+15128,INFO, sysConfig | log filt sd: 1
+15136,INFO, sysConfig | log gps sd: 1
+15144,INFO, sysConfig | gps log lvl: 0
+15153,INFO, sysConfig | log pow sd: 1
+15161,INFO, sysConfig | log nmea sd: 1
+15169,INFO, sysConfig | log irid sd: 1
+15177,INFO, sysConfig | log fft sd: 1
+15185,INFO, sysConfig | log spec sd: 0
+15196,INFO, sysConfig | log speca sd: 0
+15204,INFO, sysConfig | log dre sd: 1
+15216,INFO, sysConfig | log message sd: 1
+15224,INFO, sysConfig | statistics mode: 0
+15235,INFO, sysConfig | log gmn sd: 1
+15243,INFO, sysConfig | min messages period basic: 0
+15253,INFO, sysConfig | min messages period full: 0
+15265,INFO, sysConfig | gps power lvl: 1
+15273,INFO, sysConfig | log gmn 1s: 0
+15282,INFO, sysConfig | log bin sd: 0
+15290,INFO, sysConfig | message samples basic: 2
+15300,INFO, sysConfig | self test: 0
+15308,INFO, sysConfig | self test reset max: 2
+15323,INFO, sysConfig | vis led enable: 1
+15333,INFO, sysConfig | log sst sd: 1
+15341,INFO, sysConfig | external hardware reset max: 5
+15353,INFO, sysConfig | sst sampling period: 1
+15364,INFO, sysConfig | sst n samples to avg: 6
+15374,INFO, sysConfig | partition thresh bin: 7
+15384,INFO, sysConfig | gps sleep enable: 1
+15392,INFO, sysConfig | idle checkin period: 3
+15403,INFO, sysConfig | bridge enable: 1
+15413,INFO, sysConfig | log smdata sd: 1
+15663,INFO,External hw available: 00000100
+15693,INFO,Initializing Bridge
+18214,INFO,Starting Bridge Self Test
+19200,INFO,Bridge initialized
+19369,INFO,powerData | solV: 5.45
+19390,INFO,powerData | solI: 0.08
+19410,INFO,powerData | battV: 2.64
+19431,INFO,powerData | battI: -0.01
+19449,INFO,powerData | busV: 2.82
+19472,INFO,powerData | busI: 0.14
+19492,INFO,powerData | BQ status reg: 157
+19511,INFO,powerData | Fault reg: 0
+19531,INFO,powerData | Charge status: 1
+19550,INFO,powerData | DPM status: 1
+19578,INFO,Loaded OP MODE: 40962
+19664,DEBUG,Iridium fail reset count: 0
+22274,INFO,imei: 300434065477320
+22900,DEBUG,GPS fail reset count: 0
+28368,ERROR, sysError | BattV: 1
+28395,ERROR, sysError | BusV: 3
+28495,WARN,Disabling IridiumMessageSender transmissions
+50921,INFO,GpsSigErr changed to NO_ERR
+50944,INFO,Starting collection m: 0 t: 0 at 1668878971.00
+51726,INFO,Remote config out of sync
+51748,INFO,submitting message: 50 byte / 400 bit messsage: 
+51795,DEBUG,m 0 sub to Q at i 0 count: 0
+51818,DEBUG,1 msgs in Q
+65581,INFO,Max CNO changed from -1 to 47
+162306,INFO,Starting analysis m: 0 t: 0 e: 0
+163651,INFO,Completed analysis m: 0 t: 0 e: 0
+213442,INFO,Starting analysis m: 0 t: 0 e: 1
+215035,INFO,Completed analysis m: 0 t: 0 e: 1
+245391,INFO,Max CNO changed from 47 to 44
+264609,INFO,Starting analysis m: 0 t: 0 e: 2
+266334,INFO,Completed analysis m: 0 t: 0 e: 2
+300003,INFO,powerData | solV: 5.66
+300025,INFO,powerData | solI: 0.16
+300046,INFO,powerData | battV: 2.72
+300066,INFO,powerData | battI: 0.13
+300089,INFO,powerData | busV: 3.41
+300115,INFO,powerData | busI: 0.09
+300134,INFO,powerData | BQ status reg: 157
+300154,INFO,powerData | Fault reg: 0
+300175,INFO,powerData | Charge status: 1
+300193,INFO,powerData | DPM status: 1
+315742,INFO,Starting analysis m: 0 t: 0 e: 3
+317335,INFO,Completed analysis m: 0 t: 0 e: 3
+366886,INFO,Starting analysis m: 0 t: 0 e: 4
+368551,INFO,Completed analysis m: 0 t: 0 e: 4
+405227,INFO,Max CNO changed from 44 to 47
+418041,INFO,Starting analysis m: 0 t: 0 e: 5
+419725,INFO,Completed analysis m: 0 t: 0 e: 5
+446756,WARN,BACK IN TIME 1668879367.00 to 1668879366.40
+447154,WARN,BACK IN TIME 1668879367.00 to 1668879366.80
+447561,WARN,SMALL SAMPLE PERIOD: from 1668879367.00 to 1668879367.20
+447961,WARN,BAD TIMEBASE from 1668879367.00 to 1668879367.60
+448362,WARN,BAD TIMEBASE from 1668879367.00 to 1668879368.00
+448761,WARN,BAD TIMEBASE from 1668879367.00 to 1668879368.40
+449161,WARN,BAD TIMEBASE from 1668879367.00 to 1668879368.80
+449552,WARN,BAD TIMEBASE from 1668879367.00 to 1668879369.20
+449947,WARN,BAD TIMEBASE from 1668879367.00 to 1668879369.60
+450351,WARN,BAD TIMEBASE from 1668879367.00 to 1668879370.00
+450754,WARN,EXCEED MAX GAP: dt: 3.40 from 1668879367.00 to 1668879370.40
+563083,INFO,Starting analysis m: 0 t: 0 e: 6
+564680,INFO,Completed analysis m: 0 t: 0 e: 6
+565047,INFO,Max CNO changed from 47 to 44
+600008,INFO,powerData | solV: 5.66
+600031,INFO,powerData | solI: 0.15
+600049,INFO,powerData | battV: 2.79
+600070,INFO,powerData | battI: 0.12
+600090,INFO,powerData | busV: 3.42
+600115,INFO,powerData | busI: 0.09
+600133,INFO,powerData | BQ status reg: 157
+600158,INFO,powerData | Fault reg: 0
+600180,INFO,powerData | Charge status: 1
+600201,INFO,powerData | DPM status: 1
+614227,INFO,Starting analysis m: 0 t: 0 e: 7
+615890,INFO,Completed analysis m: 0 t: 0 e: 7
+624988,INFO,Max CNO changed from 44 to 47
+665368,INFO,Starting analysis m: 0 t: 0 e: 8
+666957,INFO,Completed analysis m: 0 t: 0 e: 8
+716521,INFO,Starting analysis m: 0 t: 0 e: 9
+718106,INFO,Completed analysis m: 0 t: 0 e: 9
+767660,INFO,Starting analysis m: 0 t: 0 e: 10
+769204,INFO,Completed analysis m: 0 t: 0 e: 10
+818802,INFO,Starting analysis m: 0 t: 0 e: 11
+820445,INFO,Completed analysis m: 0 t: 0 e: 11
+869959,INFO,Starting analysis m: 0 t: 0 e: 12
+871544,INFO,Completed analysis m: 0 t: 0 e: 12
+900012,INFO,powerData | solV: 5.66
+900034,INFO,powerData | solI: 0.11
+900052,INFO,powerData | battV: 2.82
+900073,INFO,powerData | battI: 0.06
+900093,INFO,powerData | busV: 3.44
+900112,INFO,powerData | busI: 0.08
+900136,INFO,powerData | BQ status reg: 173
+900157,INFO,powerData | Fault reg: 0
+900177,INFO,powerData | Charge status: 2
+900196,INFO,powerData | DPM status: 1
+921102,INFO,Starting analysis m: 0 t: 0 e: 13
+922685,INFO,Completed analysis m: 0 t: 0 e: 13
+972244,INFO,Starting analysis m: 0 t: 0 e: 14
+973914,INFO,Completed analysis m: 0 t: 0 e: 14
+1023399,INFO,Starting analysis m: 0 t: 0 e: 15
+1025024,INFO,Completed analysis m: 0 t: 0 e: 15
+1074540,INFO,Starting analysis m: 0 t: 0 e: 16
+1076133,INFO,Completed analysis m: 0 t: 0 e: 16
+1125699,INFO,Starting analysis m: 0 t: 0 e: 17
+1127270,INFO,Completed analysis m: 0 t: 0 e: 17
+1176832,INFO,Starting analysis m: 0 t: 0 e: 18
+1178419,INFO,Completed analysis m: 0 t: 0 e: 18
+1200019,INFO,powerData | solV: 5.66
+1200041,INFO,powerData | solI: 0.09
+1200062,INFO,powerData | battV: 2.82
+1200080,INFO,powerData | battI: 0.01
+1200101,INFO,powerData | busV: 3.39
+1200121,INFO,powerData | busI: 0.10
+1200142,INFO,powerData | BQ status reg: 173
+1200166,INFO,powerData | Fault reg: 0
+1200187,INFO,powerData | Charge status: 2
+1200205,INFO,powerData | DPM status: 1
+1227984,INFO,Starting analysis m: 0 t: 0 e: 19
+1229584,INFO,Completed analysis m: 0 t: 0 e: 19
+1279125,INFO,Starting analysis m: 0 t: 0 e: 20
+1280770,INFO,Completed analysis m: 0 t: 0 e: 20
+1330274,INFO,Starting analysis m: 0 t: 0 e: 21
+1331908,INFO,Completed analysis m: 0 t: 0 e: 21
+1381419,INFO,Starting analysis m: 0 t: 0 e: 22
+1383010,INFO,Completed analysis m: 0 t: 0 e: 22
+1432555,INFO,Starting analysis m: 0 t: 0 e: 23
+1434144,INFO,Completed analysis m: 0 t: 0 e: 23
+1483700,INFO,Starting analysis m: 0 t: 0 e: 24
+1485416,INFO,Completed analysis m: 0 t: 0 e: 24
+1500020,INFO,powerData | solV: 5.66
+1500043,INFO,powerData | solI: 0.10
+1500063,INFO,powerData | battV: 2.85
+1500082,INFO,powerData | battI: 0.04
+1500102,INFO,powerData | busV: 3.44
+1500133,INFO,powerData | busI: 0.08
+1500153,INFO,powerData | BQ status reg: 173
+1500174,INFO,powerData | Fault reg: 0
+1500194,INFO,powerData | Charge status: 2
+1500219,INFO,powerData | DPM status: 1
+1534849,INFO,Starting analysis m: 0 t: 0 e: 25
+1536364,INFO,Completed analysis m: 0 t: 0 e: 25
+1585999,INFO,Starting analysis m: 0 t: 0 e: 26
+1587591,INFO,Completed analysis m: 0 t: 0 e: 26
+1637152,INFO,Starting analysis m: 0 t: 0 e: 27
+1638676,INFO,Completed analysis m: 0 t: 0 e: 27
+1688293,INFO,Starting analysis m: 0 t: 0 e: 28
+1689905,INFO,Completed analysis m: 0 t: 0 e: 28
+1739446,INFO,Starting analysis m: 0 t: 0 e: 29
+1741094,INFO,Completed analysis m: 0 t: 0 e: 29
+1790582,INFO,Starting analysis m: 0 t: 0 e: 30
+1792225,INFO,Completed analysis m: 0 t: 0 e: 30
+1800030,INFO,powerData | solV: 5.66
+1800052,INFO,powerData | solI: 0.08
+1800075,INFO,powerData | battV: 2.84
+1800097,INFO,powerData | battI: -0.00
+1800120,INFO,powerData | busV: 3.39
+1800140,INFO,powerData | busI: 0.10
+1800161,INFO,powerData | BQ status reg: 173
+1800181,INFO,powerData | Fault reg: 0
+1800200,INFO,powerData | Charge status: 2
+1800220,INFO,powerData | DPM status: 1
+1841719,INFO,Starting analysis m: 0 t: 0 e: 31
+1843351,INFO,Completed analysis m: 0 t: 0 e: 31
+1850095,WARN,Stat 0 timeout at 1668880771.
+1850118,INFO,Processing stats m: 0 t: 0 e: 32
+1856862,INFO,Starting collection m: 0 t: 1 at 1668880778.00
+1958803,INFO,Starting analysis m: 0 t: 1 e: 0
+1960130,INFO,Completed analysis m: 0 t: 1 e: 0
+2009950,INFO,Starting analysis m: 0 t: 1 e: 1
+2011545,INFO,Completed analysis m: 0 t: 1 e: 1
+2061105,INFO,Starting analysis m: 0 t: 1 e: 2
+2062757,INFO,Completed analysis m: 0 t: 1 e: 2
+2100035,INFO,powerData | solV: 5.66
+2100058,INFO,powerData | solI: 0.16
+2100078,INFO,powerData | battV: 2.89
+2100099,INFO,powerData | battI: 0.13
+2100117,INFO,powerData | busV: 3.41
+2100137,INFO,powerData | busI: 0.10
+2100160,INFO,powerData | BQ status reg: 173
+2100185,INFO,powerData | Fault reg: 0
+2100205,INFO,powerData | Charge status: 2
+2100226,INFO,powerData | DPM status: 1
+2112325,INFO,Starting analysis m: 0 t: 1 e: 3
+2113925,INFO,Completed analysis m: 0 t: 1 e: 3
+2163419,INFO,Starting analysis m: 0 t: 1 e: 4
+2165012,INFO,Completed analysis m: 0 t: 1 e: 4
+2214526,INFO,Starting analysis m: 0 t: 1 e: 5
+2216073,INFO,Completed analysis m: 0 t: 1 e: 5
+2265669,INFO,Starting analysis m: 0 t: 1 e: 6
+2267271,INFO,Completed analysis m: 0 t: 1 e: 6
+2316828,INFO,Starting analysis m: 0 t: 1 e: 7
+2318348,INFO,Completed analysis m: 0 t: 1 e: 7
+2367969,INFO,Starting analysis m: 0 t: 1 e: 8
+2369560,INFO,Completed analysis m: 0 t: 1 e: 8
+2400045,INFO,powerData | solV: 5.66
+2400071,INFO,powerData | solI: 0.07
+2400092,INFO,powerData | battV: 2.86
+2400112,INFO,powerData | battI: -0.00
+2400131,INFO,powerData | busV: 3.42
+2400151,INFO,powerData | busI: 0.08
+2400172,INFO,powerData | BQ status reg: 173
+2400192,INFO,powerData | Fault reg: 0
+2400212,INFO,powerData | Charge status: 2
+2400233,INFO,powerData | DPM status: 1
+2419109,INFO,Starting analysis m: 0 t: 1 e: 9
+2420703,INFO,Completed analysis m: 0 t: 1 e: 9
+2470262,INFO,Starting analysis m: 0 t: 1 e: 10
+2471931,INFO,Completed analysis m: 0 t: 1 e: 10
+2521403,INFO,Starting analysis m: 0 t: 1 e: 11
+2523088,INFO,Completed analysis m: 0 t: 1 e: 11
+2562316,INFO,Max CNO changed from 47 to 44
+2572552,INFO,Starting analysis m: 0 t: 1 e: 12
+2574182,INFO,Completed analysis m: 0 t: 1 e: 12
+2582294,INFO,Max CNO changed from 44 to 48
+2623700,INFO,Starting analysis m: 0 t: 1 e: 13
+2625294,INFO,Completed analysis m: 0 t: 1 e: 13
+2674847,INFO,Starting analysis m: 0 t: 1 e: 14
+2676432,INFO,Completed analysis m: 0 t: 1 e: 14
+2700052,INFO,powerData | solV: 5.66
+2700075,INFO,powerData | solI: 0.24
+2700095,INFO,powerData | battV: 2.94
+2700115,INFO,powerData | battI: 0.24
+2700136,INFO,powerData | busV: 3.46
+2700156,INFO,powerData | busI: 0.09
+2700177,INFO,powerData | BQ status reg: 173
+2700197,INFO,powerData | Fault reg: 0
+2700218,INFO,powerData | Charge status: 2
+2700238,INFO,powerData | DPM status: 1
+2725992,INFO,Starting analysis m: 0 t: 1 e: 15
+2727581,INFO,Completed analysis m: 0 t: 1 e: 15
+2777139,INFO,Starting analysis m: 0 t: 1 e: 16
+2778742,INFO,Completed analysis m: 0 t: 1 e: 16
+2802061,INFO,Max CNO changed from 48 to 45
+2828279,INFO,Starting analysis m: 0 t: 1 e: 17
+2829873,INFO,Completed analysis m: 0 t: 1 e: 17
+2879422,INFO,Starting analysis m: 0 t: 1 e: 18
+2881048,INFO,Completed analysis m: 0 t: 1 e: 18
+2881980,INFO,Max CNO changed from 45 to 48
+2930581,INFO,Starting analysis m: 0 t: 1 e: 19
+2932172,INFO,Completed analysis m: 0 t: 1 e: 19
+2981728,INFO,Starting analysis m: 0 t: 1 e: 20
+2983520,INFO,Completed analysis m: 0 t: 1 e: 20
+3000090,INFO,powerData | solV: 5.67
+3000115,INFO,powerData | solI: 0.24
+3000135,INFO,powerData | battV: 2.99
+3000156,INFO,powerData | battI: 0.27
+3000176,INFO,powerData | busV: 3.46
+3000197,INFO,powerData | busI: 0.08
+3000217,INFO,powerData | BQ status reg: 173
+3000238,INFO,powerData | Fault reg: 0
+3000258,INFO,powerData | Charge status: 2
+3000279,INFO,powerData | DPM status: 1
+3021821,INFO,Max CNO changed from 48 to 45
+3032868,INFO,Starting analysis m: 0 t: 1 e: 21
+3034529,INFO,Completed analysis m: 0 t: 1 e: 21
+3061790,INFO,Max CNO changed from 45 to 48
+3084015,INFO,Starting analysis m: 0 t: 1 e: 22
+3085604,INFO,Completed analysis m: 0 t: 1 e: 22
+3135174,INFO,Starting analysis m: 0 t: 1 e: 23
+3136753,INFO,Completed analysis m: 0 t: 1 e: 23
+3161675,INFO,Max CNO changed from 48 to 45
+3186300,INFO,Starting analysis m: 0 t: 1 e: 24
+3187898,INFO,Completed analysis m: 0 t: 1 e: 24
+3237451,INFO,Starting analysis m: 0 t: 1 e: 25
+3238979,INFO,Completed analysis m: 0 t: 1 e: 25
+3288608,INFO,Starting analysis m: 0 t: 1 e: 26
+3290214,INFO,Completed analysis m: 0 t: 1 e: 26
+3300093,INFO,powerData | solV: 5.67
+3300118,INFO,powerData | solI: 0.38
+3300141,INFO,powerData | battV: 3.06
+3300161,INFO,powerData | battI: 0.47
+3300182,INFO,powerData | busV: 3.46
+3300202,INFO,powerData | busI: 0.09
+3300222,INFO,powerData | BQ status reg: 173
+3300243,INFO,powerData | Fault reg: 0
+3300263,INFO,powerData | Charge status: 2
+3300284,INFO,powerData | DPM status: 1
+3339761,INFO,Starting analysis m: 0 t: 1 e: 27
+3341365,INFO,Completed analysis m: 0 t: 1 e: 27
+3390898,INFO,Starting analysis m: 0 t: 1 e: 28
+3392489,INFO,Completed analysis m: 0 t: 1 e: 28
+3442049,INFO,Starting analysis m: 0 t: 1 e: 29
+3443628,INFO,Completed analysis m: 0 t: 1 e: 29
+3493183,INFO,Starting analysis m: 0 t: 1 e: 30
+3494823,INFO,Completed analysis m: 0 t: 1 e: 30
+3544342,INFO,Starting analysis m: 0 t: 1 e: 31
+3546040,INFO,Completed analysis m: 0 t: 1 e: 31
+3595474,INFO,Starting analysis m: 0 t: 1 e: 32
+3597070,INFO,Completed analysis m: 0 t: 1 e: 32
+3597092,INFO,Processing stats m: 0 t: 1 e: 33
+3600109,INFO,powerData | solV: 5.67
+3600128,INFO,powerData | solI: 0.36
+3600148,INFO,powerData | battV: 3.07
+3600168,INFO,powerData | battI: 0.44
+3600193,INFO,powerData | busV: 3.46
+3600216,INFO,powerData | busI: 0.08
+3600236,INFO,powerData | BQ status reg: 173
+3600257,INFO,powerData | Fault reg: 0
+3600277,INFO,powerData | Charge status: 2
+3600300,INFO,powerData | DPM status: 1
+3603431,INFO,Finished collection for m: 0 in 1748
+3603456,INFO,Submitting 48 byte / 378 bit message: 
+3603509,DEBUG,m 1 sub to Q at i 1 count: 1
+3603531,DEBUG,2 msgs in Q
+3603578,INFO,Enabling IridiumMessageSender transmissions
+3603611,DEBUG,Sending Q index: 1 id: 1
+3634317,ERROR,Send failed: Q index: 1 code: 3
+3634341,FATAL,fatal iridium error: 3
+3634454,WARN,IridiumMessageSender flush failed! Retrying at millis = 4234452
+3648180,INFO,Starting collection m: 1 t: 0 at 1668882571.20
+3750113,INFO,Starting analysis m: 1 t: 0 e: 0
+3750400,WARN,Disabling IridiumMessageSender transmissions
+3751499,INFO,Completed analysis m: 1 t: 0 e: 0
+3751522,INFO,Enabling IridiumMessageSender transmissions
+3801260,INFO,Starting analysis m: 1 t: 0 e: 1
+3801569,WARN,Disabling IridiumMessageSender transmissions
+3802871,INFO,Completed analysis m: 1 t: 0 e: 1
+3802896,INFO,Enabling IridiumMessageSender transmissions
+3852406,INFO,Starting analysis m: 1 t: 0 e: 2
+3852687,WARN,Disabling IridiumMessageSender transmissions
+3854002,INFO,Completed analysis m: 1 t: 0 e: 2
+3854024,INFO,Enabling IridiumMessageSender transmissions
+3860955,INFO,Max CNO changed from 45 to 48
+3900116,INFO,powerData | solV: 5.66
+3900139,INFO,powerData | solI: 0.35
+3900160,INFO,powerData | battV: 3.11
+3900180,INFO,powerData | battI: 0.45
+3900200,INFO,powerData | busV: 3.47
+3900219,INFO,powerData | busI: 0.06
+3900239,INFO,powerData | BQ status reg: 173
+3900262,INFO,powerData | Fault reg: 0
+3900284,INFO,powerData | Charge status: 2
+3900311,INFO,powerData | DPM status: 1
+3903553,INFO,Starting analysis m: 1 t: 0 e: 3
+3903854,WARN,Disabling IridiumMessageSender transmissions
+3905249,INFO,Completed analysis m: 1 t: 0 e: 3
+3905273,INFO,Enabling IridiumMessageSender transmissions
+3954702,INFO,Starting analysis m: 1 t: 0 e: 4
+3955017,WARN,Disabling IridiumMessageSender transmissions
+3956332,INFO,Completed analysis m: 1 t: 0 e: 4
+3956355,INFO,Enabling IridiumMessageSender transmissions
+3960852,INFO,Max CNO changed from 48 to 44
+4005851,INFO,Starting analysis m: 1 t: 0 e: 5
+4006152,WARN,Disabling IridiumMessageSender transmissions
+4007440,INFO,Completed analysis m: 1 t: 0 e: 5
+4007462,INFO,Enabling IridiumMessageSender transmissions
+4020779,INFO,Max CNO changed from 44 to 47
+4040765,INFO,Max CNO changed from 47 to 44
+4056997,INFO,Starting analysis m: 1 t: 0 e: 6
+4057278,WARN,Disabling IridiumMessageSender transmissions
+4058587,INFO,Completed analysis m: 1 t: 0 e: 6
+4058611,INFO,Enabling IridiumMessageSender transmissions
+4108142,INFO,Starting analysis m: 1 t: 0 e: 7
+4108443,WARN,Disabling IridiumMessageSender transmissions
+4109735,INFO,Completed analysis m: 1 t: 0 e: 7
+4109760,INFO,Enabling IridiumMessageSender transmissions
+4159289,INFO,Starting analysis m: 1 t: 0 e: 8
+4159571,WARN,Disabling IridiumMessageSender transmissions
+4161032,INFO,Completed analysis m: 1 t: 0 e: 8
+4161054,INFO,Enabling IridiumMessageSender transmissions
+4200122,INFO,powerData | solV: 5.67
+4200144,INFO,powerData | solI: 0.35
+4200165,INFO,powerData | battV: 3.14
+4200189,INFO,powerData | battI: 0.42
+4200210,INFO,powerData | busV: 3.46
+4200230,INFO,powerData | busI: 0.08
+4200251,INFO,powerData | BQ status reg: 173
+4200271,INFO,powerData | Fault reg: 0
+4200292,INFO,powerData | Charge status: 2
+4200312,INFO,powerData | DPM status: 1
+4210475,INFO,Starting analysis m: 1 t: 0 e: 9
+4210806,WARN,Disabling IridiumMessageSender transmissions
+4212076,INFO,Completed analysis m: 1 t: 0 e: 9
+4212101,INFO,Enabling IridiumMessageSender transmissions
+4234467,DEBUG,Sending Q index: 1 id: 1
+4241651,INFO,Send complete: Q index: 1 count_id 1
+4241905,DEBUG,Sending Q index: 0 id: 0
+4254597,INFO,Send complete: Q index: 0 count_id 0
+4261586,INFO,Starting analysis m: 1 t: 0 e: 10
+4261869,WARN,Disabling IridiumMessageSender transmissions
+4263174,INFO,Completed analysis m: 1 t: 0 e: 10
+4263198,INFO,Enabling IridiumMessageSender transmissions
+4312743,INFO,Starting analysis m: 1 t: 0 e: 11
+4313047,WARN,Disabling IridiumMessageSender transmissions
+4314329,INFO,Completed analysis m: 1 t: 0 e: 11
+4314357,INFO,Enabling IridiumMessageSender transmissions
+4363890,INFO,Starting analysis m: 1 t: 0 e: 12
+4364171,WARN,Disabling IridiumMessageSender transmissions
+4365520,INFO,Completed analysis m: 1 t: 0 e: 12
+4365545,INFO,Enabling IridiumMessageSender transmissions
+4415025,INFO,Starting analysis m: 1 t: 0 e: 13
+4415326,WARN,Disabling IridiumMessageSender transmissions
+4416681,INFO,Completed analysis m: 1 t: 0 e: 13
+4416704,INFO,Enabling IridiumMessageSender transmissions
+4420378,INFO,Max CNO changed from 44 to 47
+4460326,INFO,Max CNO changed from 47 to 43
+4466190,INFO,Starting analysis m: 1 t: 0 e: 14
+4466475,WARN,Disabling IridiumMessageSender transmissions
+4467781,INFO,Completed analysis m: 1 t: 0 e: 14
+4467804,INFO,Enabling IridiumMessageSender transmissions
+4480305,INFO,Max CNO changed from 43 to 46
+4500133,INFO,powerData | solV: 5.67
+4500160,INFO,powerData | solI: 0.10
+4500180,INFO,powerData | battV: 3.10
+4500201,INFO,powerData | battI: 0.07
+4500226,INFO,powerData | busV: 3.46
+4500246,INFO,powerData | busI: 0.06
+4500267,INFO,powerData | BQ status reg: 173
+4500287,INFO,powerData | Fault reg: 0
+4500307,INFO,powerData | Charge status: 2
+4500328,INFO,powerData | DPM status: 1
+4500492,INFO,Max CNO changed from 46 to 43
+4517318,INFO,Starting analysis m: 1 t: 0 e: 15
+4517619,WARN,Disabling IridiumMessageSender transmissions
+4518914,INFO,Completed analysis m: 1 t: 0 e: 15
+4518938,INFO,Enabling IridiumMessageSender transmissions
+4540250,INFO,Max CNO changed from 43 to 46
+4568473,INFO,Starting analysis m: 1 t: 0 e: 16
+4568754,WARN,Disabling IridiumMessageSender transmissions
+4570152,INFO,Completed analysis m: 1 t: 0 e: 16
+4570177,INFO,Enabling IridiumMessageSender transmissions
+4600180,INFO,Max CNO changed from 46 to 43
+4619626,INFO,Starting analysis m: 1 t: 0 e: 17
+4619927,WARN,Disabling IridiumMessageSender transmissions
+4621391,INFO,Completed analysis m: 1 t: 0 e: 17
+4621416,INFO,Enabling IridiumMessageSender transmissions
+4670765,INFO,Starting analysis m: 1 t: 0 e: 18
+4671049,WARN,Disabling IridiumMessageSender transmissions
+4672364,INFO,Completed analysis m: 1 t: 0 e: 18
+4672387,INFO,Enabling IridiumMessageSender transmissions
+4721911,INFO,Starting analysis m: 1 t: 0 e: 19
+4722210,WARN,Disabling IridiumMessageSender transmissions
+4723456,INFO,Completed analysis m: 1 t: 0 e: 19
+4723480,INFO,Enabling IridiumMessageSender transmissions
+4773058,INFO,Starting analysis m: 1 t: 0 e: 20
+4773341,WARN,Disabling IridiumMessageSender transmissions
+4774660,INFO,Completed analysis m: 1 t: 0 e: 20
+4774684,INFO,Enabling IridiumMessageSender transmissions
+4800135,INFO,powerData | solV: 5.67
+4800161,INFO,powerData | solI: 0.32
+4800184,INFO,powerData | battV: 3.16
+4800204,INFO,powerData | battI: 0.39
+4800225,INFO,powerData | busV: 3.46
+4800245,INFO,powerData | busI: 0.08
+4800266,INFO,powerData | BQ status reg: 173
+4800286,INFO,powerData | Fault reg: 0
+4800305,INFO,powerData | Charge status: 2
+4800325,INFO,powerData | DPM status: 1
+4824207,INFO,Starting analysis m: 1 t: 0 e: 21
+4824506,WARN,Disabling IridiumMessageSender transmissions
+4825751,INFO,Completed analysis m: 1 t: 0 e: 21
+4825776,INFO,Enabling IridiumMessageSender transmissions
+4875366,INFO,Starting analysis m: 1 t: 0 e: 22
+4875646,WARN,Disabling IridiumMessageSender transmissions
+4876992,INFO,Completed analysis m: 1 t: 0 e: 22
+4877017,INFO,Enabling IridiumMessageSender transmissions
+4880531,INFO,Max CNO changed from 43 to 46
+4926509,INFO,Starting analysis m: 1 t: 0 e: 23
+4926828,WARN,Disabling IridiumMessageSender transmissions
+4928155,INFO,Completed analysis m: 1 t: 0 e: 23
+4928178,INFO,Enabling IridiumMessageSender transmissions
+4977651,INFO,Starting analysis m: 1 t: 0 e: 24
+4977950,WARN,Disabling IridiumMessageSender transmissions
+4979243,INFO,Completed analysis m: 1 t: 0 e: 24
+4979269,INFO,Enabling IridiumMessageSender transmissions
+4980420,INFO,Max CNO changed from 46 to 43
+5028802,INFO,Starting analysis m: 1 t: 0 e: 25
+5029083,WARN,Disabling IridiumMessageSender transmissions
+5030389,INFO,Completed analysis m: 1 t: 0 e: 25
+5030412,INFO,Enabling IridiumMessageSender transmissions
+5079945,INFO,Starting analysis m: 1 t: 0 e: 26
+5080369,WARN,Disabling IridiumMessageSender transmissions
+5081651,INFO,Completed analysis m: 1 t: 0 e: 26
+5081675,INFO,Enabling IridiumMessageSender transmissions
+5100144,INFO,powerData | solV: 5.69
+5100167,INFO,powerData | solI: 0.36
+5100189,INFO,powerData | battV: 3.19
+5100210,INFO,powerData | battI: 0.46
+5100230,INFO,powerData | busV: 3.46
+5100259,INFO,powerData | busI: 0.06
+5100279,INFO,powerData | BQ status reg: 173
+5100300,INFO,powerData | Fault reg: 0
+5100320,INFO,powerData | Charge status: 2
+5100341,INFO,powerData | DPM status: 1
+5120278,INFO,Max CNO changed from 43 to 46
+5131094,INFO,Starting analysis m: 1 t: 0 e: 27
+5131374,WARN,Disabling IridiumMessageSender transmissions
+5132711,INFO,Completed analysis m: 1 t: 0 e: 27
+5132736,INFO,Enabling IridiumMessageSender transmissions
+5182234,INFO,Starting analysis m: 1 t: 0 e: 28
+5182519,WARN,Disabling IridiumMessageSender transmissions
+5183836,INFO,Completed analysis m: 1 t: 0 e: 28
+5183860,INFO,Enabling IridiumMessageSender transmissions
+5233416,INFO,Starting analysis m: 1 t: 0 e: 29
+5233709,WARN,Disabling IridiumMessageSender transmissions
+5234982,INFO,Completed analysis m: 1 t: 0 e: 29
+5235005,INFO,Enabling IridiumMessageSender transmissions
+5284544,INFO,Starting analysis m: 1 t: 0 e: 30
+5284825,WARN,Disabling IridiumMessageSender transmissions
+5286131,INFO,Completed analysis m: 1 t: 0 e: 30
+5286158,INFO,Enabling IridiumMessageSender transmissions
+5335683,INFO,Starting analysis m: 1 t: 0 e: 31
+5335984,WARN,Disabling IridiumMessageSender transmissions
+5337309,INFO,Completed analysis m: 1 t: 0 e: 31
+5337333,INFO,Enabling IridiumMessageSender transmissions
+5386840,INFO,Starting analysis m: 1 t: 0 e: 32
+5387120,WARN,Disabling IridiumMessageSender transmissions
+5388480,INFO,Completed analysis m: 1 t: 0 e: 32
+5388503,INFO,Processing stats m: 1 t: 0 e: 33
+5394249,INFO,Enabling IridiumMessageSender transmissions
+5400154,INFO,powerData | solV: 5.67
+5400176,INFO,powerData | solI: 0.34
+5400197,INFO,powerData | battV: 3.21
+5400221,INFO,powerData | battI: 0.43
+5400242,INFO,powerData | busV: 3.46
+5400262,INFO,powerData | busI: 0.07
+5400281,INFO,powerData | BQ status reg: 173
+5400301,INFO,powerData | Fault reg: 0
+5400324,INFO,powerData | Charge status: 2
+5400346,INFO,powerData | DPM status: 1
+5446324,INFO,Starting collection m: 1 t: 1 at 1668884371.20
+5548271,INFO,Starting analysis m: 1 t: 1 e: 0
+5548550,WARN,Disabling IridiumMessageSender transmissions
+5549615,INFO,Completed analysis m: 1 t: 1 e: 0
+5549637,INFO,Enabling IridiumMessageSender transmissions
+5599436,INFO,Starting analysis m: 1 t: 1 e: 1
+5599840,WARN,Disabling IridiumMessageSender transmissions
+5601120,INFO,Completed analysis m: 1 t: 1 e: 1
+5601144,INFO,Enabling IridiumMessageSender transmissions
+5650558,INFO,Starting analysis m: 1 t: 1 e: 2
+5650839,WARN,Disabling IridiumMessageSender transmissions
+5652158,INFO,Completed analysis m: 1 t: 1 e: 2
+5652183,INFO,Enabling IridiumMessageSender transmissions
+5700157,INFO,powerData | solV: 5.66
+5700179,INFO,powerData | solI: 0.35
+5700198,INFO,powerData | battV: 3.23
+5700218,INFO,powerData | battI: 0.45
+5700239,INFO,powerData | busV: 3.47
+5700259,INFO,powerData | busI: 0.06
+5700278,INFO,powerData | BQ status reg: 173
+5700298,INFO,powerData | Fault reg: 0
+5700319,INFO,powerData | Charge status: 2
+5700341,INFO,powerData | DPM status: 1
+5701718,INFO,Starting analysis m: 1 t: 1 e: 3
+5702019,WARN,Disabling IridiumMessageSender transmissions
+5703409,INFO,Completed analysis m: 1 t: 1 e: 3
+5703434,INFO,Enabling IridiumMessageSender transmissions
+5752870,INFO,Starting analysis m: 1 t: 1 e: 4
+5753151,WARN,Disabling IridiumMessageSender transmissions
+5754464,INFO,Completed analysis m: 1 t: 1 e: 4
+5754488,INFO,Enabling IridiumMessageSender transmissions
+5804005,INFO,Starting analysis m: 1 t: 1 e: 5
+5804285,WARN,Disabling IridiumMessageSender transmissions
+5805596,INFO,Completed analysis m: 1 t: 1 e: 5
+5805621,INFO,Enabling IridiumMessageSender transmissions
+5855172,INFO,Starting analysis m: 1 t: 1 e: 6
+5855457,WARN,Disabling IridiumMessageSender transmissions
+5856698,INFO,Completed analysis m: 1 t: 1 e: 6
+5856720,INFO,Enabling IridiumMessageSender transmissions
+5906302,INFO,Starting analysis m: 1 t: 1 e: 7
+5906583,WARN,Disabling IridiumMessageSender transmissions
+5907894,INFO,Completed analysis m: 1 t: 1 e: 7
+5907916,INFO,Enabling IridiumMessageSender transmissions
+5957449,INFO,Starting analysis m: 1 t: 1 e: 8
+5957748,WARN,Disabling IridiumMessageSender transmissions
+5959127,INFO,Completed analysis m: 1 t: 1 e: 8
+5959149,INFO,Enabling IridiumMessageSender transmissions
+6000189,INFO,powerData | solV: 5.73
+6000211,INFO,powerData | solI: 0.35
+6000234,INFO,powerData | battV: 3.24
+6000254,INFO,powerData | battI: 0.44
+6000275,INFO,powerData | busV: 3.46
+6000293,INFO,powerData | busI: 0.07
+6000314,INFO,powerData | BQ status reg: 173
+6000336,INFO,powerData | Fault reg: 0
+6000357,INFO,powerData | Charge status: 2
+6000377,INFO,powerData | DPM status: 1
+6008702,INFO,Starting analysis m: 1 t: 1 e: 9
+6009051,WARN,Disabling IridiumMessageSender transmissions
+6010320,INFO,Completed analysis m: 1 t: 1 e: 9
+6010345,INFO,Enabling IridiumMessageSender transmissions
+6059755,INFO,Starting analysis m: 1 t: 1 e: 10
+6060056,WARN,Disabling IridiumMessageSender transmissions
+6061340,INFO,Completed analysis m: 1 t: 1 e: 10
+6061365,INFO,Enabling IridiumMessageSender transmissions
+6110889,INFO,Starting analysis m: 1 t: 1 e: 11
+6111172,WARN,Disabling IridiumMessageSender transmissions
+6112436,INFO,Completed analysis m: 1 t: 1 e: 11
+6112460,INFO,Enabling IridiumMessageSender transmissions
+6162040,INFO,Starting analysis m: 1 t: 1 e: 12
+6162341,WARN,Disabling IridiumMessageSender transmissions
+6163632,INFO,Completed analysis m: 1 t: 1 e: 12
+6163654,INFO,Enabling IridiumMessageSender transmissions
+6213189,INFO,Starting analysis m: 1 t: 1 e: 13
+6213474,WARN,Disabling IridiumMessageSender transmissions
+6214780,INFO,Completed analysis m: 1 t: 1 e: 13
+6214803,INFO,Enabling IridiumMessageSender transmissions
+6264344,INFO,Starting analysis m: 1 t: 1 e: 14
+6264643,WARN,Disabling IridiumMessageSender transmissions
+6265942,INFO,Completed analysis m: 1 t: 1 e: 14
+6265964,INFO,Enabling IridiumMessageSender transmissions
+6300198,INFO,powerData | solV: 5.67
+6300223,INFO,powerData | solI: 0.34
+6300246,INFO,powerData | battV: 3.26
+6300266,INFO,powerData | battI: 0.44
+6300291,INFO,powerData | busV: 3.47
+6300311,INFO,powerData | busI: 0.06
+6300329,INFO,powerData | BQ status reg: 173
+6300350,INFO,powerData | Fault reg: 16
+6300370,INFO,powerData | Charge status: 2
+6300391,INFO,powerData | DPM status: 1
+6315489,INFO,Starting analysis m: 1 t: 1 e: 15
+6315771,WARN,Disabling IridiumMessageSender transmissions
+6317086,INFO,Completed analysis m: 1 t: 1 e: 15
+6317111,INFO,Enabling IridiumMessageSender transmissions
+6366642,INFO,Starting analysis m: 1 t: 1 e: 16
+6366957,WARN,Disabling IridiumMessageSender transmissions
+6368327,INFO,Completed analysis m: 1 t: 1 e: 16
+6368350,INFO,Enabling IridiumMessageSender transmissions
+6417782,INFO,Starting analysis m: 1 t: 1 e: 17
+6418063,WARN,Disabling IridiumMessageSender transmissions
+6419558,INFO,Completed analysis m: 1 t: 1 e: 17
+6419582,INFO,Enabling IridiumMessageSender transmissions
+6468937,INFO,Starting analysis m: 1 t: 1 e: 18
+6469253,WARN,Disabling IridiumMessageSender transmissions
+6470572,INFO,Completed analysis m: 1 t: 1 e: 18
+6470596,INFO,Enabling IridiumMessageSender transmissions
+6520090,INFO,Starting analysis m: 1 t: 1 e: 19
+6520391,WARN,Disabling IridiumMessageSender transmissions
+6521683,INFO,Completed analysis m: 1 t: 1 e: 19
+6521708,INFO,Enabling IridiumMessageSender transmissions
+6571239,INFO,Starting analysis m: 1 t: 1 e: 20
+6571520,WARN,Disabling IridiumMessageSender transmissions
+6572822,INFO,Completed analysis m: 1 t: 1 e: 20
+6572847,INFO,Enabling IridiumMessageSender transmissions
+6600206,INFO,powerData | solV: 5.67
+6600228,INFO,powerData | solI: 0.35
+6600249,INFO,powerData | battV: 3.27
+6600267,INFO,powerData | battI: 0.44
+6600288,INFO,powerData | busV: 3.46
+6600310,INFO,powerData | busI: 0.08
+6600333,INFO,powerData | BQ status reg: 173
+6600355,INFO,powerData | Fault reg: 16
+6600376,INFO,powerData | Charge status: 2
+6600394,INFO,powerData | DPM status: 1
+6622390,INFO,Starting analysis m: 1 t: 1 e: 21
+6622670,WARN,Disabling IridiumMessageSender transmissions
+6623981,INFO,Completed analysis m: 1 t: 1 e: 21
+6624004,INFO,Enabling IridiumMessageSender transmissions
+6673528,INFO,Starting analysis m: 1 t: 1 e: 22
+6673840,WARN,Disabling IridiumMessageSender transmissions
+6675132,INFO,Completed analysis m: 1 t: 1 e: 22
+6675156,INFO,Enabling IridiumMessageSender transmissions
+6724685,INFO,Starting analysis m: 1 t: 1 e: 23
+6724966,WARN,Disabling IridiumMessageSender transmissions
+6726283,INFO,Completed analysis m: 1 t: 1 e: 23
+6726305,INFO,Enabling IridiumMessageSender transmissions
+6775824,INFO,Starting analysis m: 1 t: 1 e: 24
+6776125,WARN,Disabling IridiumMessageSender transmissions
+6777417,INFO,Completed analysis m: 1 t: 1 e: 24
+6777442,INFO,Enabling IridiumMessageSender transmissions
+6826973,INFO,Starting analysis m: 1 t: 1 e: 25
+6827253,WARN,Disabling IridiumMessageSender transmissions
+6828564,INFO,Completed analysis m: 1 t: 1 e: 25
+6828589,INFO,Enabling IridiumMessageSender transmissions
+6878121,INFO,Starting analysis m: 1 t: 1 e: 26
+6878547,WARN,Disabling IridiumMessageSender transmissions
+6879889,INFO,Completed analysis m: 1 t: 1 e: 26
+6879913,INFO,Enabling IridiumMessageSender transmissions
+6900209,INFO,powerData | solV: 5.70
+6900232,INFO,powerData | solI: 0.44
+6900250,INFO,powerData | battV: 3.30
+6900271,INFO,powerData | battI: 0.58
+6900291,INFO,powerData | busV: 3.47
+6900312,INFO,powerData | busI: 0.05
+6900332,INFO,powerData | BQ status reg: 173
+6900350,INFO,powerData | Fault reg: 0
+6900371,INFO,powerData | Charge status: 2
+6900396,INFO,powerData | DPM status: 1
+6929274,INFO,Starting analysis m: 1 t: 1 e: 27
+6929555,WARN,Disabling IridiumMessageSender transmissions
+6930913,INFO,Completed analysis m: 1 t: 1 e: 27
+6930935,INFO,Enabling IridiumMessageSender transmissions
+6980423,INFO,Starting analysis m: 1 t: 1 e: 28
+6980706,WARN,Disabling IridiumMessageSender transmissions
+6982014,INFO,Completed analysis m: 1 t: 1 e: 28
+6982039,INFO,Enabling IridiumMessageSender transmissions
+7031595,INFO,Starting analysis m: 1 t: 1 e: 29
+7031896,WARN,Disabling IridiumMessageSender transmissions
+7033178,INFO,Completed analysis m: 1 t: 1 e: 29
+7033200,INFO,Enabling IridiumMessageSender transmissions
+7082711,INFO,Starting analysis m: 1 t: 1 e: 30
+7082991,WARN,Disabling IridiumMessageSender transmissions
+7084355,INFO,Completed analysis m: 1 t: 1 e: 30
+7084380,INFO,Enabling IridiumMessageSender transmissions
+7133880,INFO,Starting analysis m: 1 t: 1 e: 31
+7134160,WARN,Disabling IridiumMessageSender transmissions
+7135455,INFO,Completed analysis m: 1 t: 1 e: 31
+7135481,INFO,Enabling IridiumMessageSender transmissions
+7185012,INFO,Starting analysis m: 1 t: 1 e: 32
+7185291,WARN,Disabling IridiumMessageSender transmissions
+7186601,INFO,Completed analysis m: 1 t: 1 e: 32
+7186626,INFO,Processing stats m: 1 t: 1 e: 33
+7193245,INFO,Finished collection for m: 1 in 1748
+7193272,INFO,Submitting 48 byte / 378 bit message: 
+7193325,DEBUG,m 2 sub to Q at i 0 count: 2
+7193350,DEBUG,1 msgs in Q
+7193397,INFO,Enabling IridiumMessageSender transmissions
+7193434,DEBUG,Sending Q index: 0 id: 2
+7200210,INFO,powerData | solV: 5.72
+7200233,INFO,powerData | solI: 0.36
+7200253,INFO,powerData | battV: 3.30
+7200274,INFO,powerData | battI: 0.45
+7200294,INFO,powerData | busV: 3.46
+7200315,INFO,powerData | busI: 0.06
+7200335,INFO,powerData | BQ status reg: 173
+7200356,INFO,powerData | Fault reg: 0
+7200376,INFO,powerData | Charge status: 2
+7200399,INFO,powerData | DPM status: 1
+7244498,INFO,Starting collection m: 2 t: 0 at 1668886171.20
+7260960,INFO,Send complete: Q index: 0 count_id 2
+7261872,INFO,Submitting 19 byte / 150 bit SMC message: 
+7261913,DEBUG,m 3 sub to Q at i 0 count: 3
+7261937,DEBUG,1 msgs in Q
+7262095,DEBUG,Sending Q index: 0 id: 3
+7272142,INFO,Send complete: Q index: 0 count_id 3

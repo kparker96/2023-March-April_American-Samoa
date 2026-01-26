@@ -1,0 +1,227 @@
+millis,type,message
+15339,DEBUG,SD Card init SUCCESS!
+15360,WARN,Recovered from SD failure - resets: 1
+15392,DEBUG,ext ram fail reset count: 0
+15413,INFO,session id: 997
+15423,INFO,reset source: 0
+15439,INFO,Device Id: 65477320
+15460,INFO,Firmware SHA: 93CE0B95
+15478,INFO,MAX_SAMPLE_GAP_S: 3.00
+15489,INFO,SPIKE_G_TH: 3.00
+15497,INFO,MAX_MESSAGE_LEN_FULL: 301
+15503,INFO,MAX_MESSAGE_LEN_BASIC: 51
+15511,INFO,MAX_MESSAGE_LEN_SM: 341
+15515,INFO,MESSAGE_QUEUE_LEN: 10
+15521,INFO,STRICT_NMEA: 1
+15527,INFO,MAIN_DECK_HW_VERSION: 7
+15538,INFO,F_MIN: 0.03
+15544,INFO,F_MAX: 0.80
+15560,INFO, sysConfig | sd reset max: 5
+15572,INFO, sysConfig | wd enable: 1
+15579,INFO, sysConfig | prod log mode: 1
+15589,INFO, sysConfig | log filt sd: 1
+15597,INFO, sysConfig | log gps sd: 1
+15605,INFO, sysConfig | gps log lvl: 0
+15613,INFO, sysConfig | log pow sd: 1
+15622,INFO, sysConfig | log nmea sd: 1
+15630,INFO, sysConfig | log irid sd: 1
+15638,INFO, sysConfig | log fft sd: 1
+15646,INFO, sysConfig | log spec sd: 0
+15659,INFO, sysConfig | log speca sd: 0
+15667,INFO, sysConfig | log dre sd: 1
+15675,INFO, sysConfig | log message sd: 1
+15685,INFO, sysConfig | statistics mode: 0
+15693,INFO, sysConfig | log gmn sd: 1
+15702,INFO, sysConfig | min messages period basic: 0
+15714,INFO, sysConfig | min messages period full: 0
+15724,INFO, sysConfig | gps power lvl: 1
+15734,INFO, sysConfig | log gmn 1s: 0
+15742,INFO, sysConfig | log bin sd: 0
+15751,INFO, sysConfig | message samples basic: 2
+15761,INFO, sysConfig | self test: 0
+15773,INFO, sysConfig | self test reset max: 2
+15783,INFO, sysConfig | vis led enable: 1
+15792,INFO, sysConfig | log sst sd: 1
+15800,INFO, sysConfig | external hardware reset max: 5
+15812,INFO, sysConfig | sst sampling period: 1
+15822,INFO, sysConfig | sst n samples to avg: 6
+15833,INFO, sysConfig | partition thresh bin: 7
+15843,INFO, sysConfig | gps sleep enable: 1
+15853,INFO, sysConfig | idle checkin period: 3
+15863,INFO, sysConfig | bridge enable: 1
+15872,INFO, sysConfig | log smdata sd: 1
+16125,INFO,External hw available: 00000100
+16154,INFO,Initializing Bridge
+18675,INFO,Starting Bridge Self Test
+19785,INFO,Bridge initialized
+19965,INFO,powerData | solV: 5.63
+19988,INFO,powerData | solI: 0.40
+20006,INFO,powerData | battV: 3.12
+20027,INFO,powerData | battI: -0.82
+20047,INFO,powerData | busV: 2.96
+20068,INFO,powerData | busI: 1.47
+20088,INFO,powerData | BQ status reg: 173
+20107,INFO,powerData | Fault reg: 0
+20127,INFO,powerData | Charge status: 2
+20148,INFO,powerData | DPM status: 1
+20178,INFO,Loaded OP MODE: 40962
+20264,DEBUG,Iridium fail reset count: 0
+22880,INFO,imei: 300434065477320
+23508,DEBUG,GPS fail reset count: 0
+29036,ERROR, sysError | BattV: 1
+29061,ERROR, sysError | BusV: 3
+29081,ERROR, sysError | BusI: 2
+29177,WARN,Disabling IridiumMessageSender transmissions
+59109,INFO,GpsSigErr changed to NO_ERR
+59131,INFO,Starting collection m: 0 t: 0 at 1668971929.00
+60049,INFO,Remote config out of sync
+60071,INFO,submitting message: 50 byte / 400 bit messsage: 
+60125,DEBUG,m 0 sub to Q at i 0 count: 0
+60147,DEBUG,1 msgs in Q
+66181,INFO,Max CNO changed from -1 to 46
+171315,INFO,Starting analysis m: 0 t: 0 e: 0
+172658,INFO,Completed analysis m: 0 t: 0 e: 0
+222449,INFO,Starting analysis m: 0 t: 0 e: 1
+223995,INFO,Completed analysis m: 0 t: 0 e: 1
+273618,INFO,Starting analysis m: 0 t: 0 e: 2
+275202,INFO,Completed analysis m: 0 t: 0 e: 2
+300017,INFO,powerData | solV: 5.67
+300040,INFO,powerData | solI: 0.19
+300060,INFO,powerData | battV: 3.24
+300081,INFO,powerData | battI: 0.17
+300105,INFO,powerData | busV: 3.45
+300126,INFO,powerData | busI: 0.09
+300146,INFO,powerData | BQ status reg: 173
+300165,INFO,powerData | Fault reg: 0
+300185,INFO,powerData | Charge status: 2
+300206,INFO,powerData | DPM status: 1
+305946,INFO,Max CNO changed from 46 to 43
+324759,INFO,Starting analysis m: 0 t: 0 e: 3
+326373,INFO,Completed analysis m: 0 t: 0 e: 3
+375902,INFO,Starting analysis m: 0 t: 0 e: 4
+377491,INFO,Completed analysis m: 0 t: 0 e: 4
+405841,INFO,Max CNO changed from 43 to 46
+427063,INFO,Starting analysis m: 0 t: 0 e: 5
+428578,INFO,Completed analysis m: 0 t: 0 e: 5
+478203,INFO,Starting analysis m: 0 t: 0 e: 6
+479825,INFO,Completed analysis m: 0 t: 0 e: 6
+529364,INFO,Starting analysis m: 0 t: 0 e: 7
+530968,INFO,Completed analysis m: 0 t: 0 e: 7
+580489,INFO,Starting analysis m: 0 t: 0 e: 8
+582123,INFO,Completed analysis m: 0 t: 0 e: 8
+600020,INFO,powerData | solV: 5.67
+600041,INFO,powerData | solI: 0.17
+600061,INFO,powerData | battV: 3.25
+600082,INFO,powerData | battI: 0.15
+600104,INFO,powerData | busV: 3.46
+600125,INFO,powerData | busI: 0.08
+600143,INFO,powerData | BQ status reg: 173
+600164,INFO,powerData | Fault reg: 0
+600184,INFO,powerData | Charge status: 2
+600205,INFO,powerData | DPM status: 1
+631646,INFO,Starting analysis m: 0 t: 0 e: 9
+633235,INFO,Completed analysis m: 0 t: 0 e: 9
+682803,INFO,Starting analysis m: 0 t: 0 e: 10
+684388,INFO,Completed analysis m: 0 t: 0 e: 10
+733945,INFO,Starting analysis m: 0 t: 0 e: 11
+735610,INFO,Completed analysis m: 0 t: 0 e: 11
+785113,INFO,Starting analysis m: 0 t: 0 e: 12
+786794,INFO,Completed analysis m: 0 t: 0 e: 12
+796635,WARN,BACK IN TIME 1668972667.00 to 1668972666.40
+797038,WARN,BACK IN TIME 1668972667.00 to 1668972666.80
+797429,WARN,SMALL SAMPLE PERIOD: from 1668972667.00 to 1668972667.20
+797837,WARN,BAD TIMEBASE from 1668972667.00 to 1668972667.60
+798230,WARN,BAD TIMEBASE from 1668972667.00 to 1668972668.00
+798623,WARN,BAD TIMEBASE from 1668972667.00 to 1668972668.40
+799031,WARN,BAD TIMEBASE from 1668972667.00 to 1668972668.80
+799438,WARN,BAD TIMEBASE from 1668972667.00 to 1668972669.20
+799832,WARN,BAD TIMEBASE from 1668972667.00 to 1668972669.60
+800237,WARN,BAD TIMEBASE from 1668972667.00 to 1668972670.00
+800624,WARN,EXCEED MAX GAP: dt: 3.40 from 1668972667.00 to 1668972670.40
+900026,INFO,powerData | solV: 5.73
+900048,INFO,powerData | solI: 0.32
+900069,INFO,powerData | battV: 3.29
+900093,INFO,powerData | battI: 0.38
+900116,INFO,powerData | busV: 3.46
+900136,INFO,powerData | busI: 0.08
+900159,INFO,powerData | BQ status reg: 173
+900179,INFO,powerData | Fault reg: 0
+900200,INFO,powerData | Charge status: 2
+900220,INFO,powerData | DPM status: 1
+912961,INFO,Starting analysis m: 0 t: 0 e: 13
+914550,INFO,Completed analysis m: 0 t: 0 e: 13
+964110,INFO,Starting analysis m: 0 t: 0 e: 14
+965713,INFO,Completed analysis m: 0 t: 0 e: 14
+1015265,INFO,Starting analysis m: 0 t: 0 e: 15
+1016850,INFO,Completed analysis m: 0 t: 0 e: 15
+1066416,INFO,Starting analysis m: 0 t: 0 e: 16
+1067945,INFO,Completed analysis m: 0 t: 0 e: 16
+1117556,INFO,Starting analysis m: 0 t: 0 e: 17
+1119152,INFO,Completed analysis m: 0 t: 0 e: 17
+1168717,INFO,Starting analysis m: 0 t: 0 e: 18
+1170315,INFO,Completed analysis m: 0 t: 0 e: 18
+1200027,INFO,powerData | solV: 5.82
+1200050,INFO,powerData | solI: 0.42
+1200068,INFO,powerData | battV: 3.31
+1200089,INFO,powerData | battI: 0.51
+1200109,INFO,powerData | busV: 3.46
+1200130,INFO,powerData | busI: 0.09
+1200150,INFO,powerData | BQ status reg: 165
+1200175,INFO,powerData | Fault reg: 0
+1200197,INFO,powerData | Charge status: 2
+1200220,INFO,powerData | DPM status: 0
+1219856,INFO,Starting analysis m: 0 t: 0 e: 19
+1221492,INFO,Completed analysis m: 0 t: 0 e: 19
+1271013,INFO,Starting analysis m: 0 t: 0 e: 20
+1272653,INFO,Completed analysis m: 0 t: 0 e: 20
+1322147,INFO,Starting analysis m: 0 t: 0 e: 21
+1323745,INFO,Completed analysis m: 0 t: 0 e: 21
+1373286,INFO,Starting analysis m: 0 t: 0 e: 22
+1374875,INFO,Completed analysis m: 0 t: 0 e: 22
+1424429,INFO,Starting analysis m: 0 t: 0 e: 23
+1426147,INFO,Completed analysis m: 0 t: 0 e: 23
+1475584,INFO,Starting analysis m: 0 t: 0 e: 24
+1477179,INFO,Completed analysis m: 0 t: 0 e: 24
+1500033,INFO,powerData | solV: 5.75
+1500055,INFO,powerData | solI: 0.41
+1500078,INFO,powerData | battV: 3.32
+1500098,INFO,powerData | battI: 0.51
+1500121,INFO,powerData | busV: 3.46
+1500143,INFO,powerData | busI: 0.08
+1500164,INFO,powerData | BQ status reg: 173
+1500186,INFO,powerData | Fault reg: 0
+1500207,INFO,powerData | Charge status: 2
+1500233,INFO,powerData | DPM status: 1
+1526738,INFO,Starting analysis m: 0 t: 0 e: 25
+1528330,INFO,Completed analysis m: 0 t: 0 e: 25
+1577875,INFO,Starting analysis m: 0 t: 0 e: 26
+1579474,INFO,Completed analysis m: 0 t: 0 e: 26
+1629036,INFO,Starting analysis m: 0 t: 0 e: 27
+1630730,INFO,Completed analysis m: 0 t: 0 e: 27
+1680181,INFO,Starting analysis m: 0 t: 0 e: 28
+1681793,INFO,Completed analysis m: 0 t: 0 e: 28
+1731332,INFO,Starting analysis m: 0 t: 0 e: 29
+1732968,INFO,Completed analysis m: 0 t: 0 e: 29
+1782478,INFO,Starting analysis m: 0 t: 0 e: 30
+1784156,INFO,Completed analysis m: 0 t: 0 e: 30
+1800044,INFO,powerData | solV: 5.83
+1800067,INFO,powerData | solI: 0.37
+1800087,INFO,powerData | battV: 3.33
+1800108,INFO,powerData | battI: 0.43
+1800128,INFO,powerData | busV: 3.45
+1800146,INFO,powerData | busI: 0.09
+1800167,INFO,powerData | BQ status reg: 173
+1800187,INFO,powerData | Fault reg: 0
+1800208,INFO,powerData | Charge status: 2
+1800228,INFO,powerData | DPM status: 1
+1833627,INFO,Starting analysis m: 0 t: 0 e: 31
+1835212,INFO,Completed analysis m: 0 t: 0 e: 31
+1858379,WARN,Stat 0 timeout at 1668973729.
+1858404,INFO,Processing stats m: 0 t: 0 e: 32
+1866399,INFO,Starting collection m: 0 t: 1 at 1668973737.20
+1968285,INFO,Starting analysis m: 0 t: 1 e: 0
+1969610,INFO,Completed analysis m: 0 t: 1 e: 0
+2019440,INFO,Starting analysis m: 0 t: 1 e: 1
+2021027,INFO,Completed analysis m: 0 t: 1 e: 1
+2070583,INFO,Starting analysis m: 0 t: 1 e: 2
+2072119,INFO,Completed analysis m: 0 t: 1 e: 2

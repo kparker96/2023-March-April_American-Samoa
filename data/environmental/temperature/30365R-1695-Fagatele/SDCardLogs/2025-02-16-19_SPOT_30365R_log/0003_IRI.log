@@ -1,0 +1,498 @@
+2025-02-16T05:30:01.335Z [IRI] [INFO] Attempting to send 112 bytes.
+2025-02-16T05:30:01.335Z [IRI] [INFO] Attempting to write buffer[112]
+2025-02-16T05:30:01.425Z [IRI] [INFO] Waiting for network. Time remaining: 180.91 seconds
+2025-02-16T05:30:09.500Z [IRI] [INFO] Attempting to transmit. Time remaining: 172.84 seconds
+2025-02-16T05:30:21.031Z [IRI] [INFO] Message sent successfully!!!!
+2025-02-16T05:30:21.031Z [IRI] [INFO] Attempting to send 81 bytes.
+2025-02-16T05:30:21.031Z [IRI] [INFO] Attempting to write buffer[81]
+2025-02-16T05:30:21.101Z [IRI] [INFO] Waiting for network. Time remaining: 180.93 seconds
+2025-02-16T05:30:21.101Z [IRI] [INFO] Attempting to transmit. Time remaining: 180.93 seconds
+2025-02-16T05:30:29.128Z [IRI] [INFO] Message sent successfully!!!!
+2025-02-16T05:30:29.132Z [IRI] [INFO] Attempting to send 35 bytes.
+2025-02-16T05:30:29.132Z [IRI] [INFO] Attempting to write buffer[35]
+2025-02-16T05:30:29.183Z [IRI] [INFO] Waiting for network. Time remaining: 180.95 seconds
+2025-02-16T05:30:29.183Z [IRI] [INFO] Attempting to transmit. Time remaining: 180.95 seconds
+2025-02-16T05:30:37.679Z [IRI] [INFO] Message sent successfully!!!!
+2025-02-19T06:57:49.195Z [IRI] [INFO] ATI0 - 2400
+2025-02-19T06:57:49.210Z [IRI] [INFO] ATI1 - 0000
+2025-02-19T06:57:49.226Z [IRI] [INFO] ATI2 - OK
+2025-02-19T06:57:49.242Z [IRI] [INFO] ATI3 - TA21004
+2025-02-19T06:57:49.265Z [IRI] [INFO] ATI4 - IRIDIUM 9600 Family
+2025-02-19T06:57:49.277Z [IRI] [INFO] ATI5 - 8816
+2025-02-19T06:57:49.292Z [IRI] [INFO] ATI6 - 108
+2025-02-19T06:57:49.320Z [IRI] [INFO] ATI7 - BOOT07d4/9602NrvA-D/04/RAW0d
+2025-02-19T06:57:49.339Z [IRI] [INFO] AT+CGMI - Iridium
+2025-02-19T06:57:49.375Z [IRI] [INFO] AT+CGMM - IRIDIUM 9600 Family SBD Transceiver
+2025-02-19T06:57:49.398Z [IRI] [INFO] AT+CGSN - 300534064008050
+2025-02-19T06:57:49.445Z [IRI] [INFO] AT+CGMR - Modem DSP Version: 1.7 svn: 2358
+2025-02-19T06:57:49.460Z [IRI] [INFO] AT+CGMR - DBB Version: 0x0001 (ASIC)
+2025-02-19T06:57:49.476Z [IRI] [INFO] AT+CGMR - RFA Version: 0x0007 (SRFA2)
+2025-02-19T06:57:49.484Z [IRI] [INFO] AT+CGMR - NVM Version: KVS
+2025-02-19T06:57:49.511Z [IRI] [INFO] AT+CGMR - Hardware Version: BOOT07d4/9602NrvA-D/04/RAW0d
+2025-02-19T06:57:49.535Z [IRI] [INFO] AT+CGMR - BOOT Version: 2004 TD2-BLB960X-27 R4710
+2025-02-19T06:58:30.792Z [IRI] [INFO] Attempting to send 112 bytes.
+2025-02-19T06:58:30.796Z [IRI] [INFO] Attempting to write buffer[112]
+2025-02-19T06:58:30.882Z [IRI] [INFO] Waiting for network. Time remaining: 180.91 seconds
+2025-02-19T07:01:31.761Z [IRI] [WARNING] Done trying to send
+2025-02-19T07:01:31.761Z [IRI] [WARNING] Unable to transmit buffer
+2025-02-19T07:11:31.957Z [IRI] [INFO] Attempting to send 112 bytes.
+2025-02-19T07:11:31.957Z [IRI] [INFO] Attempting to write buffer[112]
+2025-02-19T07:11:32.046Z [IRI] [INFO] Waiting for network. Time remaining: 180.91 seconds
+2025-02-19T07:11:39.890Z [IRI] [INFO] Attempting to transmit. Time remaining: 173.06 seconds
+2025-02-19T07:11:42.722Z [IRI] [INFO] Message sent successfully!!!!
+2025-02-19T07:11:42.726Z [IRI] [INFO] Attempting to send 87 bytes.
+2025-02-19T07:11:42.726Z [IRI] [INFO] Attempting to write buffer[87]
+2025-02-19T07:11:42.800Z [IRI] [INFO] Waiting for network. Time remaining: 180.93 seconds
+2025-02-19T07:11:42.800Z [IRI] [INFO] Attempting to transmit. Time remaining: 180.92 seconds
+2025-02-19T07:11:50.011Z [IRI] [INFO] Message sent successfully!!!!
+2025-02-19T07:11:50.015Z [IRI] [INFO] Attempting to send 35 bytes.
+2025-02-19T07:11:50.015Z [IRI] [INFO] Attempting to write buffer[35]
+2025-02-19T07:11:50.062Z [IRI] [INFO] Waiting for network. Time remaining: 180.95 seconds
+2025-02-19T07:11:50.066Z [IRI] [INFO] Attempting to transmit. Time remaining: 180.95 seconds
+2025-02-19T07:11:58.203Z [IRI] [INFO] Message sent successfully!!!!
+2025-02-19T07:58:30.347Z [IRI] [INFO] Attempting to send 50 bytes.
+2025-02-19T07:58:30.347Z [IRI] [INFO] Attempting to write buffer[50]
+2025-02-19T07:58:30.406Z [IRI] [INFO] Waiting for network. Time remaining: 180.94 seconds
+2025-02-19T07:58:38.019Z [IRI] [INFO] Attempting to transmit. Time remaining: 173.33 seconds
+2025-02-19T07:58:52.101Z [IRI] [INFO] Message not sent. 32
+2025-02-19T07:58:52.101Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T07:58:52.199Z [IRI] [INFO] Attempting to transmit. Time remaining: 159.14 seconds
+2025-02-19T07:59:02.597Z [IRI] [INFO] Message sent successfully!!!!
+2025-02-19T08:58:08.867Z [IRI] [INFO] Attempting to send 37 bytes.
+2025-02-19T08:58:08.867Z [IRI] [INFO] Attempting to write buffer[37]
+2025-02-19T08:58:08.914Z [IRI] [INFO] Waiting for network. Time remaining: 180.95 seconds
+2025-02-19T08:58:16.632Z [IRI] [INFO] Attempting to transmit. Time remaining: 173.23 seconds
+2025-02-19T08:58:24.027Z [IRI] [INFO] Message sent successfully!!!!
+2025-02-19T09:08:24.222Z [IRI] [INFO] Attempting to send 50 bytes.
+2025-02-19T09:08:24.222Z [IRI] [INFO] Attempting to write buffer[50]
+2025-02-19T09:08:24.277Z [IRI] [INFO] Waiting for network. Time remaining: 180.94 seconds
+2025-02-19T09:08:32.128Z [IRI] [INFO] Attempting to transmit. Time remaining: 173.09 seconds
+2025-02-19T09:08:52.304Z [IRI] [INFO] Message sent successfully!!!!
+2025-02-19T09:58:29.261Z [IRI] [INFO] Attempting to send 50 bytes.
+2025-02-19T09:58:29.261Z [IRI] [INFO] Attempting to write buffer[50]
+2025-02-19T09:58:29.316Z [IRI] [INFO] Waiting for network. Time remaining: 180.94 seconds
+2025-02-19T09:58:34.574Z [IRI] [INFO] Attempting to transmit. Time remaining: 175.69 seconds
+2025-02-19T09:58:43.863Z [IRI] [INFO] Message sent successfully!!!!
+2025-02-19T10:58:08.757Z [IRI] [INFO] Attempting to send 37 bytes.
+2025-02-19T10:58:08.757Z [IRI] [INFO] Attempting to write buffer[37]
+2025-02-19T10:58:08.808Z [IRI] [INFO] Waiting for network. Time remaining: 180.95 seconds
+2025-02-19T10:58:59.816Z [IRI] [INFO] Attempting to transmit. Time remaining: 129.93 seconds
+2025-02-19T10:59:13.960Z [IRI] [INFO] Message not sent. 32
+2025-02-19T10:59:13.964Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T10:59:14.062Z [IRI] [INFO] Attempting to transmit. Time remaining: 115.68 seconds
+2025-02-19T10:59:31.175Z [IRI] [INFO] Message not sent. 32
+2025-02-19T10:59:31.175Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T10:59:31.277Z [IRI] [INFO] Attempting to transmit. Time remaining: 98.46 seconds
+2025-02-19T10:59:48.457Z [IRI] [INFO] Message not sent. 32
+2025-02-19T10:59:48.457Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T10:59:48.554Z [IRI] [INFO] Attempting to transmit. Time remaining: 81.18 seconds
+2025-02-19T11:00:01.480Z [IRI] [INFO] Message not sent. 32
+2025-02-19T11:00:01.480Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T11:00:01.582Z [IRI] [INFO] Attempting to transmit. Time remaining: 68.15 seconds
+2025-02-19T11:00:18.156Z [IRI] [INFO] Message not sent. 32
+2025-02-19T11:00:18.156Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T11:00:18.257Z [IRI] [INFO] Attempting to transmit. Time remaining: 51.48 seconds
+2025-02-19T11:00:35.433Z [IRI] [INFO] Message not sent. 32
+2025-02-19T11:00:35.433Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T11:00:35.535Z [IRI] [INFO] Attempting to transmit. Time remaining: 34.19 seconds
+2025-02-19T11:00:49.292Z [IRI] [INFO] Message not sent. 32
+2025-02-19T11:00:49.292Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T11:00:49.394Z [IRI] [INFO] Attempting to transmit. Time remaining: 20.33 seconds
+2025-02-19T11:01:05.675Z [IRI] [INFO] Message not sent. 32
+2025-02-19T11:01:05.675Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T11:01:05.777Z [IRI] [INFO] Attempting to transmit. Time remaining: 3.95 seconds
+2025-02-19T11:01:30.511Z [IRI] [INFO] Message not sent. 32
+2025-02-19T11:01:30.511Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T11:01:30.613Z [IRI] [WARNING] Done trying to send
+2025-02-19T11:01:30.617Z [IRI] [WARNING] Unable to transmit buffer
+2025-02-19T11:11:30.808Z [IRI] [INFO] Attempting to send 37 bytes.
+2025-02-19T11:11:30.812Z [IRI] [INFO] Attempting to write buffer[37]
+2025-02-19T11:11:30.863Z [IRI] [INFO] Waiting for network. Time remaining: 180.95 seconds
+2025-02-19T11:11:39.132Z [IRI] [INFO] Attempting to transmit. Time remaining: 172.68 seconds
+2025-02-19T11:11:57.535Z [IRI] [INFO] Message not sent. 32
+2025-02-19T11:11:57.535Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T11:11:57.636Z [IRI] [INFO] Attempting to transmit. Time remaining: 154.17 seconds
+2025-02-19T11:12:15.953Z [IRI] [INFO] Message sent successfully!!!!
+2025-02-19T11:12:15.957Z [IRI] [INFO] Attempting to send 50 bytes.
+2025-02-19T11:12:15.957Z [IRI] [INFO] Attempting to write buffer[50]
+2025-02-19T11:12:16.011Z [IRI] [INFO] Waiting for network. Time remaining: 180.94 seconds
+2025-02-19T11:12:16.011Z [IRI] [INFO] Attempting to transmit. Time remaining: 180.94 seconds
+2025-02-19T11:12:33.625Z [IRI] [INFO] Message not sent. 32
+2025-02-19T11:12:33.625Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T11:12:33.722Z [IRI] [INFO] Attempting to transmit. Time remaining: 163.23 seconds
+2025-02-19T11:12:44.597Z [IRI] [INFO] Message sent successfully!!!!
+2025-02-19T11:58:28.175Z [IRI] [INFO] Attempting to send 50 bytes.
+2025-02-19T11:58:28.175Z [IRI] [INFO] Attempting to write buffer[50]
+2025-02-19T11:58:28.230Z [IRI] [INFO] Waiting for network. Time remaining: 180.94 seconds
+2025-02-19T11:59:50.429Z [IRI] [INFO] Attempting to transmit. Time remaining: 98.73 seconds
+2025-02-19T12:00:04.511Z [IRI] [INFO] Message not sent. 32
+2025-02-19T12:00:04.511Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T12:00:04.613Z [IRI] [INFO] Attempting to transmit. Time remaining: 84.54 seconds
+2025-02-19T12:00:21.789Z [IRI] [INFO] Message not sent. 32
+2025-02-19T12:00:21.792Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T12:00:21.890Z [IRI] [INFO] Attempting to transmit. Time remaining: 67.26 seconds
+2025-02-19T12:00:34.750Z [IRI] [INFO] Message not sent. 32
+2025-02-19T12:00:34.750Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T12:00:34.851Z [IRI] [INFO] Attempting to transmit. Time remaining: 54.30 seconds
+2025-02-19T12:00:47.777Z [IRI] [INFO] Message not sent. 32
+2025-02-19T12:00:47.777Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T12:00:47.878Z [IRI] [INFO] Attempting to transmit. Time remaining: 41.27 seconds
+2025-02-19T12:00:56.417Z [IRI] [INFO] Message not sent. 32
+2025-02-19T12:00:56.417Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T12:00:56.519Z [IRI] [INFO] Attempting to transmit. Time remaining: 32.63 seconds
+2025-02-19T12:01:09.378Z [IRI] [INFO] Message not sent. 32
+2025-02-19T12:01:09.378Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T12:01:09.480Z [IRI] [INFO] Attempting to transmit. Time remaining: 19.66 seconds
+2025-02-19T12:01:24.132Z [IRI] [INFO] Message sent successfully!!!!
+2025-02-19T12:58:08.644Z [IRI] [INFO] Attempting to send 37 bytes.
+2025-02-19T12:58:08.644Z [IRI] [INFO] Attempting to write buffer[37]
+2025-02-19T12:58:08.691Z [IRI] [INFO] Waiting for network. Time remaining: 180.95 seconds
+2025-02-19T12:58:16.417Z [IRI] [INFO] Attempting to transmit. Time remaining: 173.22 seconds
+2025-02-19T12:58:27.527Z [IRI] [INFO] Message sent successfully!!!!
+2025-02-19T12:58:27.531Z [IRI] [INFO] Attempting to send 50 bytes.
+2025-02-19T12:58:27.531Z [IRI] [INFO] Attempting to write buffer[50]
+2025-02-19T12:58:27.585Z [IRI] [INFO] Waiting for network. Time remaining: 180.94 seconds
+2025-02-19T12:58:27.585Z [IRI] [INFO] Attempting to transmit. Time remaining: 180.94 seconds
+2025-02-19T12:58:36.976Z [IRI] [INFO] Message sent successfully!!!!
+2025-02-19T13:58:27.078Z [IRI] [INFO] Attempting to send 50 bytes.
+2025-02-19T13:58:27.082Z [IRI] [INFO] Attempting to write buffer[50]
+2025-02-19T13:58:27.136Z [IRI] [INFO] Waiting for network. Time remaining: 180.94 seconds
+2025-02-19T13:58:34.812Z [IRI] [INFO] Attempting to transmit. Time remaining: 173.27 seconds
+2025-02-19T13:58:45.726Z [IRI] [INFO] Message not sent. 32
+2025-02-19T13:58:45.726Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T13:58:45.824Z [IRI] [INFO] Attempting to transmit. Time remaining: 162.25 seconds
+2025-02-19T13:58:54.367Z [IRI] [INFO] Message not sent. 32
+2025-02-19T13:58:54.367Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T13:58:54.464Z [IRI] [INFO] Attempting to transmit. Time remaining: 153.61 seconds
+2025-02-19T13:59:06.785Z [IRI] [INFO] Message not sent. 32
+2025-02-19T13:59:06.785Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T13:59:06.886Z [IRI] [INFO] Attempting to transmit. Time remaining: 141.19 seconds
+2025-02-19T13:59:15.425Z [IRI] [INFO] Message not sent. 32
+2025-02-19T13:59:15.425Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T13:59:15.527Z [IRI] [INFO] Attempting to transmit. Time remaining: 132.54 seconds
+2025-02-19T13:59:24.593Z [IRI] [INFO] Message not sent. 32
+2025-02-19T13:59:24.593Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T13:59:24.695Z [IRI] [INFO] Attempting to transmit. Time remaining: 123.37 seconds
+2025-02-19T13:59:33.250Z [IRI] [INFO] Message not sent. 32
+2025-02-19T13:59:33.250Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T13:59:33.347Z [IRI] [INFO] Attempting to transmit. Time remaining: 114.72 seconds
+2025-02-19T13:59:41.890Z [IRI] [INFO] Message not sent. 32
+2025-02-19T13:59:41.890Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T13:59:41.992Z [IRI] [INFO] Attempting to transmit. Time remaining: 106.08 seconds
+2025-02-19T13:59:50.816Z [IRI] [INFO] Message not sent. 32
+2025-02-19T13:59:50.816Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T13:59:50.917Z [IRI] [INFO] Attempting to transmit. Time remaining: 97.15 seconds
+2025-02-19T13:59:59.816Z [IRI] [INFO] Message not sent. 32
+2025-02-19T13:59:59.816Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T13:59:59.914Z [IRI] [INFO] Attempting to transmit. Time remaining: 88.15 seconds
+2025-02-19T14:00:08.816Z [IRI] [INFO] Message not sent. 32
+2025-02-19T14:00:08.816Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T14:00:08.914Z [IRI] [INFO] Attempting to transmit. Time remaining: 79.15 seconds
+2025-02-19T14:00:17.816Z [IRI] [INFO] Message not sent. 32
+2025-02-19T14:00:17.816Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T14:00:17.914Z [IRI] [INFO] Attempting to transmit. Time remaining: 70.14 seconds
+2025-02-19T14:00:26.816Z [IRI] [INFO] Message not sent. 32
+2025-02-19T14:00:26.816Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T14:00:26.914Z [IRI] [INFO] Attempting to transmit. Time remaining: 61.14 seconds
+2025-02-19T14:00:35.816Z [IRI] [INFO] Message not sent. 32
+2025-02-19T14:00:35.816Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T14:00:35.917Z [IRI] [INFO] Attempting to transmit. Time remaining: 52.14 seconds
+2025-02-19T14:00:44.816Z [IRI] [INFO] Message not sent. 32
+2025-02-19T14:00:44.816Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T14:00:44.914Z [IRI] [INFO] Attempting to transmit. Time remaining: 43.14 seconds
+2025-02-19T14:00:53.816Z [IRI] [INFO] Message not sent. 32
+2025-02-19T14:00:53.816Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T14:00:53.914Z [IRI] [INFO] Attempting to transmit. Time remaining: 34.14 seconds
+2025-02-19T14:01:02.816Z [IRI] [INFO] Message not sent. 32
+2025-02-19T14:01:02.816Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T14:01:02.914Z [IRI] [INFO] Attempting to transmit. Time remaining: 25.14 seconds
+2025-02-19T14:01:11.816Z [IRI] [INFO] Message not sent. 32
+2025-02-19T14:01:11.816Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T14:01:11.914Z [IRI] [INFO] Attempting to transmit. Time remaining: 16.13 seconds
+2025-02-19T14:01:20.816Z [IRI] [INFO] Message not sent. 32
+2025-02-19T14:01:20.816Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T14:01:20.914Z [IRI] [INFO] Attempting to transmit. Time remaining: 7.13 seconds
+2025-02-19T14:01:29.812Z [IRI] [INFO] Message not sent. 32
+2025-02-19T14:01:29.816Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T14:01:29.914Z [IRI] [WARNING] Done trying to send
+2025-02-19T14:01:29.914Z [IRI] [WARNING] Unable to transmit buffer
+2025-02-19T14:11:30.109Z [IRI] [INFO] Attempting to send 50 bytes.
+2025-02-19T14:11:30.109Z [IRI] [INFO] Attempting to write buffer[50]
+2025-02-19T14:11:30.167Z [IRI] [INFO] Waiting for network. Time remaining: 180.94 seconds
+2025-02-19T14:11:51.574Z [IRI] [INFO] Attempting to transmit. Time remaining: 159.53 seconds
+2025-02-19T14:12:05.722Z [IRI] [INFO] Message not sent. 32
+2025-02-19T14:12:05.722Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T14:12:05.824Z [IRI] [INFO] Attempting to transmit. Time remaining: 145.28 seconds
+2025-02-19T14:12:22.937Z [IRI] [INFO] Message not sent. 32
+2025-02-19T14:12:22.937Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T14:12:23.035Z [IRI] [INFO] Attempting to transmit. Time remaining: 128.06 seconds
+2025-02-19T14:12:40.214Z [IRI] [INFO] Message not sent. 32
+2025-02-19T14:12:40.214Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T14:12:40.316Z [IRI] [INFO] Attempting to transmit. Time remaining: 110.78 seconds
+2025-02-19T14:12:53.242Z [IRI] [INFO] Message not sent. 32
+2025-02-19T14:12:53.242Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T14:12:53.343Z [IRI] [INFO] Attempting to transmit. Time remaining: 97.75 seconds
+2025-02-19T14:13:06.203Z [IRI] [INFO] Message not sent. 32
+2025-02-19T14:13:06.203Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T14:13:06.304Z [IRI] [INFO] Attempting to transmit. Time remaining: 84.79 seconds
+2025-02-19T14:13:19.093Z [IRI] [INFO] Message not sent. 32
+2025-02-19T14:13:19.093Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T14:13:19.195Z [IRI] [INFO] Attempting to transmit. Time remaining: 71.89 seconds
+2025-02-19T14:13:32.054Z [IRI] [INFO] Message not sent. 32
+2025-02-19T14:13:32.054Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T14:13:32.152Z [IRI] [INFO] Attempting to transmit. Time remaining: 58.93 seconds
+2025-02-19T14:13:46.906Z [IRI] [INFO] Message not sent. 18
+2025-02-19T14:13:46.906Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T14:13:47.003Z [IRI] [INFO] Attempting to transmit. Time remaining: 44.08 seconds
+2025-02-19T14:13:59.593Z [IRI] [INFO] Message not sent. 32
+2025-02-19T14:13:59.593Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T14:13:59.691Z [IRI] [INFO] Attempting to transmit. Time remaining: 31.39 seconds
+2025-02-19T14:14:16.871Z [IRI] [INFO] Message not sent. 32
+2025-02-19T14:14:16.871Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T14:14:16.972Z [IRI] [INFO] Attempting to transmit. Time remaining: 14.11 seconds
+2025-02-19T14:14:31.542Z [IRI] [INFO] Message not sent. 32
+2025-02-19T14:14:31.542Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T14:14:31.640Z [IRI] [WARNING] Done trying to send
+2025-02-19T14:14:31.644Z [IRI] [WARNING] Unable to transmit buffer
+2025-02-19T14:24:31.835Z [IRI] [INFO] Attempting to send 50 bytes.
+2025-02-19T14:24:31.839Z [IRI] [INFO] Attempting to write buffer[50]
+2025-02-19T14:24:31.894Z [IRI] [INFO] Waiting for network. Time remaining: 180.94 seconds
+2025-02-19T14:24:39.078Z [IRI] [INFO] Attempting to transmit. Time remaining: 173.76 seconds
+2025-02-19T14:24:59.347Z [IRI] [INFO] Message sent successfully!!!!
+2025-02-19T14:58:08.531Z [IRI] [INFO] Attempting to send 37 bytes.
+2025-02-19T14:58:08.531Z [IRI] [INFO] Attempting to write buffer[37]
+2025-02-19T14:58:08.582Z [IRI] [INFO] Waiting for network. Time remaining: 180.95 seconds
+2025-02-19T14:58:32.242Z [IRI] [INFO] Attempting to transmit. Time remaining: 157.28 seconds
+2025-02-19T14:58:52.078Z [IRI] [INFO] Message sent successfully!!!!
+2025-02-19T14:58:52.082Z [IRI] [INFO] Attempting to send 50 bytes.
+2025-02-19T14:58:52.082Z [IRI] [INFO] Attempting to write buffer[50]
+2025-02-19T14:58:52.136Z [IRI] [INFO] Waiting for network. Time remaining: 180.94 seconds
+2025-02-19T14:58:52.136Z [IRI] [INFO] Attempting to transmit. Time remaining: 180.94 seconds
+2025-02-19T14:59:00.089Z [IRI] [INFO] Message sent successfully!!!!
+2025-02-19T15:58:25.996Z [IRI] [INFO] Attempting to send 50 bytes.
+2025-02-19T15:58:25.996Z [IRI] [INFO] Attempting to write buffer[50]
+2025-02-19T15:58:26.054Z [IRI] [INFO] Waiting for network. Time remaining: 180.94 seconds
+2025-02-19T16:01:26.964Z [IRI] [WARNING] Done trying to send
+2025-02-19T16:01:26.964Z [IRI] [WARNING] Unable to transmit buffer
+2025-02-19T16:11:27.156Z [IRI] [INFO] Attempting to send 50 bytes.
+2025-02-19T16:11:27.160Z [IRI] [INFO] Attempting to write buffer[50]
+2025-02-19T16:11:27.214Z [IRI] [INFO] Waiting for network. Time remaining: 180.94 seconds
+2025-02-19T16:11:34.816Z [IRI] [INFO] Attempting to transmit. Time remaining: 173.34 seconds
+2025-02-19T16:11:43.664Z [IRI] [INFO] Message not sent. 32
+2025-02-19T16:11:43.664Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T16:11:43.761Z [IRI] [INFO] Attempting to transmit. Time remaining: 164.39 seconds
+2025-02-19T16:11:52.304Z [IRI] [INFO] Message not sent. 32
+2025-02-19T16:11:52.304Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T16:11:52.402Z [IRI] [INFO] Attempting to transmit. Time remaining: 155.75 seconds
+2025-02-19T16:12:01.050Z [IRI] [INFO] Message not sent. 32
+2025-02-19T16:12:01.050Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T16:12:01.152Z [IRI] [INFO] Attempting to transmit. Time remaining: 147.00 seconds
+2025-02-19T16:12:10.050Z [IRI] [INFO] Message not sent. 32
+2025-02-19T16:12:10.050Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T16:12:10.152Z [IRI] [INFO] Attempting to transmit. Time remaining: 138.00 seconds
+2025-02-19T16:12:19.050Z [IRI] [INFO] Message not sent. 32
+2025-02-19T16:12:19.050Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T16:12:19.152Z [IRI] [INFO] Attempting to transmit. Time remaining: 129.00 seconds
+2025-02-19T16:12:28.050Z [IRI] [INFO] Message not sent. 32
+2025-02-19T16:12:28.050Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T16:12:28.148Z [IRI] [INFO] Attempting to transmit. Time remaining: 120.00 seconds
+2025-02-19T16:12:37.050Z [IRI] [INFO] Message not sent. 32
+2025-02-19T16:12:37.050Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T16:12:37.148Z [IRI] [INFO] Attempting to transmit. Time remaining: 111.00 seconds
+2025-02-19T16:12:46.050Z [IRI] [INFO] Message not sent. 32
+2025-02-19T16:12:46.050Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T16:12:46.152Z [IRI] [INFO] Attempting to transmit. Time remaining: 101.99 seconds
+2025-02-19T16:12:55.046Z [IRI] [INFO] Message not sent. 32
+2025-02-19T16:12:55.050Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T16:12:55.148Z [IRI] [INFO] Attempting to transmit. Time remaining: 92.99 seconds
+2025-02-19T16:13:04.046Z [IRI] [INFO] Message not sent. 32
+2025-02-19T16:13:04.050Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T16:13:04.148Z [IRI] [INFO] Attempting to transmit. Time remaining: 83.99 seconds
+2025-02-19T16:13:13.046Z [IRI] [INFO] Message not sent. 32
+2025-02-19T16:13:13.046Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T16:13:13.148Z [IRI] [INFO] Attempting to transmit. Time remaining: 74.99 seconds
+2025-02-19T16:13:22.046Z [IRI] [INFO] Message not sent. 32
+2025-02-19T16:13:22.046Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T16:13:22.148Z [IRI] [INFO] Attempting to transmit. Time remaining: 65.99 seconds
+2025-02-19T16:13:31.046Z [IRI] [INFO] Message not sent. 32
+2025-02-19T16:13:31.046Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T16:13:31.148Z [IRI] [INFO] Attempting to transmit. Time remaining: 56.99 seconds
+2025-02-19T16:13:43.898Z [IRI] [INFO] Message not sent. 32
+2025-02-19T16:13:43.898Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T16:13:44.000Z [IRI] [INFO] Attempting to transmit. Time remaining: 44.13 seconds
+2025-02-19T16:13:52.535Z [IRI] [INFO] Message not sent. 32
+2025-02-19T16:13:52.535Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T16:13:52.636Z [IRI] [INFO] Attempting to transmit. Time remaining: 35.49 seconds
+2025-02-19T16:14:01.179Z [IRI] [INFO] Message not sent. 32
+2025-02-19T16:14:01.179Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T16:14:01.281Z [IRI] [INFO] Attempting to transmit. Time remaining: 26.85 seconds
+2025-02-19T16:14:09.820Z [IRI] [INFO] Message not sent. 32
+2025-02-19T16:14:09.820Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T16:14:09.921Z [IRI] [INFO] Attempting to transmit. Time remaining: 18.21 seconds
+2025-02-19T16:14:18.460Z [IRI] [INFO] Message not sent. 32
+2025-02-19T16:14:18.464Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T16:14:18.562Z [IRI] [INFO] Attempting to transmit. Time remaining: 9.56 seconds
+2025-02-19T16:14:27.386Z [IRI] [INFO] Message not sent. 32
+2025-02-19T16:14:27.386Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T16:14:27.488Z [IRI] [INFO] Attempting to transmit. Time remaining: 0.64 seconds
+2025-02-19T16:14:36.386Z [IRI] [INFO] Message not sent. 32
+2025-02-19T16:14:36.386Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T16:14:36.488Z [IRI] [WARNING] Done trying to send
+2025-02-19T16:14:36.488Z [IRI] [WARNING] Unable to transmit buffer
+2025-02-19T16:24:36.683Z [IRI] [INFO] Attempting to send 50 bytes.
+2025-02-19T16:24:36.683Z [IRI] [INFO] Attempting to write buffer[50]
+2025-02-19T16:24:36.742Z [IRI] [INFO] Waiting for network. Time remaining: 180.94 seconds
+2025-02-19T16:24:59.136Z [IRI] [INFO] Attempting to transmit. Time remaining: 158.54 seconds
+2025-02-19T16:25:07.980Z [IRI] [INFO] Message not sent. 32
+2025-02-19T16:25:07.980Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T16:25:08.082Z [IRI] [INFO] Attempting to transmit. Time remaining: 149.60 seconds
+2025-02-19T16:25:18.859Z [IRI] [INFO] Message sent successfully! *But something else happened: 2
+2025-02-19T16:58:08.433Z [IRI] [INFO] Attempting to send 37 bytes.
+2025-02-19T16:58:08.433Z [IRI] [INFO] Attempting to write buffer[37]
+2025-02-19T16:58:08.480Z [IRI] [INFO] Waiting for network. Time remaining: 180.95 seconds
+2025-02-19T16:58:15.035Z [IRI] [INFO] Attempting to transmit. Time remaining: 174.40 seconds
+2025-02-19T16:58:23.882Z [IRI] [INFO] Message not sent. 32
+2025-02-19T16:58:23.882Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T16:58:23.980Z [IRI] [INFO] Attempting to transmit. Time remaining: 165.45 seconds
+2025-02-19T16:58:32.523Z [IRI] [INFO] Message not sent. 32
+2025-02-19T16:58:32.523Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T16:58:32.625Z [IRI] [INFO] Attempting to transmit. Time remaining: 156.81 seconds
+2025-02-19T16:58:41.269Z [IRI] [INFO] Message not sent. 32
+2025-02-19T16:58:41.269Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T16:58:41.367Z [IRI] [INFO] Attempting to transmit. Time remaining: 148.06 seconds
+2025-02-19T16:58:53.484Z [IRI] [INFO] Message not sent. 32
+2025-02-19T16:58:53.488Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T16:58:53.589Z [IRI] [INFO] Attempting to transmit. Time remaining: 135.84 seconds
+2025-02-19T16:59:02.125Z [IRI] [INFO] Message not sent. 32
+2025-02-19T16:59:02.125Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T16:59:02.226Z [IRI] [INFO] Attempting to transmit. Time remaining: 127.19 seconds
+2025-02-19T16:59:10.769Z [IRI] [INFO] Message not sent. 32
+2025-02-19T16:59:10.769Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T16:59:10.867Z [IRI] [INFO] Attempting to transmit. Time remaining: 118.55 seconds
+2025-02-19T16:59:23.726Z [IRI] [INFO] Message not sent. 32
+2025-02-19T16:59:23.726Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T16:59:23.828Z [IRI] [INFO] Attempting to transmit. Time remaining: 105.59 seconds
+2025-02-19T16:59:32.367Z [IRI] [INFO] Message not sent. 32
+2025-02-19T16:59:32.367Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T16:59:32.468Z [IRI] [INFO] Attempting to transmit. Time remaining: 96.95 seconds
+2025-02-19T16:59:41.007Z [IRI] [INFO] Message not sent. 32
+2025-02-19T16:59:41.007Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T16:59:41.109Z [IRI] [INFO] Attempting to transmit. Time remaining: 88.31 seconds
+2025-02-19T16:59:52.277Z [IRI] [INFO] Message not sent. 32
+2025-02-19T16:59:52.277Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T16:59:52.378Z [IRI] [INFO] Attempting to transmit. Time remaining: 77.04 seconds
+2025-02-19T17:00:00.984Z [IRI] [INFO] Message not sent. 32
+2025-02-19T17:00:00.984Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T17:00:01.085Z [IRI] [INFO] Attempting to transmit. Time remaining: 68.33 seconds
+2025-02-19T17:00:13.792Z [IRI] [INFO] Message not sent. 32
+2025-02-19T17:00:13.792Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T17:00:13.890Z [IRI] [INFO] Attempting to transmit. Time remaining: 55.52 seconds
+2025-02-19T17:00:26.816Z [IRI] [INFO] Message not sent. 32
+2025-02-19T17:00:26.816Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T17:00:26.921Z [IRI] [INFO] Attempting to transmit. Time remaining: 42.49 seconds
+2025-02-19T17:00:44.031Z [IRI] [INFO] Message not sent. 32
+2025-02-19T17:00:44.031Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T17:00:44.132Z [IRI] [INFO] Attempting to transmit. Time remaining: 25.27 seconds
+2025-02-19T17:01:01.667Z [IRI] [INFO] Message not sent. 32
+2025-02-19T17:01:01.671Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T17:01:01.769Z [IRI] [INFO] Attempting to transmit. Time remaining: 7.63 seconds
+2025-02-19T17:01:19.359Z [IRI] [INFO] Message not sent. 32
+2025-02-19T17:01:19.359Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T17:01:19.460Z [IRI] [WARNING] Done trying to send
+2025-02-19T17:01:19.460Z [IRI] [WARNING] Unable to transmit buffer
+2025-02-19T17:11:19.656Z [IRI] [INFO] Attempting to send 37 bytes.
+2025-02-19T17:11:19.660Z [IRI] [INFO] Attempting to write buffer[37]
+2025-02-19T17:11:19.707Z [IRI] [INFO] Waiting for network. Time remaining: 180.95 seconds
+2025-02-19T17:11:26.308Z [IRI] [INFO] Attempting to transmit. Time remaining: 174.35 seconds
+2025-02-19T17:11:36.667Z [IRI] [INFO] Message sent successfully!!!!
+2025-02-19T17:11:36.667Z [IRI] [INFO] Attempting to send 50 bytes.
+2025-02-19T17:11:36.671Z [IRI] [INFO] Attempting to write buffer[50]
+2025-02-19T17:11:36.726Z [IRI] [INFO] Waiting for network. Time remaining: 180.94 seconds
+2025-02-19T17:11:36.726Z [IRI] [INFO] Attempting to transmit. Time remaining: 180.94 seconds
+2025-02-19T17:11:45.757Z [IRI] [INFO] Message sent successfully!!!!
+2025-02-19T17:58:24.906Z [IRI] [INFO] Attempting to send 50 bytes.
+2025-02-19T17:58:24.906Z [IRI] [INFO] Attempting to write buffer[50]
+2025-02-19T17:58:24.964Z [IRI] [INFO] Waiting for network. Time remaining: 180.94 seconds
+2025-02-19T17:58:30.644Z [IRI] [INFO] Attempting to transmit. Time remaining: 175.26 seconds
+2025-02-19T17:58:42.093Z [IRI] [INFO] Message not sent. 32
+2025-02-19T17:58:42.093Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T17:58:42.195Z [IRI] [INFO] Attempting to transmit. Time remaining: 163.71 seconds
+2025-02-19T17:58:50.734Z [IRI] [INFO] Message not sent. 32
+2025-02-19T17:58:50.734Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T17:58:50.835Z [IRI] [INFO] Attempting to transmit. Time remaining: 155.06 seconds
+2025-02-19T17:58:59.378Z [IRI] [INFO] Message not sent. 32
+2025-02-19T17:58:59.378Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T17:58:59.476Z [IRI] [INFO] Attempting to transmit. Time remaining: 146.42 seconds
+2025-02-19T17:59:08.019Z [IRI] [INFO] Message not sent. 32
+2025-02-19T17:59:08.019Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T17:59:08.121Z [IRI] [INFO] Attempting to transmit. Time remaining: 137.78 seconds
+2025-02-19T17:59:16.660Z [IRI] [INFO] Message not sent. 32
+2025-02-19T17:59:16.660Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T17:59:16.761Z [IRI] [INFO] Attempting to transmit. Time remaining: 129.13 seconds
+2025-02-19T17:59:34.320Z [IRI] [INFO] Message not sent. 32
+2025-02-19T17:59:34.320Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T17:59:34.417Z [IRI] [INFO] Attempting to transmit. Time remaining: 111.47 seconds
+2025-02-19T17:59:47.347Z [IRI] [INFO] Message not sent. 32
+2025-02-19T17:59:47.347Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T17:59:47.449Z [IRI] [INFO] Attempting to transmit. Time remaining: 98.44 seconds
+2025-02-19T18:00:00.238Z [IRI] [INFO] Message not sent. 32
+2025-02-19T18:00:00.238Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T18:00:00.339Z [IRI] [INFO] Attempting to transmit. Time remaining: 85.55 seconds
+2025-02-19T18:00:08.945Z [IRI] [INFO] Message not sent. 32
+2025-02-19T18:00:08.945Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T18:00:09.046Z [IRI] [INFO] Attempting to transmit. Time remaining: 76.84 seconds
+2025-02-19T18:00:17.589Z [IRI] [INFO] Message not sent. 32
+2025-02-19T18:00:17.589Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T18:00:17.687Z [IRI] [INFO] Attempting to transmit. Time remaining: 68.20 seconds
+2025-02-19T18:00:26.230Z [IRI] [INFO] Message not sent. 32
+2025-02-19T18:00:26.230Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T18:00:26.332Z [IRI] [INFO] Attempting to transmit. Time remaining: 59.55 seconds
+2025-02-19T18:00:34.871Z [IRI] [INFO] Message not sent. 32
+2025-02-19T18:00:34.871Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T18:00:34.972Z [IRI] [INFO] Attempting to transmit. Time remaining: 50.91 seconds
+2025-02-19T18:00:43.617Z [IRI] [INFO] Message not sent. 32
+2025-02-19T18:00:43.617Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T18:00:43.718Z [IRI] [INFO] Attempting to transmit. Time remaining: 42.16 seconds
+2025-02-19T18:00:52.617Z [IRI] [INFO] Message not sent. 32
+2025-02-19T18:00:52.617Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T18:00:52.718Z [IRI] [INFO] Attempting to transmit. Time remaining: 33.16 seconds
+2025-02-19T18:01:01.617Z [IRI] [INFO] Message not sent. 32
+2025-02-19T18:01:01.617Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T18:01:01.718Z [IRI] [INFO] Attempting to transmit. Time remaining: 24.16 seconds
+2025-02-19T18:01:15.722Z [IRI] [INFO] Message not sent. 32
+2025-02-19T18:01:15.722Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T18:01:15.824Z [IRI] [INFO] Attempting to transmit. Time remaining: 10.05 seconds
+2025-02-19T18:01:32.933Z [IRI] [INFO] Message not sent. 32
+2025-02-19T18:01:32.933Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T18:01:33.035Z [IRI] [WARNING] Done trying to send
+2025-02-19T18:01:33.035Z [IRI] [WARNING] Unable to transmit buffer
+2025-02-19T18:11:33.230Z [IRI] [INFO] Attempting to send 50 bytes.
+2025-02-19T18:11:33.234Z [IRI] [INFO] Attempting to write buffer[50]
+2025-02-19T18:11:33.289Z [IRI] [INFO] Waiting for network. Time remaining: 180.94 seconds
+2025-02-19T18:11:40.914Z [IRI] [INFO] Attempting to transmit. Time remaining: 173.31 seconds
+2025-02-19T18:11:49.765Z [IRI] [INFO] Message not sent. 32
+2025-02-19T18:11:49.765Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T18:11:49.867Z [IRI] [INFO] Attempting to transmit. Time remaining: 164.36 seconds
+2025-02-19T18:12:01.304Z [IRI] [INFO] Message not sent. 32
+2025-02-19T18:12:01.304Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T18:12:01.402Z [IRI] [INFO] Attempting to transmit. Time remaining: 152.82 seconds
+2025-02-19T18:12:11.382Z [IRI] [INFO] Message sent successfully!!!!
+2025-02-19T18:58:08.324Z [IRI] [INFO] Attempting to send 37 bytes.
+2025-02-19T18:58:08.328Z [IRI] [INFO] Attempting to write buffer[37]
+2025-02-19T18:58:08.375Z [IRI] [INFO] Waiting for network. Time remaining: 180.95 seconds
+2025-02-19T18:58:15.289Z [IRI] [INFO] Attempting to transmit. Time remaining: 174.03 seconds
+2025-02-19T18:58:24.332Z [IRI] [INFO] Message sent successfully!!!!
+2025-02-19T18:58:24.332Z [IRI] [INFO] Attempting to send 50 bytes.
+2025-02-19T18:58:24.335Z [IRI] [INFO] Attempting to write buffer[50]
+2025-02-19T18:58:24.390Z [IRI] [INFO] Waiting for network. Time remaining: 180.94 seconds
+2025-02-19T18:58:24.390Z [IRI] [INFO] Attempting to transmit. Time remaining: 180.94 seconds
+2025-02-19T18:58:48.453Z [IRI] [INFO] Message not sent. 18
+2025-02-19T18:58:48.453Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T18:58:48.554Z [IRI] [INFO] Attempting to transmit. Time remaining: 156.78 seconds
+2025-02-19T18:58:48.585Z [IRI] [INFO] Message not sent. 38
+2025-02-19T18:58:48.585Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T18:58:48.687Z [IRI] [INFO] Attempting to transmit. Time remaining: 156.64 seconds
+2025-02-19T18:58:48.726Z [IRI] [INFO] Message not sent. 38
+2025-02-19T18:58:48.726Z [IRI] [INFO] Waiting 0.10 seconds before retrying.
+2025-02-19T18:58:48.828Z [IRI] [INFO] Attempting to transmit. Time remaining: 156.50 seconds
+2025-02-19T18:58:58.171Z [IRI] [INFO] Message sent successfully!!!!

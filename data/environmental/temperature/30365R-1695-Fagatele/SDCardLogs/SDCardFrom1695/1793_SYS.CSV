@@ -1,0 +1,2959 @@
+millis,type,message
+16650,DEBUG,SD Card init SUCCESS!
+16668,DEBUG,ext ram fail reset count: 0
+16687,INFO,session id: 1793
+16697,INFO,reset source: 0
+16713,INFO,Device Id: 65477320
+16732,INFO,Firmware SHA: 93CE0B95
+16750,INFO,MAX_SAMPLE_GAP_S: 3.00
+16762,INFO,SPIKE_G_TH: 3.00
+16769,INFO,MAX_MESSAGE_LEN_FULL: 301
+16777,INFO,MAX_MESSAGE_LEN_BASIC: 51
+16783,INFO,MAX_MESSAGE_LEN_SM: 341
+16787,INFO,MESSAGE_QUEUE_LEN: 10
+16793,INFO,STRICT_NMEA: 1
+16799,INFO,MAIN_DECK_HW_VERSION: 7
+16807,INFO,F_MIN: 0.03
+16816,INFO,F_MAX: 0.80
+16832,INFO, sysConfig | sd reset max: 5
+16844,INFO, sysConfig | wd enable: 1
+16850,INFO, sysConfig | prod log mode: 1
+16861,INFO, sysConfig | log filt sd: 1
+16869,INFO, sysConfig | log gps sd: 1
+16877,INFO, sysConfig | gps log lvl: 0
+16885,INFO, sysConfig | log pow sd: 1
+16893,INFO, sysConfig | log nmea sd: 1
+16902,INFO, sysConfig | log irid sd: 1
+16910,INFO, sysConfig | log fft sd: 1
+16918,INFO, sysConfig | log spec sd: 0
+16926,INFO, sysConfig | log speca sd: 0
+16936,INFO, sysConfig | log dre sd: 1
+16947,INFO, sysConfig | log message sd: 1
+16957,INFO, sysConfig | statistics mode: 0
+16965,INFO, sysConfig | log gmn sd: 1
+16973,INFO, sysConfig | min messages period basic: 0
+16986,INFO, sysConfig | min messages period full: 0
+16998,INFO, sysConfig | gps power lvl: 1
+17006,INFO, sysConfig | log gmn 1s: 0
+17014,INFO, sysConfig | log bin sd: 0
+17022,INFO, sysConfig | message samples basic: 2
+17033,INFO, sysConfig | self test: 0
+17041,INFO, sysConfig | self test reset max: 2
+17055,INFO, sysConfig | vis led enable: 1
+17063,INFO, sysConfig | log sst sd: 1
+17072,INFO, sysConfig | external hardware reset max: 5
+17084,INFO, sysConfig | sst sampling period: 1
+17094,INFO, sysConfig | sst n samples to avg: 6
+17104,INFO, sysConfig | partition thresh bin: 7
+17115,INFO, sysConfig | gps sleep enable: 1
+17125,INFO, sysConfig | idle checkin period: 3
+17135,INFO, sysConfig | bridge enable: 1
+17143,INFO, sysConfig | log smdata sd: 1
+17375,INFO,Idle mode - disabling external RAM
+17412,INFO,External hw available but RAM failing! Skipping init
+17575,INFO,powerData | solV: 5.66
+17598,INFO,powerData | solI: 0.03
+17618,INFO,powerData | battV: 3.62
+17637,INFO,powerData | battI: -0.03
+17657,INFO,powerData | busV: 3.62
+17676,INFO,powerData | busI: 0.05
+17696,INFO,powerData | BQ status reg: 172
+17715,INFO,powerData | Fault reg: 0
+17735,INFO,powerData | Charge status: 2
+17754,INFO,powerData | DPM status: 1
+17782,INFO,Loaded OP MODE: 40963
+17872,ERROR, sysError | BattV: 1
+300007,INFO,powerData | solV: 5.66
+300027,INFO,powerData | solI: 0.02
+300050,INFO,powerData | battV: 3.62
+300068,INFO,powerData | battI: 0.00
+300089,INFO,powerData | busV: 3.62
+300109,INFO,powerData | busI: 0.01
+300130,INFO,powerData | BQ status reg: 172
+300148,INFO,powerData | Fault reg: 0
+300169,INFO,powerData | Charge status: 2
+300189,INFO,powerData | DPM status: 1
+600010,INFO,powerData | solV: 5.66
+600031,INFO,powerData | solI: 0.02
+600051,INFO,powerData | battV: 3.62
+600070,INFO,powerData | battI: -0.00
+600094,INFO,powerData | busV: 3.62
+600115,INFO,powerData | busI: 0.01
+600133,INFO,powerData | BQ status reg: 172
+600154,INFO,powerData | Fault reg: 0
+600174,INFO,powerData | Charge status: 2
+600195,INFO,powerData | DPM status: 1
+900012,INFO,powerData | solV: 5.66
+900032,INFO,powerData | solI: 0.01
+900052,INFO,powerData | battV: 3.62
+900073,INFO,powerData | battI: -0.01
+900091,INFO,powerData | busV: 3.62
+900112,INFO,powerData | busI: 0.01
+900130,INFO,powerData | BQ status reg: 172
+900155,INFO,powerData | Fault reg: 0
+900175,INFO,powerData | Charge status: 2
+900194,INFO,powerData | DPM status: 1
+1200013,INFO,powerData | solV: 5.66
+1200033,INFO,powerData | solI: 0.01
+1200056,INFO,powerData | battV: 3.62
+1200076,INFO,powerData | battI: -0.01
+1200095,INFO,powerData | busV: 3.62
+1200115,INFO,powerData | busI: 0.01
+1200136,INFO,powerData | BQ status reg: 172
+1200154,INFO,powerData | Fault reg: 0
+1200175,INFO,powerData | Charge status: 2
+1200195,INFO,powerData | DPM status: 1
+1500018,INFO,powerData | solV: 5.66
+1500039,INFO,powerData | solI: 0.00
+1500059,INFO,powerData | battV: 3.62
+1500078,INFO,powerData | battI: -0.01
+1500098,INFO,powerData | busV: 3.62
+1500119,INFO,powerData | busI: 0.01
+1500139,INFO,powerData | BQ status reg: 172
+1500157,INFO,powerData | Fault reg: 0
+1500178,INFO,powerData | Charge status: 2
+1500198,INFO,powerData | DPM status: 1
+1800022,INFO,powerData | solV: 5.63
+1800042,INFO,powerData | solI: 0.00
+1800062,INFO,powerData | battV: 3.62
+1800083,INFO,powerData | battI: -0.01
+1800105,INFO,powerData | busV: 3.62
+1800126,INFO,powerData | busI: 0.01
+1800144,INFO,powerData | BQ status reg: 172
+1800165,INFO,powerData | Fault reg: 0
+1800185,INFO,powerData | Charge status: 2
+1800206,INFO,powerData | DPM status: 1
+2100031,INFO,powerData | solV: 5.65
+2100051,INFO,powerData | solI: 0.01
+2100074,INFO,powerData | battV: 3.62
+2100094,INFO,powerData | battI: -0.01
+2100115,INFO,powerData | busV: 3.62
+2100133,INFO,powerData | busI: 0.01
+2100154,INFO,powerData | BQ status reg: 172
+2100178,INFO,powerData | Fault reg: 0
+2100197,INFO,powerData | Charge status: 2
+2100217,INFO,powerData | DPM status: 1
+2400038,INFO,powerData | solV: 5.66
+2400059,INFO,powerData | solI: 0.02
+2400079,INFO,powerData | battV: 3.62
+2400102,INFO,powerData | battI: -0.00
+2400120,INFO,powerData | busV: 3.62
+2400141,INFO,powerData | busI: 0.01
+2400161,INFO,powerData | BQ status reg: 172
+2400182,INFO,powerData | Fault reg: 0
+2400200,INFO,powerData | Charge status: 2
+2400221,INFO,powerData | DPM status: 1
+2700044,INFO,powerData | solV: 5.66
+2700064,INFO,powerData | solI: 0.02
+2700085,INFO,powerData | battV: 3.62
+2700105,INFO,powerData | battI: -0.00
+2700124,INFO,powerData | busV: 3.62
+2700144,INFO,powerData | busI: 0.01
+2700165,INFO,powerData | BQ status reg: 172
+2700185,INFO,powerData | Fault reg: 0
+2700204,INFO,powerData | Charge status: 2
+2700224,INFO,powerData | DPM status: 1
+3000049,INFO,powerData | solV: 5.66
+3000070,INFO,powerData | solI: 0.01
+3000092,INFO,powerData | battV: 3.62
+3000117,INFO,powerData | battI: -0.01
+3000135,INFO,powerData | busV: 3.62
+3000156,INFO,powerData | busI: 0.01
+3000176,INFO,powerData | BQ status reg: 172
+3000197,INFO,powerData | Fault reg: 0
+3000217,INFO,powerData | Charge status: 2
+3000236,INFO,powerData | DPM status: 1
+3300050,INFO,powerData | solV: 5.66
+3300071,INFO,powerData | solI: 0.01
+3300091,INFO,powerData | battV: 3.62
+3300112,INFO,powerData | battI: -0.01
+3300130,INFO,powerData | busV: 3.62
+3300151,INFO,powerData | busI: 0.01
+3300175,INFO,powerData | BQ status reg: 172
+3300194,INFO,powerData | Fault reg: 0
+3300214,INFO,powerData | Charge status: 2
+3300235,INFO,powerData | DPM status: 1
+3600054,INFO,powerData | solV: 5.65
+3600074,INFO,powerData | solI: 0.02
+3600095,INFO,powerData | battV: 3.62
+3600115,INFO,powerData | battI: -0.01
+3600136,INFO,powerData | busV: 3.62
+3600154,INFO,powerData | busI: 0.01
+3600175,INFO,powerData | BQ status reg: 172
+3600195,INFO,powerData | Fault reg: 0
+3600216,INFO,powerData | Charge status: 2
+3600238,INFO,powerData | DPM status: 1
+3900055,INFO,powerData | solV: 5.66
+3900076,INFO,powerData | solI: 0.01
+3900098,INFO,powerData | battV: 3.62
+3900119,INFO,powerData | battI: -0.01
+3900137,INFO,powerData | busV: 3.62
+3900157,INFO,powerData | busI: 0.01
+3900178,INFO,powerData | BQ status reg: 172
+3900198,INFO,powerData | Fault reg: 0
+3900219,INFO,powerData | Charge status: 2
+3900237,INFO,powerData | DPM status: 1
+4200056,INFO,powerData | solV: 5.66
+4200077,INFO,powerData | solI: 0.00
+4200101,INFO,powerData | battV: 3.62
+4200120,INFO,powerData | battI: -0.01
+4200140,INFO,powerData | busV: 3.62
+4200161,INFO,powerData | busI: 0.01
+4200179,INFO,powerData | BQ status reg: 172
+4200200,INFO,powerData | Fault reg: 0
+4200220,INFO,powerData | Charge status: 2
+4200239,INFO,powerData | DPM status: 1
+4500060,INFO,powerData | solV: 5.65
+4500080,INFO,powerData | solI: 0.02
+4500101,INFO,powerData | battV: 3.62
+4500121,INFO,powerData | battI: -0.01
+4500140,INFO,powerData | busV: 3.62
+4500164,INFO,powerData | busI: 0.01
+4500183,INFO,powerData | BQ status reg: 172
+4500203,INFO,powerData | Fault reg: 0
+4500224,INFO,powerData | Charge status: 2
+4500242,INFO,powerData | DPM status: 1
+4800063,INFO,powerData | solV: 5.66
+4800083,INFO,powerData | solI: 0.01
+4800106,INFO,powerData | battV: 3.62
+4800124,INFO,powerData | battI: -0.01
+4800145,INFO,powerData | busV: 3.62
+4800165,INFO,powerData | busI: 0.01
+4800184,INFO,powerData | BQ status reg: 172
+4800204,INFO,powerData | Fault reg: 0
+4800229,INFO,powerData | Charge status: 2
+4800249,INFO,powerData | DPM status: 1
+5100072,INFO,powerData | solV: 5.66
+5100093,INFO,powerData | solI: 0.00
+5100113,INFO,powerData | battV: 3.62
+5100134,INFO,powerData | battI: -0.01
+5100152,INFO,powerData | busV: 3.62
+5100173,INFO,powerData | busI: 0.01
+5100193,INFO,powerData | BQ status reg: 172
+5100214,INFO,powerData | Fault reg: 0
+5100232,INFO,powerData | Charge status: 2
+5100253,INFO,powerData | DPM status: 1
+5400074,INFO,powerData | solV: 5.58
+5400098,INFO,powerData | solI: 0.00
+5400119,INFO,powerData | battV: 3.62
+5400139,INFO,powerData | battI: -0.01
+5400160,INFO,powerData | busV: 3.62
+5400178,INFO,powerData | busI: 0.01
+5400199,INFO,powerData | BQ status reg: 172
+5400219,INFO,powerData | Fault reg: 0
+5400238,INFO,powerData | Charge status: 2
+5400258,INFO,powerData | DPM status: 1
+5700079,INFO,powerData | solV: 5.37
+5700100,INFO,powerData | solI: 0.00
+5700122,INFO,powerData | battV: 3.62
+5700143,INFO,powerData | battI: -0.01
+5700165,INFO,powerData | busV: 3.62
+5700186,INFO,powerData | busI: 0.01
+5700206,INFO,powerData | BQ status reg: 172
+5700227,INFO,powerData | Fault reg: 0
+5700245,INFO,powerData | Charge status: 2
+5700265,INFO,powerData | DPM status: 1
+6000080,INFO,powerData | solV: 5.66
+6000101,INFO,powerData | solI: 0.00
+6000121,INFO,powerData | battV: 3.62
+6000142,INFO,powerData | battI: -0.01
+6000160,INFO,powerData | busV: 3.62
+6000181,INFO,powerData | busI: 0.01
+6000201,INFO,powerData | BQ status reg: 172
+6000224,INFO,powerData | Fault reg: 0
+6000244,INFO,powerData | Charge status: 2
+6000265,INFO,powerData | DPM status: 1
+6300086,INFO,powerData | solV: 5.63
+6300106,INFO,powerData | solI: 0.00
+6300127,INFO,powerData | battV: 3.62
+6300147,INFO,powerData | battI: -0.01
+6300168,INFO,powerData | busV: 3.62
+6300186,INFO,powerData | busI: 0.01
+6300207,INFO,powerData | BQ status reg: 172
+6300227,INFO,powerData | Fault reg: 0
+6300248,INFO,powerData | Charge status: 2
+6300266,INFO,powerData | DPM status: 1
+6600095,INFO,powerData | solV: 5.66
+6600116,INFO,powerData | solI: 0.01
+6600138,INFO,powerData | battV: 3.62
+6600157,INFO,powerData | battI: -0.01
+6600177,INFO,powerData | busV: 3.62
+6600198,INFO,powerData | busI: 0.01
+6600218,INFO,powerData | BQ status reg: 172
+6600239,INFO,powerData | Fault reg: 0
+6600257,INFO,powerData | Charge status: 2
+6600278,INFO,powerData | DPM status: 1
+6900105,INFO,powerData | solV: 5.56
+6900125,INFO,powerData | solI: 0.00
+6900146,INFO,powerData | battV: 3.62
+6900170,INFO,powerData | battI: -0.01
+6900189,INFO,powerData | busV: 3.62
+6900209,INFO,powerData | busI: 0.01
+6900230,INFO,powerData | BQ status reg: 172
+6900248,INFO,powerData | Fault reg: 0
+6900269,INFO,powerData | Charge status: 2
+6900289,INFO,powerData | DPM status: 1
+7200110,INFO,powerData | solV: 5.64
+7200131,INFO,powerData | solI: 0.00
+7200151,INFO,powerData | battV: 3.62
+7200172,INFO,powerData | battI: -0.01
+7200192,INFO,powerData | busV: 3.62
+7200210,INFO,powerData | busI: 0.01
+7200231,INFO,powerData | BQ status reg: 172
+7200256,INFO,powerData | Fault reg: 0
+7200274,INFO,powerData | Charge status: 2
+7200294,INFO,powerData | DPM status: 1
+7500118,INFO,powerData | solV: 5.46
+7500138,INFO,powerData | solI: 0.00
+7500161,INFO,powerData | battV: 3.62
+7500179,INFO,powerData | battI: -0.01
+7500199,INFO,powerData | busV: 3.62
+7500220,INFO,powerData | busI: 0.01
+7500238,INFO,powerData | BQ status reg: 172
+7500259,INFO,powerData | Fault reg: 0
+7500279,INFO,powerData | Charge status: 2
+7500302,INFO,powerData | DPM status: 1
+7800119,INFO,powerData | solV: 5.48
+7800139,INFO,powerData | solI: 0.00
+7800160,INFO,powerData | battV: 3.62
+7800180,INFO,powerData | battI: -0.01
+7800199,INFO,powerData | busV: 3.62
+7800219,INFO,powerData | busI: 0.01
+7800238,INFO,powerData | BQ status reg: 172
+7800258,INFO,powerData | Fault reg: 0
+7800279,INFO,powerData | Charge status: 2
+7800297,INFO,powerData | DPM status: 1
+8100126,INFO,powerData | solV: 5.57
+8100147,INFO,powerData | solI: 0.00
+8100167,INFO,powerData | battV: 3.62
+8100190,INFO,powerData | battI: -0.01
+8100210,INFO,powerData | busV: 3.62
+8100231,INFO,powerData | busI: 0.01
+8100251,INFO,powerData | BQ status reg: 172
+8100270,INFO,powerData | Fault reg: 0
+8100290,INFO,powerData | Charge status: 2
+8100311,INFO,powerData | DPM status: 1
+8400136,INFO,powerData | solV: 5.51
+8400156,INFO,powerData | solI: 0.00
+8400179,INFO,powerData | battV: 3.62
+8400197,INFO,powerData | battI: -0.01
+8400218,INFO,powerData | busV: 3.62
+8400238,INFO,powerData | busI: 0.01
+8400261,INFO,powerData | BQ status reg: 172
+8400281,INFO,powerData | Fault reg: 0
+8400302,INFO,powerData | Charge status: 2
+8400322,INFO,powerData | DPM status: 1
+8700137,INFO,powerData | solV: 5.34
+8700157,INFO,powerData | solI: 0.00
+8700178,INFO,powerData | battV: 3.62
+8700198,INFO,powerData | battI: -0.01
+8700217,INFO,powerData | busV: 3.62
+8700237,INFO,powerData | busI: 0.01
+8700258,INFO,powerData | BQ status reg: 172
+8700278,INFO,powerData | Fault reg: 0
+8700297,INFO,powerData | Charge status: 2
+8700321,INFO,powerData | DPM status: 1
+9000142,INFO,powerData | solV: 5.45
+9000163,INFO,powerData | solI: 0.00
+9000183,INFO,powerData | battV: 3.62
+9000204,INFO,powerData | battI: -0.01
+9000224,INFO,powerData | busV: 3.62
+9000243,INFO,powerData | busI: 0.01
+9000263,INFO,powerData | BQ status reg: 172
+9000284,INFO,powerData | Fault reg: 0
+9000304,INFO,powerData | Charge status: 2
+9000323,INFO,powerData | DPM status: 1
+9300152,INFO,powerData | solV: 5.44
+9300172,INFO,powerData | solI: 0.00
+9300199,INFO,powerData | battV: 3.62
+9300219,INFO,powerData | battI: -0.01
+9300238,INFO,powerData | busV: 3.62
+9300258,INFO,powerData | busI: 0.01
+9300279,INFO,powerData | BQ status reg: 172
+9300299,INFO,powerData | Fault reg: 0
+9300320,INFO,powerData | Charge status: 2
+9300338,INFO,powerData | DPM status: 1
+9600155,INFO,powerData | solV: 5.52
+9600176,INFO,powerData | solI: 0.00
+9600206,INFO,powerData | battV: 3.62
+9600227,INFO,powerData | battI: -0.01
+9600247,INFO,powerData | busV: 3.62
+9600270,INFO,powerData | busI: 0.01
+9600290,INFO,powerData | BQ status reg: 172
+9600311,INFO,powerData | Fault reg: 0
+9600331,INFO,powerData | Charge status: 2
+9600352,INFO,powerData | DPM status: 1
+9900163,INFO,powerData | solV: 5.34
+9900183,INFO,powerData | solI: 0.00
+9900204,INFO,powerData | battV: 3.62
+9900224,INFO,powerData | battI: -0.01
+9900244,INFO,powerData | busV: 3.62
+9900265,INFO,powerData | busI: 0.01
+9900283,INFO,powerData | BQ status reg: 172
+9900304,INFO,powerData | Fault reg: 0
+9900328,INFO,powerData | Charge status: 2
+9900349,INFO,powerData | DPM status: 1
+10200164,INFO,powerData | solV: 5.27
+10200184,INFO,powerData | solI: 0.00
+10200207,INFO,powerData | battV: 3.62
+10200227,INFO,powerData | battI: -0.01
+10200248,INFO,powerData | busV: 3.62
+10200268,INFO,powerData | busI: 0.01
+10200289,INFO,powerData | BQ status reg: 172
+10200309,INFO,powerData | Fault reg: 0
+10200330,INFO,powerData | Charge status: 2
+10200350,INFO,powerData | DPM status: 1
+10500173,INFO,powerData | solV: 5.28
+10500198,INFO,powerData | solI: 0.00
+10500218,INFO,powerData | battV: 3.62
+10500239,INFO,powerData | battI: -0.01
+10500259,INFO,powerData | busV: 3.62
+10500280,INFO,powerData | busI: 0.01
+10500298,INFO,powerData | BQ status reg: 172
+10500319,INFO,powerData | Fault reg: 0
+10500339,INFO,powerData | Charge status: 2
+10500360,INFO,powerData | DPM status: 1
+10800179,INFO,powerData | solV: 5.27
+10800199,INFO,powerData | solI: 0.00
+10800220,INFO,powerData | battV: 3.62
+10800244,INFO,powerData | battI: -0.01
+10800263,INFO,powerData | busV: 3.62
+10800283,INFO,powerData | busI: 0.01
+10800304,INFO,powerData | BQ status reg: 172
+10800324,INFO,powerData | Fault reg: 0
+10800345,INFO,powerData | Charge status: 2
+10800365,INFO,powerData | DPM status: 1
+11100184,INFO,powerData | solV: 5.49
+11100205,INFO,powerData | solI: 0.00
+11100227,INFO,powerData | battV: 3.62
+11100248,INFO,powerData | battI: -0.01
+11100266,INFO,powerData | busV: 3.62
+11100286,INFO,powerData | busI: 0.01
+11100311,INFO,powerData | BQ status reg: 172
+11100329,INFO,powerData | Fault reg: 0
+11100350,INFO,powerData | Charge status: 2
+11100370,INFO,powerData | DPM status: 1
+11400189,INFO,powerData | solV: 5.30
+11400210,INFO,powerData | solI: 0.00
+11400230,INFO,powerData | battV: 3.62
+11400251,INFO,powerData | battI: -0.01
+11400271,INFO,powerData | busV: 3.62
+11400292,INFO,powerData | busI: 0.01
+11400312,INFO,powerData | BQ status reg: 172
+11400333,INFO,powerData | Fault reg: 0
+11400351,INFO,powerData | Charge status: 2
+11400376,INFO,powerData | DPM status: 1
+11700191,INFO,powerData | solV: 5.55
+11700211,INFO,powerData | solI: 0.00
+11700232,INFO,powerData | battV: 3.62
+11700252,INFO,powerData | battI: -0.01
+11700273,INFO,powerData | busV: 3.62
+11700293,INFO,powerData | busI: 0.01
+11700314,INFO,powerData | BQ status reg: 172
+11700332,INFO,powerData | Fault reg: 0
+11700353,INFO,powerData | Charge status: 2
+11700373,INFO,powerData | DPM status: 1
+12000198,INFO,powerData | solV: 5.48
+12000219,INFO,powerData | solI: 0.00
+12000245,INFO,powerData | battV: 3.62
+12000266,INFO,powerData | battI: -0.01
+12000286,INFO,powerData | busV: 3.62
+12000305,INFO,powerData | busI: 0.01
+12000325,INFO,powerData | BQ status reg: 172
+12000346,INFO,powerData | Fault reg: 0
+12000366,INFO,powerData | Charge status: 2
+12000387,INFO,powerData | DPM status: 1
+12300201,INFO,powerData | solV: 5.45
+12300222,INFO,powerData | solI: 0.00
+12300242,INFO,powerData | battV: 3.62
+12300263,INFO,powerData | battI: -0.01
+12300288,INFO,powerData | busV: 3.62
+12300308,INFO,powerData | busI: 0.01
+12300328,INFO,powerData | BQ status reg: 172
+12300349,INFO,powerData | Fault reg: 0
+12300369,INFO,powerData | Charge status: 2
+12300388,INFO,powerData | DPM status: 1
+12600205,INFO,powerData | solV: 5.45
+12600225,INFO,powerData | solI: 0.00
+12600246,INFO,powerData | battV: 3.62
+12600266,INFO,powerData | battI: -0.01
+12600287,INFO,powerData | busV: 3.62
+12600307,INFO,powerData | busI: 0.01
+12600326,INFO,powerData | BQ status reg: 172
+12600350,INFO,powerData | Fault reg: 0
+12600371,INFO,powerData | Charge status: 2
+12600391,INFO,powerData | DPM status: 1
+12900210,INFO,powerData | solV: 5.28
+12900231,INFO,powerData | solI: 0.00
+12900253,INFO,powerData | battV: 3.62
+12900274,INFO,powerData | battI: -0.01
+12900294,INFO,powerData | busV: 3.62
+12900315,INFO,powerData | busI: 0.01
+12900333,INFO,powerData | BQ status reg: 172
+12900354,INFO,powerData | Fault reg: 0
+12900374,INFO,powerData | Charge status: 2
+12900395,INFO,powerData | DPM status: 1
+13200211,INFO,powerData | solV: 5.23
+13200232,INFO,powerData | solI: 0.00
+13200252,INFO,powerData | battV: 3.62
+13200273,INFO,powerData | battI: -0.01
+13200293,INFO,powerData | busV: 3.62
+13200314,INFO,powerData | busI: 0.01
+13200334,INFO,powerData | BQ status reg: 172
+13200355,INFO,powerData | Fault reg: 0
+13200375,INFO,powerData | Charge status: 2
+13200396,INFO,powerData | DPM status: 1
+13500221,INFO,powerData | solV: 5.30
+13500241,INFO,powerData | solI: 0.00
+13500262,INFO,powerData | battV: 3.62
+13500286,INFO,powerData | battI: -0.01
+13500307,INFO,powerData | busV: 3.62
+13500325,INFO,powerData | busI: 0.01
+13500346,INFO,powerData | BQ status reg: 172
+13500366,INFO,powerData | Fault reg: 0
+13500387,INFO,powerData | Charge status: 2
+13500407,INFO,powerData | DPM status: 1
+13800228,INFO,powerData | solV: 5.49
+13800249,INFO,powerData | solI: 0.00
+13800271,INFO,powerData | battV: 3.62
+13800292,INFO,powerData | battI: -0.01
+13800312,INFO,powerData | busV: 3.62
+13800335,INFO,powerData | busI: 0.01
+13800355,INFO,powerData | BQ status reg: 172
+13800376,INFO,powerData | Fault reg: 0
+13800394,INFO,powerData | Charge status: 2
+13800415,INFO,powerData | DPM status: 1
+14100230,INFO,powerData | solV: 5.34
+14100250,INFO,powerData | solI: 0.00
+14100271,INFO,powerData | battV: 3.62
+14100291,INFO,powerData | battI: -0.01
+14100312,INFO,powerData | busV: 3.62
+14100332,INFO,powerData | busI: 0.01
+14100350,INFO,powerData | BQ status reg: 172
+14100371,INFO,powerData | Fault reg: 0
+14100396,INFO,powerData | Charge status: 2
+14100416,INFO,powerData | DPM status: 1
+14400233,INFO,powerData | solV: 5.40
+14400253,INFO,powerData | solI: 0.00
+14400274,INFO,powerData | battV: 3.62
+14400294,INFO,powerData | battI: -0.01
+14400315,INFO,powerData | busV: 3.62
+14400335,INFO,powerData | busI: 0.01
+14400354,INFO,powerData | BQ status reg: 172
+14400374,INFO,powerData | Fault reg: 0
+14400395,INFO,powerData | Charge status: 2
+14400415,INFO,powerData | DPM status: 1
+14700238,INFO,powerData | solV: 5.38
+14700263,INFO,powerData | solI: 0.00
+14700285,INFO,powerData | battV: 3.62
+14700306,INFO,powerData | battI: -0.01
+14700326,INFO,powerData | busV: 3.62
+14700347,INFO,powerData | busI: 0.01
+14700365,INFO,powerData | BQ status reg: 172
+14700386,INFO,powerData | Fault reg: 0
+14700406,INFO,powerData | Charge status: 2
+14700427,INFO,powerData | DPM status: 1
+15000244,INFO,powerData | solV: 5.24
+15000264,INFO,powerData | solI: 0.00
+15000285,INFO,powerData | battV: 3.62
+15000305,INFO,powerData | battI: -0.01
+15000330,INFO,powerData | busV: 3.62
+15000350,INFO,powerData | busI: 0.01
+15000371,INFO,powerData | BQ status reg: 172
+15000391,INFO,powerData | Fault reg: 0
+15000410,INFO,powerData | Charge status: 2
+15000430,INFO,powerData | DPM status: 1
+15300245,INFO,powerData | solV: 5.14
+15300265,INFO,powerData | solI: 0.00
+15300286,INFO,powerData | battV: 3.62
+15300306,INFO,powerData | battI: -0.01
+15300327,INFO,powerData | busV: 3.62
+15300347,INFO,powerData | busI: 0.01
+15300370,INFO,powerData | BQ status reg: 172
+15300390,INFO,powerData | Fault reg: 0
+15300411,INFO,powerData | Charge status: 2
+15300431,INFO,powerData | DPM status: 1
+15600246,INFO,powerData | solV: 5.12
+15600267,INFO,powerData | solI: 0.00
+15600289,INFO,powerData | battV: 3.62
+15600310,INFO,powerData | battI: -0.01
+15600330,INFO,powerData | busV: 3.62
+15600351,INFO,powerData | busI: 0.01
+15600371,INFO,powerData | BQ status reg: 172
+15600390,INFO,powerData | Fault reg: 0
+15600410,INFO,powerData | Charge status: 2
+15600435,INFO,powerData | DPM status: 1
+15900250,INFO,powerData | solV: 5.04
+15900270,INFO,powerData | solI: 0.00
+15900291,INFO,powerData | battV: 3.62
+15900311,INFO,powerData | battI: -0.01
+15900332,INFO,powerData | busV: 3.62
+15900352,INFO,powerData | busI: 0.01
+15900372,INFO,powerData | BQ status reg: 172
+15900393,INFO,powerData | Fault reg: 0
+15900413,INFO,powerData | Charge status: 2
+15900432,INFO,powerData | DPM status: 1
+16200253,INFO,powerData | solV: 4.86
+16200273,INFO,powerData | solI: 0.00
+16200298,INFO,powerData | battV: 3.62
+16200318,INFO,powerData | battI: -0.01
+16200339,INFO,powerData | busV: 3.62
+16200357,INFO,powerData | busI: 0.01
+16200378,INFO,powerData | BQ status reg: 172
+16200398,INFO,powerData | Fault reg: 0
+16200419,INFO,powerData | Charge status: 2
+16200439,INFO,powerData | DPM status: 1
+16500258,INFO,powerData | solV: 4.79
+16500279,INFO,powerData | solI: 0.00
+16500301,INFO,powerData | battV: 3.62
+16500322,INFO,powerData | battI: -0.01
+16500342,INFO,powerData | busV: 3.62
+16500359,INFO,powerData | busI: 0.01
+16500379,INFO,powerData | BQ status reg: 172
+16500400,INFO,powerData | Fault reg: 0
+16500418,INFO,powerData | Charge status: 2
+16500439,INFO,powerData | DPM status: 1
+16800262,INFO,powerData | solV: 4.71
+16800282,INFO,powerData | solI: 0.00
+16800303,INFO,powerData | battV: 3.62
+16800323,INFO,powerData | battI: -0.01
+16800342,INFO,powerData | busV: 3.62
+16800362,INFO,powerData | busI: 0.01
+16800382,INFO,powerData | BQ status reg: 172
+16800407,INFO,powerData | Fault reg: 0
+16800428,INFO,powerData | Charge status: 2
+16800446,INFO,powerData | DPM status: 1
+17100263,INFO,powerData | solV: 4.52
+17100283,INFO,powerData | solI: 0.00
+17100304,INFO,powerData | battV: 3.62
+17100324,INFO,powerData | battI: -0.01
+17100345,INFO,powerData | busV: 3.62
+17100363,INFO,powerData | busI: 0.01
+17100386,INFO,powerData | BQ status reg: 172
+17100406,INFO,powerData | Fault reg: 0
+17100425,INFO,powerData | Charge status: 2
+17100445,INFO,powerData | DPM status: 1
+17400270,INFO,powerData | solV: 4.27
+17400291,INFO,powerData | solI: 0.00
+17400313,INFO,powerData | battV: 3.62
+17400334,INFO,powerData | battI: -0.01
+17400354,INFO,powerData | busV: 3.62
+17400375,INFO,powerData | busI: 0.01
+17400395,INFO,powerData | BQ status reg: 164
+17400414,INFO,powerData | Fault reg: 0
+17400434,INFO,powerData | Charge status: 2
+17400455,INFO,powerData | DPM status: 0
+17700278,INFO,powerData | solV: 3.99
+17700298,INFO,powerData | solI: 0.00
+17700319,INFO,powerData | battV: 3.62
+17700343,INFO,powerData | battI: -0.01
+17700364,INFO,powerData | busV: 3.62
+17700382,INFO,powerData | busI: 0.01
+17700403,INFO,powerData | BQ status reg: 172
+17700423,INFO,powerData | Fault reg: 0
+17700444,INFO,powerData | Charge status: 2
+17700464,INFO,powerData | DPM status: 1
+18000279,INFO,powerData | solV: 4.01
+18000300,INFO,powerData | solI: 0.00
+18000320,INFO,powerData | battV: 3.62
+18000340,INFO,powerData | battI: -0.01
+18000361,INFO,powerData | busV: 3.62
+18000381,INFO,powerData | busI: 0.01
+18000398,INFO,powerData | BQ status reg: 0
+18000418,INFO,powerData | Fault reg: 0
+18000437,INFO,powerData | Charge status: 0
+18000457,INFO,powerData | DPM status: 0
+18300289,INFO,powerData | solV: 3.81
+18300309,INFO,powerData | solI: 0.00
+18300329,INFO,powerData | battV: 3.62
+18300352,INFO,powerData | battI: -0.01
+18300372,INFO,powerData | busV: 3.62
+18300393,INFO,powerData | busI: 0.01
+18300413,INFO,powerData | BQ status reg: 0
+18300432,INFO,powerData | Fault reg: 0
+18300456,INFO,powerData | Charge status: 0
+18300477,INFO,powerData | DPM status: 0
+18600292,INFO,powerData | solV: 3.30
+18600312,INFO,powerData | solI: 0.00
+18600333,INFO,powerData | battV: 3.62
+18600353,INFO,powerData | battI: -0.01
+18600374,INFO,powerData | busV: 3.62
+18600392,INFO,powerData | busI: 0.01
+18600413,INFO,powerData | BQ status reg: 0
+18600433,INFO,powerData | Fault reg: 0
+18600454,INFO,powerData | Charge status: 0
+18600474,INFO,powerData | DPM status: 0
+18900295,INFO,powerData | solV: 3.28
+18900320,INFO,powerData | solI: 0.00
+18900340,INFO,powerData | battV: 3.62
+18900361,INFO,powerData | battI: -0.01
+18900381,INFO,powerData | busV: 3.62
+18900402,INFO,powerData | busI: 0.01
+18900420,INFO,powerData | BQ status reg: 0
+18900441,INFO,powerData | Fault reg: 0
+18900461,INFO,powerData | Charge status: 0
+18900482,INFO,powerData | DPM status: 0
+19200296,INFO,powerData | solV: 3.26
+19200317,INFO,powerData | solI: 0.00
+19200337,INFO,powerData | battV: 3.62
+19200360,INFO,powerData | battI: -0.01
+19200385,INFO,powerData | busV: 3.62
+19200405,INFO,powerData | busI: 0.01
+19200423,INFO,powerData | BQ status reg: 0
+19200444,INFO,powerData | Fault reg: 0
+19200464,INFO,powerData | Charge status: 0
+19200485,INFO,powerData | DPM status: 0
+19500302,INFO,powerData | solV: 3.12
+19500322,INFO,powerData | solI: 0.00
+19500343,INFO,powerData | battV: 3.62
+19500363,INFO,powerData | battI: -0.02
+19500384,INFO,powerData | busV: 3.62
+19500404,INFO,powerData | busI: 0.01
+19500423,INFO,powerData | BQ status reg: 0
+19500447,INFO,powerData | Fault reg: 0
+19500468,INFO,powerData | Charge status: 0
+19500488,INFO,powerData | DPM status: 0
+19800307,INFO,powerData | solV: 2.66
+19800328,INFO,powerData | solI: 0.00
+19800348,INFO,powerData | battV: 3.62
+19800369,INFO,powerData | battI: -0.01
+19800389,INFO,powerData | busV: 3.62
+19800408,INFO,powerData | busI: 0.01
+19800428,INFO,powerData | BQ status reg: 0
+19800449,INFO,powerData | Fault reg: 0
+19800469,INFO,powerData | Charge status: 0
+19800492,INFO,powerData | DPM status: 0
+20100315,INFO,powerData | solV: 2.34
+20100335,INFO,powerData | solI: 0.00
+20100356,INFO,powerData | battV: 3.62
+20100378,INFO,powerData | battI: -0.01
+20100397,INFO,powerData | busV: 3.62
+20100417,INFO,powerData | busI: 0.01
+20100438,INFO,powerData | BQ status reg: 0
+20100458,INFO,powerData | Fault reg: 0
+20100478,INFO,powerData | Charge status: 0
+20100497,INFO,powerData | DPM status: 0
+20400320,INFO,powerData | solV: 2.13
+20400340,INFO,powerData | solI: 0.00
+20400365,INFO,powerData | battV: 3.62
+20400386,INFO,powerData | battI: -0.01
+20400406,INFO,powerData | busV: 3.62
+20400424,INFO,powerData | busI: 0.01
+20400445,INFO,powerData | BQ status reg: 0
+20400465,INFO,powerData | Fault reg: 0
+20400486,INFO,powerData | Charge status: 0
+20400506,INFO,powerData | DPM status: 0
+20700327,INFO,powerData | solV: 1.33
+20700348,INFO,powerData | solI: 0.00
+20700368,INFO,powerData | battV: 3.62
+20700389,INFO,powerData | battI: -0.01
+20700409,INFO,powerData | busV: 3.62
+20700434,INFO,powerData | busI: 0.01
+20700452,INFO,powerData | BQ status reg: 0
+20700473,INFO,powerData | Fault reg: 0
+20700493,INFO,powerData | Charge status: 0
+20700514,INFO,powerData | DPM status: 0
+21000331,INFO,powerData | solV: 0.75
+21000351,INFO,powerData | solI: 0.00
+21000372,INFO,powerData | battV: 3.62
+21000394,INFO,powerData | battI: -0.01
+21000417,INFO,powerData | busV: 3.62
+21000435,INFO,powerData | busI: 0.01
+21000456,INFO,powerData | BQ status reg: 0
+21000476,INFO,powerData | Fault reg: 0
+21000501,INFO,powerData | Charge status: 0
+21000521,INFO,powerData | DPM status: 0
+21300332,INFO,powerData | solV: 0.31
+21300353,INFO,powerData | solI: 0.00
+21300373,INFO,powerData | battV: 3.62
+21300393,INFO,powerData | battI: -0.01
+21300414,INFO,powerData | busV: 3.62
+21300432,INFO,powerData | busI: 0.01
+21300453,INFO,powerData | BQ status reg: 0
+21300473,INFO,powerData | Fault reg: 0
+21300494,INFO,powerData | Charge status: 0
+21300514,INFO,powerData | DPM status: 0
+21600337,INFO,powerData | solV: 0.06
+21600362,INFO,powerData | solI: 0.00
+21600382,INFO,powerData | battV: 3.62
+21600403,INFO,powerData | battI: -0.01
+21600423,INFO,powerData | busV: 3.62
+21600444,INFO,powerData | busI: 0.01
+21600462,INFO,powerData | BQ status reg: 0
+21600483,INFO,powerData | Fault reg: 0
+21600503,INFO,powerData | Charge status: 0
+21600524,INFO,powerData | DPM status: 0
+21900339,INFO,powerData | solV: 0.02
+21900359,INFO,powerData | solI: 0.00
+21900380,INFO,powerData | battV: 3.62
+21900406,INFO,powerData | battI: -0.01
+21900425,INFO,powerData | busV: 3.62
+21900445,INFO,powerData | busI: 0.01
+21900466,INFO,powerData | BQ status reg: 0
+21900486,INFO,powerData | Fault reg: 0
+21900507,INFO,powerData | Charge status: 0
+21900527,INFO,powerData | DPM status: 0
+22200340,INFO,powerData | solV: 0.00
+22200360,INFO,powerData | solI: 0.00
+22200381,INFO,powerData | battV: 3.62
+22200401,INFO,powerData | battI: -0.01
+22200422,INFO,powerData | busV: 3.62
+22200440,INFO,powerData | busI: 0.01
+22200465,INFO,powerData | BQ status reg: 0
+22200485,INFO,powerData | Fault reg: 0
+22200506,INFO,powerData | Charge status: 0
+22200526,INFO,powerData | DPM status: 0
+22500349,INFO,powerData | solV: 0.00
+22500370,INFO,powerData | solI: 0.00
+22500390,INFO,powerData | battV: 3.62
+22500411,INFO,powerData | battI: -0.01
+22500431,INFO,powerData | busV: 3.62
+22500452,INFO,powerData | busI: 0.01
+22500472,INFO,powerData | BQ status reg: 0
+22500491,INFO,powerData | Fault reg: 0
+22500511,INFO,powerData | Charge status: 0
+22500536,INFO,powerData | DPM status: 0
+22800351,INFO,powerData | solV: 0.00
+22800371,INFO,powerData | solI: 0.00
+22800394,INFO,powerData | battV: 3.62
+22800412,INFO,powerData | battI: -0.01
+22800433,INFO,powerData | busV: 3.62
+22800453,INFO,powerData | busI: 0.01
+22800474,INFO,powerData | BQ status reg: 0
+22800494,INFO,powerData | Fault reg: 0
+22800513,INFO,powerData | Charge status: 0
+22800533,INFO,powerData | DPM status: 0
+23100360,INFO,powerData | solV: 0.00
+23100381,INFO,powerData | solI: 0.00
+23100416,INFO,powerData | battV: 3.62
+23100436,INFO,powerData | battI: -0.01
+23100456,INFO,powerData | busV: 3.62
+23100475,INFO,powerData | busI: 0.01
+23100495,INFO,powerData | BQ status reg: 0
+23100516,INFO,powerData | Fault reg: 0
+23100536,INFO,powerData | Charge status: 0
+23100555,INFO,powerData | DPM status: 0
+23400364,INFO,powerData | solV: 0.00
+23400384,INFO,powerData | solI: 0.00
+23400404,INFO,powerData | battV: 3.62
+23400425,INFO,powerData | battI: -0.01
+23400445,INFO,powerData | busV: 3.62
+23400468,INFO,powerData | busI: 0.01
+23400488,INFO,powerData | BQ status reg: 0
+23400509,INFO,powerData | Fault reg: 0
+23400529,INFO,powerData | Charge status: 0
+23400548,INFO,powerData | DPM status: 0
+23700371,INFO,powerData | solV: 0.00
+23700393,INFO,powerData | solI: 0.00
+23700414,INFO,powerData | battV: 3.62
+23700434,INFO,powerData | battI: -0.01
+23700453,INFO,powerData | busV: 3.62
+23700473,INFO,powerData | busI: 0.01
+23700494,INFO,powerData | BQ status reg: 0
+23700518,INFO,powerData | Fault reg: 0
+23700539,INFO,powerData | Charge status: 0
+23700559,INFO,powerData | DPM status: 0
+24000374,INFO,powerData | solV: 0.00
+24000395,INFO,powerData | solI: 0.00
+24000415,INFO,powerData | battV: 3.62
+24000436,INFO,powerData | battI: -0.01
+24000456,INFO,powerData | busV: 3.62
+24000477,INFO,powerData | busI: 0.01
+24000497,INFO,powerData | BQ status reg: 0
+24000518,INFO,powerData | Fault reg: 0
+24000536,INFO,powerData | Charge status: 0
+24000557,INFO,powerData | DPM status: 0
+24300378,INFO,powerData | solV: 0.00
+24300398,INFO,powerData | solI: 0.00
+24300419,INFO,powerData | battV: 3.62
+24300439,INFO,powerData | battI: -0.01
+24300470,INFO,powerData | busV: 3.62
+24300490,INFO,powerData | busI: 0.01
+24300511,INFO,powerData | BQ status reg: 0
+24300531,INFO,powerData | Fault reg: 0
+24300550,INFO,powerData | Charge status: 0
+24300570,INFO,powerData | DPM status: 0
+24600379,INFO,powerData | solV: 0.00
+24600401,INFO,powerData | solI: 0.00
+24600422,INFO,powerData | battV: 3.62
+24600446,INFO,powerData | battI: -0.01
+24600467,INFO,powerData | busV: 3.62
+24600487,INFO,powerData | busI: 0.01
+24600508,INFO,powerData | BQ status reg: 0
+24600526,INFO,powerData | Fault reg: 0
+24600547,INFO,powerData | Charge status: 0
+24600567,INFO,powerData | DPM status: 0
+24900380,INFO,powerData | solV: 0.00
+24900401,INFO,powerData | solI: 0.00
+24900421,INFO,powerData | battV: 3.62
+24900442,INFO,powerData | battI: -0.01
+24900462,INFO,powerData | busV: 3.62
+24900483,INFO,powerData | busI: 0.01
+24900507,INFO,powerData | BQ status reg: 0
+24900528,INFO,powerData | Fault reg: 0
+24900546,INFO,powerData | Charge status: 0
+24900567,INFO,powerData | DPM status: 0
+25200381,INFO,powerData | solV: 0.00
+25200402,INFO,powerData | solI: 0.00
+25200422,INFO,powerData | battV: 3.62
+25200443,INFO,powerData | battI: -0.01
+25200463,INFO,powerData | busV: 3.62
+25200484,INFO,powerData | busI: 0.01
+25200504,INFO,powerData | BQ status reg: 0
+25200525,INFO,powerData | Fault reg: 0
+25200545,INFO,powerData | Charge status: 0
+25200568,INFO,powerData | DPM status: 0
+25500391,INFO,powerData | solV: 0.00
+25500413,INFO,powerData | solI: 0.00
+25500434,INFO,powerData | battV: 3.62
+25500454,INFO,powerData | battI: -0.01
+25500475,INFO,powerData | busV: 3.62
+25500493,INFO,powerData | busI: 0.01
+25500514,INFO,powerData | BQ status reg: 0
+25500534,INFO,powerData | Fault reg: 0
+25500555,INFO,powerData | Charge status: 0
+25500575,INFO,powerData | DPM status: 0
+25800400,INFO,powerData | solV: 0.00
+25800425,INFO,powerData | solI: 0.00
+25800445,INFO,powerData | battV: 3.62
+25800466,INFO,powerData | battI: -0.01
+25800486,INFO,powerData | busV: 3.62
+25800505,INFO,powerData | busI: 0.01
+25800525,INFO,powerData | BQ status reg: 0
+25800546,INFO,powerData | Fault reg: 0
+25800566,INFO,powerData | Charge status: 0
+25800585,INFO,powerData | DPM status: 0
+26100406,INFO,powerData | solV: 0.00
+26100426,INFO,powerData | solI: 0.00
+26100447,INFO,powerData | battV: 3.62
+26100467,INFO,powerData | battI: -0.01
+26100492,INFO,powerData | busV: 3.62
+26100510,INFO,powerData | busI: 0.01
+26100531,INFO,powerData | BQ status reg: 0
+26100551,INFO,powerData | Fault reg: 0
+26100572,INFO,powerData | Charge status: 0
+26100590,INFO,powerData | DPM status: 0
+26400415,INFO,powerData | solV: 0.00
+26400438,INFO,powerData | solI: 0.00
+26400458,INFO,powerData | battV: 3.62
+26400477,INFO,powerData | battI: -0.01
+26400497,INFO,powerData | busV: 3.62
+26400518,INFO,powerData | busI: 0.01
+26400538,INFO,powerData | BQ status reg: 0
+26400561,INFO,powerData | Fault reg: 0
+26400581,INFO,powerData | Charge status: 0
+26400602,INFO,powerData | DPM status: 0
+26700419,INFO,powerData | solV: 0.00
+26700439,INFO,powerData | solI: 0.00
+26700460,INFO,powerData | battV: 3.62
+26700480,INFO,powerData | battI: -0.01
+26700500,INFO,powerData | busV: 3.62
+26700521,INFO,powerData | busI: 0.01
+26700541,INFO,powerData | BQ status reg: 0
+26700560,INFO,powerData | Fault reg: 0
+26700580,INFO,powerData | Charge status: 0
+26700601,INFO,powerData | DPM status: 0
+27000420,INFO,powerData | solV: 0.00
+27000440,INFO,powerData | solI: 0.00
+27000461,INFO,powerData | battV: 3.62
+27000481,INFO,powerData | battI: -0.01
+27000502,INFO,powerData | busV: 3.62
+27000522,INFO,powerData | busI: 0.01
+27000543,INFO,powerData | BQ status reg: 0
+27000563,INFO,powerData | Fault reg: 0
+27000582,INFO,powerData | Charge status: 0
+27000602,INFO,powerData | DPM status: 0
+27300423,INFO,powerData | solV: 0.00
+27300446,INFO,powerData | solI: 0.00
+27300466,INFO,powerData | battV: 3.62
+27300491,INFO,powerData | battI: -0.01
+27300509,INFO,powerData | busV: 3.62
+27300530,INFO,powerData | busI: 0.01
+27300550,INFO,powerData | BQ status reg: 0
+27300571,INFO,powerData | Fault reg: 0
+27300591,INFO,powerData | Charge status: 0
+27300610,INFO,powerData | DPM status: 0
+27600431,INFO,powerData | solV: 0.00
+27600451,INFO,powerData | solI: 0.00
+27600472,INFO,powerData | battV: 3.62
+27600492,INFO,powerData | battI: -0.01
+27600513,INFO,powerData | busV: 3.62
+27600533,INFO,powerData | busI: 0.01
+27600549,INFO,powerData | BQ status reg: 0
+27600570,INFO,powerData | Fault reg: 0
+27600590,INFO,powerData | Charge status: 0
+27600611,INFO,powerData | DPM status: 0
+27900434,INFO,powerData | solV: 0.00
+27900454,INFO,powerData | solI: 0.00
+27900475,INFO,powerData | battV: 3.62
+27900495,INFO,powerData | battI: -0.01
+27900516,INFO,powerData | busV: 3.62
+27900536,INFO,powerData | busI: 0.01
+27900555,INFO,powerData | BQ status reg: 0
+27900575,INFO,powerData | Fault reg: 0
+27900600,INFO,powerData | Charge status: 0
+27900620,INFO,powerData | DPM status: 0
+28200439,INFO,powerData | solV: 0.00
+28200462,INFO,powerData | solI: 0.00
+28200484,INFO,powerData | battV: 3.62
+28200505,INFO,powerData | battI: -0.01
+28200525,INFO,powerData | busV: 3.62
+28200544,INFO,powerData | busI: 0.01
+28200564,INFO,powerData | BQ status reg: 0
+28200585,INFO,powerData | Fault reg: 0
+28200605,INFO,powerData | Charge status: 0
+28200626,INFO,powerData | DPM status: 0
+28500443,INFO,powerData | solV: 0.00
+28500467,INFO,powerData | solI: 0.00
+28500488,INFO,powerData | battV: 3.62
+28500508,INFO,powerData | battI: -0.01
+28500529,INFO,powerData | busV: 3.62
+28500549,INFO,powerData | busI: 0.01
+28500570,INFO,powerData | BQ status reg: 0
+28500590,INFO,powerData | Fault reg: 0
+28500609,INFO,powerData | Charge status: 0
+28500629,INFO,powerData | DPM status: 0
+28800444,INFO,powerData | solV: 0.00
+28800464,INFO,powerData | solI: 0.00
+28800485,INFO,powerData | battV: 3.62
+28800505,INFO,powerData | battI: -0.01
+28800528,INFO,powerData | busV: 3.62
+28800548,INFO,powerData | busI: 0.01
+28800569,INFO,powerData | BQ status reg: 0
+28800589,INFO,powerData | Fault reg: 0
+28800610,INFO,powerData | Charge status: 0
+28800630,INFO,powerData | DPM status: 0
+29100449,INFO,powerData | solV: 0.00
+29100472,INFO,powerData | solI: 0.00
+29100492,INFO,powerData | battV: 3.62
+29100513,INFO,powerData | battI: -0.01
+29100531,INFO,powerData | busV: 3.62
+29100552,INFO,powerData | busI: 0.01
+29100572,INFO,powerData | BQ status reg: 0
+29100595,INFO,powerData | Fault reg: 0
+29100615,INFO,powerData | Charge status: 0
+29100636,INFO,powerData | DPM status: 0
+29400459,INFO,powerData | solV: 0.00
+29400479,INFO,powerData | solI: 0.00
+29400500,INFO,powerData | battV: 3.62
+29400520,INFO,powerData | battI: -0.01
+29400541,INFO,powerData | busV: 3.62
+29400561,INFO,powerData | busI: 0.01
+29400580,INFO,powerData | BQ status reg: 0
+29400600,INFO,powerData | Fault reg: 0
+29400621,INFO,powerData | Charge status: 0
+29400645,INFO,powerData | DPM status: 0
+29700468,INFO,powerData | solV: 0.00
+29700489,INFO,powerData | solI: 0.00
+29700509,INFO,powerData | battV: 3.62
+29700530,INFO,powerData | battI: -0.01
+29700550,INFO,powerData | busV: 3.62
+29700569,INFO,powerData | busI: 0.01
+29700589,INFO,powerData | BQ status reg: 0
+29700610,INFO,powerData | Fault reg: 0
+29700630,INFO,powerData | Charge status: 0
+29700651,INFO,powerData | DPM status: 0
+30000472,INFO,powerData | solV: 0.00
+30000492,INFO,powerData | solI: 0.00
+30000519,INFO,powerData | battV: 3.62
+30000539,INFO,powerData | battI: -0.01
+30000560,INFO,powerData | busV: 3.62
+30000580,INFO,powerData | busI: 0.01
+30000599,INFO,powerData | BQ status reg: 0
+30000619,INFO,powerData | Fault reg: 0
+30000640,INFO,powerData | Charge status: 0
+30000660,INFO,powerData | DPM status: 0
+30300481,INFO,powerData | solV: 0.00
+30300502,INFO,powerData | solI: 0.00
+30300522,INFO,powerData | battV: 3.62
+30300542,INFO,powerData | battI: -0.01
+30300563,INFO,powerData | busV: 3.62
+30300588,INFO,powerData | busI: 0.01
+30300608,INFO,powerData | BQ status reg: 0
+30300628,INFO,powerData | Fault reg: 0
+30300647,INFO,powerData | Charge status: 0
+30300667,INFO,powerData | DPM status: 0
+30600486,INFO,powerData | solV: 0.00
+30600507,INFO,powerData | solI: 0.00
+30600527,INFO,powerData | battV: 3.62
+30600548,INFO,powerData | battI: -0.01
+30600568,INFO,powerData | busV: 3.62
+30600587,INFO,powerData | busI: 0.01
+30600607,INFO,powerData | BQ status reg: 0
+30600628,INFO,powerData | Fault reg: 0
+30600652,INFO,powerData | Charge status: 0
+30600673,INFO,powerData | DPM status: 0
+30900494,INFO,powerData | solV: 0.00
+30900516,INFO,powerData | solI: 0.00
+30900537,INFO,powerData | battV: 3.62
+30900557,INFO,powerData | battI: -0.01
+30900578,INFO,powerData | busV: 3.62
+30900598,INFO,powerData | busI: 0.01
+30900617,INFO,powerData | BQ status reg: 0
+30900637,INFO,powerData | Fault reg: 0
+30900658,INFO,powerData | Charge status: 0
+30900678,INFO,powerData | DPM status: 0
+31200503,INFO,powerData | solV: 0.00
+31200528,INFO,powerData | solI: 0.00
+31200548,INFO,powerData | battV: 3.62
+31200569,INFO,powerData | battI: -0.01
+31200589,INFO,powerData | busV: 3.62
+31200610,INFO,powerData | busI: 0.01
+31200630,INFO,powerData | BQ status reg: 0
+31200649,INFO,powerData | Fault reg: 0
+31200669,INFO,powerData | Charge status: 0
+31200690,INFO,powerData | DPM status: 0
+31500505,INFO,powerData | solV: 0.00
+31500525,INFO,powerData | solI: 0.00
+31500546,INFO,powerData | battV: 3.62
+31500570,INFO,powerData | battI: -0.01
+31500591,INFO,powerData | busV: 3.62
+31500609,INFO,powerData | busI: 0.01
+31500630,INFO,powerData | BQ status reg: 0
+31500650,INFO,powerData | Fault reg: 0
+31500670,INFO,powerData | Charge status: 0
+31500691,INFO,powerData | DPM status: 0
+31800506,INFO,powerData | solV: 0.00
+31800528,INFO,powerData | solI: 0.00
+31800549,INFO,powerData | battV: 3.62
+31800569,INFO,powerData | battI: -0.01
+31800590,INFO,powerData | busV: 3.62
+31800610,INFO,powerData | busI: 0.01
+31800633,INFO,powerData | BQ status reg: 0
+31800653,INFO,powerData | Fault reg: 0
+31800674,INFO,powerData | Charge status: 0
+31800694,INFO,powerData | DPM status: 0
+32100513,INFO,powerData | solV: 0.00
+32100534,INFO,powerData | solI: 0.00
+32100554,INFO,powerData | battV: 3.62
+32100575,INFO,powerData | battI: -0.01
+32100595,INFO,powerData | busV: 3.62
+32100614,INFO,powerData | busI: 0.01
+32100634,INFO,powerData | BQ status reg: 0
+32100655,INFO,powerData | Fault reg: 0
+32100675,INFO,powerData | Charge status: 0
+32100698,INFO,powerData | DPM status: 0
+32400521,INFO,powerData | solV: 0.00
+32400541,INFO,powerData | solI: 0.00
+32400562,INFO,powerData | battV: 3.62
+32400582,INFO,powerData | battI: -0.01
+32400601,INFO,powerData | busV: 3.62
+32400621,INFO,powerData | busI: 0.01
+32400642,INFO,powerData | BQ status reg: 0
+32400662,INFO,powerData | Fault reg: 0
+32400680,INFO,powerData | Charge status: 0
+32400701,INFO,powerData | DPM status: 0
+32700526,INFO,powerData | solV: 0.00
+32700547,INFO,powerData | solI: 0.00
+32700573,INFO,powerData | battV: 3.62
+32700594,INFO,powerData | battI: -0.01
+32700614,INFO,powerData | busV: 3.62
+32700633,INFO,powerData | busI: 0.01
+32700653,INFO,powerData | BQ status reg: 0
+32700674,INFO,powerData | Fault reg: 0
+32700694,INFO,powerData | Charge status: 0
+32700715,INFO,powerData | DPM status: 0
+33000536,INFO,powerData | solV: 0.00
+33000556,INFO,powerData | solI: 0.00
+33000577,INFO,powerData | battV: 3.62
+33000597,INFO,powerData | battI: -0.01
+33000617,INFO,powerData | busV: 3.62
+33000642,INFO,powerData | busI: 0.01
+33000660,INFO,powerData | BQ status reg: 0
+33000681,INFO,powerData | Fault reg: 0
+33000701,INFO,powerData | Charge status: 0
+33000722,INFO,powerData | DPM status: 0
+33300539,INFO,powerData | solV: 0.00
+33300559,INFO,powerData | solI: 0.00
+33300580,INFO,powerData | battV: 3.62
+33300600,INFO,powerData | battI: -0.01
+33300621,INFO,powerData | busV: 3.62
+33300639,INFO,powerData | busI: 0.01
+33300660,INFO,powerData | BQ status reg: 0
+33300684,INFO,powerData | Fault reg: 0
+33300705,INFO,powerData | Charge status: 0
+33300725,INFO,powerData | DPM status: 0
+33600544,INFO,powerData | solV: 0.00
+33600567,INFO,powerData | solI: 0.00
+33600587,INFO,powerData | battV: 3.62
+33600608,INFO,powerData | battI: -0.01
+33600628,INFO,powerData | busV: 3.62
+33600649,INFO,powerData | busI: 0.01
+33600667,INFO,powerData | BQ status reg: 0
+33600688,INFO,powerData | Fault reg: 0
+33600708,INFO,powerData | Charge status: 0
+33600729,INFO,powerData | DPM status: 0
+33900554,INFO,powerData | solV: 0.00
+33900574,INFO,powerData | solI: 0.00
+33900595,INFO,powerData | battV: 3.62
+33900615,INFO,powerData | battI: -0.01
+33900636,INFO,powerData | busV: 3.62
+33900656,INFO,powerData | busI: 0.01
+33900675,INFO,powerData | BQ status reg: 0
+33900695,INFO,powerData | Fault reg: 0
+33900716,INFO,powerData | Charge status: 0
+33900736,INFO,powerData | DPM status: 0
+34200561,INFO,powerData | solV: 0.00
+34200582,INFO,powerData | solI: 0.00
+34200602,INFO,powerData | battV: 3.62
+34200627,INFO,powerData | battI: -0.01
+34200647,INFO,powerData | busV: 3.62
+34200666,INFO,powerData | busI: 0.01
+34200686,INFO,powerData | BQ status reg: 0
+34200707,INFO,powerData | Fault reg: 0
+34200727,INFO,powerData | Charge status: 0
+34200748,INFO,powerData | DPM status: 0
+34500567,INFO,powerData | solV: 0.00
+34500589,INFO,powerData | solI: 0.00
+34500610,INFO,powerData | battV: 3.62
+34500630,INFO,powerData | battI: -0.01
+34500651,INFO,powerData | busV: 3.62
+34500671,INFO,powerData | busI: 0.01
+34500694,INFO,powerData | BQ status reg: 0
+34500714,INFO,powerData | Fault reg: 0
+34500734,INFO,powerData | Charge status: 0
+34500755,INFO,powerData | DPM status: 0
+34800568,INFO,powerData | solV: 0.00
+34800588,INFO,powerData | solI: 0.00
+34800609,INFO,powerData | battV: 3.62
+34800629,INFO,powerData | battI: -0.01
+34800650,INFO,powerData | busV: 3.62
+34800670,INFO,powerData | busI: 0.01
+34800689,INFO,powerData | BQ status reg: 0
+34800709,INFO,powerData | Fault reg: 0
+34800730,INFO,powerData | Charge status: 0
+34800754,INFO,powerData | DPM status: 0
+35100569,INFO,powerData | solV: 0.00
+35100590,INFO,powerData | solI: 0.00
+35100610,INFO,powerData | battV: 3.62
+35100631,INFO,powerData | battI: -0.01
+35100651,INFO,powerData | busV: 3.62
+35100669,INFO,powerData | busI: 0.01
+35100690,INFO,powerData | BQ status reg: 0
+35100710,INFO,powerData | Fault reg: 0
+35100729,INFO,powerData | Charge status: 0
+35100749,INFO,powerData | DPM status: 0
+35400579,INFO,powerData | solV: 0.00
+35400652,INFO,powerData | solI: 0.00
+35400673,INFO,powerData | battV: 3.62
+35400693,INFO,powerData | battI: -0.01
+35400712,INFO,powerData | busV: 3.62
+35400732,INFO,powerData | busI: 0.01
+35400753,INFO,powerData | BQ status reg: 0
+35400773,INFO,powerData | Fault reg: 0
+35400792,INFO,powerData | Charge status: 0
+35400812,INFO,powerData | DPM status: 0
+35700584,INFO,powerData | solV: 0.00
+35700604,INFO,powerData | solI: 0.00
+35700625,INFO,powerData | battV: 3.62
+35700645,INFO,powerData | battI: -0.01
+35700668,INFO,powerData | busV: 3.62
+35700688,INFO,powerData | busI: 0.01
+35700711,INFO,powerData | BQ status reg: 0
+35700731,INFO,powerData | Fault reg: 0
+35700752,INFO,powerData | Charge status: 0
+35700772,INFO,powerData | DPM status: 0
+36000593,INFO,powerData | solV: 0.00
+36000614,INFO,powerData | solI: 0.00
+36000634,INFO,powerData | battV: 3.62
+36000655,INFO,powerData | battI: -0.01
+36000675,INFO,powerData | busV: 3.62
+36000696,INFO,powerData | busI: 0.01
+36000714,INFO,powerData | BQ status reg: 0
+36000739,INFO,powerData | Fault reg: 0
+36000759,INFO,powerData | Charge status: 0
+36000780,INFO,powerData | DPM status: 0
+36300595,INFO,powerData | solV: 0.00
+36300619,INFO,powerData | solI: 0.00
+36300640,INFO,powerData | battV: 3.62
+36300660,INFO,powerData | battI: -0.01
+36300681,INFO,powerData | busV: 3.62
+36300699,INFO,powerData | busI: 0.01
+36300720,INFO,powerData | BQ status reg: 0
+36300740,INFO,powerData | Fault reg: 0
+36300761,INFO,powerData | Charge status: 0
+36300781,INFO,powerData | DPM status: 0
+36600602,INFO,powerData | solV: 0.00
+36600623,INFO,powerData | solI: 0.00
+36600643,INFO,powerData | battV: 3.62
+36600664,INFO,powerData | battI: -0.01
+36600684,INFO,powerData | busV: 3.62
+36600702,INFO,powerData | busI: 0.01
+36600723,INFO,powerData | BQ status reg: 0
+36600743,INFO,powerData | Fault reg: 0
+36600764,INFO,powerData | Charge status: 0
+36600784,INFO,powerData | DPM status: 0
+36900603,INFO,powerData | solV: 0.00
+36900624,INFO,powerData | solI: 0.00
+36900644,INFO,powerData | battV: 3.62
+36900669,INFO,powerData | battI: -0.01
+36900689,INFO,powerData | busV: 3.62
+36900708,INFO,powerData | busI: 0.01
+36900728,INFO,powerData | BQ status reg: 0
+36900749,INFO,powerData | Fault reg: 0
+36900769,INFO,powerData | Charge status: 0
+36900790,INFO,powerData | DPM status: 0
+37200609,INFO,powerData | solV: 0.00
+37200631,INFO,powerData | solI: 0.00
+37200652,INFO,powerData | battV: 3.62
+37200672,INFO,powerData | battI: -0.01
+37200691,INFO,powerData | busV: 3.62
+37200711,INFO,powerData | busI: 0.01
+37200728,INFO,powerData | BQ status reg: 0
+37200748,INFO,powerData | Fault reg: 0
+37200769,INFO,powerData | Charge status: 0
+37200789,INFO,powerData | DPM status: 0
+37500612,INFO,powerData | solV: 0.00
+37500633,INFO,powerData | solI: 0.00
+37500653,INFO,powerData | battV: 3.62
+37500674,INFO,powerData | battI: -0.01
+37500694,INFO,powerData | busV: 3.62
+37500712,INFO,powerData | busI: 0.01
+37500733,INFO,powerData | BQ status reg: 0
+37500753,INFO,powerData | Fault reg: 0
+37500778,INFO,powerData | Charge status: 0
+37500798,INFO,powerData | DPM status: 0
+37800615,INFO,powerData | solV: 0.00
+37800636,INFO,powerData | solI: 0.00
+37800656,INFO,powerData | battV: 3.62
+37800677,INFO,powerData | battI: -0.01
+37800697,INFO,powerData | busV: 3.62
+37800718,INFO,powerData | busI: 0.01
+37800736,INFO,powerData | BQ status reg: 0
+37800757,INFO,powerData | Fault reg: 0
+37800777,INFO,powerData | Charge status: 0
+37800798,INFO,powerData | DPM status: 0
+38100625,INFO,powerData | solV: 0.00
+38100652,INFO,powerData | solI: 0.00
+38100670,INFO,powerData | battV: 3.62
+38100690,INFO,powerData | battI: -0.01
+38100711,INFO,powerData | busV: 3.62
+38100731,INFO,powerData | busI: 0.01
+38100750,INFO,powerData | BQ status reg: 0
+38100770,INFO,powerData | Fault reg: 0
+38100791,INFO,powerData | Charge status: 0
+38100811,INFO,powerData | DPM status: 0
+38400632,INFO,powerData | solV: 0.00
+38400653,INFO,powerData | solI: 0.00
+38400673,INFO,powerData | battV: 3.62
+38400694,INFO,powerData | battI: -0.01
+38400716,INFO,powerData | busV: 3.62
+38400737,INFO,powerData | busI: 0.01
+38400757,INFO,powerData | BQ status reg: 0
+38400776,INFO,powerData | Fault reg: 0
+38400796,INFO,powerData | Charge status: 0
+38400817,INFO,powerData | DPM status: 0
+38700634,INFO,powerData | solV: 0.00
+38700654,INFO,powerData | solI: 0.00
+38700675,INFO,powerData | battV: 3.62
+38700695,INFO,powerData | battI: -0.01
+38700716,INFO,powerData | busV: 3.62
+38700734,INFO,powerData | busI: 0.01
+38700754,INFO,powerData | BQ status reg: 0
+38700779,INFO,powerData | Fault reg: 0
+38700800,INFO,powerData | Charge status: 0
+38700820,INFO,powerData | DPM status: 0
+39000641,INFO,powerData | solV: 0.00
+39000662,INFO,powerData | solI: 0.00
+39000684,INFO,powerData | battV: 3.62
+39000702,INFO,powerData | battI: -0.01
+39000723,INFO,powerData | busV: 3.62
+39000743,INFO,powerData | busI: 0.01
+39000764,INFO,powerData | BQ status reg: 0
+39000784,INFO,powerData | Fault reg: 0
+39000815,INFO,powerData | Charge status: 0
+39000840,INFO,powerData | DPM status: 0
+39300642,INFO,powerData | solV: 0.00
+39300663,INFO,powerData | solI: 0.00
+39300683,INFO,powerData | battV: 3.62
+39300704,INFO,powerData | battI: -0.01
+39300724,INFO,powerData | busV: 3.62
+39300745,INFO,powerData | busI: 0.01
+39300765,INFO,powerData | BQ status reg: 0
+39300786,INFO,powerData | Fault reg: 0
+39300806,INFO,powerData | Charge status: 0
+39300827,INFO,powerData | DPM status: 0
+39600646,INFO,powerData | solV: 0.00
+39600666,INFO,powerData | solI: 0.00
+39600691,INFO,powerData | battV: 3.62
+39600711,INFO,powerData | battI: -0.01
+39600732,INFO,powerData | busV: 3.62
+39600752,INFO,powerData | busI: 0.01
+39600773,INFO,powerData | BQ status reg: 0
+39600793,INFO,powerData | Fault reg: 0
+39600814,INFO,powerData | Charge status: 0
+39600832,INFO,powerData | DPM status: 0
+39900651,INFO,powerData | solV: 0.00
+39900672,INFO,powerData | solI: 0.00
+39900694,INFO,powerData | battV: 3.62
+39900715,INFO,powerData | battI: -0.01
+39900735,INFO,powerData | busV: 3.62
+39900758,INFO,powerData | busI: 0.01
+39900778,INFO,powerData | BQ status reg: 0
+39900798,INFO,powerData | Fault reg: 0
+39900819,INFO,powerData | Charge status: 0
+39900839,INFO,powerData | DPM status: 0
+40200656,INFO,powerData | solV: 0.00
+40200677,INFO,powerData | solI: 0.00
+40200697,INFO,powerData | battV: 3.62
+40200718,INFO,powerData | battI: -0.01
+40200738,INFO,powerData | busV: 3.62
+40200759,INFO,powerData | busI: 0.01
+40200777,INFO,powerData | BQ status reg: 0
+40200798,INFO,powerData | Fault reg: 0
+40200822,INFO,powerData | Charge status: 0
+40200843,INFO,powerData | DPM status: 0
+40500658,INFO,powerData | solV: 0.00
+40500678,INFO,powerData | solI: 0.00
+40500699,INFO,powerData | battV: 3.62
+40500719,INFO,powerData | battI: -0.01
+40500740,INFO,powerData | busV: 3.62
+40500760,INFO,powerData | busI: 0.01
+40500781,INFO,powerData | BQ status reg: 0
+40500801,INFO,powerData | Fault reg: 0
+40500822,INFO,powerData | Charge status: 0
+40500840,INFO,powerData | DPM status: 0
+40800663,INFO,powerData | solV: 0.00
+40800690,INFO,powerData | solI: 0.00
+40800708,INFO,powerData | battV: 3.62
+40800729,INFO,powerData | battI: -0.01
+40800749,INFO,powerData | busV: 3.62
+40800770,INFO,powerData | busI: 0.01
+40800790,INFO,powerData | BQ status reg: 0
+40800811,INFO,powerData | Fault reg: 0
+40800831,INFO,powerData | Charge status: 0
+40800851,INFO,powerData | DPM status: 0
+41100666,INFO,powerData | solV: 0.00
+41100687,INFO,powerData | solI: 0.00
+41100707,INFO,powerData | battV: 3.62
+41100732,INFO,powerData | battI: -0.01
+41100752,INFO,powerData | busV: 3.62
+41100771,INFO,powerData | busI: 0.01
+41100791,INFO,powerData | BQ status reg: 0
+41100812,INFO,powerData | Fault reg: 0
+41100832,INFO,powerData | Charge status: 0
+41100851,INFO,powerData | DPM status: 0
+41400674,INFO,powerData | solV: 0.00
+41400694,INFO,powerData | solI: 0.00
+41400715,INFO,powerData | battV: 3.62
+41400735,INFO,powerData | battI: -0.01
+41400756,INFO,powerData | busV: 3.62
+41400776,INFO,powerData | busI: 0.01
+41400799,INFO,powerData | BQ status reg: 0
+41400819,INFO,powerData | Fault reg: 0
+41400840,INFO,powerData | Charge status: 0
+41400858,INFO,powerData | DPM status: 0
+41700677,INFO,powerData | solV: 0.00
+41700698,INFO,powerData | solI: 0.00
+41700718,INFO,powerData | battV: 3.62
+41700739,INFO,powerData | battI: -0.01
+41700759,INFO,powerData | busV: 3.62
+41700780,INFO,powerData | busI: 0.01
+41700798,INFO,powerData | BQ status reg: 0
+41700818,INFO,powerData | Fault reg: 0
+41700839,INFO,powerData | Charge status: 0
+41700864,INFO,powerData | DPM status: 0
+42000678,INFO,powerData | solV: 0.00
+42000699,INFO,powerData | solI: 0.00
+42000719,INFO,powerData | battV: 3.62
+42000740,INFO,powerData | battI: -0.01
+42000760,INFO,powerData | busV: 3.62
+42000781,INFO,powerData | busI: 0.01
+42000801,INFO,powerData | BQ status reg: 0
+42000820,INFO,powerData | Fault reg: 0
+42000840,INFO,powerData | Charge status: 0
+42000861,INFO,powerData | DPM status: 0
+42300682,INFO,powerData | solV: 0.00
+42300702,INFO,powerData | solI: 0.00
+42300727,INFO,powerData | battV: 3.62
+42300747,INFO,powerData | battI: -0.01
+42300768,INFO,powerData | busV: 3.62
+42300788,INFO,powerData | busI: 0.01
+42300809,INFO,powerData | BQ status reg: 0
+42300827,INFO,powerData | Fault reg: 0
+42300848,INFO,powerData | Charge status: 0
+42300868,INFO,powerData | DPM status: 0
+42600687,INFO,powerData | solV: 0.00
+42600708,INFO,powerData | solI: 0.00
+42600730,INFO,powerData | battV: 3.62
+42600749,INFO,powerData | battI: -0.01
+42600769,INFO,powerData | busV: 3.62
+42600794,INFO,powerData | busI: 0.01
+42600814,INFO,powerData | BQ status reg: 0
+42600835,INFO,powerData | Fault reg: 0
+42600853,INFO,powerData | Charge status: 0
+42600873,INFO,powerData | DPM status: 0
+42900688,INFO,powerData | solV: 0.00
+42900709,INFO,powerData | solI: 0.00
+42900729,INFO,powerData | battV: 3.62
+42900750,INFO,powerData | battI: -0.01
+42900770,INFO,powerData | busV: 3.62
+42900793,INFO,powerData | busI: 0.01
+42900813,INFO,powerData | BQ status reg: 0
+42900836,INFO,powerData | Fault reg: 0
+42900856,INFO,powerData | Charge status: 0
+42900877,INFO,powerData | DPM status: 0
+43200690,INFO,powerData | solV: 0.00
+43200710,INFO,powerData | solI: 0.00
+43200731,INFO,powerData | battV: 3.62
+43200751,INFO,powerData | battI: -0.01
+43200772,INFO,powerData | busV: 3.62
+43200792,INFO,powerData | busI: 0.01
+43200813,INFO,powerData | BQ status reg: 0
+43200833,INFO,powerData | Fault reg: 0
+43200851,INFO,powerData | Charge status: 0
+43200872,INFO,powerData | DPM status: 0
+43500693,INFO,powerData | solV: 0.00
+43500716,INFO,powerData | solI: 0.00
+43500736,INFO,powerData | battV: 3.62
+43500754,INFO,powerData | battI: -0.01
+43500775,INFO,powerData | busV: 3.62
+43500795,INFO,powerData | busI: 0.01
+43500816,INFO,powerData | BQ status reg: 0
+43500836,INFO,powerData | Fault reg: 0
+43500855,INFO,powerData | Charge status: 0
+43500875,INFO,powerData | DPM status: 0
+43800700,INFO,powerData | solV: 0.00
+43800721,INFO,powerData | solI: 0.00
+43800741,INFO,powerData | battV: 3.62
+43800766,INFO,powerData | battI: -0.01
+43800786,INFO,powerData | busV: 3.62
+43800807,INFO,powerData | busI: 0.01
+43800827,INFO,powerData | BQ status reg: 0
+43800846,INFO,powerData | Fault reg: 0
+43800866,INFO,powerData | Charge status: 0
+43800887,INFO,powerData | DPM status: 0
+44100706,INFO,powerData | solV: 0.00
+44100726,INFO,powerData | solI: 0.00
+44100747,INFO,powerData | battV: 3.62
+44100767,INFO,powerData | battI: -0.01
+44100788,INFO,powerData | busV: 3.62
+44100808,INFO,powerData | busI: 0.01
+44100831,INFO,powerData | BQ status reg: 0
+44100851,INFO,powerData | Fault reg: 0
+44100872,INFO,powerData | Charge status: 0
+44100892,INFO,powerData | DPM status: 0
+44400711,INFO,powerData | solV: 0.00
+44400734,INFO,powerData | solI: 0.00
+44400754,INFO,powerData | battV: 3.62
+44400773,INFO,powerData | battI: -0.01
+44400793,INFO,powerData | busV: 3.62
+44400814,INFO,powerData | busI: 0.01
+44400832,INFO,powerData | BQ status reg: 0
+44400852,INFO,powerData | Fault reg: 0
+44400873,INFO,powerData | Charge status: 0
+44400898,INFO,powerData | DPM status: 0
+44700712,INFO,powerData | solV: 0.00
+44700733,INFO,powerData | solI: 0.00
+44700753,INFO,powerData | battV: 3.62
+44700774,INFO,powerData | battI: -0.01
+44700794,INFO,powerData | busV: 3.62
+44700815,INFO,powerData | busI: 0.01
+44700833,INFO,powerData | BQ status reg: 0
+44700854,INFO,powerData | Fault reg: 0
+44700874,INFO,powerData | Charge status: 0
+44700895,INFO,powerData | DPM status: 0
+45000714,INFO,powerData | solV: 0.00
+45000738,INFO,powerData | solI: 0.00
+45000759,INFO,powerData | battV: 3.62
+45000779,INFO,powerData | battI: -0.01
+45000800,INFO,powerData | busV: 3.62
+45000818,INFO,powerData | busI: 0.01
+45000839,INFO,powerData | BQ status reg: 0
+45000859,INFO,powerData | Fault reg: 0
+45000880,INFO,powerData | Charge status: 0
+45000900,INFO,powerData | DPM status: 0
+45300717,INFO,powerData | solV: 0.00
+45300738,INFO,powerData | solI: 0.00
+45300760,INFO,powerData | battV: 3.62
+45300781,INFO,powerData | battI: -0.01
+45300803,INFO,powerData | busV: 3.62
+45300824,INFO,powerData | busI: 0.01
+45300844,INFO,powerData | BQ status reg: 0
+45300865,INFO,powerData | Fault reg: 0
+45300883,INFO,powerData | Charge status: 0
+45300903,INFO,powerData | DPM status: 0
+45600724,INFO,powerData | solV: 0.00
+45600745,INFO,powerData | solI: 0.00
+45600765,INFO,powerData | battV: 3.62
+45600786,INFO,powerData | battI: -0.01
+45600806,INFO,powerData | busV: 3.62
+45600827,INFO,powerData | busI: 0.01
+45600847,INFO,powerData | BQ status reg: 0
+45600870,INFO,powerData | Fault reg: 0
+45600890,INFO,powerData | Charge status: 0
+45600911,INFO,powerData | DPM status: 0
+45900732,INFO,powerData | solV: 0.00
+45900752,INFO,powerData | solI: 0.00
+45900773,INFO,powerData | battV: 3.62
+45900793,INFO,powerData | battI: -0.01
+45900814,INFO,powerData | busV: 3.62
+45900834,INFO,powerData | busI: 0.01
+45900853,INFO,powerData | BQ status reg: 0
+45900873,INFO,powerData | Fault reg: 0
+45900894,INFO,powerData | Charge status: 0
+45900914,INFO,powerData | DPM status: 0
+46200741,INFO,powerData | solV: 0.00
+46200764,INFO,powerData | solI: 0.00
+46200784,INFO,powerData | battV: 3.62
+46200805,INFO,powerData | battI: -0.01
+46200823,INFO,powerData | busV: 3.62
+46200844,INFO,powerData | busI: 0.01
+46200864,INFO,powerData | BQ status reg: 0
+46200885,INFO,powerData | Fault reg: 0
+46200905,INFO,powerData | Charge status: 0
+46200924,INFO,powerData | DPM status: 0
+46500749,INFO,powerData | solV: 0.00
+46500769,INFO,powerData | solI: 0.00
+46500790,INFO,powerData | battV: 3.62
+46500814,INFO,powerData | battI: -0.01
+46500835,INFO,powerData | busV: 3.62
+46500855,INFO,powerData | busI: 0.01
+46500876,INFO,powerData | BQ status reg: 0
+46500894,INFO,powerData | Fault reg: 0
+46500915,INFO,powerData | Charge status: 0
+46500935,INFO,powerData | DPM status: 0
+46800752,INFO,powerData | solV: 0.00
+46800773,INFO,powerData | solI: 0.00
+46800795,INFO,powerData | battV: 3.62
+46800816,INFO,powerData | battI: -0.01
+46800836,INFO,powerData | busV: 3.62
+46800857,INFO,powerData | busI: 0.01
+46800873,INFO,powerData | BQ status reg: 0
+46800893,INFO,powerData | Fault reg: 0
+46800914,INFO,powerData | Charge status: 0
+46800932,INFO,powerData | DPM status: 0
+47100755,INFO,powerData | solV: 0.00
+47100776,INFO,powerData | solI: 0.00
+47100798,INFO,powerData | battV: 3.62
+47100819,INFO,powerData | battI: -0.01
+47100837,INFO,powerData | busV: 3.62
+47100858,INFO,powerData | busI: 0.01
+47100878,INFO,powerData | BQ status reg: 0
+47100899,INFO,powerData | Fault reg: 0
+47100921,INFO,powerData | Charge status: 0
+47100942,INFO,powerData | DPM status: 0
+47400757,INFO,powerData | solV: 0.00
+47400777,INFO,powerData | solI: 0.00
+47400798,INFO,powerData | battV: 3.62
+47400818,INFO,powerData | battI: -0.01
+47400839,INFO,powerData | busV: 3.62
+47400859,INFO,powerData | busI: 0.01
+47400878,INFO,powerData | BQ status reg: 0
+47400898,INFO,powerData | Fault reg: 0
+47400919,INFO,powerData | Charge status: 0
+47400939,INFO,powerData | DPM status: 0
+47700762,INFO,powerData | solV: 0.00
+47700799,INFO,powerData | solI: 0.00
+47700817,INFO,powerData | battV: 3.62
+47700838,INFO,powerData | battI: -0.01
+47700858,INFO,powerData | busV: 3.62
+47700879,INFO,powerData | busI: 0.01
+47700897,INFO,powerData | BQ status reg: 0
+47700918,INFO,powerData | Fault reg: 0
+47700938,INFO,powerData | Charge status: 0
+47700959,INFO,powerData | DPM status: 0
+48000770,INFO,powerData | solV: 0.00
+48000792,INFO,powerData | solI: 0.00
+48000813,INFO,powerData | battV: 3.62
+48000831,INFO,powerData | battI: -0.01
+48000856,INFO,powerData | busV: 3.62
+48000876,INFO,powerData | busI: 0.01
+48000894,INFO,powerData | BQ status reg: 0
+48000915,INFO,powerData | Fault reg: 0
+48000935,INFO,powerData | Charge status: 0
+48000956,INFO,powerData | DPM status: 0
+48300771,INFO,powerData | solV: 0.00
+48300791,INFO,powerData | solI: 0.00
+48300812,INFO,powerData | battV: 3.62
+48300832,INFO,powerData | battI: -0.01
+48300853,INFO,powerData | busV: 3.62
+48300873,INFO,powerData | busI: 0.01
+48300894,INFO,powerData | BQ status reg: 0
+48300916,INFO,powerData | Fault reg: 0
+48300937,INFO,powerData | Charge status: 0
+48300957,INFO,powerData | DPM status: 0
+48600774,INFO,powerData | solV: 0.00
+48600795,INFO,powerData | solI: 0.00
+48600815,INFO,powerData | battV: 3.62
+48600836,INFO,powerData | battI: -0.01
+48600856,INFO,powerData | busV: 3.62
+48600875,INFO,powerData | busI: 0.01
+48600895,INFO,powerData | BQ status reg: 0
+48600915,INFO,powerData | Fault reg: 0
+48600936,INFO,powerData | Charge status: 0
+48600961,INFO,powerData | DPM status: 0
+48900782,INFO,powerData | solV: 0.00
+48900802,INFO,powerData | solI: 0.00
+48900823,INFO,powerData | battV: 3.62
+48900843,INFO,powerData | battI: -0.01
+48900864,INFO,powerData | busV: 3.62
+48900884,INFO,powerData | busI: 0.01
+48900902,INFO,powerData | BQ status reg: 0
+48900923,INFO,powerData | Fault reg: 0
+48900943,INFO,powerData | Charge status: 0
+48900964,INFO,powerData | DPM status: 0
+49200783,INFO,powerData | solV: 0.00
+49200803,INFO,powerData | solI: 0.00
+49200828,INFO,powerData | battV: 3.62
+49200848,INFO,powerData | battI: -0.01
+49200869,INFO,powerData | busV: 3.62
+49200889,INFO,powerData | busI: 0.01
+49200908,INFO,powerData | BQ status reg: 0
+49200928,INFO,powerData | Fault reg: 0
+49200949,INFO,powerData | Charge status: 0
+49200969,INFO,powerData | DPM status: 0
+49500792,INFO,powerData | solV: 0.00
+49500813,INFO,powerData | solI: 0.00
+49500833,INFO,powerData | battV: 3.62
+49500854,INFO,powerData | battI: -0.01
+49500874,INFO,powerData | busV: 3.62
+49500897,INFO,powerData | busI: 0.01
+49500917,INFO,powerData | BQ status reg: 0
+49500938,INFO,powerData | Fault reg: 0
+49500958,INFO,powerData | Charge status: 0
+49500979,INFO,powerData | DPM status: 0
+49800796,INFO,powerData | solV: 0.00
+49800816,INFO,powerData | solI: 0.00
+49800837,INFO,powerData | battV: 3.62
+49800857,INFO,powerData | battI: -0.01
+49800878,INFO,powerData | busV: 3.62
+49800898,INFO,powerData | busI: 0.01
+49800919,INFO,powerData | BQ status reg: 0
+49800937,INFO,powerData | Fault reg: 0
+49800962,INFO,powerData | Charge status: 0
+49800982,INFO,powerData | DPM status: 0
+50100799,INFO,powerData | solV: 0.00
+50100819,INFO,powerData | solI: 0.00
+50100840,INFO,powerData | battV: 3.62
+50100860,INFO,powerData | battI: -0.01
+50100881,INFO,powerData | busV: 3.62
+50100901,INFO,powerData | busI: 0.01
+50100922,INFO,powerData | BQ status reg: 0
+50100940,INFO,powerData | Fault reg: 0
+50100961,INFO,powerData | Charge status: 0
+50100981,INFO,powerData | DPM status: 0
+50400806,INFO,powerData | solV: 0.00
+50400831,INFO,powerData | solI: 0.00
+50400851,INFO,powerData | battV: 3.62
+50400872,INFO,powerData | battI: -0.01
+50400890,INFO,powerData | busV: 3.62
+50400911,INFO,powerData | busI: 0.01
+50400931,INFO,powerData | BQ status reg: 0
+50400952,INFO,powerData | Fault reg: 0
+50400970,INFO,powerData | Charge status: 0
+50400993,INFO,powerData | DPM status: 0
+50700812,INFO,powerData | solV: 0.00
+50700832,INFO,powerData | solI: 0.00
+50700853,INFO,powerData | battV: 3.62
+50700877,INFO,powerData | battI: -0.01
+50700898,INFO,powerData | busV: 3.62
+50700916,INFO,powerData | busI: 0.01
+50700937,INFO,powerData | BQ status reg: 0
+50700957,INFO,powerData | Fault reg: 0
+50700978,INFO,powerData | Charge status: 0
+50700996,INFO,powerData | DPM status: 0
+51000813,INFO,powerData | solV: 0.00
+51000834,INFO,powerData | solI: 0.00
+51000854,INFO,powerData | battV: 3.62
+51000875,INFO,powerData | battI: -0.01
+51000893,INFO,powerData | busV: 3.62
+51000913,INFO,powerData | busI: 0.01
+51000938,INFO,powerData | BQ status reg: 0
+51000958,INFO,powerData | Fault reg: 0
+51000979,INFO,powerData | Charge status: 0
+51000997,INFO,powerData | DPM status: 0
+51300816,INFO,powerData | solV: 0.00
+51300837,INFO,powerData | solI: 0.00
+51300857,INFO,powerData | battV: 3.62
+51300878,INFO,powerData | battI: -0.01
+51300898,INFO,powerData | busV: 3.62
+51300919,INFO,powerData | busI: 0.01
+51300937,INFO,powerData | BQ status reg: 0
+51300958,INFO,powerData | Fault reg: 0
+51300978,INFO,powerData | Charge status: 0
+51301003,INFO,powerData | DPM status: 0
+51600820,INFO,powerData | solV: 0.00
+51600840,INFO,powerData | solI: 0.00
+51600861,INFO,powerData | battV: 3.62
+51600881,INFO,powerData | battI: -0.01
+51600902,INFO,powerData | busV: 3.62
+51600922,INFO,powerData | busI: 0.01
+51600941,INFO,powerData | BQ status reg: 0
+51600961,INFO,powerData | Fault reg: 0
+51600982,INFO,powerData | Charge status: 0
+51601002,INFO,powerData | DPM status: 0
+51900829,INFO,powerData | solV: 0.00
+51900850,INFO,powerData | solI: 0.00
+51900874,INFO,powerData | battV: 3.62
+51900895,INFO,powerData | battI: -0.01
+51900915,INFO,powerData | busV: 3.62
+51900934,INFO,powerData | busI: 0.01
+51900954,INFO,powerData | BQ status reg: 0
+51900975,INFO,powerData | Fault reg: 0
+51900995,INFO,powerData | Charge status: 0
+51901016,INFO,powerData | DPM status: 0
+52200839,INFO,powerData | solV: 0.00
+52200859,INFO,powerData | solI: 0.00
+52200880,INFO,powerData | battV: 3.62
+52200900,INFO,powerData | battI: -0.01
+52200921,INFO,powerData | busV: 3.62
+52200943,INFO,powerData | busI: 0.01
+52200964,INFO,powerData | BQ status reg: 0
+52200984,INFO,powerData | Fault reg: 0
+52201005,INFO,powerData | Charge status: 0
+52201025,INFO,powerData | DPM status: 0
+52500840,INFO,powerData | solV: 0.00
+52500860,INFO,powerData | solI: 0.00
+52500881,INFO,powerData | battV: 3.62
+52500901,INFO,powerData | battI: -0.01
+52500922,INFO,powerData | busV: 3.62
+52500942,INFO,powerData | busI: 0.01
+52500961,INFO,powerData | BQ status reg: 0
+52500985,INFO,powerData | Fault reg: 0
+52501006,INFO,powerData | Charge status: 0
+52501026,INFO,powerData | DPM status: 0
+52800849,INFO,powerData | solV: 0.00
+52800870,INFO,powerData | solI: 0.00
+52800890,INFO,powerData | battV: 3.62
+52800911,INFO,powerData | battI: -0.01
+52800931,INFO,powerData | busV: 3.62
+52800950,INFO,powerData | busI: 0.01
+52800970,INFO,powerData | BQ status reg: 0
+52800991,INFO,powerData | Fault reg: 0
+52801011,INFO,powerData | Charge status: 0
+52801032,INFO,powerData | DPM status: 0
+53100857,INFO,powerData | solV: 0.00
+53100877,INFO,powerData | solI: 0.00
+53100898,INFO,powerData | battV: 3.62
+53100918,INFO,powerData | battI: -0.01
+53100939,INFO,powerData | busV: 3.62
+53100959,INFO,powerData | busI: 0.01
+53100978,INFO,powerData | BQ status reg: 0
+53100998,INFO,powerData | Fault reg: 0
+53101019,INFO,powerData | Charge status: 0
+53101039,INFO,powerData | DPM status: 0
+53400860,INFO,powerData | solV: 0.00
+53400881,INFO,powerData | solI: 0.00
+53400901,INFO,powerData | battV: 3.62
+53400926,INFO,powerData | battI: -0.01
+53400946,INFO,powerData | busV: 3.62
+53400967,INFO,powerData | busI: 0.01
+53400985,INFO,powerData | BQ status reg: 0
+53401006,INFO,powerData | Fault reg: 0
+53401026,INFO,powerData | Charge status: 0
+53401047,INFO,powerData | DPM status: 0
+53700870,INFO,powerData | solV: 0.00
+53700890,INFO,powerData | solI: 0.00
+53700911,INFO,powerData | battV: 3.62
+53700931,INFO,powerData | battI: -0.01
+53700952,INFO,powerData | busV: 3.62
+53700970,INFO,powerData | busI: 0.01
+53700995,INFO,powerData | BQ status reg: 0
+53701015,INFO,powerData | Fault reg: 0
+53701036,INFO,powerData | Charge status: 0
+53701056,INFO,powerData | DPM status: 0
+54000879,INFO,powerData | solV: 0.00
+54001188,INFO,powerData | solI: 0.00
+54001477,INFO,powerData | battV: 3.62
+54001772,INFO,powerData | battI: -0.01
+54001915,INFO,powerData | busV: 3.62
+54001934,INFO,powerData | busI: 0.01
+54001954,INFO,powerData | BQ status reg: 0
+54001975,INFO,powerData | Fault reg: 0
+54001995,INFO,powerData | Charge status: 0
+54002020,INFO,powerData | DPM status: 0
+54300884,INFO,powerData | solV: 0.00
+54300905,INFO,powerData | solI: 0.00
+54300925,INFO,powerData | battV: 3.62
+54300946,INFO,powerData | battI: -0.01
+54300966,INFO,powerData | busV: 3.62
+54300987,INFO,powerData | busI: 0.01
+54301007,INFO,powerData | BQ status reg: 0
+54301028,INFO,powerData | Fault reg: 0
+54301048,INFO,powerData | Charge status: 0
+54301069,INFO,powerData | DPM status: 0
+54600886,INFO,powerData | solV: 0.00
+54600910,INFO,powerData | solI: 0.00
+54600931,INFO,powerData | battV: 3.62
+54600951,INFO,powerData | battI: -0.01
+54600972,INFO,powerData | busV: 3.62
+54600992,INFO,powerData | busI: 0.01
+54601013,INFO,powerData | BQ status reg: 0
+54601033,INFO,powerData | Fault reg: 0
+54601054,INFO,powerData | Charge status: 0
+54601072,INFO,powerData | DPM status: 0
+54900895,INFO,powerData | solV: 0.00
+54900916,INFO,powerData | solI: 0.00
+54900936,INFO,powerData | battV: 3.62
+54900957,INFO,powerData | battI: -0.01
+54900983,INFO,powerData | busV: 3.62
+54901002,INFO,powerData | busI: 0.01
+54901022,INFO,powerData | BQ status reg: 0
+54901043,INFO,powerData | Fault reg: 0
+54901063,INFO,powerData | Charge status: 0
+54901084,INFO,powerData | DPM status: 0
+55200905,INFO,powerData | solV: 0.00
+55200925,INFO,powerData | solI: 0.00
+55200946,INFO,powerData | battV: 3.62
+55200966,INFO,powerData | battI: -0.01
+55200987,INFO,powerData | busV: 3.62
+55201007,INFO,powerData | busI: 0.01
+55201028,INFO,powerData | BQ status reg: 0
+55201050,INFO,powerData | Fault reg: 0
+55201071,INFO,powerData | Charge status: 0
+55201091,INFO,powerData | DPM status: 0
+55500908,INFO,powerData | solV: 0.00
+55500929,INFO,powerData | solI: 0.00
+55500949,INFO,powerData | battV: 3.62
+55500969,INFO,powerData | battI: -0.01
+55500990,INFO,powerData | busV: 3.62
+55501008,INFO,powerData | busI: 0.01
+55501029,INFO,powerData | BQ status reg: 0
+55501049,INFO,powerData | Fault reg: 0
+55501070,INFO,powerData | Charge status: 0
+55501090,INFO,powerData | DPM status: 0
+55800909,INFO,powerData | solV: 0.00
+55800930,INFO,powerData | solI: 0.00
+55800950,INFO,powerData | battV: 3.62
+55800973,INFO,powerData | battI: -0.01
+55800991,INFO,powerData | busV: 3.62
+55801012,INFO,powerData | busI: 0.01
+55801032,INFO,powerData | BQ status reg: 0
+55801053,INFO,powerData | Fault reg: 0
+55801073,INFO,powerData | Charge status: 0
+55801094,INFO,powerData | DPM status: 0
+56100919,INFO,powerData | solV: 0.00
+56100939,INFO,powerData | solI: 0.00
+56100960,INFO,powerData | battV: 3.62
+56100984,INFO,powerData | battI: -0.01
+56101005,INFO,powerData | busV: 3.62
+56101025,INFO,powerData | busI: 0.01
+56101044,INFO,powerData | BQ status reg: 0
+56101064,INFO,powerData | Fault reg: 0
+56101085,INFO,powerData | Charge status: 0
+56101105,INFO,powerData | DPM status: 0
+56400926,INFO,powerData | solV: 0.00
+56400947,INFO,powerData | solI: 0.00
+56400967,INFO,powerData | battV: 3.62
+56400988,INFO,powerData | battI: -0.01
+56401008,INFO,powerData | busV: 3.62
+56401029,INFO,powerData | busI: 0.01
+56401045,INFO,powerData | BQ status reg: 0
+56401063,INFO,powerData | Fault reg: 0
+56401084,INFO,powerData | Charge status: 0
+56401104,INFO,powerData | DPM status: 0
+56700928,INFO,powerData | solV: 0.00
+56700948,INFO,powerData | solI: 0.00
+56700968,INFO,powerData | battV: 3.62
+56700989,INFO,powerData | battI: -0.01
+56701009,INFO,powerData | busV: 3.62
+56701030,INFO,powerData | busI: 0.01
+56701050,INFO,powerData | BQ status reg: 0
+56701071,INFO,powerData | Fault reg: 0
+56701093,INFO,powerData | Charge status: 0
+56701114,INFO,powerData | DPM status: 0
+57000933,INFO,powerData | solV: 0.00
+57000953,INFO,powerData | solI: 0.00
+57000974,INFO,powerData | battV: 3.62
+57000994,INFO,powerData | battI: -0.01
+57001013,INFO,powerData | busV: 3.62
+57001033,INFO,powerData | busI: 0.01
+57001054,INFO,powerData | BQ status reg: 0
+57001074,INFO,powerData | Fault reg: 0
+57001095,INFO,powerData | Charge status: 0
+57001115,INFO,powerData | DPM status: 0
+57300934,INFO,powerData | solV: 0.00
+57300959,INFO,powerData | solI: 0.00
+57300979,INFO,powerData | battV: 3.62
+57301000,INFO,powerData | battI: -0.01
+57301020,INFO,powerData | busV: 3.62
+57301039,INFO,powerData | busI: 0.01
+57301059,INFO,powerData | BQ status reg: 0
+57301080,INFO,powerData | Fault reg: 0
+57301100,INFO,powerData | Charge status: 0
+57301121,INFO,powerData | DPM status: 0
+57600937,INFO,powerData | solV: 0.00
+57600958,INFO,powerData | solI: 0.00
+57600978,INFO,powerData | battV: 3.62
+57600999,INFO,powerData | battI: -0.01
+57601024,INFO,powerData | busV: 3.62
+57601044,INFO,powerData | busI: 0.01
+57601064,INFO,powerData | BQ status reg: 0
+57601085,INFO,powerData | Fault reg: 0
+57601107,INFO,powerData | Charge status: 0
+57601128,INFO,powerData | DPM status: 0
+57900943,INFO,powerData | solV: 0.00
+57900963,INFO,powerData | solI: 0.00
+57900984,INFO,powerData | battV: 3.62
+57901004,INFO,powerData | battI: -0.01
+57901025,INFO,powerData | busV: 3.62
+57901043,INFO,powerData | busI: 0.01
+57901064,INFO,powerData | BQ status reg: 0
+57901088,INFO,powerData | Fault reg: 0
+57901109,INFO,powerData | Charge status: 0
+57901129,INFO,powerData | DPM status: 0
+58200948,INFO,powerData | solV: 0.00
+58200969,INFO,powerData | solI: 0.00
+58200989,INFO,powerData | battV: 3.62
+58201010,INFO,powerData | battI: -0.01
+58201030,INFO,powerData | busV: 3.62
+58201051,INFO,powerData | busI: 0.01
+58201069,INFO,powerData | BQ status reg: 0
+58201090,INFO,powerData | Fault reg: 0
+58201110,INFO,powerData | Charge status: 0
+58201135,INFO,powerData | DPM status: 0
+58500952,INFO,powerData | solV: 0.00
+58500972,INFO,powerData | solI: 0.00
+58500993,INFO,powerData | battV: 3.62
+58501013,INFO,powerData | battI: -0.01
+58501036,INFO,powerData | busV: 3.62
+58501054,INFO,powerData | busI: 0.01
+58501074,INFO,powerData | BQ status reg: 0
+58501095,INFO,powerData | Fault reg: 0
+58501115,INFO,powerData | Charge status: 0
+58501136,INFO,powerData | DPM status: 0
+58800953,INFO,powerData | solV: 0.00
+58800973,INFO,powerData | solI: 0.00
+58800998,INFO,powerData | battV: 3.62
+58801018,INFO,powerData | battI: -0.01
+58801039,INFO,powerData | busV: 3.62
+58801057,INFO,powerData | busI: 0.01
+58801078,INFO,powerData | BQ status reg: 0
+58801098,INFO,powerData | Fault reg: 0
+58801119,INFO,powerData | Charge status: 0
+58801139,INFO,powerData | DPM status: 0
+59100954,INFO,powerData | solV: 0.00
+59100975,INFO,powerData | solI: 0.00
+59100995,INFO,powerData | battV: 3.62
+59101016,INFO,powerData | battI: -0.01
+59101036,INFO,powerData | busV: 3.62
+59101061,INFO,powerData | busI: 0.01
+59101079,INFO,powerData | BQ status reg: 0
+59101100,INFO,powerData | Fault reg: 0
+59101120,INFO,powerData | Charge status: 0
+59101140,INFO,powerData | DPM status: 0
+59400964,INFO,powerData | solV: 0.01
+59400984,INFO,powerData | solI: 0.00
+59401005,INFO,powerData | battV: 3.62
+59401025,INFO,powerData | battI: -0.01
+59401048,INFO,powerData | busV: 3.62
+59401066,INFO,powerData | busI: 0.01
+59401086,INFO,powerData | BQ status reg: 0
+59401107,INFO,powerData | Fault reg: 0
+59401132,INFO,powerData | Charge status: 0
+59401152,INFO,powerData | DPM status: 0
+59700973,INFO,powerData | solV: 0.02
+59700994,INFO,powerData | solI: 0.00
+59701014,INFO,powerData | battV: 3.62
+59701035,INFO,powerData | battI: -0.01
+59701055,INFO,powerData | busV: 3.62
+59701073,INFO,powerData | busI: 0.01
+59701094,INFO,powerData | BQ status reg: 0
+59701114,INFO,powerData | Fault reg: 0
+59701135,INFO,powerData | Charge status: 0
+59701155,INFO,powerData | DPM status: 0
+60000978,INFO,powerData | solV: 0.04
+60001003,INFO,powerData | solI: 0.00
+60001024,INFO,powerData | battV: 3.62
+60001044,INFO,powerData | battI: -0.01
+60001064,INFO,powerData | busV: 3.62
+60001083,INFO,powerData | busI: 0.01
+60001103,INFO,powerData | BQ status reg: 0
+60001124,INFO,powerData | Fault reg: 0
+60001142,INFO,powerData | Charge status: 0
+60001163,INFO,powerData | DPM status: 0
+60300988,INFO,powerData | solV: 0.06
+60301008,INFO,powerData | solI: 0.00
+60301029,INFO,powerData | battV: 3.62
+60301053,INFO,powerData | battI: -0.01
+60301074,INFO,powerData | busV: 3.62
+60301094,INFO,powerData | busI: 0.01
+60301115,INFO,powerData | BQ status reg: 0
+60301135,INFO,powerData | Fault reg: 0
+60301156,INFO,powerData | Charge status: 0
+60301176,INFO,powerData | DPM status: 0
+60600995,INFO,powerData | solV: 0.19
+60601016,INFO,powerData | solI: 0.00
+60601036,INFO,powerData | battV: 3.62
+60601057,INFO,powerData | battI: -0.01
+60601077,INFO,powerData | busV: 3.62
+60601098,INFO,powerData | busI: 0.01
+60601120,INFO,powerData | BQ status reg: 0
+60601141,INFO,powerData | Fault reg: 0
+60601161,INFO,powerData | Charge status: 0
+60601182,INFO,powerData | DPM status: 0
+60901001,INFO,powerData | solV: 0.54
+60901021,INFO,powerData | solI: 0.00
+60901042,INFO,powerData | battV: 3.62
+60901062,INFO,powerData | battI: -0.01
+60901083,INFO,powerData | busV: 3.62
+60901103,INFO,powerData | busI: 0.01
+60901124,INFO,powerData | BQ status reg: 0
+60901142,INFO,powerData | Fault reg: 0
+60901163,INFO,powerData | Charge status: 0
+60901187,INFO,powerData | DPM status: 0
+61201006,INFO,powerData | solV: 0.62
+61201027,INFO,powerData | solI: 0.00
+61201047,INFO,powerData | battV: 3.62
+61201068,INFO,powerData | battI: -0.01
+61201088,INFO,powerData | busV: 3.62
+61201108,INFO,powerData | busI: 0.01
+61201129,INFO,powerData | BQ status reg: 0
+61201149,INFO,powerData | Fault reg: 0
+61201170,INFO,powerData | Charge status: 0
+61201190,INFO,powerData | DPM status: 0
+61501007,INFO,powerData | solV: 1.13
+61501028,INFO,powerData | solI: 0.00
+61501052,INFO,powerData | battV: 3.62
+61501073,INFO,powerData | battI: -0.01
+61501093,INFO,powerData | busV: 3.62
+61501114,INFO,powerData | busI: 0.01
+61501134,INFO,powerData | BQ status reg: 0
+61501155,INFO,powerData | Fault reg: 0
+61501175,INFO,powerData | Charge status: 0
+61501196,INFO,powerData | DPM status: 0
+61801009,INFO,powerData | solV: 1.78
+61801029,INFO,powerData | solI: 0.00
+61801050,INFO,powerData | battV: 3.62
+61801070,INFO,powerData | battI: -0.01
+61801091,INFO,powerData | busV: 3.62
+61801115,INFO,powerData | busI: 0.01
+61801134,INFO,powerData | BQ status reg: 0
+61801154,INFO,powerData | Fault reg: 0
+61801175,INFO,powerData | Charge status: 0
+61801195,INFO,powerData | DPM status: 0
+62101016,INFO,powerData | solV: 2.27
+62101037,INFO,powerData | solI: 0.00
+62101057,INFO,powerData | battV: 3.62
+62101078,INFO,powerData | battI: -0.01
+62101098,INFO,powerData | busV: 3.62
+62101118,INFO,powerData | busI: 0.01
+62101139,INFO,powerData | BQ status reg: 0
+62101164,INFO,powerData | Fault reg: 0
+62101184,INFO,powerData | Charge status: 0
+62101204,INFO,powerData | DPM status: 0
+62401019,INFO,powerData | solV: 2.25
+62401040,INFO,powerData | solI: 0.00
+62401060,INFO,powerData | battV: 3.62
+62401081,INFO,powerData | battI: -0.01
+62401101,INFO,powerData | busV: 3.62
+62401122,INFO,powerData | busI: 0.01
+62401142,INFO,powerData | BQ status reg: 0
+62401161,INFO,powerData | Fault reg: 0
+62401181,INFO,powerData | Charge status: 0
+62401202,INFO,powerData | DPM status: 0
+62701023,INFO,powerData | solV: 2.37
+62701043,INFO,powerData | solI: 0.00
+62701064,INFO,powerData | battV: 3.62
+62701084,INFO,powerData | battI: -0.01
+62701105,INFO,powerData | busV: 3.62
+62701125,INFO,powerData | busI: 0.01
+62701144,INFO,powerData | BQ status reg: 0
+62701164,INFO,powerData | Fault reg: 0
+62701185,INFO,powerData | Charge status: 0
+62701205,INFO,powerData | DPM status: 0
+63001028,INFO,powerData | solV: 2.37
+63001049,INFO,powerData | solI: 0.00
+63001069,INFO,powerData | battV: 3.62
+63001094,INFO,powerData | battI: -0.01
+63001114,INFO,powerData | busV: 3.62
+63001135,INFO,powerData | busI: 0.01
+63001153,INFO,powerData | BQ status reg: 0
+63001174,INFO,powerData | Fault reg: 0
+63001194,INFO,powerData | Charge status: 0
+63001214,INFO,powerData | DPM status: 0
+63301029,INFO,powerData | solV: 2.66
+63301050,INFO,powerData | solI: 0.00
+63301070,INFO,powerData | battV: 3.62
+63301091,INFO,powerData | battI: -0.01
+63301111,INFO,powerData | busV: 3.62
+63301130,INFO,powerData | busI: 0.01
+63301154,INFO,powerData | BQ status reg: 0
+63301175,INFO,powerData | Fault reg: 0
+63301195,INFO,powerData | Charge status: 0
+63301214,INFO,powerData | DPM status: 0
+63601039,INFO,powerData | solV: 3.26
+63601059,INFO,powerData | solI: 0.00
+63601080,INFO,powerData | battV: 3.62
+63601100,INFO,powerData | battI: -0.01
+63601121,INFO,powerData | busV: 3.62
+63601141,INFO,powerData | busI: 0.01
+63601162,INFO,powerData | BQ status reg: 0
+63601180,INFO,powerData | Fault reg: 0
+63601201,INFO,powerData | Charge status: 0
+63601225,INFO,powerData | DPM status: 0
+63901042,INFO,powerData | solV: 3.10
+63901063,INFO,powerData | solI: 0.00
+63901083,INFO,powerData | battV: 3.62
+63901104,INFO,powerData | battI: -0.02
+63901124,INFO,powerData | busV: 3.62
+63901145,INFO,powerData | busI: 0.01
+63901165,INFO,powerData | BQ status reg: 0
+63901186,INFO,powerData | Fault reg: 0
+63901206,INFO,powerData | Charge status: 0
+63901227,INFO,powerData | DPM status: 0
+64201043,INFO,powerData | solV: 3.13
+64201068,INFO,powerData | solI: 0.00
+64201089,INFO,powerData | battV: 3.62
+64201109,INFO,powerData | battI: -0.02
+64201129,INFO,powerData | busV: 3.62
+64201150,INFO,powerData | busI: 0.01
+64201168,INFO,powerData | BQ status reg: 0
+64201189,INFO,powerData | Fault reg: 0
+64201209,INFO,powerData | Charge status: 0
+64201230,INFO,powerData | DPM status: 0
+64501053,INFO,powerData | solV: 2.52
+64501073,INFO,powerData | solI: 0.00
+64501094,INFO,powerData | battV: 3.62
+64501114,INFO,powerData | battI: -0.01
+64501139,INFO,powerData | busV: 3.62
+64501159,INFO,powerData | busI: 0.01
+64501180,INFO,powerData | BQ status reg: 0
+64501198,INFO,powerData | Fault reg: 0
+64501219,INFO,powerData | Charge status: 0
+64501239,INFO,powerData | DPM status: 0
+64801058,INFO,powerData | solV: 3.26
+64801079,INFO,powerData | solI: 0.00
+64801099,INFO,powerData | battV: 3.62
+64801120,INFO,powerData | battI: -0.01
+64801144,INFO,powerData | busV: 3.62
+64801165,INFO,powerData | busI: 0.01
+64801185,INFO,powerData | BQ status reg: 0
+64801210,INFO,powerData | Fault reg: 0
+64801228,INFO,powerData | Charge status: 0
+64801249,INFO,powerData | DPM status: 0
+65101068,INFO,powerData | solV: 3.28
+65101088,INFO,powerData | solI: 0.00
+65101109,INFO,powerData | battV: 3.62
+65101129,INFO,powerData | battI: -0.01
+65101150,INFO,powerData | busV: 3.62
+65101170,INFO,powerData | busI: 0.01
+65101191,INFO,powerData | BQ status reg: 0
+65101209,INFO,powerData | Fault reg: 0
+65101230,INFO,powerData | Charge status: 0
+65101250,INFO,powerData | DPM status: 0
+65401075,INFO,powerData | solV: 3.26
+65401096,INFO,powerData | solI: 0.00
+65401118,INFO,powerData | battV: 3.62
+65401139,INFO,powerData | battI: -0.01
+65401159,INFO,powerData | busV: 3.62
+65401180,INFO,powerData | busI: 0.01
+65401200,INFO,powerData | BQ status reg: 0
+65401221,INFO,powerData | Fault reg: 0
+65401241,INFO,powerData | Charge status: 0
+65401260,INFO,powerData | DPM status: 0
+65701085,INFO,powerData | solV: 3.26
+65701105,INFO,powerData | solI: 0.00
+65701126,INFO,powerData | battV: 3.62
+65701150,INFO,powerData | battI: -0.01
+65701171,INFO,powerData | busV: 3.62
+65701191,INFO,powerData | busI: 0.01
+65701210,INFO,powerData | BQ status reg: 0
+65701230,INFO,powerData | Fault reg: 0
+65701251,INFO,powerData | Charge status: 0
+65701271,INFO,powerData | DPM status: 0
+66001088,INFO,powerData | solV: 3.30
+66001108,INFO,powerData | solI: 0.00
+66001129,INFO,powerData | battV: 3.62
+66001149,INFO,powerData | battI: -0.01
+66001170,INFO,powerData | busV: 3.62
+66001188,INFO,powerData | busI: 0.01
+66001207,INFO,powerData | BQ status reg: 0
+66001225,INFO,powerData | Fault reg: 0
+66001246,INFO,powerData | Charge status: 0
+66001266,INFO,powerData | DPM status: 0
+66301093,INFO,powerData | solV: 3.31
+66301114,INFO,powerData | solI: 0.00
+66301134,INFO,powerData | battV: 3.62
+66301155,INFO,powerData | battI: -0.01
+66301175,INFO,powerData | busV: 3.62
+66301194,INFO,powerData | busI: 0.01
+66301214,INFO,powerData | BQ status reg: 0
+66301235,INFO,powerData | Fault reg: 0
+66301257,INFO,powerData | Charge status: 0
+66301278,INFO,powerData | DPM status: 0
+66601097,INFO,powerData | solV: 3.22
+66601117,INFO,powerData | solI: 0.00
+66601138,INFO,powerData | battV: 3.62
+66601158,INFO,powerData | battI: -0.01
+66601179,INFO,powerData | busV: 3.62
+66601199,INFO,powerData | busI: 0.01
+66601220,INFO,powerData | BQ status reg: 0
+66601240,INFO,powerData | Fault reg: 0
+66601259,INFO,powerData | Charge status: 0
+66601279,INFO,powerData | DPM status: 0
+66901102,INFO,powerData | solV: 4.02
+66901127,INFO,powerData | solI: 0.00
+66901147,INFO,powerData | battV: 3.62
+66901168,INFO,powerData | battI: -0.01
+66901188,INFO,powerData | busV: 3.62
+66901209,INFO,powerData | busI: 0.01
+66901227,INFO,powerData | BQ status reg: 0
+66901248,INFO,powerData | Fault reg: 0
+66901268,INFO,powerData | Charge status: 0
+66901288,INFO,powerData | DPM status: 0
+67201110,INFO,powerData | solV: 4.34
+67201130,INFO,powerData | solI: 0.00
+67201150,INFO,powerData | battV: 3.62
+67201171,INFO,powerData | battI: -0.01
+67201196,INFO,powerData | busV: 3.62
+67201214,INFO,powerData | busI: 0.01
+67201234,INFO,powerData | BQ status reg: 0
+67201255,INFO,powerData | Fault reg: 16
+67201275,INFO,powerData | Charge status: 0
+67201296,INFO,powerData | DPM status: 0
+67501113,INFO,powerData | solV: 4.36
+67501133,INFO,powerData | solI: 0.00
+67501154,INFO,powerData | battV: 3.62
+67501174,INFO,powerData | battI: -0.01
+67501195,INFO,powerData | busV: 3.62
+67501215,INFO,powerData | busI: 0.01
+67501236,INFO,powerData | BQ status reg: 0
+67501260,INFO,powerData | Fault reg: 16
+67501279,INFO,powerData | Charge status: 0
+67501299,INFO,powerData | DPM status: 0
+67801114,INFO,powerData | solV: 4.23
+67801135,INFO,powerData | solI: 0.00
+67801155,INFO,powerData | battV: 3.62
+67801176,INFO,powerData | battI: -0.01
+67801196,INFO,powerData | busV: 3.62
+67801217,INFO,powerData | busI: 0.01
+67801235,INFO,powerData | BQ status reg: 0
+67801255,INFO,powerData | Fault reg: 0
+67801276,INFO,powerData | Charge status: 0
+67801300,INFO,powerData | DPM status: 0
+68101117,INFO,powerData | solV: 4.54
+68101138,INFO,powerData | solI: 0.00
+68101158,INFO,powerData | battV: 3.62
+68101179,INFO,powerData | battI: -0.01
+68101199,INFO,powerData | busV: 3.62
+68101220,INFO,powerData | busI: 0.01
+68101240,INFO,powerData | BQ status reg: 0
+68101259,INFO,powerData | Fault reg: 16
+68101279,INFO,powerData | Charge status: 0
+68101300,INFO,powerData | DPM status: 0
+68401121,INFO,powerData | solV: 4.34
+68401141,INFO,powerData | solI: 0.00
+68401166,INFO,powerData | battV: 3.62
+68401188,INFO,powerData | battI: -0.01
+68401209,INFO,powerData | busV: 3.62
+68401227,INFO,powerData | busI: 0.01
+68401248,INFO,powerData | BQ status reg: 0
+68401268,INFO,powerData | Fault reg: 16
+68401289,INFO,powerData | Charge status: 0
+68401309,INFO,powerData | DPM status: 0
+68701124,INFO,powerData | solV: 3.77
+68701145,INFO,powerData | solI: 0.00
+68701165,INFO,powerData | battV: 3.62
+68701186,INFO,powerData | battI: -0.01
+68701216,INFO,powerData | busV: 3.62
+68701241,INFO,powerData | busI: 0.01
+68701261,INFO,powerData | BQ status reg: 0
+68701280,INFO,powerData | Fault reg: 0
+68701300,INFO,powerData | Charge status: 0
+68701321,INFO,powerData | DPM status: 0
+69001125,INFO,powerData | solV: 4.99
+69001146,INFO,powerData | solI: 0.00
+69001166,INFO,powerData | battV: 3.62
+69001187,INFO,powerData | battI: -0.01
+69001207,INFO,powerData | busV: 3.62
+69001228,INFO,powerData | busI: 0.01
+69001246,INFO,powerData | BQ status reg: 0
+69001267,INFO,powerData | Fault reg: 16
+69001291,INFO,powerData | Charge status: 0
+69001312,INFO,powerData | DPM status: 0
+69301133,INFO,powerData | solV: 4.30
+69301153,INFO,powerData | solI: 0.00
+69301174,INFO,powerData | battV: 3.62
+69301194,INFO,powerData | battI: -0.01
+69301215,INFO,powerData | busV: 3.62
+69301235,INFO,powerData | busI: 0.01
+69301256,INFO,powerData | BQ status reg: 0
+69301276,INFO,powerData | Fault reg: 16
+69301297,INFO,powerData | Charge status: 0
+69301317,INFO,powerData | DPM status: 0
+69601134,INFO,powerData | solV: 4.87
+69601155,INFO,powerData | solI: 0.00
+69601175,INFO,powerData | battV: 3.62
+69601196,INFO,powerData | battI: -0.01
+69601216,INFO,powerData | busV: 3.62
+69601236,INFO,powerData | busI: 0.01
+69601257,INFO,powerData | BQ status reg: 0
+69601277,INFO,powerData | Fault reg: 16
+69601298,INFO,powerData | Charge status: 0
+69601318,INFO,powerData | DPM status: 0
+69901139,INFO,powerData | solV: 4.90
+69901160,INFO,powerData | solI: 0.00
+69901180,INFO,powerData | battV: 3.62
+69901205,INFO,powerData | battI: -0.01
+69901225,INFO,powerData | busV: 3.62
+69901244,INFO,powerData | busI: 0.01
+69901264,INFO,powerData | BQ status reg: 0
+69901285,INFO,powerData | Fault reg: 16
+69901305,INFO,powerData | Charge status: 0
+69901326,INFO,powerData | DPM status: 0
+70201147,INFO,powerData | solV: 5.04
+70201167,INFO,powerData | solI: 0.00
+70201188,INFO,powerData | battV: 3.62
+70201208,INFO,powerData | battI: -0.01
+70201229,INFO,powerData | busV: 3.62
+70201249,INFO,powerData | busI: 0.01
+70201274,INFO,powerData | BQ status reg: 0
+70201294,INFO,powerData | Fault reg: 16
+70201315,INFO,powerData | Charge status: 0
+70201333,INFO,powerData | DPM status: 0
+70501148,INFO,powerData | solV: 4.67
+70501169,INFO,powerData | solI: 0.00
+70501189,INFO,powerData | battV: 3.62
+70501210,INFO,powerData | battI: -0.01
+70501230,INFO,powerData | busV: 3.62
+70501251,INFO,powerData | busI: 0.01
+70501271,INFO,powerData | BQ status reg: 0
+70501292,INFO,powerData | Fault reg: 16
+70501310,INFO,powerData | Charge status: 0
+70501335,INFO,powerData | DPM status: 0
+70801149,INFO,powerData | solV: 4.97
+70801170,INFO,powerData | solI: 0.00
+70801190,INFO,powerData | battV: 3.62
+70801211,INFO,powerData | battI: -0.01
+70801231,INFO,powerData | busV: 3.62
+70801252,INFO,powerData | busI: 0.01
+70801270,INFO,powerData | BQ status reg: 0
+70801291,INFO,powerData | Fault reg: 16
+70801311,INFO,powerData | Charge status: 0
+70801332,INFO,powerData | DPM status: 0
+71101155,INFO,powerData | solV: 4.94
+71101175,INFO,powerData | solI: 0.00
+71101194,INFO,powerData | battV: 3.62
+71101214,INFO,powerData | battI: -0.01
+71101235,INFO,powerData | busV: 3.62
+71101255,INFO,powerData | busI: 0.01
+71101274,INFO,powerData | BQ status reg: 0
+71101294,INFO,powerData | Fault reg: 16
+71101315,INFO,powerData | Charge status: 0
+71101335,INFO,powerData | DPM status: 0
+71401162,INFO,powerData | solV: 4.50
+71401183,INFO,powerData | solI: 0.00
+71401203,INFO,powerData | battV: 3.62
+71401224,INFO,powerData | battI: -0.01
+71401248,INFO,powerData | busV: 3.62
+71401269,INFO,powerData | busI: 0.01
+71401289,INFO,powerData | BQ status reg: 0
+71401308,INFO,powerData | Fault reg: 16
+71401328,INFO,powerData | Charge status: 0
+71401349,INFO,powerData | DPM status: 0
+71701164,INFO,powerData | solV: 4.47
+71701184,INFO,powerData | solI: 0.00
+71701204,INFO,powerData | battV: 3.62
+71701225,INFO,powerData | battI: -0.01
+71701245,INFO,powerData | busV: 3.62
+71701266,INFO,powerData | busI: 0.01
+71701284,INFO,powerData | BQ status reg: 0
+71701309,INFO,powerData | Fault reg: 16
+71701329,INFO,powerData | Charge status: 0
+71701350,INFO,powerData | DPM status: 0
+72001173,INFO,powerData | solV: 4.85
+72001193,INFO,powerData | solI: 0.00
+72001214,INFO,powerData | battV: 3.62
+72001234,INFO,powerData | battI: -0.01
+72001255,INFO,powerData | busV: 3.62
+72001275,INFO,powerData | busI: 0.01
+72001296,INFO,powerData | BQ status reg: 0
+72001316,INFO,powerData | Fault reg: 16
+72001335,INFO,powerData | Charge status: 0
+72001355,INFO,powerData | DPM status: 0
+72301180,INFO,powerData | solV: 4.03
+72301201,INFO,powerData | solI: 0.00
+72301221,INFO,powerData | battV: 3.62
+72301242,INFO,powerData | battI: -0.01
+72301262,INFO,powerData | busV: 3.62
+72301281,INFO,powerData | busI: 0.01
+72301301,INFO,powerData | BQ status reg: 0
+72301322,INFO,powerData | Fault reg: 0
+72301342,INFO,powerData | Charge status: 0
+72301363,INFO,powerData | DPM status: 0
+72601188,INFO,powerData | solV: 5.10
+72601210,INFO,powerData | solI: 0.00
+72601231,INFO,powerData | battV: 3.62
+72601255,INFO,powerData | battI: -0.01
+72601274,INFO,powerData | busV: 3.62
+72601294,INFO,powerData | busI: 0.01
+72601315,INFO,powerData | BQ status reg: 0
+72601335,INFO,powerData | Fault reg: 16
+72601356,INFO,powerData | Charge status: 0
+72601376,INFO,powerData | DPM status: 0
+72901191,INFO,powerData | solV: 4.90
+72901212,INFO,powerData | solI: 0.00
+72901232,INFO,powerData | battV: 3.62
+72901255,INFO,powerData | battI: -0.01
+72901275,INFO,powerData | busV: 3.62
+72901294,INFO,powerData | busI: 0.01
+72901312,INFO,powerData | BQ status reg: 0
+72901330,INFO,powerData | Fault reg: 16
+72901351,INFO,powerData | Charge status: 0
+72901371,INFO,powerData | DPM status: 0
+73201199,INFO,powerData | solV: 4.82
+73201219,INFO,powerData | solI: 0.00
+73201240,INFO,powerData | battV: 3.62
+73201260,INFO,powerData | battI: -0.01
+73201281,INFO,powerData | busV: 3.62
+73201301,INFO,powerData | busI: 0.01
+73201321,INFO,powerData | BQ status reg: 0
+73201340,INFO,powerData | Fault reg: 16
+73201364,INFO,powerData | Charge status: 0
+73201385,INFO,powerData | DPM status: 0
+73501202,INFO,powerData | solV: 5.54
+73501222,INFO,powerData | solI: 0.00
+73501243,INFO,powerData | battV: 3.62
+73501263,INFO,powerData | battI: -0.01
+73501284,INFO,powerData | busV: 3.62
+73501304,INFO,powerData | busI: 0.01
+73501323,INFO,powerData | BQ status reg: 0
+73501343,INFO,powerData | Fault reg: 16
+73501364,INFO,powerData | Charge status: 0
+73501384,INFO,powerData | DPM status: 0
+73801203,INFO,powerData | solV: 5.64
+73801228,INFO,powerData | solI: 0.00
+73801248,INFO,powerData | battV: 3.62
+73801271,INFO,powerData | battI: -0.01
+73801291,INFO,powerData | busV: 3.62
+73801310,INFO,powerData | busI: 0.01
+73801330,INFO,powerData | BQ status reg: 0
+73801351,INFO,powerData | Fault reg: 16
+73801371,INFO,powerData | Charge status: 0
+73801392,INFO,powerData | DPM status: 0
+74101207,INFO,powerData | solV: 5.67
+74101227,INFO,powerData | solI: 0.00
+74101248,INFO,powerData | battV: 3.62
+74101268,INFO,powerData | battI: -0.01
+74101293,INFO,powerData | busV: 3.62
+74101311,INFO,powerData | busI: 0.01
+74101331,INFO,powerData | BQ status reg: 0
+74101352,INFO,powerData | Fault reg: 16
+74101372,INFO,powerData | Charge status: 0
+74101393,INFO,powerData | DPM status: 0
+74401210,INFO,powerData | solV: 4.89
+74401230,INFO,powerData | solI: 0.00
+74401251,INFO,powerData | battV: 3.62
+74401271,INFO,powerData | battI: -0.01
+74401292,INFO,powerData | busV: 3.62
+74401312,INFO,powerData | busI: 0.01
+74401333,INFO,powerData | BQ status reg: 0
+74401355,INFO,powerData | Fault reg: 16
+74401376,INFO,powerData | Charge status: 0
+74401396,INFO,powerData | DPM status: 0
+74701215,INFO,powerData | solV: 4.86
+74701236,INFO,powerData | solI: 0.00
+74701256,INFO,powerData | battV: 3.62
+74701279,INFO,powerData | battI: -0.01
+74701299,INFO,powerData | busV: 3.62
+74701318,INFO,powerData | busI: 0.01
+74701338,INFO,powerData | BQ status reg: 0
+74701359,INFO,powerData | Fault reg: 16
+74701379,INFO,powerData | Charge status: 0
+74701404,INFO,powerData | DPM status: 0
+75001223,INFO,powerData | solV: 5.62
+75001243,INFO,powerData | solI: 0.00
+75001264,INFO,powerData | battV: 3.62
+75001284,INFO,powerData | battI: -0.01
+75001305,INFO,powerData | busV: 3.62
+75001323,INFO,powerData | busI: 0.01
+75001344,INFO,powerData | BQ status reg: 0
+75001364,INFO,powerData | Fault reg: 16
+75001384,INFO,powerData | Charge status: 0
+75001405,INFO,powerData | DPM status: 0
+75301224,INFO,powerData | solV: 5.65
+75301246,INFO,powerData | solI: 0.02
+75301269,INFO,powerData | battV: 3.62
+75301289,INFO,powerData | battI: -0.01
+75301310,INFO,powerData | busV: 3.62
+75301328,INFO,powerData | busI: 0.01
+75301349,INFO,powerData | BQ status reg: 172
+75301369,INFO,powerData | Fault reg: 0
+75301390,INFO,powerData | Charge status: 2
+75301408,INFO,powerData | DPM status: 1
+75601229,INFO,powerData | solV: 5.66
+75601250,INFO,powerData | solI: 0.02
+75601270,INFO,powerData | battV: 3.62
+75601291,INFO,powerData | battI: -0.00
+75601311,INFO,powerData | busV: 3.62
+75601336,INFO,powerData | busI: 0.01
+75601356,INFO,powerData | BQ status reg: 172
+75601377,INFO,powerData | Fault reg: 0
+75601397,INFO,powerData | Charge status: 2
+75601416,INFO,powerData | DPM status: 1
+75901231,INFO,powerData | solV: 5.66
+75901251,INFO,powerData | solI: 0.02
+75901272,INFO,powerData | battV: 3.62
+75901292,INFO,powerData | battI: 0.00
+75901313,INFO,powerData | busV: 3.62
+75901333,INFO,powerData | busI: 0.01
+75901351,INFO,powerData | BQ status reg: 172
+75901372,INFO,powerData | Fault reg: 0
+75901396,INFO,powerData | Charge status: 2
+75901417,INFO,powerData | DPM status: 1
+76201236,INFO,powerData | solV: 5.66
+76201256,INFO,powerData | solI: 0.03
+76201277,INFO,powerData | battV: 3.62
+76201297,INFO,powerData | battI: 0.01
+76201318,INFO,powerData | busV: 3.62
+76201338,INFO,powerData | busI: 0.01
+76201357,INFO,powerData | BQ status reg: 172
+76201377,INFO,powerData | Fault reg: 0
+76201400,INFO,powerData | Charge status: 2
+76201420,INFO,powerData | DPM status: 1
+76501243,INFO,powerData | solV: 5.66
+76501264,INFO,powerData | solI: 0.03
+76501284,INFO,powerData | battV: 3.62
+76501307,INFO,powerData | battI: 0.01
+76501327,INFO,powerData | busV: 3.62
+76501346,INFO,powerData | busI: 0.01
+76501366,INFO,powerData | BQ status reg: 172
+76501387,INFO,powerData | Fault reg: 0
+76501407,INFO,powerData | Charge status: 2
+76501428,INFO,powerData | DPM status: 1
+76801253,INFO,powerData | solV: 5.66
+76801273,INFO,powerData | solI: 0.02
+76801294,INFO,powerData | battV: 3.62
+76801318,INFO,powerData | battI: 0.00
+76801339,INFO,powerData | busV: 3.62
+76801357,INFO,powerData | busI: 0.01
+76801378,INFO,powerData | BQ status reg: 172
+76801398,INFO,powerData | Fault reg: 0
+76801419,INFO,powerData | Charge status: 2
+76801439,INFO,powerData | DPM status: 1
+77101260,INFO,powerData | solV: 5.66
+77101281,INFO,powerData | solI: 0.03
+77101301,INFO,powerData | battV: 3.62
+77101322,INFO,powerData | battI: 0.01
+77101342,INFO,powerData | busV: 3.62
+77101363,INFO,powerData | busI: 0.01
+77101385,INFO,powerData | BQ status reg: 172
+77101406,INFO,powerData | Fault reg: 0
+77101426,INFO,powerData | Charge status: 2
+77101447,INFO,powerData | DPM status: 1
+77401262,INFO,powerData | solV: 5.66
+77401282,INFO,powerData | solI: 0.03
+77401303,INFO,powerData | battV: 3.62
+77401325,INFO,powerData | battI: 0.01
+77401344,INFO,powerData | busV: 3.62
+77401364,INFO,powerData | busI: 0.01
+77401384,INFO,powerData | BQ status reg: 172
+77401405,INFO,powerData | Fault reg: 0
+77401425,INFO,powerData | Charge status: 2
+77401450,INFO,powerData | DPM status: 1
+77701267,INFO,powerData | solV: 5.66
+77701287,INFO,powerData | solI: 0.03
+77701308,INFO,powerData | battV: 3.62
+77701328,INFO,powerData | battI: 0.01
+77701349,INFO,powerData | busV: 3.62
+77701369,INFO,powerData | busI: 0.01
+77701388,INFO,powerData | BQ status reg: 172
+77701408,INFO,powerData | Fault reg: 0
+77701429,INFO,powerData | Charge status: 2
+77701449,INFO,powerData | DPM status: 1
+78001270,INFO,powerData | solV: 5.66
+78001295,INFO,powerData | solI: 0.03
+78001315,INFO,powerData | battV: 3.62
+78001336,INFO,powerData | battI: 0.01
+78001356,INFO,powerData | busV: 3.62
+78001375,INFO,powerData | busI: 0.01
+78001395,INFO,powerData | BQ status reg: 172
+78001416,INFO,powerData | Fault reg: 0
+78001436,INFO,powerData | Charge status: 2
+78001457,INFO,powerData | DPM status: 1
+78301278,INFO,powerData | solV: 5.66
+78301298,INFO,powerData | solI: 0.02
+78301319,INFO,powerData | battV: 3.62
+78301339,INFO,powerData | battI: 0.00
+78301364,INFO,powerData | busV: 3.62
+78301384,INFO,powerData | busI: 0.01
+78301403,INFO,powerData | BQ status reg: 172
+78301423,INFO,powerData | Fault reg: 0
+78301444,INFO,powerData | Charge status: 2
+78301464,INFO,powerData | DPM status: 1
+78601285,INFO,powerData | solV: 5.66
+78601306,INFO,powerData | solI: 0.02
+78601326,INFO,powerData | battV: 3.62
+78601347,INFO,powerData | battI: -0.00
+78601367,INFO,powerData | busV: 3.62
+78601385,INFO,powerData | busI: 0.01
+78601406,INFO,powerData | BQ status reg: 172
+78601431,INFO,powerData | Fault reg: 0
+78601449,INFO,powerData | Charge status: 2
+78601469,INFO,powerData | DPM status: 1
+78901288,INFO,powerData | solV: 5.65
+78901309,INFO,powerData | solI: 0.01
+78901329,INFO,powerData | battV: 3.62
+78901350,INFO,powerData | battI: -0.01
+78901370,INFO,powerData | busV: 3.62
+78901391,INFO,powerData | busI: 0.01
+78901411,INFO,powerData | BQ status reg: 172
+78901432,INFO,powerData | Fault reg: 0
+78901450,INFO,powerData | Charge status: 2
+78901471,INFO,powerData | DPM status: 1
+79201292,INFO,powerData | solV: 5.66
+79201312,INFO,powerData | solI: 0.01
+79201333,INFO,powerData | battV: 3.62
+79201353,INFO,powerData | battI: -0.01
+79201374,INFO,powerData | busV: 3.62
+79201394,INFO,powerData | busI: 0.01
+79201415,INFO,powerData | BQ status reg: 172
+79201435,INFO,powerData | Fault reg: 0
+79201456,INFO,powerData | Charge status: 2
+79201476,INFO,powerData | DPM status: 1
+79501301,INFO,powerData | solV: 5.66
+79501322,INFO,powerData | solI: 0.02
+79501346,INFO,powerData | battV: 3.62
+79501367,INFO,powerData | battI: -0.00
+79501387,INFO,powerData | busV: 3.62
+79501406,INFO,powerData | busI: 0.01
+79501426,INFO,powerData | BQ status reg: 172
+79501447,INFO,powerData | Fault reg: 0
+79501467,INFO,powerData | Charge status: 2
+79501488,INFO,powerData | DPM status: 1
+79801309,INFO,powerData | solV: 3.96
+79801329,INFO,powerData | solI: 0.00
+79801350,INFO,powerData | battV: 3.62
+79801370,INFO,powerData | battI: -0.01
+79801391,INFO,powerData | busV: 3.62
+79801415,INFO,powerData | busI: 0.01
+79801436,INFO,powerData | BQ status reg: 0
+79801454,INFO,powerData | Fault reg: 0
+79801475,INFO,powerData | Charge status: 0
+79801495,INFO,powerData | DPM status: 0
+80101310,INFO,powerData | solV: 5.28
+80101330,INFO,powerData | solI: 0.00
+80101351,INFO,powerData | battV: 3.62
+80101373,INFO,powerData | battI: -0.01
+80101392,INFO,powerData | busV: 3.62
+80101414,INFO,powerData | busI: 0.01
+80101435,INFO,powerData | BQ status reg: 0
+80101455,INFO,powerData | Fault reg: 16
+80101480,INFO,powerData | Charge status: 0
+80101500,INFO,powerData | DPM status: 0
+80401313,INFO,powerData | solV: 5.14
+80401334,INFO,powerData | solI: 0.00
+80401354,INFO,powerData | battV: 3.62
+80401375,INFO,powerData | battI: -0.01
+80401395,INFO,powerData | busV: 3.62
+80401416,INFO,powerData | busI: 0.01
+80401434,INFO,powerData | BQ status reg: 0
+80401455,INFO,powerData | Fault reg: 0
+80401475,INFO,powerData | Charge status: 0
+80401496,INFO,powerData | DPM status: 0
+80701315,INFO,powerData | solV: 5.24
+80701339,INFO,powerData | solI: 0.00
+80701360,INFO,powerData | battV: 3.62
+80701380,INFO,powerData | battI: -0.01
+80701401,INFO,powerData | busV: 3.62
+80701421,INFO,powerData | busI: 0.01
+80701442,INFO,powerData | BQ status reg: 0
+80701460,INFO,powerData | Fault reg: 16
+80701480,INFO,powerData | Charge status: 0
+80701501,INFO,powerData | DPM status: 0
+81001320,INFO,powerData | solV: 5.48
+81001340,INFO,powerData | solI: 0.00
+81001361,INFO,powerData | battV: 3.62
+81001385,INFO,powerData | battI: -0.01
+81001406,INFO,powerData | busV: 3.62
+81001426,INFO,powerData | busI: 0.01
+81001447,INFO,powerData | BQ status reg: 0
+81001465,INFO,powerData | Fault reg: 0
+81001486,INFO,powerData | Charge status: 0
+81001506,INFO,powerData | DPM status: 0
+81301325,INFO,powerData | solV: 5.66
+81301346,INFO,powerData | solI: 0.01
+81301366,INFO,powerData | battV: 3.62
+81301387,INFO,powerData | battI: -0.01
+81301407,INFO,powerData | busV: 3.62
+81301426,INFO,powerData | busI: 0.01
+81301450,INFO,powerData | BQ status reg: 172
+81301471,INFO,powerData | Fault reg: 0
+81301489,INFO,powerData | Charge status: 2
+81301510,INFO,powerData | DPM status: 1
+81601327,INFO,powerData | solV: 5.38
+81601349,INFO,powerData | solI: 0.00
+81601368,INFO,powerData | battV: 3.62
+81601388,INFO,powerData | battI: -0.01
+81601409,INFO,powerData | busV: 3.62
+81601429,INFO,powerData | busI: 0.01
+81601447,INFO,powerData | BQ status reg: 172
+81601468,INFO,powerData | Fault reg: 0
+81601488,INFO,powerData | Charge status: 2
+81601513,INFO,powerData | DPM status: 1
+81901340,INFO,powerData | solV: 5.66
+81901363,INFO,powerData | solI: 0.01
+81901383,INFO,powerData | battV: 3.62
+81901404,INFO,powerData | battI: -0.01
+81901424,INFO,powerData | busV: 3.62
+81901445,INFO,powerData | busI: 0.01
+81901465,INFO,powerData | BQ status reg: 172
+81901484,INFO,powerData | Fault reg: 0
+81901504,INFO,powerData | Charge status: 2
+81901524,INFO,powerData | DPM status: 1
+82201348,INFO,powerData | solV: 5.66
+82201368,INFO,powerData | solI: 0.02
+82201393,INFO,powerData | battV: 3.62
+82201413,INFO,powerData | battI: -0.00
+82201434,INFO,powerData | busV: 3.62
+82201452,INFO,powerData | busI: 0.01
+82201473,INFO,powerData | BQ status reg: 172
+82201493,INFO,powerData | Fault reg: 0
+82201513,INFO,powerData | Charge status: 2
+82201534,INFO,powerData | DPM status: 1
+82501355,INFO,powerData | solV: 5.50
+82501376,INFO,powerData | solI: 0.00
+82501396,INFO,powerData | battV: 3.62
+82501416,INFO,powerData | battI: -0.01
+82501441,INFO,powerData | busV: 3.62
+82501462,INFO,powerData | busI: 0.01
+82501480,INFO,powerData | BQ status reg: 172
+82501500,INFO,powerData | Fault reg: 0
+82501521,INFO,powerData | Charge status: 2
+82501541,INFO,powerData | DPM status: 1
+82801362,INFO,powerData | solV: 5.43
+82801383,INFO,powerData | solI: 0.00
+82801403,INFO,powerData | battV: 3.62
+82801426,INFO,powerData | battI: -0.01
+82801444,INFO,powerData | busV: 3.62
+82801465,INFO,powerData | busI: 0.01
+82801485,INFO,powerData | BQ status reg: 172
+82801510,INFO,powerData | Fault reg: 0
+82801530,INFO,powerData | Charge status: 2
+82801549,INFO,powerData | DPM status: 1
+83101364,INFO,powerData | solV: 5.34
+83101384,INFO,powerData | solI: 0.00
+83101405,INFO,powerData | battV: 3.62
+83101425,INFO,powerData | battI: -0.01
+83101446,INFO,powerData | busV: 3.62
+83101466,INFO,powerData | busI: 0.01
+83101487,INFO,powerData | BQ status reg: 172
+83101507,INFO,powerData | Fault reg: 0
+83101526,INFO,powerData | Charge status: 2
+83101546,INFO,powerData | DPM status: 1
+83401369,INFO,powerData | solV: 5.52
+83401390,INFO,powerData | solI: 0.00
+83401410,INFO,powerData | battV: 3.62
+83401431,INFO,powerData | battI: -0.01
+83401451,INFO,powerData | busV: 3.62
+83401472,INFO,powerData | busI: 0.01
+83401492,INFO,powerData | BQ status reg: 172
+83401523,INFO,powerData | Fault reg: 0
+83401543,INFO,powerData | Charge status: 2
+83401564,INFO,powerData | DPM status: 1
+83701374,INFO,powerData | solV: 5.65
+83701397,INFO,powerData | solI: 0.02
+83701415,INFO,powerData | battV: 3.62
+83701442,INFO,powerData | battI: -0.01
+83701463,INFO,powerData | busV: 3.62
+83701481,INFO,powerData | busI: 0.01
+83701501,INFO,powerData | BQ status reg: 172
+83701522,INFO,powerData | Fault reg: 0
+83701542,INFO,powerData | Charge status: 2
+83701563,INFO,powerData | DPM status: 1
+84001382,INFO,powerData | solV: 5.66
+84001402,INFO,powerData | solI: 0.01
+84001423,INFO,powerData | battV: 3.62
+84001443,INFO,powerData | battI: -0.01
+84001464,INFO,powerData | busV: 3.62
+84001488,INFO,powerData | busI: 0.01
+84001509,INFO,powerData | BQ status reg: 172
+84001529,INFO,powerData | Fault reg: 0
+84001548,INFO,powerData | Charge status: 2
+84001568,INFO,powerData | DPM status: 1
+84301385,INFO,powerData | solV: 5.66
+84301406,INFO,powerData | solI: 0.01
+84301426,INFO,powerData | battV: 3.62
+84301447,INFO,powerData | battI: -0.01
+84301467,INFO,powerData | busV: 3.62
+84301488,INFO,powerData | busI: 0.01
+84301506,INFO,powerData | BQ status reg: 172
+84301527,INFO,powerData | Fault reg: 0
+84301551,INFO,powerData | Charge status: 2
+84301572,INFO,powerData | DPM status: 1
+84601389,INFO,powerData | solV: 5.31
+84601409,INFO,powerData | solI: 0.00
+84601430,INFO,powerData | battV: 3.62
+84601450,INFO,powerData | battI: -0.01
+84601470,INFO,powerData | busV: 3.62
+84601491,INFO,powerData | busI: 0.01
+84601511,INFO,powerData | BQ status reg: 172
+84601530,INFO,powerData | Fault reg: 0
+84601550,INFO,powerData | Charge status: 2
+84601571,INFO,powerData | DPM status: 1
+84901390,INFO,powerData | solV: 5.44
+84901414,INFO,powerData | solI: 0.00
+84901435,INFO,powerData | battV: 3.62
+84901455,INFO,powerData | battI: -0.01
+84901476,INFO,powerData | busV: 3.62
+84901496,INFO,powerData | busI: 0.01
+84901517,INFO,powerData | BQ status reg: 172
+84901535,INFO,powerData | Fault reg: 0
+84901556,INFO,powerData | Charge status: 2
+84901576,INFO,powerData | DPM status: 1
+85201395,INFO,powerData | solV: 5.66
+85201416,INFO,powerData | solI: 0.01
+85201436,INFO,powerData | battV: 3.62
+85201457,INFO,powerData | battI: -0.01
+85201481,INFO,powerData | busV: 3.62
+85201502,INFO,powerData | busI: 0.01
+85201520,INFO,powerData | BQ status reg: 172
+85201541,INFO,powerData | Fault reg: 0
+85201561,INFO,powerData | Charge status: 2
+85201582,INFO,powerData | DPM status: 1
+85501396,INFO,powerData | solV: 5.66
+85501417,INFO,powerData | solI: 0.02
+85501437,INFO,powerData | battV: 3.62
+85501460,INFO,powerData | battI: -0.00
+85501478,INFO,powerData | busV: 3.62
+85501499,INFO,powerData | busI: 0.01
+85501523,INFO,powerData | BQ status reg: 172
+85501544,INFO,powerData | Fault reg: 0
+85501564,INFO,powerData | Charge status: 2
+85501583,INFO,powerData | DPM status: 1
+85801406,INFO,powerData | solV: 5.66
+85801426,INFO,powerData | solI: 0.04
+85801447,INFO,powerData | battV: 3.62
+85801467,INFO,powerData | battI: 0.02
+85801488,INFO,powerData | busV: 3.62
+85801508,INFO,powerData | busI: 0.01
+85801529,INFO,powerData | BQ status reg: 172
+85801549,INFO,powerData | Fault reg: 0
+85801568,INFO,powerData | Charge status: 2
+85801592,INFO,powerData | DPM status: 1
+86101413,INFO,powerData | solV: 5.66
+86101434,INFO,powerData | solI: 0.02
+86101454,INFO,powerData | battV: 3.62
+86101475,INFO,powerData | battI: 0.00
+86101495,INFO,powerData | busV: 3.62
+86101516,INFO,powerData | busI: 0.01
+86101534,INFO,powerData | BQ status reg: 172
+86101555,INFO,powerData | Fault reg: 0
+86101575,INFO,powerData | Charge status: 2
+86101596,INFO,powerData | DPM status: 1
+86400004,INFO,Init idle CK
+86400630,DEBUG,GPS fail reset count: 0
+86405873,DEBUG,Iridium fail reset count: 0
+86405947,INFO,powerData | solV: 5.65
+86405969,INFO,powerData | solI: 0.02
+86405990,INFO,powerData | battV: 3.62
+86406010,INFO,powerData | battI: -0.05
+86406029,INFO,powerData | busV: 3.61
+86406049,INFO,powerData | busI: 0.04
+86406070,INFO,powerData | BQ status reg: 172
+86406090,INFO,powerData | Fault reg: 0
+86406111,INFO,powerData | Charge status: 2
+86406133,INFO,powerData | DPM status: 1
+86406461,INFO,Start idle CK fix
+86406508,INFO,imei: 300434065477320
+86437038,INFO,GpsSigErr changed to NO_ERR
+86437066,INFO,Idle CK
+86437089,INFO,submitting message: 50 byte / 400 bit messsage: 
+86437138,DEBUG,m 0 sub to Q at i 0 count: 0
+86437160,DEBUG,1 msgs in Q
+86437187,DEBUG,Sending Q index: 0 id: 0
+86555000,INFO,Send complete: Q index: 0 count_id 0
+86555224,INFO,Idle check in successful
+86555246,INFO,WD FORCING SYSTEM RESET

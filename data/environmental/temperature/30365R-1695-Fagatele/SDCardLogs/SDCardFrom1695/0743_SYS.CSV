@@ -1,0 +1,67 @@
+millis,type,message
+14917,DEBUG,SD Card init SUCCESS!
+14938,DEBUG,ext ram fail reset count: 0
+14956,INFO,session id: 743
+14966,INFO,reset source: 1
+14983,INFO,Device Id: 65477320
+15003,INFO,Firmware SHA: 93CE0B95
+15022,INFO,MAX_SAMPLE_GAP_S: 3.00
+15034,INFO,SPIKE_G_TH: 3.00
+15040,INFO,MAX_MESSAGE_LEN_FULL: 301
+15046,INFO,MAX_MESSAGE_LEN_BASIC: 51
+15054,INFO,MAX_MESSAGE_LEN_SM: 341
+15058,INFO,MESSAGE_QUEUE_LEN: 10
+15065,INFO,STRICT_NMEA: 1
+15071,INFO,MAIN_DECK_HW_VERSION: 7
+15077,INFO,F_MIN: 0.03
+15087,INFO,F_MAX: 0.80
+15104,INFO, sysConfig | sd reset max: 5
+15114,INFO, sysConfig | wd enable: 1
+15122,INFO, sysConfig | prod log mode: 1
+15132,INFO, sysConfig | log filt sd: 1
+15140,INFO, sysConfig | log gps sd: 1
+15149,INFO, sysConfig | gps log lvl: 0
+15157,INFO, sysConfig | log pow sd: 1
+15165,INFO, sysConfig | log nmea sd: 1
+15173,INFO, sysConfig | log irid sd: 1
+15181,INFO, sysConfig | log fft sd: 1
+15190,INFO, sysConfig | log spec sd: 0
+15198,INFO, sysConfig | log speca sd: 0
+15206,INFO, sysConfig | log dre sd: 1
+15218,INFO, sysConfig | log message sd: 1
+15228,INFO, sysConfig | statistics mode: 0
+15237,INFO, sysConfig | log gmn sd: 1
+15245,INFO, sysConfig | min messages period basic: 0
+15257,INFO, sysConfig | min messages period full: 0
+15267,INFO, sysConfig | gps power lvl: 1
+15278,INFO, sysConfig | log gmn 1s: 0
+15286,INFO, sysConfig | log bin sd: 0
+15294,INFO, sysConfig | message samples basic: 2
+15304,INFO, sysConfig | self test: 0
+15312,INFO, sysConfig | self test reset max: 2
+15327,INFO, sysConfig | vis led enable: 1
+15335,INFO, sysConfig | log sst sd: 1
+15343,INFO, sysConfig | external hardware reset max: 5
+15355,INFO, sysConfig | sst sampling period: 1
+15366,INFO, sysConfig | sst n samples to avg: 6
+15376,INFO, sysConfig | partition thresh bin: 7
+15386,INFO, sysConfig | gps sleep enable: 1
+15396,INFO, sysConfig | idle checkin period: 3
+15407,INFO, sysConfig | bridge enable: 1
+15415,INFO, sysConfig | log smdata sd: 1
+15665,INFO,External hw available: 00000100
+15697,INFO,Initializing Bridge
+18219,INFO,Starting Bridge Self Test
+19200,INFO,Bridge initialized
+19367,INFO,powerData | solV: 5.66
+19390,INFO,powerData | solI: 0.03
+19408,INFO,powerData | battV: 2.61
+19429,INFO,powerData | battI: -0.06
+19449,INFO,powerData | busV: 2.58
+19468,INFO,powerData | busI: 0.09
+19488,INFO,powerData | BQ status reg: 157
+19509,INFO,powerData | Fault reg: 0
+19527,INFO,powerData | Charge status: 1
+19548,INFO,powerData | DPM status: 1
+19574,INFO,Loaded OP MODE: 40962
+19660,DEBUG,Iridium fail reset count: 0

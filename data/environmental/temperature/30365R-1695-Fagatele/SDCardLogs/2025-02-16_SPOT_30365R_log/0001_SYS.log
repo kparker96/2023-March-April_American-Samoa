@@ -1,0 +1,20 @@
+411t [SYS] [INFO] Loading hardware config
+729t [SYS] [INFO] Initialize sensors
+798t [SYS] [INFO] Starting barometer filter with parameters:
+size: 200
+percentile: 10.00
+downsamplingRate: 50
+alpha: 1.0000387
+809t [SYS] [INFO] Error initializing BARO
+824t [SYS] [INFO] Init values CALR: 000000BC CALM: 188, CALP: 0
+825t [SYS] [INFO] APP_NAME: spotter-dbg
+825t [SYS] [INFO] UID: 203630325847500600340023
+825t [SYS] [INFO] FW Version: v2.1.0
+825t [SYS] [INFO] GIT SHA: FE6412C3
+825t [SYS] [INFO] Build ID: 327474a8ac3d2ce7f13558b38d652813dea54022
+826t [SYS] [INFO] BSP: pluteus_v3.1
+826t [SYS] [INFO] Reset Reason: Invalid reset or first power on since flashing
+826t [SYS] [INFO] Main Deck HW Version: 01
+828t [SYS] [INFO] Upper Deck HW Version: 01
+1154t [SYS] [INFO] IMEI: 300534064008050
+30729t [SYS] [ERROR] rebootctl reset 1. Source: 7

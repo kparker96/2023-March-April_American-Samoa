@@ -1,0 +1,6 @@
+323t [MFLT] [INFO] GNU Build ID: 327474a8ac3d2ce7f13558b38d652813dea54022
+323t [MFLT] [INFO] Reset Reason, RCC_CSR=0x14000603
+323t [MFLT] [INFO] Reset Causes: 
+324t [MFLT] [INFO]  Software
+2025-02-19T05:58:25.027Z [MFLT] [INFO] Sending memfault message!
+2025-02-19T05:58:25.031Z [MFLT] [INFO] Message 1 added to queue.

@@ -1,0 +1,106 @@
+437t [CFG] [INFO] Initializing sysCfg
+437t [CFG] [INFO] Loading sysCfg
+438t [CFG] [INFO] HWCFG: 
+ * hwVersion: 11
+ * hasBridge: 1
+ * hasSST: 0
+ * hasBaro: 1
+ * baroOffsetPa: -56
+ * baroSignature: 1481490147
+ * baroCalTime: 1666378327
+438t [CFG] [INFO] Current configuration:
+rstr=12
+rctls=0
+hwv=11
+imen=0
+imch=24
+imgto=3
+imito=5
+battcrit=2900
+batten=3100
+mod=4
+fmd=60
+dwl=0
+smrr=1
+pmpb=7
+cde=1
+mfmet=0
+sde=2
+sddelay=10
+sdcgb=15
+sdup=2
+gpsp=400
+gpsasr=50
+gpsrtc=1
+gpsdt=3
+hcim=60
+boc=1000
+sov=75
+raind=5000
+raini=0
+rainrec=0
+hab=1
+bre=1
+bdt=3100
+brd=400
+maxmont=180
+minmoft=600
+ict=0
+imss=0
+ibhm=60
+ibtv=3500
+hasst=0
+ssti=1000
+sstlr=60
+habar=1
+bopa=-56
+bsig=1481490147
+bcalt=1666378327
+bari=200
+barfs=200
+barfds=50
+barfpct=10
+barfa=387
+barlr=60
+htui=1000
+htulr=60
+pwrlr=30
+lsi=60
+schki=1800
+vle=1
+vledonms=75
+vledoffms=2425
+vleimax=300
+vleimin=180
+lnmea=4
+lgpsc=4
+lgpsl=28
+lgmn=20
+lirid=28
+lrain=4
+lrdb=4
+lpipe=4
+lfilt=1
+logn=0
+lfft=0
+lspec=0
+lspeca=2
+lerr=28
+lbri=20
+lbsd=20
+lms=29
+lser=11
+ltask=4
+lmem=4
+lcfg=28
+lmic=12
+li2c=12
+lspi=12
+lfdbg=4
+lsys=28
+lmflt=4
+lorch=4
+lbaror=4
+lbarof=20
+lmsg=20
+lubx=12

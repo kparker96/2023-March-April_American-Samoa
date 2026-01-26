@@ -1,0 +1,8 @@
+331t [MFLT] [INFO] GNU Build ID: 327474a8ac3d2ce7f13558b38d652813dea54022
+331t [MFLT] [INFO] Reset Reason, RCC_CSR=0xc000603
+332t [MFLT] [INFO] Reset Causes: 
+332t [MFLT] [INFO]  Brown out / POR
+335t [MFLT] [INFO] GNU Build ID: 327474a8ac3d2ce7f13558b38d652813dea54022
+335t [MFLT] [INFO] Reset Reason, RCC_CSR=0x14000603
+335t [MFLT] [INFO] Reset Causes: 
+335t [MFLT] [INFO]  Software

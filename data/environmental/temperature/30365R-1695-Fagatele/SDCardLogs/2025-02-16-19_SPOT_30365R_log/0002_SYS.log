@@ -1,0 +1,23 @@
+403t [SYS] [INFO] Loading hardware config
+721t [SYS] [INFO] Initialize sensors
+790t [SYS] [INFO] Starting barometer filter with parameters:
+size: 200
+percentile: 10.00
+downsamplingRate: 50
+alpha: 1.0000387
+801t [SYS] [INFO] Error initializing BARO
+816t [SYS] [INFO] Init values CALR: 000000BC CALM: 188, CALP: 0
+817t [SYS] [INFO] APP_NAME: spotter-dbg
+817t [SYS] [INFO] UID: 203630325847500600340023
+817t [SYS] [INFO] FW Version: v2.1.0
+817t [SYS] [INFO] GIT SHA: FE6412C3
+817t [SYS] [INFO] Build ID: 327474a8ac3d2ce7f13558b38d652813dea54022
+818t [SYS] [INFO] BSP: pluteus_v3.1
+818t [SYS] [INFO] Reset Reason: Reboot Controller
+818t [SYS] [INFO] RebootCtl Source: 7
+818t [SYS] [INFO] Main Deck HW Version: 01
+820t [SYS] [INFO] Upper Deck HW Version: 01
+1146t [SYS] [INFO] IMEI: 300534064008050
+73746t [SYS] [WARNING] Updating RTC from GPS time.
+2025-02-16T05:30:01.000Z [SYS] [WARNING] RTC wasn't set previously. Rotating logs.
+2025-02-19T06:57:48.214Z [SYS] [ERROR] rebootctl reset 2. Source: 7

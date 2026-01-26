@@ -1,0 +1,3 @@
+2025-02-16T05:30:01.031Z [SM] [INFO] Starting message. Epoch: 1739683801 (GPS epoch: 1739683801 Diff 0)
+2025-02-16T05:30:01.035Z [SM] [INFO] Next SM event in 1800 seconds.
+2025-02-16T05:30:01.035Z [SM] [INFO] Scheduling orch callback to execute in 1800 sec which should be epoch 1739685601

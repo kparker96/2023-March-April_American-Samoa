@@ -1,0 +1,13 @@
+2025-02-16T05:55:31.773Z [GPS] [WARNING] Dropped gps sentence (4)
+2025-02-16T05:55:49.753Z [GPS] [INFO] Max CNO changed from -1 to 47
+2025-02-16T05:57:29.750Z [GPS] [INFO] Max CNO changed from 47 to 50
+2025-02-16T06:05:49.789Z [GPS] [INFO] Max CNO changed from 50 to 47
+2025-02-16T06:09:29.808Z [GPS] [INFO] Max CNO changed from 47 to 44
+2025-02-16T06:12:09.800Z [GPS] [INFO] Max CNO changed from 44 to 48
+2025-02-16T06:14:29.800Z [GPS] [INFO] Max CNO changed from 48 to 45
+2025-02-16T06:15:49.792Z [GPS] [INFO] Max CNO changed from 45 to 49
+2025-02-16T06:19:09.785Z [GPS] [INFO] Max CNO changed from 49 to 46
+2025-02-16T06:24:49.781Z [GPS] [INFO] Max CNO changed from 46 to 43
+2025-02-16T06:26:49.785Z [GPS] [INFO] Max CNO changed from 43 to 46
+2025-02-16T06:31:49.773Z [GPS] [INFO] Max CNO changed from 46 to 49
+2025-02-16T06:50:29.750Z [GPS] [INFO] Max CNO changed from 49 to 45

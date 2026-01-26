@@ -1,0 +1,4 @@
+356t [MFLT] [INFO] GNU Build ID: 327474a8ac3d2ce7f13558b38d652813dea54022
+356t [MFLT] [INFO] Reset Reason, RCC_CSR=0xc000603
+356t [MFLT] [INFO] Reset Causes: 
+356t [MFLT] [INFO]  Brown out / POR

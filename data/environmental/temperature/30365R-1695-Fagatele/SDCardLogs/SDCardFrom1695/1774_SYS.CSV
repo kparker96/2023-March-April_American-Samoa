@@ -1,0 +1,117 @@
+millis,type,message
+16652,DEBUG,SD Card init SUCCESS!
+16670,WARN,Recovered from SD failure - resets: 1
+16703,DEBUG,ext ram fail reset count: 0
+16726,INFO,session id: 1774
+16734,INFO,reset source: 0
+16752,INFO,Device Id: 65477320
+16771,INFO,Firmware SHA: 93CE0B95
+16789,INFO,MAX_SAMPLE_GAP_S: 3.00
+16801,INFO,SPIKE_G_TH: 3.00
+16807,INFO,MAX_MESSAGE_LEN_FULL: 301
+16816,INFO,MAX_MESSAGE_LEN_BASIC: 51
+16822,INFO,MAX_MESSAGE_LEN_SM: 341
+16826,INFO,MESSAGE_QUEUE_LEN: 10
+16832,INFO,STRICT_NMEA: 1
+16838,INFO,MAIN_DECK_HW_VERSION: 7
+16850,INFO,F_MIN: 0.03
+16855,INFO,F_MAX: 0.80
+16871,INFO, sysConfig | sd reset max: 5
+16883,INFO, sysConfig | wd enable: 1
+16891,INFO, sysConfig | prod log mode: 1
+16900,INFO, sysConfig | log filt sd: 1
+16908,INFO, sysConfig | log gps sd: 1
+16916,INFO, sysConfig | gps log lvl: 0
+16924,INFO, sysConfig | log pow sd: 1
+16932,INFO, sysConfig | log nmea sd: 1
+16941,INFO, sysConfig | log irid sd: 1
+16951,INFO, sysConfig | log fft sd: 1
+16959,INFO, sysConfig | log spec sd: 0
+16971,INFO, sysConfig | log speca sd: 0
+16979,INFO, sysConfig | log dre sd: 1
+16988,INFO, sysConfig | log message sd: 1
+16996,INFO, sysConfig | statistics mode: 0
+17006,INFO, sysConfig | log gmn sd: 1
+17014,INFO, sysConfig | min messages period basic: 0
+17025,INFO, sysConfig | min messages period full: 0
+17037,INFO, sysConfig | gps power lvl: 1
+17045,INFO, sysConfig | log gmn 1s: 0
+17053,INFO, sysConfig | log bin sd: 0
+17061,INFO, sysConfig | message samples basic: 2
+17072,INFO, sysConfig | self test: 0
+17084,INFO, sysConfig | self test reset max: 2
+17094,INFO, sysConfig | vis led enable: 1
+17104,INFO, sysConfig | log sst sd: 1
+17113,INFO, sysConfig | external hardware reset max: 5
+17125,INFO, sysConfig | sst sampling period: 1
+17135,INFO, sysConfig | sst n samples to avg: 6
+17145,INFO, sysConfig | partition thresh bin: 7
+17156,INFO, sysConfig | gps sleep enable: 1
+17164,INFO, sysConfig | idle checkin period: 3
+17174,INFO, sysConfig | bridge enable: 1
+17184,INFO, sysConfig | log smdata sd: 1
+17418,INFO,Idle mode - disabling external RAM
+17451,INFO,External hw available but RAM failing! Skipping init
+17623,INFO,powerData | solV: 4.46
+17645,INFO,powerData | solI: 0.00
+17668,INFO,powerData | battV: 3.64
+17686,INFO,powerData | battI: -0.05
+17707,INFO,powerData | busV: 3.63
+17725,INFO,powerData | busI: 0.05
+17745,INFO,powerData | BQ status reg: 0
+17764,INFO,powerData | Fault reg: 0
+17784,INFO,powerData | Charge status: 0
+17805,INFO,powerData | DPM status: 0
+17831,INFO,Loaded OP MODE: 40963
+17934,ERROR, sysError | SolV: 1
+17958,ERROR, sysError | BattV: 1
+300009,INFO,powerData | solV: 4.94
+300029,INFO,powerData | solI: 0.00
+300050,INFO,powerData | battV: 3.64
+300070,INFO,powerData | battI: -0.01
+300089,INFO,powerData | busV: 3.64
+300109,INFO,powerData | busI: 0.01
+300130,INFO,powerData | BQ status reg: 0
+300148,INFO,powerData | Fault reg: 16
+300169,INFO,powerData | Charge status: 0
+300189,INFO,powerData | DPM status: 0
+600014,INFO,powerData | solV: 5.29
+600059,INFO,powerData | solI: 0.00
+600084,INFO,powerData | battV: 3.64
+600104,INFO,powerData | battI: -0.01
+600123,INFO,powerData | busV: 3.64
+600143,INFO,powerData | busI: 0.01
+600164,INFO,powerData | BQ status reg: 0
+600182,INFO,powerData | Fault reg: 16
+600203,INFO,powerData | Charge status: 0
+600225,INFO,powerData | DPM status: 0
+900022,INFO,powerData | solV: 5.49
+900042,INFO,powerData | solI: 0.00
+900063,INFO,powerData | battV: 3.64
+900081,INFO,powerData | battI: -0.01
+900102,INFO,powerData | busV: 3.64
+900126,INFO,powerData | busI: 0.01
+900145,INFO,powerData | BQ status reg: 0
+900165,INFO,powerData | Fault reg: 16
+900184,INFO,powerData | Charge status: 0
+900204,INFO,powerData | DPM status: 0
+1200029,INFO,powerData | solV: 5.47
+1200050,INFO,powerData | solI: 0.00
+1200070,INFO,powerData | battV: 3.64
+1200091,INFO,powerData | battI: -0.01
+1200109,INFO,powerData | busV: 3.64
+1200130,INFO,powerData | busI: 0.01
+1200150,INFO,powerData | BQ status reg: 0
+1200171,INFO,powerData | Fault reg: 16
+1200189,INFO,powerData | Charge status: 0
+1200214,INFO,powerData | DPM status: 0
+1500030,INFO,powerData | solV: 5.25
+1500051,INFO,powerData | solI: 0.00
+1500071,INFO,powerData | battV: 3.64
+1500092,INFO,powerData | battI: -0.01
+1500110,INFO,powerData | busV: 3.64
+1500131,INFO,powerData | busI: 0.01
+1500151,INFO,powerData | BQ status reg: 0
+1500170,INFO,powerData | Fault reg: 16
+1500190,INFO,powerData | Charge status: 0
+1500211,INFO,powerData | DPM status: 0

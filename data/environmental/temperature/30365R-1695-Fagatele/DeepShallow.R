@@ -1,0 +1,48 @@
+setwd("/Users/danbarshis/dansstuff/Projeks/ODU/Projeks/Field/2022_12_AmSamoa/HoboData")
+
+FagamaloDeep<-read.delim("Fagamalo_ODU_clean.txt")
+FagamaloDeep$DateTime<-strptime(FagamaloDeep$DateTime, format="%m/%d/%y %I:%M:%S %p")
+FagamaloDeep$Day<-format(FagamaloDeep$DateTime,"%D")
+FagamaloDeepdaily<-data.frame("DayRange"=tapply(FagamaloDeep$Fagamalo_ODU, FagamaloDeep$Day, function(x) range(x)[2]-range(x)[1]),"DayMin"=tapply(FagamaloDeep$Fagamalo_ODU, FagamaloDeep$Day, min),"DayMax"=tapply(FagamaloDeep$Fagamalo_ODU, FagamaloDeep$Day, max), "DayMean"=tapply(FagamaloDeep$Fagamalo_ODU, FagamaloDeep$Day, mean))
+summary(FagamaloDeepdaily)
+
+FagateleDeep<-read.delim("Fagatele_Deep_ODU_clean.txt")
+FagateleDeep$DateTime<-strptime(FagateleDeep$DateTime, format="%m/%d/%y %I:%M:%S %p")
+FagateleDeep$Day<-format(FagateleDeep$DateTime,"%D")
+FagateleDeepdaily<-data.frame("DayRange"=tapply(FagateleDeep$Fagatele_Deep_ODU, FagateleDeep$Day, function(x) range(x)[2]-range(x)[1]),"DayMin"=tapply(FagateleDeep$Fagatele_Deep_ODU, FagateleDeep$Day, min),"DayMax"=tapply(FagateleDeep$Fagatele_Deep_ODU, FagateleDeep$Day, max), "DayMean"=tapply(FagateleDeep$Fagatele_Deep_ODU, FagateleDeep$Day, mean))
+summary(FagateleDeepdaily)
+
+
+FagateleShallow<-read.delim("Fagatele_Shallow_ODU_clean.txt")
+FagateleShallow$DateTime<-strptime(FagateleShallow$DateTime, format="%m/%d/%y %I:%M:%S %p")
+FagateleShallow$Day<-format(FagateleShallow$DateTime,"%D")
+FagateleShallowdaily<-data.frame("DayRange"=tapply(FagateleShallow$Fagatele_Shallow_ODU, FagateleShallow$Day, function(x) range(x)[2]-range(x)[1]),"DayMin"=tapply(FagateleShallow$Fagatele_Shallow_ODU, FagateleShallow$Day, min),"DayMax"=tapply(FagateleShallow$Fagatele_Shallow_ODU, FagateleShallow$Day, max), "DayMean"=tapply(FagateleShallow$Fagatele_Shallow_ODU, FagateleShallow$Day, mean))
+summary(FagateleShallowdaily)
+
+
+TaemaDeep<-read.delim("Taema_Deep_ODU_clean.txt")
+TaemaDeep$DateTime<-strptime(TaemaDeep$DateTime, format="%m/%d/%y %I:%M:%S %p")
+TaemaDeep$Day<-format(TaemaDeep$DateTime,"%D")
+TaemaDeepdaily<-data.frame("DayRange"=tapply(TaemaDeep$Taema_Deep_ODU, TaemaDeep$Day, function(x) range(x)[2]-range(x)[1]),"DayMin"=tapply(TaemaDeep$Taema_Deep_ODU, TaemaDeep$Day, min),"DayMax"=tapply(TaemaDeep$Taema_Deep_ODU, TaemaDeep$Day, max), "DayMean"=tapply(TaemaDeep$Taema_Deep_ODU, TaemaDeep$Day, mean))
+summary(TaemaDeepdaily)
+
+tickpos<-seq(as.POSIXct("2022-03-08"),as.POSIXct("2022-12-10"),by="1 month")
+pdf("2022_Taema-Fagamalo-Fagatele_DeepShallow.pdf",14, 7)
+plot(FagamaloDeep$DateTime, FagamaloDeep$Fagamalo_ODU, type="l", ylab="Water Temp °C", xlab="Date", xaxt='n',ylim=c(27,30.5), col="mediumorchid3")
+points(FagateleDeep$DateTime, FagateleDeep$Fagatele_Deep_ODU, type="l", col="blue")
+points(TaemaDeep$DateTime,TaemaDeep$Taema_Deep_ODU, type="l", col="yellow")
+points(FagateleShallow$DateTime,FagateleShallow$Fagatele_Shallow_ODU, type="l", col="red")
+legend("topleft", c("FagateleShallow", "TaemaDeep", "FagateleDeep", "FagamaloDeep"), lty=1, lwd=3, col=c("red",  "yellow", "blue", "mediumorchid3"))
+axis.POSIXct(side=1, at=tickpos, format="%Y-%b")
+dev.off()
+
+tickpos<-seq(as.POSIXct("2022-03-08"),as.POSIXct("2022-12-10"),by="1 month")
+pdf("2022_Taema-Fagamalo-Fagatele_DeepShallow_black.pdf",14, 7)
+par(mar=c(5,5,5,2), bg="black")
+plot(FagamaloDeep$DateTime, FagamaloDeep$Fagamalo_ODU, type="l", ylab="Water Temp °C", xlab="Date", xaxt='n',ylim=c(27,30.5), col="mediumorchid3", col.axis="white", col.lab="white", fg="white")#cex.lab=2, cex.axis=1.75, font=2, font.lab=2)
+points(FagateleDeep$DateTime, FagateleDeep$Fagatele_Deep_ODU, type="l", col="blue")
+points(TaemaDeep$DateTime,TaemaDeep$Taema_Deep_ODU, type="l", col="yellow")
+points(FagateleShallow$DateTime,FagateleShallow$Fagatele_Shallow_ODU, type="l", col="red")
+legend("topleft", c("FagateleShallow", "TaemaDeep", "FagateleDeep", "FagamaloDeep"), lty=1, lwd=3, col=c("red",  "yellow", "blue", "mediumorchid3"),text.col="white")
+axis.POSIXct(side=1, at=tickpos, format="%Y-%b", col="white", col.axis="white",cex.axis=1)
+dev.off()

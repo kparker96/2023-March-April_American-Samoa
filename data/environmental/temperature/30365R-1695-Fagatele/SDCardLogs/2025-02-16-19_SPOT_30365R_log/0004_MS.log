@@ -1,0 +1,8 @@
+2025-02-19T19:04:17.488Z [MS] [INFO] Added message(id: 0 len: 112) to queue(1)!
+2025-02-19T19:04:17.789Z [MS] [INFO] Trying to send message 0. Time remaining: 300000ms
+2025-02-19T19:04:17.789Z [MS] [INFO] Attempting to send message(112)
+2025-02-19T19:07:37.367Z [MS] [INFO] Message sent successfully!
+2025-02-19T21:07:59.421Z [MS] [INFO] Added message(id: 1 len: 37) to queue(1)!
+2025-02-19T21:07:59.722Z [MS] [INFO] Trying to send message 1. Time remaining: 300000ms
+2025-02-19T21:07:59.722Z [MS] [INFO] Attempting to send message(37)
+2025-02-19T21:13:08.898Z [MS] [WARNING] Message failed to send.

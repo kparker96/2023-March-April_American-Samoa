@@ -1,0 +1,101 @@
+millis,type,message
+15763,DEBUG,SD Card init SUCCESS!
+15783,WARN,Recovered from SD failure - resets: 1
+15816,DEBUG,ext ram fail reset count: 0
+15837,INFO,session id: 1214
+15845,INFO,reset source: 0
+15863,INFO,Device Id: 65477320
+15882,INFO,Firmware SHA: 93CE0B95
+15900,INFO,MAX_SAMPLE_GAP_S: 3.00
+15912,INFO,SPIKE_G_TH: 3.00
+15919,INFO,MAX_MESSAGE_LEN_FULL: 301
+15925,INFO,MAX_MESSAGE_LEN_BASIC: 51
+15933,INFO,MAX_MESSAGE_LEN_SM: 341
+15937,INFO,MESSAGE_QUEUE_LEN: 10
+15943,INFO,STRICT_NMEA: 1
+15949,INFO,MAIN_DECK_HW_VERSION: 7
+15960,INFO,F_MIN: 0.03
+15966,INFO,F_MAX: 0.80
+15982,INFO, sysConfig | sd reset max: 5
+15994,INFO, sysConfig | wd enable: 1
+16003,INFO, sysConfig | prod log mode: 1
+16011,INFO, sysConfig | log filt sd: 1
+16019,INFO, sysConfig | log gps sd: 1
+16027,INFO, sysConfig | gps log lvl: 0
+16035,INFO, sysConfig | log pow sd: 1
+16044,INFO, sysConfig | log nmea sd: 1
+16052,INFO, sysConfig | log irid sd: 1
+16060,INFO, sysConfig | log fft sd: 1
+16068,INFO, sysConfig | log spec sd: 0
+16080,INFO, sysConfig | log speca sd: 0
+16089,INFO, sysConfig | log dre sd: 1
+16097,INFO, sysConfig | log message sd: 1
+16107,INFO, sysConfig | statistics mode: 0
+16115,INFO, sysConfig | log gmn sd: 1
+16123,INFO, sysConfig | min messages period basic: 0
+16136,INFO, sysConfig | min messages period full: 0
+16148,INFO, sysConfig | gps power lvl: 1
+16156,INFO, sysConfig | log gmn 1s: 0
+16164,INFO, sysConfig | log bin sd: 0
+16173,INFO, sysConfig | message samples basic: 2
+16183,INFO, sysConfig | self test: 0
+16195,INFO, sysConfig | self test reset max: 2
+16205,INFO, sysConfig | vis led enable: 1
+16214,INFO, sysConfig | log sst sd: 1
+16222,INFO, sysConfig | external hardware reset max: 5
+16234,INFO, sysConfig | sst sampling period: 1
+16244,INFO, sysConfig | sst n samples to avg: 6
+16254,INFO, sysConfig | partition thresh bin: 7
+16265,INFO, sysConfig | gps sleep enable: 1
+16275,INFO, sysConfig | idle checkin period: 3
+16285,INFO, sysConfig | bridge enable: 1
+16293,INFO, sysConfig | log smdata sd: 1
+16547,INFO,External hw available: 00000100
+16578,INFO,Initializing Bridge
+19099,INFO,Starting Bridge Self Test
+20326,INFO,Bridge initialized
+20506,INFO,powerData | solV: 5.67
+20529,INFO,powerData | solI: 0.33
+20547,INFO,powerData | battV: 3.02
+20568,INFO,powerData | battI: -0.60
+20586,INFO,powerData | busV: 2.88
+20606,INFO,powerData | busI: 1.18
+20627,INFO,powerData | BQ status reg: 173
+20645,INFO,powerData | Fault reg: 0
+20666,INFO,powerData | Charge status: 2
+20686,INFO,powerData | DPM status: 1
+20717,INFO,Loaded OP MODE: 40962
+20803,DEBUG,Iridium fail reset count: 0
+23418,INFO,imei: 300434065477320
+24045,DEBUG,GPS fail reset count: 0
+29593,ERROR, sysError | BattV: 1
+29618,ERROR, sysError | BusV: 3
+29638,ERROR, sysError | BusI: 2
+29734,WARN,Disabling IridiumMessageSender transmissions
+57024,INFO,GpsSigErr changed to NO_ERR
+57047,INFO,Starting collection m: 0 t: 0 at 1670006719.01
+58077,INFO,Remote config out of sync
+58099,INFO,submitting message: 50 byte / 400 bit messsage: 
+58152,DEBUG,m 0 sub to Q at i 0 count: 0
+58175,DEBUG,1 msgs in Q
+66721,INFO,Max CNO changed from -1 to 46
+169236,INFO,Starting analysis m: 0 t: 0 e: 0
+170633,INFO,Completed analysis m: 0 t: 0 e: 0
+220372,INFO,Starting analysis m: 0 t: 0 e: 1
+221966,INFO,Completed analysis m: 0 t: 0 e: 1
+271517,INFO,Starting analysis m: 0 t: 0 e: 2
+273098,INFO,Completed analysis m: 0 t: 0 e: 2
+300007,INFO,powerData | solV: 5.66
+300029,INFO,powerData | solI: 0.35
+300048,INFO,powerData | battV: 3.15
+300068,INFO,powerData | battI: 0.42
+300091,INFO,powerData | busV: 3.46
+300111,INFO,powerData | busI: 0.09
+300132,INFO,powerData | BQ status reg: 173
+300150,INFO,powerData | Fault reg: 0
+300171,INFO,powerData | Charge status: 2
+300193,INFO,powerData | DPM status: 1
+322670,INFO,Starting analysis m: 0 t: 0 e: 3
+324184,INFO,Completed analysis m: 0 t: 0 e: 3
+373811,INFO,Starting analysis m: 0 t: 0 e: 4
+375480,INFO,Completed analysis m: 0 t: 0 e: 4

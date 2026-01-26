@@ -1,0 +1,3 @@
+timestamp(ticks/UTC),solar(V),batt(V),bus(V),solar(I),batt(I),bus(I),batt_temp(C),chg_stat,chg_fault
+24703t,3.21,4.00,3.94,0.001,-0.503,0.506,0.0,0,0
+53433t,3.13,4.01,3.96,0.001,-0.396,0.399,0.0,0,0

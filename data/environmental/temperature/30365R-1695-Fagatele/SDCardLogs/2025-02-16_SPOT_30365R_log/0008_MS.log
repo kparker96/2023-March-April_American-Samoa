@@ -1,0 +1,115 @@
+2025-02-16T06:55:00.695Z [MS] [INFO] Added message(id: 0 len: 112) to queue(1)!
+2025-02-16T06:55:00.699Z [MS] [INFO] Added message(id: 1 len: 87) to queue(2)!
+2025-02-16T06:55:00.699Z [MS] [INFO] Added message(id: 2 len: 35) to queue(3)!
+2025-02-16T06:55:01.003Z [MS] [INFO] Trying to send message 0. Time remaining: 180000ms
+2025-02-16T06:55:01.003Z [MS] [INFO] Attempting to send message(112)
+2025-02-16T06:55:17.886Z [MS] [INFO] Message sent successfully!
+2025-02-16T06:55:17.886Z [MS] [INFO] Trying to send message 1. Time remaining: 180000ms
+2025-02-16T06:55:17.886Z [MS] [INFO] Attempting to send message(87)
+2025-02-16T06:55:26.796Z [MS] [INFO] Message sent successfully!
+2025-02-16T06:55:26.796Z [MS] [INFO] Trying to send message 2. Time remaining: 180000ms
+2025-02-16T06:55:26.796Z [MS] [INFO] Attempting to send message(35)
+2025-02-16T06:55:34.714Z [MS] [INFO] Message sent successfully!
+2025-02-16T07:55:00.257Z [MS] [INFO] Added message(id: 3 len: 50) to queue(1)!
+2025-02-16T07:55:00.558Z [MS] [INFO] Trying to send message 3. Time remaining: 180000ms
+2025-02-16T07:55:00.558Z [MS] [INFO] Attempting to send message(50)
+2025-02-16T07:58:04.875Z [MS] [WARNING] Message failed to send.
+2025-02-16T08:08:05.066Z [MS] [INFO] Trying to send message 3. Time remaining: 180000ms
+2025-02-16T08:08:05.070Z [MS] [INFO] Attempting to send message(50)
+2025-02-16T08:10:34.097Z [MS] [INFO] Message sent successfully!
+2025-02-16T08:54:47.558Z [MS] [INFO] Added message(id: 4 len: 48) to queue(1)!
+2025-02-16T08:54:47.859Z [MS] [INFO] Trying to send message 4. Time remaining: 180000ms
+2025-02-16T08:54:47.859Z [MS] [INFO] Attempting to send message(48)
+2025-02-16T08:54:49.761Z [MS] [INFO] Added message(id: 5 len: 37) to queue(1)!
+2025-02-16T08:54:59.714Z [MS] [INFO] Added message(id: 6 len: 50) to queue(2)!
+2025-02-16T08:57:06.574Z [MS] [INFO] Message sent successfully!
+2025-02-16T08:57:06.574Z [MS] [INFO] Trying to send message 5. Time remaining: 180000ms
+2025-02-16T08:57:06.574Z [MS] [INFO] Attempting to send message(37)
+2025-02-16T08:57:13.773Z [MS] [INFO] Message sent successfully!
+2025-02-16T08:57:13.773Z [MS] [INFO] Trying to send message 6. Time remaining: 180000ms
+2025-02-16T08:57:13.773Z [MS] [INFO] Attempting to send message(50)
+2025-02-16T08:57:24.210Z [MS] [INFO] Message sent successfully!
+2025-02-16T09:54:59.167Z [MS] [INFO] Added message(id: 7 len: 50) to queue(1)!
+2025-02-16T09:54:59.468Z [MS] [INFO] Trying to send message 7. Time remaining: 180000ms
+2025-02-16T09:54:59.468Z [MS] [INFO] Attempting to send message(50)
+2025-02-16T09:57:05.582Z [MS] [INFO] Message sent successfully!
+2025-02-16T10:54:47.636Z [MS] [INFO] Added message(id: 8 len: 37) to queue(1)!
+2025-02-16T10:54:47.937Z [MS] [INFO] Trying to send message 8. Time remaining: 180000ms
+2025-02-16T10:54:47.937Z [MS] [INFO] Attempting to send message(37)
+2025-02-16T10:54:58.621Z [MS] [INFO] Added message(id: 9 len: 50) to queue(1)!
+2025-02-16T10:55:03.308Z [MS] [INFO] Message sent successfully!
+2025-02-16T10:55:03.308Z [MS] [INFO] Trying to send message 9. Time remaining: 180000ms
+2025-02-16T10:55:03.312Z [MS] [INFO] Attempting to send message(50)
+2025-02-16T10:55:11.417Z [MS] [INFO] Message sent successfully!
+2025-02-16T11:54:58.078Z [MS] [INFO] Added message(id: 10 len: 50) to queue(1)!
+2025-02-16T11:54:58.378Z [MS] [INFO] Trying to send message 10. Time remaining: 180000ms
+2025-02-16T11:54:58.378Z [MS] [INFO] Attempting to send message(50)
+2025-02-16T11:58:01.917Z [MS] [WARNING] Message failed to send.
+2025-02-16T12:08:02.109Z [MS] [INFO] Trying to send message 10. Time remaining: 180000ms
+2025-02-16T12:08:02.109Z [MS] [INFO] Attempting to send message(50)
+2025-02-16T12:09:49.132Z [MS] [INFO] Message sent successfully!
+2025-02-16T12:54:47.523Z [MS] [INFO] Added message(id: 11 len: 37) to queue(1)!
+2025-02-16T12:54:47.824Z [MS] [INFO] Trying to send message 11. Time remaining: 180000ms
+2025-02-16T12:54:47.828Z [MS] [INFO] Attempting to send message(37)
+2025-02-16T12:54:57.535Z [MS] [INFO] Added message(id: 12 len: 50) to queue(1)!
+2025-02-16T12:55:05.621Z [MS] [INFO] Message sent successfully!
+2025-02-16T12:55:05.625Z [MS] [INFO] Trying to send message 12. Time remaining: 180000ms
+2025-02-16T12:55:05.625Z [MS] [INFO] Attempting to send message(50)
+2025-02-16T12:55:14.531Z [MS] [INFO] Message sent successfully!
+2025-02-16T13:54:56.988Z [MS] [INFO] Added message(id: 13 len: 50) to queue(1)!
+2025-02-16T13:54:57.296Z [MS] [INFO] Trying to send message 13. Time remaining: 180000ms
+2025-02-16T13:54:57.296Z [MS] [INFO] Attempting to send message(50)
+2025-02-16T13:57:59.933Z [MS] [WARNING] Message failed to send.
+2025-02-16T14:08:00.128Z [MS] [INFO] Trying to send message 13. Time remaining: 180000ms
+2025-02-16T14:08:00.128Z [MS] [INFO] Attempting to send message(50)
+2025-02-16T14:11:01.097Z [MS] [WARNING] Message failed to send.
+2025-02-16T14:21:01.289Z [MS] [INFO] Trying to send message 13. Time remaining: 180000ms
+2025-02-16T14:21:01.289Z [MS] [INFO] Attempting to send message(50)
+2025-02-16T14:21:35.035Z [MS] [INFO] Message sent successfully!
+2025-02-16T14:54:47.410Z [MS] [INFO] Added message(id: 14 len: 37) to queue(1)!
+2025-02-16T14:54:47.707Z [MS] [INFO] Trying to send message 14. Time remaining: 180000ms
+2025-02-16T14:54:47.710Z [MS] [INFO] Attempting to send message(37)
+2025-02-16T14:54:56.441Z [MS] [INFO] Added message(id: 15 len: 50) to queue(1)!
+2025-02-16T14:58:03.125Z [MS] [WARNING] Message failed to send.
+2025-02-16T15:08:03.320Z [MS] [INFO] Trying to send message 14. Time remaining: 180000ms
+2025-02-16T15:08:03.320Z [MS] [INFO] Attempting to send message(37)
+2025-02-16T15:08:22.300Z [MS] [INFO] Message sent successfully!
+2025-02-16T15:08:22.300Z [MS] [INFO] Trying to send message 15. Time remaining: 180000ms
+2025-02-16T15:08:22.300Z [MS] [INFO] Attempting to send message(50)
+2025-02-16T15:08:32.378Z [MS] [INFO] Message sent successfully!
+2025-02-16T15:54:55.898Z [MS] [INFO] Added message(id: 16 len: 50) to queue(1)!
+2025-02-16T15:54:56.199Z [MS] [INFO] Trying to send message 16. Time remaining: 180000ms
+2025-02-16T15:54:56.199Z [MS] [INFO] Attempting to send message(50)
+2025-02-16T15:56:35.664Z [MS] [INFO] Message sent successfully!
+2025-02-16T16:54:47.312Z [MS] [INFO] Added message(id: 17 len: 37) to queue(1)!
+2025-02-16T16:54:47.613Z [MS] [INFO] Trying to send message 17. Time remaining: 180000ms
+2025-02-16T16:54:47.613Z [MS] [INFO] Attempting to send message(37)
+2025-02-16T16:54:55.351Z [MS] [INFO] Added message(id: 18 len: 50) to queue(1)!
+2025-02-16T16:55:02.261Z [MS] [INFO] Message sent successfully!
+2025-02-16T16:55:02.261Z [MS] [INFO] Trying to send message 18. Time remaining: 180000ms
+2025-02-16T16:55:02.261Z [MS] [INFO] Attempting to send message(50)
+2025-02-16T16:55:09.550Z [MS] [INFO] Message sent successfully!
+2025-02-16T17:54:54.808Z [MS] [INFO] Added message(id: 19 len: 50) to queue(1)!
+2025-02-16T17:54:55.109Z [MS] [INFO] Trying to send message 19. Time remaining: 180000ms
+2025-02-16T17:54:55.109Z [MS] [INFO] Attempting to send message(50)
+2025-02-16T17:57:12.164Z [MS] [INFO] Message sent successfully!
+2025-02-16T18:54:47.207Z [MS] [INFO] Added message(id: 20 len: 37) to queue(1)!
+2025-02-16T18:54:47.507Z [MS] [INFO] Trying to send message 20. Time remaining: 180000ms
+2025-02-16T18:54:47.507Z [MS] [INFO] Attempting to send message(37)
+2025-02-16T18:54:54.257Z [MS] [INFO] Added message(id: 21 len: 50) to queue(1)!
+2025-02-16T18:56:16.222Z [MS] [INFO] Message sent successfully!
+2025-02-16T18:56:16.222Z [MS] [INFO] Trying to send message 21. Time remaining: 180000ms
+2025-02-16T18:56:16.222Z [MS] [INFO] Attempting to send message(50)
+2025-02-16T18:56:25.039Z [MS] [INFO] Message sent successfully!
+2025-02-16T19:54:53.710Z [MS] [INFO] Added message(id: 22 len: 50) to queue(1)!
+2025-02-16T19:54:54.011Z [MS] [INFO] Trying to send message 22. Time remaining: 180000ms
+2025-02-16T19:54:54.015Z [MS] [INFO] Attempting to send message(50)
+2025-02-16T19:55:32.503Z [MS] [INFO] Message sent successfully!
+2025-02-16T20:54:47.054Z [MS] [INFO] Added message(id: 23 len: 37) to queue(1)!
+2025-02-16T20:54:47.351Z [MS] [INFO] Trying to send message 23. Time remaining: 180000ms
+2025-02-16T20:54:47.355Z [MS] [INFO] Attempting to send message(37)
+2025-02-16T20:54:53.167Z [MS] [INFO] Added message(id: 24 len: 50) to queue(1)!
+2025-02-16T20:55:04.734Z [MS] [INFO] Message sent successfully!
+2025-02-16T20:55:04.734Z [MS] [INFO] Trying to send message 24. Time remaining: 180000ms
+2025-02-16T20:55:04.734Z [MS] [INFO] Attempting to send message(50)
+2025-02-16T20:55:27.230Z [MS] [INFO] Message sent successfully!

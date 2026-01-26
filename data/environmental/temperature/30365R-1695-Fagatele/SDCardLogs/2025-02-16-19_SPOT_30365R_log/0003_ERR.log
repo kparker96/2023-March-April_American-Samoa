@@ -1,0 +1,27 @@
+2025-02-19T06:57:48.425Z [ERR] [INFO] IoExpErrorState changed from N/A to OK
+2025-02-19T06:57:48.605Z [ERR] [INFO] PotErrorState changed from N/A to OK
+2025-02-19T06:57:48.609Z [ERR] [INFO] ChargerErrorState changed from N/A to OK
+2025-02-19T06:57:48.742Z [ERR] [INFO] busmonErrorState changed from N/A to OK
+2025-02-19T06:57:48.742Z [ERR] [INFO] SolarErrorState changed from N/A to LOW
+2025-02-19T06:57:48.742Z [ERR] [INFO] BattErrorState changed from N/A to OK
+2025-02-19T06:57:48.742Z [ERR] [INFO] BusVErrorState changed from N/A to OK
+2025-02-19T06:57:48.742Z [ERR] [INFO] BusIErrorState changed from N/A to OK
+2025-02-19T06:57:48.816Z [ERR] [INFO] HtuErrorState changed from N/A to OK
+2025-02-19T06:57:48.835Z [ERR] [INFO] BaroErrorState changed from N/A to INIT_ERR
+2025-02-19T06:57:49.539Z [ERR] [INFO] IridiumErrorState changed from N/A to OK
+2025-02-19T06:57:51.808Z [ERR] [INFO] GpsErrorState changed from N/A to NO_SIGNAL
+2025-02-19T06:57:52.523Z [ERR] [INFO] Visibility LEDErrorState changed from N/A to OK
+2025-02-19T06:57:53.863Z [ERR] [INFO] bridgeErrorState changed from N/A to OK
+2025-02-19T06:58:30.453Z [ERR] [INFO] GpsErrorState changed from NO_SIGNAL to OK
+2025-02-19T09:05:58.652Z [ERR] [INFO] GpsErrorState changed from OK to NO_SIGNAL
+2025-02-19T09:05:59.015Z [ERR] [INFO] GpsErrorState changed from NO_SIGNAL to OK
+2025-02-19T09:06:02.253Z [ERR] [INFO] GpsErrorState changed from OK to NO_SIGNAL
+2025-02-19T09:06:04.214Z [ERR] [INFO] GpsErrorState changed from NO_SIGNAL to OK
+2025-02-19T13:32:34.406Z [ERR] [INFO] GpsErrorState changed from OK to NO_SIGNAL
+2025-02-19T13:32:35.984Z [ERR] [INFO] GpsErrorState changed from NO_SIGNAL to OK
+2025-02-19T13:32:37.605Z [ERR] [INFO] GpsErrorState changed from OK to NO_SIGNAL
+2025-02-19T13:32:39.980Z [ERR] [INFO] GpsErrorState changed from NO_SIGNAL to OK
+2025-02-19T13:32:40.808Z [ERR] [INFO] GpsErrorState changed from OK to NO_SIGNAL
+2025-02-19T13:32:43.578Z [ERR] [INFO] GpsErrorState changed from NO_SIGNAL to OK
+2025-02-19T15:12:54.710Z [ERR] [INFO] GpsErrorState changed from OK to NO_SIGNAL
+2025-02-19T15:12:55.093Z [ERR] [INFO] GpsErrorState changed from NO_SIGNAL to OK

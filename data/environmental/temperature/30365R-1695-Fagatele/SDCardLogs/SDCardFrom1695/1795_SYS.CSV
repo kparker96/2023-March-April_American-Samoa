@@ -1,0 +1,86 @@
+millis,type,message
+16664,DEBUG,SD Card init SUCCESS!
+16683,WARN,Recovered from SD failure - resets: 1
+16715,DEBUG,ext ram fail reset count: 0
+16736,INFO,session id: 1795
+16746,INFO,reset source: 0
+16762,INFO,Device Id: 65477320
+16781,INFO,Firmware SHA: 93CE0B95
+16805,INFO,MAX_SAMPLE_GAP_S: 3.00
+16818,INFO,SPIKE_G_TH: 3.00
+16824,INFO,MAX_MESSAGE_LEN_FULL: 301
+16832,INFO,MAX_MESSAGE_LEN_BASIC: 51
+16840,INFO,MAX_MESSAGE_LEN_SM: 341
+16842,INFO,MESSAGE_QUEUE_LEN: 10
+16850,INFO,STRICT_NMEA: 1
+16855,INFO,MAIN_DECK_HW_VERSION: 7
+16867,INFO,F_MIN: 0.03
+16871,INFO,F_MAX: 0.80
+16887,INFO, sysConfig | sd reset max: 5
+16900,INFO, sysConfig | wd enable: 1
+16908,INFO, sysConfig | prod log mode: 1
+16916,INFO, sysConfig | log filt sd: 1
+16924,INFO, sysConfig | log gps sd: 1
+16932,INFO, sysConfig | gps log lvl: 0
+16941,INFO, sysConfig | log pow sd: 1
+16949,INFO, sysConfig | log nmea sd: 1
+16959,INFO, sysConfig | log irid sd: 1
+16967,INFO, sysConfig | log fft sd: 1
+16975,INFO, sysConfig | log spec sd: 0
+16988,INFO, sysConfig | log speca sd: 0
+16996,INFO, sysConfig | log dre sd: 1
+17004,INFO, sysConfig | log message sd: 1
+17012,INFO, sysConfig | statistics mode: 0
+17022,INFO, sysConfig | log gmn sd: 1
+17031,INFO, sysConfig | min messages period basic: 0
+17041,INFO, sysConfig | min messages period full: 0
+17053,INFO, sysConfig | gps power lvl: 1
+17061,INFO, sysConfig | log gmn 1s: 0
+17070,INFO, sysConfig | log bin sd: 0
+17078,INFO, sysConfig | message samples basic: 2
+17088,INFO, sysConfig | self test: 0
+17100,INFO, sysConfig | self test reset max: 2
+17111,INFO, sysConfig | vis led enable: 1
+17121,INFO, sysConfig | log sst sd: 1
+17129,INFO, sysConfig | external hardware reset max: 5
+17141,INFO, sysConfig | sst sampling period: 1
+17152,INFO, sysConfig | sst n samples to avg: 6
+17162,INFO, sysConfig | partition thresh bin: 7
+17172,INFO, sysConfig | gps sleep enable: 1
+17180,INFO, sysConfig | idle checkin period: 3
+17190,INFO, sysConfig | bridge enable: 1
+17201,INFO, sysConfig | log smdata sd: 1
+17434,INFO,Idle mode - disabling external RAM
+17467,INFO,External hw available but RAM failing! Skipping init
+17631,INFO,powerData | solV: 5.68
+17653,INFO,powerData | solI: 0.03
+17674,INFO,powerData | battV: 3.62
+17692,INFO,powerData | battI: -0.02
+17713,INFO,powerData | busV: 3.62
+17731,INFO,powerData | busI: 0.05
+17752,INFO,powerData | BQ status reg: 172
+17770,INFO,powerData | Fault reg: 0
+17790,INFO,powerData | Charge status: 2
+17809,INFO,powerData | DPM status: 1
+17838,INFO,Loaded OP MODE: 40963
+17932,ERROR, sysError | BattV: 1
+300011,INFO,powerData | solV: 5.68
+300032,INFO,powerData | solI: 0.02
+300052,INFO,powerData | battV: 3.62
+300070,INFO,powerData | battI: -0.00
+300091,INFO,powerData | busV: 3.62
+300111,INFO,powerData | busI: 0.01
+300130,INFO,powerData | BQ status reg: 172
+300150,INFO,powerData | Fault reg: 0
+300171,INFO,powerData | Charge status: 2
+300189,INFO,powerData | DPM status: 1
+600014,INFO,powerData | solV: 5.68
+600035,INFO,powerData | solI: 0.03
+600057,INFO,powerData | battV: 3.63
+600080,INFO,powerData | battI: 0.02
+600100,INFO,powerData | busV: 3.63
+600121,INFO,powerData | busI: 0.01
+600139,INFO,powerData | BQ status reg: 172
+600160,INFO,powerData | Fault reg: 0
+600180,INFO,powerData | Charge status: 2
+600199,INFO,powerData | DPM status: 1

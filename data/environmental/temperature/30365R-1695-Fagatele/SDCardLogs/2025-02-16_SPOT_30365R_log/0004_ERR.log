@@ -1,0 +1,14 @@
+2025-02-16T05:35:43.410Z [ERR] [INFO] IoExpErrorState changed from N/A to OK
+2025-02-16T05:35:43.589Z [ERR] [INFO] PotErrorState changed from N/A to OK
+2025-02-16T05:35:43.593Z [ERR] [INFO] ChargerErrorState changed from N/A to OK
+2025-02-16T05:35:43.722Z [ERR] [INFO] busmonErrorState changed from N/A to OK
+2025-02-16T05:35:43.726Z [ERR] [INFO] SolarErrorState changed from N/A to LOW
+2025-02-16T05:35:43.726Z [ERR] [INFO] BattErrorState changed from N/A to OK
+2025-02-16T05:35:43.726Z [ERR] [INFO] BusVErrorState changed from N/A to OK
+2025-02-16T05:35:43.726Z [ERR] [INFO] BusIErrorState changed from N/A to OK
+2025-02-16T05:35:43.800Z [ERR] [INFO] HtuErrorState changed from N/A to OK
+2025-02-16T05:35:43.820Z [ERR] [INFO] BaroErrorState changed from N/A to INIT_ERR
+2025-02-16T05:35:44.519Z [ERR] [INFO] IridiumErrorState changed from N/A to OK
+2025-02-16T05:35:46.777Z [ERR] [INFO] GpsErrorState changed from N/A to NO_SIGNAL
+2025-02-16T05:35:47.492Z [ERR] [INFO] Visibility LEDErrorState changed from N/A to OK
+2025-
