@@ -62,7 +62,11 @@ df_clean <- df %>%
   mutate(sample_name = paste0(geno, "_", light, "_", depth)) %>%
   mutate(unique_id = paste0(sample_name, "_", o2)) %>%
   mutate(rate.output.adjusted = rate.output/10000) %>%
-  select(sample_name, geno, light, depth, o2, intercept_b0, slope_b1, rate.output.adjusted, rsq, unique_id) 
+  select(sample_name, geno, light, depth, o2, intercept_b0,
+         slope_b1, rate.output.adjusted, rsq, unique_id) %>%
+  mutate(rate.output.adjusted = ifelse(
+    light == 0 & o2 == "Photosynthesis",0 ,
+    rate.output.adjusted))
 
 # df_filter <- df_clean %>%
 # filter(rsq > 0.8) # filter out bad samples and blanks 
@@ -71,9 +75,10 @@ df_clean <- df %>%
 
 master_df <- df_clean %>%
   select(-unique_id) %>%
-  pivot_wider(id_cols = c(sample_name, light, depth),
+  pivot_wider(id_cols = c(sample_name, geno, light, depth),
               names_from = o2,
-              values_from = c(intercept_b0, slope_b1, rsq, rate.output.adjusted),
+              values_from = c(intercept_b0, slope_b1, rsq,
+                              rate.output.adjusted), 
               names_sep = "_") %>%
   rename(respiration_intercept_b0 = intercept_b0_Respiration,
          respiration_slope_b1 = slope_b1_Respiration,
@@ -81,33 +86,23 @@ master_df <- df_clean %>%
          respiration = rate.output.adjusted_Respiration,
          photosynthesis_intercept_b0 = intercept_b0_Photosynthesis,
          photosynthesis_slope_b1 = slope_b1_Photosynthesis,
-         photosynthesis_rsq = rsq_Photosynthesis,
-         net_photosynthesis = rate.output.adjusted_Photosynthesis) %>%
-  mutate(gross_photosynthesis = net_photosynthesis + abs(respiration)) %>%
+         photosynthesis_rsq = rsq_Photosynthesis) %>%
+  mutate(net_photosynthesis = rate.output.adjusted_Photosynthesis +
+           respiration,
+         gross_photosynthesis = rate.output.adjusted_Photosynthesis +
+           abs(respiration)) %>% 
   mutate(light_depth = paste0(light, "_", depth)) %>%
   # removing non-biological outliers 
   filter(gross_photosynthesis < 0.6) %>%
-  filter(net_photosynthesis < 0.6) %>%
-  filter(sample_name != "Gen01_300_Deep")
+  filter(net_photosynthesis < 0.6) 
+  
+  
+  
+  #filter(sample_name != "Gen01_300_Deep")
 ```
 
 # Gross Photosynthesis 
 ```{r average gross photosynthesis}
-# Create (0,0) point for gross photosynthesis 
-# unique depths
-depths <- unique(master_df$depth)
-
-# create zero-light rows
-zero_points <- data.frame(
-  light_depth = paste0("0_", depths),
-  mean_gross_photosynthesis = 0,
-  sd_gross_photosynthesis = 0,
-  n = 1,  # or 0 if you prefer
-  se_gross_photosynthesis = 0,
-  light = 0,
-  depth = depths
-)
-
 avg_gross_photosynthesis <- master_df %>%
   group_by(light_depth) %>%
   dplyr::summarize(
@@ -119,11 +114,9 @@ avg_gross_photosynthesis <- master_df %>%
   mutate(light = sub("_.*", "", light_depth)) %>%
   mutate(depth = sub(".*_", "", light_depth))
 
-avg_gross_photo_df <- rbind(avg_gross_photosynthesis,
-                            zero_points)
 
 avg_gross_photosynthesis$light <- as.numeric(avg_gross_photosynthesis$light)
-avg_gross_photo_df$light <- as.numeric(avg_gross_photo_df$light)
+
 ```
 
 ```{r model fitting - Webb 1974 (Exponential Model)}
@@ -134,7 +127,7 @@ I <- c(0, 50, 100, 200, 300, 400, 500, 600, 800)
 # ---------------------------------------------------------------------------- #
 
 # Deep 
-deep_df <- avg_gross_photo_df %>% 
+deep_df <- avg_gross_photosynthesis %>% 
   filter(depth == "Deep") %>%
   arrange(by = light)
 
@@ -166,7 +159,7 @@ deep_pred_df <- tibble(
 # ---------------------------------------------------------------------------- #
 
 # Midd 
-midd_df <- avg_gross_photo_df %>% 
+midd_df <- avg_gross_photosynthesis %>% 
   filter(depth == "Middle") %>%
   arrange(by = light)
 
@@ -198,7 +191,7 @@ midd_pred_df <- tibble(
 # ---------------------------------------------------------------------------- #
 
 # Shallow 
-shall_df <- avg_gross_photo_df %>% 
+shall_df <- avg_gross_photosynthesis %>% 
   filter(depth == "Shallow") %>%
   arrange(by = light)
 
@@ -239,11 +232,6 @@ pop_gross_PS <-
  geom_errorbar(aes(ymin = (mean_gross_photosynthesis -se_gross_photosynthesis),
                   ymax = (mean_gross_photosynthesis + se_gross_photosynthesis))) +
   
-  # Add in 0,0 point
-  geom_point(data = zero_points, 
-             aes(x = light, y = mean_gross_photosynthesis), size = 3, 
-             color = "transparent") +
-  
   # Deep model and Ek
   geom_line(data = deep_pred_df, aes(x = light, y = deep_P_pred), 
             color = 'darkblue', linewidth = 1, alpha = 0.7) +
@@ -263,7 +251,7 @@ pop_gross_PS <-
             color = "#6BAED6", linewidth = 0.75,alpha = 0.7) +
   
   scale_color_manual(values=c('darkblue', 'dodgerblue3', '#6BAED6')) +
-  labs(y = expression(paste("mean ", µ*mol~O[2] / min / cm^2)),
+  labs(y = expression(paste(µ*mol~O[2] / min / cm^2)),
      x = "PAR (µmol)") +
   scale_y_continuous(limits = c(0,0.32), expand = c(0,0)) +
   scale_x_continuous(expand = c(0,0)) +
@@ -303,7 +291,6 @@ rbind(shall_coefs, midd_coefs, deep_coefs)
 
 # Check goodness of fit for model
 ```{r}
-
 # Split observed data into numeric light and depth
 obs_df <- avg_gross_photosynthesis %>%
   tidyr::separate(light_depth, into = c("light", "depth"), sep = "_") %>%
@@ -354,23 +341,189 @@ fit_metrics
 
 ```
 
-
-
 # Net Photosynthesis
 ```{r}
-no_light_meas <- master_df %>%
+zero_points_net <- master_df %>%
   filter(light == 50) %>%
-  filter(!is.na(respiration)) %>%
-  select(sample_name, depth, respiration_intercept_b0, 
-         respiration_slope_b1, respiration_rsq, respiration, light, depth, light_depth)
+  mutate(light = 0,
+         light_depth = paste0(light, "_", depth)) %>%
+  select(sample_name, light, depth, light_depth, respiration) %>%
+  mutate(net_photosynthesis = respiration)
 
-avg_no_light_meas <- no_light_meas %>% 
+net_photosynthesis <- master_df %>%
+  select(sample_name, light, depth, light_depth, net_photosynthesis, respiration)
+
+net_photosynthesis_df <- rbind(net_photosynthesis, zero_points_net)
+
+R_rates <- net_photosynthesis_df %>%
+  group_by(depth) %>%
+  dplyr::summarize(
+    mean_respiration = mean(respiration, na.rm = TRUE))
+
+R_deep <- R_rates$mean_respiration[1]
+R_midd <- R_rates$mean_respiration[2]
+R_shall <- R_rates$mean_respiration[3]
+
+avg_net_photosynthesis <- net_photosynthesis_df %>%
   group_by(light_depth) %>%
-  summarize(
-    mean_gross_photosynthesis = mean(respiration, na.rm = TRUE),
-    sd_gross_photosynthesis = sd(respiration, na.rm = TRUE),
+  dplyr::summarize(
+    mean_net_photosynthesis = mean(net_photosynthesis, 
+                                     na.rm = TRUE),
+    sd_net_photosynthesis = sd(net_photosynthesis, 
+                                 na.rm = TRUE),
     n = n(),
-    se_gross_photosynthesis = sd_gross_photosynthesis /sqrt(n)) %>%
-  mutate(light = 0) %>%
+    se_net_photosynthesis = sd_net_photosynthesis / sqrt(n)) %>%
+  mutate(light = sub("_.*", "", light_depth)) %>%
   mutate(depth = sub(".*_", "", light_depth))
+
+avg_net_photosynthesis$light <- as.numeric(avg_net_photosynthesis$light)
 ```
+
+# Net Photosynthesis: Model Fitting
+```{r}
+# Deep 
+deep_df_net <- avg_net_photosynthesis %>% 
+  filter(depth == "Deep") %>%
+  arrange(by = light)
+
+deep_P_net <- deep_df_net$mean_net_photosynthesis
+
+deep_Pmax_start_net  <- max(deep_P_net)
+deep_alpha_start_net <- (deep_P_net[3] - deep_P_net[2]) / (I[3] - I[2]) 
+
+deep_fit_net <- nlsLM(
+  deep_P_net ~ Pmax * (1 - exp(-alpha * I / Pmax)),
+  start = list(Pmax = deep_Pmax_start_net, 
+               alpha = deep_alpha_start_net),
+  control = nls.lm.control(maxiter = 200))
+
+deep_coefs_net <- data.frame(
+  Pmax = coef(deep_fit_net)["Pmax"],
+  alpha = coef(deep_fit_net)["alpha"],
+  depth = "Deep",
+  row.names = NULL) %>%
+  mutate(Ek = Pmax/alpha) %>%
+  select(depth, Pmax, alpha, Ek)
+
+deep_I <- seq(min(I), max(I), length.out = 800)
+
+deep_pred_df_net <- tibble(
+  light = deep_I,
+  deep_P_pred_net = predict(deep_fit_net, newdata = tibble(I = deep_I))) %>%
+  mutate(depth = "Deep")
+
+# ---------------------------------------------------------------------------- #
+
+# Midd 
+midd_df_net <- avg_net_photosynthesis %>% 
+  filter(depth == "Middle") %>%
+  arrange(by = light)
+
+midd_P_net <- midd_df_net$mean_net_photosynthesis
+
+midd_Pmax_start_net  <- max(midd_P_net)
+midd_alpha_start_net <- (midd_P_net[3] - midd_P_net[2]) / (I[3] - I[2]) 
+
+midd_fit_net <- nlsLM(
+  midd_P_net ~ Pmax * (1 - exp(-alpha * I / Pmax)),
+  start = list(Pmax = midd_Pmax_start_net, 
+               alpha = midd_alpha_start_net),
+  control = nls.lm.control(maxiter = 200))
+
+midd_coefs_net <- data.frame(
+  Pmax = coef(midd_fit_net)["Pmax"],
+  alpha = coef(midd_fit_net)["alpha"],
+  depth = "Middle",
+  row.names = NULL) %>%
+  mutate(Ek = Pmax/alpha) %>%
+  select(depth, Pmax, alpha, Ek)
+
+midd_I <- seq(min(I), max(I), length.out = 800)
+
+midd_pred_df_net <- tibble(
+  light = midd_I,
+  midd_P_pred_net = predict(midd_fit_net, newdata = tibble(I = midd_I))) %>%
+  mutate(depth = "Middle")
+
+
+# ---------------------------------------------------------------------------- #
+
+# Shallow 
+shall_df_net <- avg_net_photosynthesis %>% 
+  filter(depth == "Shallow") %>%
+  arrange(by = light)
+
+shall_P_net <- shall_df_net$mean_net_photosynthesis
+
+shall_Pmax_start_net  <- max(shall_P_net)
+shall_alpha_start_net <- (shall_P_net[3] - shall_P_net[2]) / (I[3] - I[2]) 
+
+shall_fit_net <- nlsLM(
+  shall_P_net ~ Pmax * (1 - exp(-alpha * I / Pmax)),
+  start = list(Pmax = shall_Pmax_start_net, 
+               alpha = shall_alpha_start_net),
+  control = nls.lm.control(maxiter = 200))
+
+shall_coefs_net <- data.frame(
+  Pmax = coef(shall_fit_net)["Pmax"],
+  alpha = coef(shall_fit_net)["alpha"],
+  depth = "Shallow",
+  row.names = NULL) %>%
+  mutate(Ek = Pmax/alpha) %>%
+  select(depth, Pmax, alpha, Ek)
+
+shall_I <- seq(min(I), max(I), length.out = 800)
+
+shall_pred_df_net <- tibble(
+  light = shall_I,
+  shall_P_pred_net = predict(shall_fit_net, newdata = tibble(I = shall_I))) %>%
+  mutate(depth = "Shallow")
+
+coefs_df_net <- rbind(shall_coefs_net, midd_coefs_net, deep_coefs_net)
+```
+
+```{r}
+ggplot(avg_net_photosynthesis, 
+       aes(x = light, y = mean_net_photosynthesis,
+           color = depth)) +
+  geom_point(size = 3) + # plot the means as points
+ geom_errorbar(aes(ymin = (mean_net_photosynthesis -se_net_photosynthesis),
+                  ymax = (mean_net_photosynthesis + se_net_photosynthesis))) +
+
+# Deep model and Ek
+  geom_line(data = deep_pred_df_net, aes(x = light, 
+                                         y = deep_P_pred_net), 
+            color = 'darkblue', linewidth = 1, alpha = 0.7) +
+  geom_vline(data = deep_coefs_net, aes(xintercept = Ek), 
+             linetype = "longdash",
+             color = "darkblue", linewidth = 0.75, alpha = 0.7) 
+  
+  # Middle model and Ek
+  geom_line(data = midd_pred_df, aes(x = light, y = midd_P_pred),
+            color = 'dodgerblue3', linewidth = 1, alpha = 0.7) +
+  geom_vline(data = midd_coefs, aes(xintercept = Ek), linetype = "longdash",
+             color = "dodgerblue3", linewidth = 0.75, alpha = 0.7) +
+  
+  # Shallow model and Ek
+  geom_line(data = shall_pred_df, aes(x = light, y = shall_P_pred), 
+            color = '#6BAED6', linewidth = 1, alpha = 0.7) +
+ geom_vline(data = shall_coefs, aes(xintercept = Ek), linetype = "longdash",
+            color = "#6BAED6", linewidth = 0.75,alpha = 0.7) +
+  
+  scale_color_manual(values=c('darkblue', 'dodgerblue3', '#6BAED6')) +
+  labs(y = expression(paste("mean ", µ*mol~O[2] / min / cm^2)),
+     x = "PAR (µmol)") +
+  scale_y_continuous(limits = c(0,0.32), expand = c(0,0)) +
+  scale_x_continuous(expand = c(0,0)) +
+  theme_bw() +
+  theme(legend.title = element_blank(),
+        legend.position = "none",
+        strip.text = element_text(size = 11),
+        axis.text = element_text(size = 10),
+        legend.text = element_text(size = 10),
+        panel.spacing = unit(0.75, "lines"),
+        legend.background = element_rect(fill = "transparent"),
+        legend.margin = margin(t = -10, r = 0, b = 0, l = 0)) +
+  facet_wrap(~depth) 
+```
+

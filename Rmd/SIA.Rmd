@@ -111,7 +111,9 @@ rep_comp_sd <- rep_comp %>%
   mutate(
     sd_d13C = apply(select(., R1_d13C, R2_d13C), 1, sd, na.rm = TRUE),
     sd_d15N = apply(select(., R1_d15N, R2_d15N), 1, sd, na.rm = TRUE),
-    sd_CN_ratio = apply(select(., R1_CN_ratio, R2_CN_ratio), 1, sd, na.rm = TRUE))
+    sd_CN_ratio = apply(select(., R1_CN_ratio, R2_CN_ratio), 1, sd, na.rm = TRUE)) %>%
+  filter(sd_d13C < 1,
+         sd_CN_ratio < 1)
   
 rep_comp_sd_sum <- rep_comp_sd %>%
   group_by(Type, Depth) %>%
@@ -152,10 +154,9 @@ rep_comp %>%
   )
 ```
 
-
 # Plot Mean SIA data
 ```{r}
-sia_df_means <- rep_comp %>%
+sia_df_means <- rep_comp_sd %>%
   mutate(mean_d13C = (R1_d13C + R2_d13C)/2) %>%
   mutate(mean_d15N = (R1_d15N + R2_d15N)/2) %>%
   mutate(mean_CN_ratio = (R1_CN_ratio + R2_CN_ratio/2))
@@ -167,17 +168,16 @@ ggplot(sia_df_means, aes(x = mean_d13C, y = mean_d15N, color = Depth,
   theme_bw() +
   scale_color_manual(values = c("#00004C", "#11569B", "#56A9DC"))+
   theme(legend.position = "bottom") +
-  facet_wrap(~Type, scales = "free") +
+  facet_wrap(~Type, scales = "free") 
  
 # Ellipse for Host (solid)
-  stat_ellipse(data = subset(sia_df_means, Type == "Host"), aes(group = Depth),
-    type = "t", size = 1, linetype = "solid") +
+ # stat_ellipse(data = subset(sia_df_means, Type == "Host"), aes(group = Depth),
+  #  type = "t", size = 1, linetype = "solid") +
   
 # Ellipse for Zoox (dashed)
-   stat_ellipse(data = subset(sia_df_means, Type == "Zoox"), aes(group = Depth),
-    type = "t", size = 1, linetype = "dashed") 
+ #  stat_ellipse(data = subset(sia_df_means, Type == "Zoox"), aes(group = Depth),
+ #   type = "t", size = 1, linetype = "dashed") 
   
-
 ggplot(sia_df_means, aes(x = Depth, y = mean_d13C, fill = Depth)) +
   geom_boxplot() +
   scale_fill_manual(values = c("#00004C", "#11569B", "#56A9DC")) +
@@ -232,6 +232,24 @@ ggsave(
 )
 ```
 
+# Host vs Zoox Carbon
+```{r}
+sia_df_combo <-  sia_df_means %>% 
+  mutate(Depth_Geno = substring(Sample_ID, first = 13)) %>%
+  select(Sample_ID, Depth, Depth_Geno, Type, mean_d13C, mean_d15N, mean_CN_ratio) %>%
+  pivot_wider(
+    id_cols = c(Sample_ID, Depth),
+    names_from = Type,
+    values_from = starts_with("mean_"),
+    names_sep = "_"
+  )
+
+ggplot(sia_df_combo, aes(x = mean_d13C_Host, y = mean_d13C_Zoox, color = Depth)) +
+  geom_point(size = 5) +
+   scale_color_manual(values = c("#00004C", "#11569B", "#56A9DC"))
+
+```
+
 # CN Stats on all means
 ```{r}
 # Host C:N 
@@ -266,7 +284,7 @@ oneway.test(mean_CN_ratio ~ Depth, data = sia_df_zoox, var.equal = FALSE)
 
 # Holobiont means 
 ```{r}
-holo_means <- rep_comp %>%
+holo_means <- rep_comp_sd %>%
   pivot_wider(
     id_cols = c(Sample_ID, Depth),
     names_from = Type,
@@ -293,34 +311,6 @@ ggplot(holo_means, aes(x = mean_d13C, y = mean_d15N, color = Depth, shape = Dept
   ggtitle("Holobiont SIA")
 
 ```
-
-
-# Filter Samples with sd > 1‰ for d13C or >0.5‰ for d15N
-```{r rep_comp_sd_filtered}
-#bad_samples <- rep_comp %>%
-# mutate(
-#    diff_d13C = abs(R1_d13C - R2_d13C),
-#    diff_d15N = abs(R1_d15N - R2_d15N)) %>%
-#  filter(diff_d13C > 0.5 | diff_d15N > 0.5) %>%
-#  select(Sample_ID, Type, Depth, diff_d13C, diff_d15N)
-
-#bad_samples %>%
-#  group_by(Depth, Type) %>%
-#  summarise(n_lost = n())
-
-# filter sd for d13C and d15N to remove "bad" data
-#rep_comp_sd_filtered <- rep_comp_sd %>%
-#  filter(sd_d13C < 1 & sd_d15N < 0.5) %>%
-#  mutate(mean_d13C = (R1_d13C + R2_d13C)/2) %>%
-#  mutate(mean_d15N = (R1_d15N + R2_d15N)/2) %>%
-#  mutate(mean_CN_ratio = (R1_CN_ratio + R2_CN_ratio/2))
-
-#sia_df_clean <- rep_comp_sd_filtered %>%
-#  select(Sample_ID, Type, Depth, mean_d13C, mean_d15N, mean_CN_ratio)
-```
-
-
-
 
 
 # C:N Stats Comparison on filtered data

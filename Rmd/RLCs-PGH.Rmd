@@ -332,43 +332,83 @@ Shall_labels <- text_labels %>%
 
 depths <- as_labeller(c(Midd = "Middle", Shall = "Shallow", Deep = "Deep"))
 
-#### Plot observed data and fitted model ####
-PGH_model_fits <- 
-  ggplot(rlc.predictions, aes(x = par, y = etr, color = id)) +
-  geom_point(size = 1, alpha = 0.4, show.legend = FALSE) + # Observed data
-  geom_line(data = rlc.predictions.pop, aes(y = fit.pop), size = 1.5) + # Fitted model
-  geom_vline(data = vertical_lines, aes(xintercept = Ek, color = id), size = 0.75, 
-             linetype = "dashed", show.legend = FALSE) +
-  geom_hline(data = horizontal_lines, aes(yintercept = ETRmax, color = id), size = 0.75, 
-             linetype = "dashed", show.legend = FALSE) +
+#### Plot averaged data with SD and fitted model ####
+target_par <- c(0, 25, 45, 66, 91, 126, 191, 286, 422, 632, 825, 1155, 1506)
+
+nearest_par <- function(x, targets) {
+  targets[which.min(abs(x - targets))]}
+
+rlc.predictions <- rlc.predictions %>%
+  dplyr::mutate(par_bin = vapply(par, nearest_par, numeric(1), targets = target_par))
+
+rlc.predictions.pop <- rlc.predictions.pop %>%
+   dplyr::mutate(par_bin = vapply(par, nearest_par, numeric(1), targets = target_par)) %>%
+   dplyr::group_by(id, par_bin) %>%
+   dplyr::summarize(
+    fit.pop = mean(fit.pop),   # average predictions in the same bin
+    .groups = "drop")
+  
+rlc.summary.pop <- rlc.predictions %>%
+  dplyr::group_by(id, par_bin) %>%
+  dplyr::summarize(
+    etr_mean = mean(etr, na.rm = TRUE),
+    etr_se   = sd(etr, na.rm = TRUE) / sqrt(dplyr::n()),
+    n = dplyr::n(),
+    .groups = "drop")
+
+PGH_pop_fits <- ggplot(rlc.summary.pop, aes(x = par_bin, y = etr_mean, color = id)) +
+  geom_point(size = 3, show.legend = FALSE) + # Averaged data
+  geom_errorbar(aes(ymin = (etr_mean - etr_se),
+                  ymax = (etr_mean + etr_se))) +
+  geom_line(data = rlc.predictions.pop, aes(y = fit.pop), linewidth = 1, alpha = 0.7) + # Fitted model
+  geom_vline(data = vertical_lines, aes(xintercept = Ek, color = id), linewidth = 0.75, alpha = 0.7, 
+             linetype = "longdash", show.legend = FALSE) +
+  #geom_hline(data = horizontal_lines, aes(yintercept = ETRmax, color = id), size = 0.75, 
+             #linetype = "dashed", show.legend = FALSE) +
   
   # Deep Labels
-  geom_text(data = Deep_labels, aes(label = label_ek), x = 380, y = 7, show.legend = FALSE) +
-  geom_text(data = Deep_labels, aes(label = label_ETRmax), x = 1330, y = 48, show.legend = FALSE) +
+  #geom_text(data = Deep_labels, aes(label = label_ek), x = 380, y = 7, show.legend = FALSE) +
+  #geom_text(data = Deep_labels, aes(label = label_ETRmax), x = 1330, y = 48, show.legend = FALSE) +
   
   # Midd Labels
-  geom_text(data = Midd_labels, aes(label = label_ek), x = 510, y = 7, show.legend = FALSE) +
-  geom_text(data = Midd_labels, aes(label = label_ETRmax), x = 1330, y = 72, show.legend = FALSE) +
+  #geom_text(data = Midd_labels, aes(label = label_ek), x = 510, y = 7, show.legend = FALSE) +
+  #geom_text(data = Midd_labels, aes(label = label_ETRmax), x = 1330, y = 72, show.legend = FALSE) +
   
   
   # Shall Labels
-  geom_text(data = Shall_labels, aes(label = label_ek), x = 495, y = 7, show.legend = FALSE) +
-  geom_text(data = Shall_labels, aes(label = label_ETRmax), x = 1330, y = 62, show.legend = FALSE) +
+  #geom_text(data = Shall_labels, aes(label = label_ek), x = 495, y = 7, show.legend = FALSE) +
+  #geom_text(data = Shall_labels, aes(label = label_ETRmax), x = 1330, y = 62, show.legend = FALSE) +
   
-  facet_wrap(~id, labeller = depths, ncol = 1) +
-  theme_bw() +
-  scale_y_continuous(expand = c(0,0)) +
-  scale_color_manual(values=c('darkblue', 'dodgerblue3', '#78bae3')) +
-  labs(title = "Fagatele M.gris Rapid Light Curves",
-       x = "PAR (µmol m-2s-1)",
+  facet_wrap(~id, labeller = depths, ncol = 3) +
+  scale_y_continuous(limits = c(-3,90), expand = c(0,0), breaks = c(0,20,40,60,80)) +
+  scale_x_continuous(expand = c(0,25)) +
+  scale_color_manual(values=c('darkblue', 'dodgerblue3', '#6BAED6')) +
+  labs(x = "PAR (µmol m-2s-1)",
        y = "ETR (µmol electrons m-2s-1)") +
-  theme(legend.position = "none") 
+  theme_bw() +
+  theme(legend.title = element_blank(),
+        legend.position = "none",
+        strip.text = element_text(size = 11),
+        axis.text = element_text(size = 10),
+        legend.text = element_text(size = 10),
+        panel.spacing = unit(0.75, "lines"),
+        legend.background = element_rect(fill = "transparent"),
+        legend.margin = margin(t = -10, r = 0, b = 0, l = 0))
 
 ggsave(
-  filename = "Plots/rlcs/PGH_model_fits.png", 
-  plot = PGH_model_fits, 
-  height = 6, 
-  width = 10)
+  filename = "Plots/rlcs/PGH_model_fits.pdf",  # Name of the output file
+  plot = PGH_pop_fits,                      # Specify the plot to save
+  width = 8.5,                            # Width in inches
+  height = 3                            # Height in inches
+)
+
+ggsave(
+  filename = "Plots/rlcs/PGH_model_fits.png",  # Name of the output file
+  plot = PGH_pop_fits,                      # Specify the plot to save
+  width = 8.5,                            # Width in inches
+  height = 3                            # Height in inches
+)
+
 ```
 
 # Stats

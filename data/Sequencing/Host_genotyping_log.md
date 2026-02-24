@@ -596,7 +596,7 @@ Samples look good overall!
 
 ![Filtered Reads](MultiQC/fastp-seq-quality-plot.png)
 
-## 2026-02-06: Map reads to hologenome
+## 2026-02-06: Map reads to genome
 Copy genome to my directory 
 
     [kpark049@coreV3-23-027 2022-12_WildGenomesMgrisGenome]$ pwd
@@ -760,7 +760,7 @@ Based on .err output, Bowtie2 worked correctly, but then I ran into errors with 
 	- script still tried to rm files that never existed
 	- ended up with an empty bam/ directory
 
-Switching to samtools to avoid future Java POSIX library issues on hpc 
+Switching to avoid future Java POSIX library issues on hpc 
 
 [kpark049@coreV4-21-k80-001 scripts]$ nano 2026-01-08_bowtie2_samtools.slurm
     #!/bin/bash -l
@@ -874,7 +874,7 @@ Run parse_bowtie_out
     [kpark049@coreV3-23-027 scripts]$ sbatch parse_bowtie_output.sh
     Submitted batch job 10786037
 
-Job submitted 2026-12-01 @ 10:47am (finished in 1 minute)
+Job submitted 2026-01-12 @ 10:47am (finished in 1 minute)
 
 Output from head bowtie_mapping_summary.tsv
 
@@ -990,5 +990,388 @@ Output from head bowtie_mapping_summary.tsv
 | 23313Brs_2023-ASGWAS-S08shall-Mgri-06_R24073.sorted.bam | 106624196 | 10198730 | 9.57 |
 | 23313Brs_2023-ASGWAS-S08shall-Mgri-06_R24074.sorted.bam | 105190212 | 10249431 | 9.74 |
 
+## 2027-01-26: Merge BAM Files  
+
+Need to merge bamfiles to have one file per sample. 
+
+    [kpark049@turing1 bam]$ pwd
+    /cm/shared/courses/dbarshis/barshislab/KatieP/taxons/Montipora_grisea/2023-Mgri-NMSAS/bam
+    [kpark049@turing1 bam]$ ls
+    23313Brs_2023-ASGWAS-S08deep-Mgri-01_R24069.sorted.bam  
+    23313Brs_2023-ASGWAS-S08deep-Mgri-05_R24073.sorted.bam   
+    23313Brs_2023-ASGWAS-S08shall-Mgri-01_R24074.sorted.bam
+    ...
+
+Number of biological samples: 
+
+    [kpark049@turing1 bam]$ ls *.sorted.bam | sed -E 's/_R[0-9]+\.sorted\.bam$//' | sort | uniq | wc -l
+    11
+
+Make new folder for merged BAM files  
+
+	[kpark049@turing1 bam]$ mkdir merged_bams
+
+Run merge bams script 
+
+	[kpark049@turing1 bam]$ nano 2026-01-25_merge_bams.slurm
+    #!/bin/bash
+
+    #SBATCH --job-name=merge_bams_by_sample_2026-01-26
+    #SBATCH --output=%A_%a_%x.out
+    #SBATCH --error=%A_%a_%x.err
+    #SBATCH --mail-type=ALL
+    #SBATCH --mail-user=kpark049@odu.edu
+    #SBATCH --partition=main
+    #SBATCH --array=1-11
+    #SBATCH --ntasks=1
+    #SBATCH --mem=30G
+    #SBATCH --time=2-00:00:00
+
+    ## Load modules
+    module load container_env samtools
+
+    ## Define directories
+    BASEDIR=/cm/shared/courses/dbarshis/barshislab/KatieP/taxons/Montipora_grisea/2023-Mgri-NMSAS
+    BAMDIR=$BASEDIR/bam
+    OUTDIR=$BAMDIR/merged_bams
+
+    mkdir -p "$OUTDIR"
+
+    ## Build sample list by stripping lane/run + suffix
+    SAMPLELIST=($(ls $BAMDIR/*.sorted.bam \
+      | sed -E 's/_R[0-9]+\.sorted\.bam$//' \
+      | sort | uniq))
+
+    ## Get sample for this array task
+    SAMPLE="${SAMPLELIST[$SLURM_ARRAY_TASK_ID-1]}"
+
+    echo "Processing sample: $SAMPLE"
+    echo "SLURM job ID: $SLURM_JOB_ID"
+
+    ## List BAM files belonging to this sample
+    BAMFILES=$(ls ${SAMPLE}_R*.sorted.bam)
+
+    echo "Input BAMs:"
+    echo "$BAMFILES"
+
+    ## Define merged BAM name
+    MERGEDBAM=$OUTDIR/$(basename "$SAMPLE").merged.bam
+
+    ## Merge
+    echo "Merging into $MERGEDBAM..."
+    samtools merge -f -@ 16 "$MERGEDBAM" $BAMFILES
+
+    ## Index merged BAM
+    samtools index "$MERGEDBAM"
+
+    echo "Merging complete for $SAMPLE"
+    
+Ran script 2026-01-26 @ 9:47PM 
+    
+    [kpark049@turing1 bam]$ salloc
+    salloc: Pending job allocation 10786890
+    salloc: job 10786890 queued and waiting for resources
+    salloc: job 10786890 has been allocated resources
+    salloc: Granted job allocation 10786890
+    salloc: Nodes coreV3-23-031 are ready for job
+    [kpark049@coreV3-23-031 bam]$ sbatch 2026-01-25_merge_bams.slurm
+	Submitted batch job 10786902
+
+## 2026-01-27: Checking Duplicates
+
+    [kpark049@turing1 merged_bams]$ pwd
+    /cm/shared/courses/dbarshis/barshislab/KatieP/taxons/Montipora_grisea/2023-Mgri-NMSAS/bam/merged_bams
+
+Checking BAM files merged correctly
+
+    [kpark049@turing1 merged_bams]$ module load container_env samtools
+    [kpark049@turing1 merged_bams]$ crun.samtools samtools idxstats 23313Brs_2023-ASGWAS-S08deep-Mgri-01.merged.bam | head
+    REFERENCE_NAME    LENGTH    MAPPED_READS    UNMAPPED_READS
+    Scaffold_1__1_contigs__length_50156999  50156999        122727  15254
+    Scaffold_2__1_contigs__length_55682999  55682999        174369  18233
+    Scaffold_3__1_contigs__length_44392999  44392999        684102  37133
+    Scaffold_4__1_contigs__length_64434164  64434164        231519  20982
+    Scaffold_5__1_contigs__length_50351834  50351834        152128  15284
+    Scaffold_6__1_contigs__length_51879999  51879999        276115  28405
+    Scaffold_7__1_contigs__length_59928471  59928471        8850243 451792
+    Scaffold_8__1_contigs__length_89833936  89833937        491901  38828
+    Scaffold_9__1_contigs__length_82041408  82041409        340894  32018
+    Scaffold_10__1_contigs__length_71276496 71276497        3223315 624389
+   
+Calculating total mapped reads 
+
+    [kpark049@turing1 merged_bams]$ crun.samtools samtools idxstats 23313Brs_2023-ASGWAS-S08deep-Mgri-01.merged.bam \
+    ?   | awk '{sum+=$3} END {print sum}'
+    16874408
+
+Run Duplication script 
+
+    [kpark049@turing1 scripts]$ pwd
+    /cm/shared/courses/dbarshis/barshislab/KatieP/taxons/Montipora_grisea/2023-Mgri-NMSAS/scripts
+    [kpark049@turing1 scripts]$ nano 2026-01-27_duplication_check.slurm
+    #!/bin/bash
+
+    #SBATCH --job-name=markdup_bams
+    #SBATCH --output=$LOGDIR/%A_%a_%x.out
+    #SBATCH --error=$LOGDIR/%A_%a_%x.err
+    #SBATCH --mail-type=ALL
+    #SBATCH --mail-user=kpark049@odu.edu
+    #SBATCH --partition=main
+    #SBATCH --array=1-11
+    #SBATCH --ntasks=1
+    #SBATCH --cpus-per-task=16
+    #SBATCH --mem=40G
+    #SBATCH --time=2-00:00:00
+
+    module load container_env samtools
 
 
+    BASEDIR=/cm/shared/courses/dbarshis/barshislab/KatieP/taxons/Montipora_grisea/2023-Mgri-NMSAS # Base project directory
+    MERGEDDIR=$BASEDIR/bam/merged_bams # Directory containing merged BAM files (one per biological sample)
+    OUTDIR=$MERGEDDIR/dedup_bams # Output directory for duplicate-marked BAM files
+    LOGDIR=$BASEDIR/scripts/dup_output
+
+    # Create output directory if it does not already exist
+    mkdir -p "$OUTDIR"
+
+
+    ##############################
+    ## Build list of input BAMs ##
+    ##############################
+
+    # Create an array containing the full paths of all merged BAM files
+    # These are the inputs to the duplicate-marking pipeline
+    SAMPLELIST=($(ls $MERGEDDIR/*.merged.bam | sort))
+
+    # Select the BAM file corresponding to this SLURM array task
+    # SLURM_ARRAY_TASK_ID starts at 1, so we subtract 1 for bash indexing
+    SAMPLE=${SAMPLELIST[$SLURM_ARRAY_TASK_ID-1]}
+
+    # Extract the base filename without directory path or extension
+    # This will be used to name all output files consistently
+    BASENAME=$(basename "$SAMPLE" .merged.bam)
+
+    # Log which sample is being processed
+    echo "Processing sample: $BASENAME"
+    echo "SLURM job ID: $SLURM_JOB_ID"
+
+    # Move into the directory containing the merged BAM files
+    cd "$MERGEDDIR"
+
+
+    #########################################
+    ## Step 1: Name-sort the BAM file       ##
+    #########################################
+
+    # samtools markdup requires mate information to be correct
+    # Name-sorting groups read pairs together so fixmate can operate properly
+    crun.samtools samtools sort -n -@ 16 \
+      -o $OUTDIR/${BASENAME}.namesort.bam \
+      "$SAMPLE"
+
+
+    #########################################
+    ## Step 2: Fix mate-pair information   ##
+    #########################################
+
+    # Add/repair mate coordinate and insert size information
+    # The -m flag ensures mate tags are written, which markdup needs
+    crun.samtools samtools fixmate -m -@ 16 \
+      $OUTDIR/${BASENAME}.namesort.bam \
+      $OUTDIR/${BASENAME}.fixmate.bam
+
+
+    #########################################
+    ## Step 3: Coordinate-sort the BAM     ##
+    #########################################
+
+    # Sort reads by genomic position
+    # markdup requires coordinate-sorted BAM input
+    crun.samtools samtools sort -@ 16 \
+      -o $OUTDIR/${BASENAME}.sorted.bam \
+      $OUTDIR/${BASENAME}.fixmate.bam
+
+
+    #########################################
+    ## Step 4: Mark PCR/optical duplicates ##
+    #########################################
+
+    # Identify duplicate reads based on mapping coordinates
+    # Duplicates are MARKED (flagged), not removed
+    # This preserves data while allowing downstream tools to ignore duplicates
+    crun.samtools samtools markdup -@ 16 \
+      $OUTDIR/${BASENAME}.sorted.bam \
+      $OUTDIR/${BASENAME}.dedup.bam
+
+
+    #########################################
+    ## Step 5: Index final BAM file        ##
+    #########################################
+
+    # Create BAM index (.bai) for fast random access
+    crun.samtools samtools index \
+      $OUTDIR/${BASENAME}.dedup.bam
+
+
+    #########################################
+    ## Step 6: Generate alignment statistics ##
+    #########################################
+
+    # Produce summary statistics including:
+    # - total reads
+    # - mapped reads
+    # - duplicate reads
+    # Useful for QC and reporting
+    crun.samtools samtools flagstat \
+      $OUTDIR/${BASENAME}.dedup.bam > \
+      $OUTDIR/${BASENAME}.dedup.flagstat.txt
+
+
+    echo "Finished duplicate marking for $BASENAME"
+
+
+Submitted 2026-01-27 @ 10:19AM
+
+    [kpark049@turing1 scripts]$ salloc
+    salloc: Pending job allocation 10786919
+    salloc: job 10786919 queued and waiting for resources
+    salloc: job 10786919 has been allocated resources
+    salloc: Granted job allocation 10786919
+    salloc: Nodes coreV3-23-031 are ready for job
+      You are loading a legacy samtools module, please load a up to date module instead:
+
+        module load container_env samtools
+
+      Please run samtools command with "crun.samtools" prepend to it, for example:
+
+        crun.samtools samtools
+
+      Otherwise you will get "command not found" error.
+    [kpark049@coreV3-23-031 scripts]$ sbatch 2026-01-27_duplication_check.slurm
+    Submitted batch job 10786920
+    
+## 2026-02-24: Concatinate Genome and re-run alignment and mapping
+My low mapping rates are potentially due to mapping sequences only to the Mgris Genome. Next steps are to concatinate the Mgris genome with the Cladocopium genome to hopefully improve mapping. 
+
+Copy Cladocopium genome from RC drive into my genome directory 
+
+     [kpark049@turing1 mgris_genome]$ pwd
+    /cm/shared/courses/dbarshis/barshislab/KatieP/taxons/Montipora_grisea/2023-Mgri-NMSAS/mgris_genome
+    
+    [kpark049@turing1 mgris_genome]$ ls
+    full_genome_scaffolds_Mgri_0.1.1.bt2  full_genome_scaffolds_Mgri_0.1.3.bt2  
+    full_genome_scaffolds_Mgri_0.1.fasta      full_genome_scaffolds_Mgri_0.1.rev.2.bt2
+    full_genome_scaffolds_Mgri_0.1.2.bt2  full_genome_scaffolds_Mgri_0.1.4.bt2  
+    full_genome_scaffolds_Mgri_0.1.rev.1.bt2
+   
+    [kpark049@turing1 mgris_genome]$ cp /RC/group/rc_barshis_lab/taxonarchive/Montipora_grisea/2022-12_WildGenomesMgrisGenome/Cladocopium_goreaui_genome_Chen2022.fasta ./
+   
+    [kpark049@turing1 mgris_genome]$ ls
+    Cladocopium_goreaui_genome_Chen2022.fasta  full_genome_scaffolds_Mgri_0.1.2.bt2  
+    full_genome_scaffolds_Mgri_0.1.4.bt2  full_genome_scaffolds_Mgri_0.1.rev.1.bt2
+    full_genome_scaffolds_Mgri_0.1.1.bt2       full_genome_scaffolds_Mgri_0.1.3.bt2  
+    full_genome_scaffolds_Mgri_0.1.fasta  full_genome_scaffolds_Mgri_0.1.rev.2.bt2
+
+Prefix genome scaffolds to avoid future confusion. Adding "Mgri_" to every scaffold in the Mgris genome
+
+    [kpark049@turing1 mgris_genome]$ sed 's/^>/ >Mgri_/' full_genome_scaffolds_Mgri_0.1.fasta | sed 's/^ >/>/' > Mgri_prefixed.fasta
+
+    [kpark049@turing1 mgris_genome]$ ls
+    Cladocopium_goreaui_genome_Chen2022.fasta  full_genome_scaffolds_Mgri_0.1.2.bt2  
+    full_genome_scaffolds_Mgri_0.1.4.bt2  full_genome_scaffolds_Mgri_0.1.rev.1.bt2  Mgri_prefixed.fasta
+    full_genome_scaffolds_Mgri_0.1.1.bt2       full_genome_scaffolds_Mgri_0.1.3.bt2  
+    full_genome_scaffolds_Mgri_0.1.fasta  full_genome_scaffolds_Mgri_0.1.rev.2.bt2
+    
+    [kpark049@turing1 mgris_genome]$ head Mgri_prefixed.fasta
+    >Mgri_Scaffold_1__1_contigs__length_50156999
+    TCAAAGAACATGGCAACTAACTGGCCAGAATGCTTGCTCCAAGAAGATCATAGAACTGCTTAAAAAAAAAAAAACAAAAC
+    AAAAAACAAAACAAAACCAAAAAACCTGTGAATCATTTCATGCGTACTTCTGTCATCCTTCTATGCCAGTGCTGGGTATG
+    TGTTTCTAGGAGTGGTGATGATGTAGACGATTCACCTGTTGATTGAGTGAGCACTCACGAGGCGGAATAAATCTCTTGAT
+    GAGGCCTAAGACTTGATGTGCTCAACCGTTCACTTTAGTGCGTTCATTAAGGAGGGTGCCTACTGTTGTTTATTTGCGCG
+    TACGTTCTGCGCATCTCTTGAAAGATTCTCGGATCTCCTATCGGGGATATTTTTAAAATGAGGCAGAGAAAGTGCATCTT
+    TGAAAGTACTAAAACCAAACACGCCTCAGCCGCTCAAAACCAGTCATCTAAGAGTCTAGCGGAAACACTGCGCCCAGCTT
+    CGGCCAAACAAAATGACTTGCAAATAACGAAATAAAGAAATAAATAAATCAATGCATAAATAAACTAAATAAATAAATAA
+    ATAAATAAACTAAGAAAGAAATTAATAAATCAATAAATCGGAAGTTCGGTATCGAAGTTTCGACATGCCGAGTGCATGTG
+    TCGGAAGTCGAAGTTTCGATATTCGGACAGCCGATGCGAGCATTGTCGGAATTTCGATTCGATTCGATTTCGACTCGATT
+
+Adding "Cgoreaui_" prefix to every scaffold in the Cladocopium genome 
+
+    [kpark049@turing1 mgris_genome]$ sed 's/^>/ >Cgoreaui_/' Cladocopium_goreaui_genome_Chen2022.fasta | sed 's/^ >/>/' > Cgoreaui_prefixed.fasta
+
+    [kpark049@turing1 mgris_genome]$ ls
+    Cgoreaui_prefixed.fasta                    full_genome_scaffolds_Mgri_0.1.1.bt2  
+    full_genome_scaffolds_Mgri_0.1.3.bt2  full_genome_scaffolds_Mgri_0.1.fasta      full_genome_scaffolds_Mgri_0.1.rev.2.bt2
+    Cladocopium_goreaui_genome_Chen2022.fasta  full_genome_scaffolds_Mgri_0.1.2.bt2  
+    full_genome_scaffolds_Mgri_0.1.4.bt2  full_genome_scaffolds_Mgri_0.1.rev.1.bt2  Mgri_prefixed.fasta
+    
+    [kpark049@turing1 mgris_genome]$ head Cgoreaui_prefixed.fasta
+    >Cgoreaui_scf7180000350026
+    CCGCATCGACTTCCCCCCATGGGAATTATGTTGCCCCAAAAAAGTTGATGTGACTAAAGG
+    CCTTCACTGTACGCATGCATGGATGCATGGGTGGATGTATGGACGTATGGATGGATGGAT
+    AGATGGATGGATGGATGGATGTTTGAGTGTGTACGTTTGAGTCTGTATGTTTGAGTATGT
+    ATGTTTGAGAATGTATGCCTGTATGTATGCATGTATGTATGCACGTACGTATCCACTTTT
+    GTATGCATGTTTGAGTATGCATGTATGTATGCATGCATGCATGTATGTATGCATGTATGT
+    ATGTATGTAATGCATGTAATGCATGTAATGCATGTAATGCATGTAATGCATGTAATGCAT
+    GTAATGCATGTAATGTATGTAATGTATGTAATNNNNNNNNNNNNNNNNNNNNNNNNNNNN
+    NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
+    NNNNNNNNNNNNCTGTATGCCTGTATGTGTGTGTGTGTATGTAATGTAGTGTAATGTAAT
+
+Combine prefixed genomes 
+
+    [kpark049@turing1 mgris_genome]$ cat Mgri_prefixed.fasta Cgoreaui_prefixed.fasta > Mgri_Cgoreaui_hologenome.fasta
+
+    [kpark049@turing1 mgris_genome]$ ls -l
+    total 5664472
+    -rwxrwxrwx 1 kpark049 users 1191168887 Feb 24 12:03 Cgoreaui_prefixed.fasta
+    -rwxr-x--x 1 kpark049 users 1191107300 Feb 24 11:49 Cladocopium_goreaui_genome_Chen2022.fasta
+    -rwxrwxrwx 1 kpark049 users  436552407 Jan  6 16:59 full_genome_scaffolds_Mgri_0.1.1.bt2
+    -rwxrwxrwx 1 kpark049 users  323858616 Jan  6 16:59 full_genome_scaffolds_Mgri_0.1.2.bt2
+    -rwxrwxrwx 1 kpark049 users      90350 Jan  6 16:47 full_genome_scaffolds_Mgri_0.1.3.bt2
+    -rwxrwxrwx 1 kpark049 users  323858612 Jan  6 16:47 full_genome_scaffolds_Mgri_0.1.4.bt2
+    -rwxr-x--x 1 kpark049 users 1312040247 Jan  6 16:34 full_genome_scaffolds_Mgri_0.1.fasta
+    -rwxrwxrwx 1 kpark049 users  436552407 Jan  6 17:11 full_genome_scaffolds_Mgri_0.1.rev.1.bt2
+    -rwxrwxrwx 1 kpark049 users  323858616 Jan  6 17:11 full_genome_scaffolds_Mgri_0.1.rev.2.bt2
+    -rwxrwxrwx 1 kpark049 users 2503258744 Feb 24 12:04 Mgri_Cgoreaui_hologenome.fasta
+    -rwxrwxrwx 1 kpark049 users 1312089857 Feb 24 11:58 Mgri_prefixed.fasta
+    
+Rename BAM files directory 
+
+    [kpark049@turing1 2023-Mgri-NMSAS]$ ls
+    bam  fastqs  mgris_genome  scripts
+    
+    [kpark049@turing1 2023-Mgri-NMSAS]$ mv bam/ Mgri_only_bam/
+    
+    [kpark049@turing1 2023-Mgri-NMSAS]$ ls
+    fastqs  Mgri_only_bam  mgris_genome  scripts
+
+Re-run alignment and mapping with updated hologenome 
+
+First need to index new genome
+
+    [kpark049@turing1 mgris_genome]$ crun.bowtie2 bowtie2-build Mgri_Cgoreaui_hologenome.fasta Mgri_Cgoreaui_hologenome
+    Settings:
+      Output files: "Mgri_Cgoreaui_hologenome.*.bt2"
+      Line rate: 6 (line is 64 bytes)
+      Lines per side: 1 (side is 64 bytes)
+      Offset rate: 4 (one in 16)
+      FTable chars: 10
+      Strings: unpacked
+      Max bucket size: default
+      Max bucket size, sqrt multiplier: default
+      Max bucket size, len divisor: 4
+      Difference-cover sample period: 1024
+      ...
+
+
+    [kpark049@turing1 mgris_genome]$ ls
+    Cgoreaui_prefixed.fasta                    full_genome_scaffolds_Mgri_0.1.fasta      Mgri_Cgoreaui_hologenome.4.bt2
+    Cladocopium_goreaui_genome_Chen2022.fasta  full_genome_scaffolds_Mgri_0.1.rev.1.bt2  Mgri_Cgoreaui_hologenome.fasta
+    full_genome_scaffolds_Mgri_0.1.1.bt2       full_genome_scaffolds_Mgri_0.1.rev.2.bt2  Mgri_Cgoreaui_hologenome.rev.1.bt2
+    full_genome_scaffolds_Mgri_0.1.2.bt2       Mgri_Cgoreaui_hologenome.1.bt2            Mgri_Cgoreaui_hologenome.rev.2.bt2
+    full_genome_scaffolds_Mgri_0.1.3.bt2       Mgri_Cgoreaui_hologenome.2.bt2            Mgri_prefixed.fasta
+    full_genome_scaffolds_Mgri_0.1.4.bt2       Mgri_Cgoreaui_hologenome.3.bt2
+
+
+
+
+  
