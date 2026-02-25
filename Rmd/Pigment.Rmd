@@ -168,8 +168,42 @@ ggplot(pigment_plot_per_cm2, aes(x = Sample, y = ug_cm2_pigment, fill = Pigment)
 
 write.xlsx(pigment_plot_per_cm2, "data/frag_data/pigment_per_cm2.xlsx")
 
-ggplot(pigment_plot_per_cm2, aes(x = Depth, y = ug_cm2_pigment, fill = Pigment)) +
-  geom_boxplot()
+labels <- c(
+  "Chl_a_per_cm2" = "Chlorophyll~italic(a)",
+  "Chl_c_per_cm2" = "Chlorophyll~italic(c)",
+  "Perid_per_cm2"    = "Peridinium")
+
+total_pigment <- ggplot(pigment_plot_per_cm2, aes(x = Depth, y = ug_cm2_pigment, fill = Depth)) +
+  geom_boxplot() + 
+  scale_fill_manual(values = c('darkblue', 'dodgerblue3', '#6BAED6')) +
+  facet_wrap(~Pigment, labeller = as_labeller(labels, label_parsed)) +
+  theme_bw() +
+  #scale_y_continuous(limits = c(0,1.25), expand = c(0,0)) +
+  ylab(expression(mu*g~pigment/cm^2)) +
+  theme(legend.title = element_blank(),
+        legend.position = "bottom",
+        strip.text = element_text(size = 11),
+        axis.text.y = element_text(size = 10),
+        axis.text.x = element_blank(),
+        axis.title.x = element_blank(), 
+        legend.text = element_text(size = 10),
+        panel.spacing = unit(0.75, "lines"),
+        legend.background = element_rect(fill = "transparent"))
+
+ggsave(
+  filename = "Plots/Pigment/total_pigment.pdf",  # Name of the output file
+  plot = total_pigment,                      # Specify the plot to save
+  width = 5,                            # Width in inches
+  height = 4                            # Height in inches
+)
+
+ggsave(
+  filename = "Plots/Pigment/total_pigment.png",  # Name of the output file
+  plot = total_pigment,                      # Specify the plot to save
+  width = 5,                            # Width in inches
+  height = 4                           # Height in inches
+)
+
 ```
 
 # Stats
@@ -194,7 +228,6 @@ anova_Perid <- aov(Perid_per_cm2 ~ Depth, data = pigment_stats)
 
 summary(anova_Perid)
 TukeyHSD(anova_Perid)
-
 
 ```
 
