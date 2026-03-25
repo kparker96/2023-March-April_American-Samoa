@@ -642,7 +642,7 @@ index genome
 
 Now ready to run Bowtie2 
 
-## 2026-01-07: Running BowTie2
+## 2026-01-07: Running BowTie2 - Did not work :(
 Making a scripts folder to try and keep things organized 
 
     [kpark049@turing1 2023-Mgri-NMSAS]$ mkdir scripts
@@ -762,7 +762,7 @@ Based on .err output, Bowtie2 worked correctly, but then I ran into errors with 
 
 Switching to avoid future Java POSIX library issues on hpc 
 
-[kpark049@coreV4-21-k80-001 scripts]$ nano 2026-01-08_bowtie2_samtools.slurm
+	[kpark049@coreV4-21-k80-001 scripts]$ nano 2026-01-08_bowtie2_samtools.slurm
     #!/bin/bash -l
 
     #SBATCH --job-name=hologenome_mapping
@@ -811,7 +811,7 @@ Switching to avoid future Java POSIX library issues on hpc
     salloc: Granted job allocation 10785540
     salloc: Nodes coreV4-21-k80-001 are ready for job
 
-      [kpark049@coreV3-23-027 scripts]$ sbatch 2026-01-08_bowtie2_samtools.slurm
+    [kpark049@coreV3-23-027 scripts]$ sbatch 2026-01-08_bowtie2_samtools.slurm
     Submitted batch job 10785659
 
 submitted 2026-01-08 @ 7:13PM 
@@ -878,41 +878,7 @@ Job submitted 2026-01-12 @ 10:47am (finished in 1 minute)
 
 Output from head bowtie_mapping_summary.tsv
 
-| JobID        | Status   | Sample                                           | Concordantly 0× | Concordantly 1× | Concordantly ≥2× | Overall Rate |
-|--------------|----------|--------------------------------------------------|-----------------|-----------------|------------------|--------------|
-| 10785659_1   | Finished | 23313Brs_2023-ASGWAS-S08deep-Mgri-01_R24069        | 88.22%          | 0.72%           | 11.06%           | 13.29%       |
-| 10785659_2   | Finished | 23313Brs_2023-ASGWAS-S08deep-Mgri-01_R24073        | 89.09%          | 0.68%           | 10.24%           | 12.23%       |
-| 10785659_3   | Finished | 23313Brs_2023-ASGWAS-S08deep-Mgri-01_R24074        | 89.23%          | 0.71%           | 10.06%           | 12.10%       |
-| 10785659_4   | Finished | 23313Brs_2023-ASGWAS-S08deep-Mgri-02_R24069        | 91.03%          | 3.17%           | 5.80%            | 11.10%       |
-| 10785659_5   | Finished | 23313Brs_2023-ASGWAS-S08deep-Mgri-02_R24073        | 91.00%          | 3.23%           | 5.78%            | 11.00%       |
-| 10785659_6   | Finished | 23313Brs_2023-ASGWAS-S08deep-Mgri-02_R24074        | 91.05%          | 3.23%           | 5.72%            | 10.92%       |
-| 10785659_7   | Finished | 23313Brs_2023-ASGWAS-S08deep-Mgri-03_R24069        | 58.72%          | 0.70%           | 40.58%           | 43.97%       |
-| 10785659_8   | Finished | 23313Brs_2023-ASGWAS-S08deep-Mgri-03_R24073        | 60.17%          | 0.64%           | 39.19%           | 42.34%       |
-| 10785659_9   | Finished | 23313Brs_2023-ASGWAS-S08deep-Mgri-03_R24074        | 61.31%          | 0.70%           | 37.99%           | 41.11%       |
-| 10785659_10  | Finished | 23313Brs_2023-ASGWAS-S08deep-Mgri-04_R24069        | 93.65%          | 0.47%           | 5.89%            | 7.71%        |
-| 10785659_11  | Finished | 23313Brs_2023-ASGWAS-S08deep-Mgri-04_R24073        | 94.11%          | 0.41%           | 5.48%            | 7.05%        |
-| 10785659_12  | Finished | 23313Brs_2023-ASGWAS-S08deep-Mgri-04_R24074        | 94.14%          | 0.44%           | 5.42%            | 7.08%        |
-| 10785659_13  | Finished | 23313Brs_2023-ASGWAS-S08deep-Mgri-05_R24069        | 92.31%          | 2.58%           | 5.11%            | 9.73%        |
-| 10785659_14  | Finished | 23313Brs_2023-ASGWAS-S08deep-Mgri-05_R24073        | 92.33%          | 2.61%           | 5.06%            | 9.55%        |
-| 10785659_15  | Finished | 23313Brs_2023-ASGWAS-S08deep-Mgri-05_R24074        | 92.33%          | 2.62%           | 5.05%            | 9.53%        |
-| 10785659_16  | Finished | 23313Brs_2023-ASGWAS-S08deep-Mgri-07_R24069        | 89.73%          | 1.22%           | 9.06%            | 12.22%       |
-| 10785659_17  | Finished | 23313Brs_2023-ASGWAS-S08deep-Mgri-07_R24073        | 90.37%          | 1.13%           | 8.50%            | 11.33%       |
-| 10785659_18  | Finished | 23313Brs_2023-ASGWAS-S08deep-Mgri-07_R24074        | 90.21%          | 1.18%           | 8.61%            | 11.55%       |
-| 10785659_19  | Finished | 23313Brs_2023-ASGWAS-S08midd-Mgri-02_R24069        | 96.63%          | 0.77%           | 2.60%            | 4.58%        |
-| 10785659_20  | Finished | 23313Brs_2023-ASGWAS-S08midd-Mgri-02_R24073        | 96.89%          | 0.71%           | 2.41%            | 4.14%        |
-| 10785659_21  | Finished | 23313Brs_2023-ASGWAS-S08midd-Mgri-02_R24074        | 96.79%          | 0.74%           | 2.48%            | 4.31%        |
-| 10785659_22  | Finished | 23313Brs_2023-ASGWAS-S08midd-Mgri-05_R24069        | 94.25%          | 1.90%           | 3.85%            | 7.45%        |
-| 10785659_23  | Finished | 23313Brs_2023-ASGWAS-S08midd-Mgri-05_R24073        | 94.28%          | 1.94%           | 3.79%            | 7.25%        |
-| 10785659_24  | Finished | 23313Brs_2023-ASGWAS-S08midd-Mgri-05_R24074        | 94.25%          | 1.95%           | 3.80%            | 7.30%        |
-| 10785659_25  | Finished | 23313Brs_2023-ASGWAS-S08shall-Mgri-01_R24069       | 87.13%          | 3.22%           | 9.65%            | 15.29%       |
-| 10785659_26  | Finished | 23313Brs_2023-ASGWAS-S08shall-Mgri-01_R24073       | 87.49%          | 3.17%           | 9.35%            | 14.65%       |
-| 10785659_27  | Finished | 23313Brs_2023-ASGWAS-S08shall-Mgri-01_R24074       | 87.39%          | 3.20%           | 9.41%            | 14.82%       |
-| 10785659_28  | Finished | 23313Brs_2023-ASGWAS-S08shall-Mgri-02_R24069       | 94.91%          | 0.98%           | 4.11%            | 6.43%        |
-| 10785659_29  | Finished | 23313Brs_2023-ASGWAS-S08shall-Mgri-02_R24073       | 95.25%          | 0.93%           | 3.83%            | 5.91%        |
-| 10785659_30  | Finished | 23313Brs_2023-ASGWAS-S08shall-Mgri-02_R24074       | 95.12%          | 0.96%           | 3.92%            | 6.09%        |
-| 10785659_31  | Finished | 23313Brs_2023-ASGWAS-S08shall-Mgri-06_R24069       | 92.05%          | 2.45%           | 5.50%            | 9.97%        |
-| 10785659_32  | Finished | 23313Brs_2023-ASGWAS-S08shall-Mgri-06_R24073       | 92.20%          | 2.48%           | 5.32%            | 9.57%        |
-| 10785659_33  | Finished | 23313Brs_2023-ASGWAS-S08shall-Mgri-06_R24074       | 92.09%          | 2.51%           | 5.40%            | 9.74%        |
+-
 
 
     [kpark049@coreV3-23-027 bam]$ nano mapping_stats.sh
@@ -990,7 +956,7 @@ Output from head bowtie_mapping_summary.tsv
 | 23313Brs_2023-ASGWAS-S08shall-Mgri-06_R24073.sorted.bam | 106624196 | 10198730 | 9.57 |
 | 23313Brs_2023-ASGWAS-S08shall-Mgri-06_R24074.sorted.bam | 105190212 | 10249431 | 9.74 |
 
-## 2027-01-26: Merge BAM Files  
+## 2026-01-26: Merge BAM Files  
 
 Need to merge bamfiles to have one file per sample. 
 
@@ -1372,6 +1338,170 @@ First need to index new genome
     full_genome_scaffolds_Mgri_0.1.4.bt2       Mgri_Cgoreaui_hologenome.3.bt2
 
 
+## 2026-02-26: Rerun mapping with Bowtie 2
+
+    [kpark049@turing1 scripts]$ pwd
+    /cm/shared/courses/dbarshis/barshislab/KatieP/taxons/Montipora_grisea/2023-Mgri-NMSAS/scripts
+    
+    [kpark049@turing1 scripts]$ nano 2026-02-26_bowtie2_samtools.slurm
+    
+    #!/bin/bash -l
+
+    #SBATCH --job-name=hologenome_mapping
+    #SBATCH --output=%A_%a_%x.out
+    #SBATCH --error=%A_%a_%x.err
+    #SBATCH --mail-user=kpark049@odu.edu
+    #SBATCH --partition=main
+    #SBATCH --array=1-33
+    #SBATCH --ntasks=1
+    #SBATCH --cpus-per-task=16
+    #SBATCH --mem=30G
+    #SBATCH --time=3-00:00:00
+
+    module load container_env
+    module load bowtie2
+    module load samtools
+
+    BASEDIR=/cm/shared/courses/dbarshis/barshislab/KatieP/taxons/Montipora_grisea/2023-Mgri-NMSAS
+    FASTQDIR=$BASEDIR/fastqs/trimmed_fastqs
+    OUTDIR=$BASEDIR/bam
+    SAMPLELIST=$BASEDIR/fastqs/sample_data/sample_list.txt
+    REF=$BASEDIR/mgris_genome/Mgri_Cgoreaui_hologenome
 
 
-  
+    mkdir -p $OUTDIR
+
+    SAMPLE=$(sed -n "${SLURM_ARRAY_TASK_ID}p" $SAMPLELIST)
+    echo "Processing $SAMPLE"
+
+    # Align and pipe directly to BAM
+    crun.bowtie2 bowtie2 --very-sensitive -p 16 \
+      -x $REF \
+      -1 $FASTQDIR/${SAMPLE}_R1_trimmed.fastq.gz \
+      -2 $FASTQDIR/${SAMPLE}_R2_trimmed.fastq.gz | \
+    crun.samtools samtools view -bS - | \
+    crun.samtools samtools sort -@ 16 -o $OUTDIR/${SAMPLE}.sorted.bam
+
+    # Index BAM
+    samtools index $OUTDIR/${SAMPLE}.sorted.bam
+
+    echo "Finished $SAMPLE"
+    
+    [kpark049@turing1 scripts]$ salloc
+    salloc: Pending job allocation 10790003
+    salloc: job 10790003 queued and waiting for resources
+    salloc: job 10790003 has been allocated resources
+    salloc: Granted job allocation 10790003
+    salloc: Nodes coreV3-23-003 are ready for job
+    
+    [kpark049@coreV3-23-003 scripts]$ sbatch 2026-02-26_bowtie2_samtools.slurm
+    Submitted batch job 10790004
+
+Submitted 2026-02-26 @ 2:46PM 
+
+##2026-03-24 Check mapping
+    [kpark049@turing1 bam]$ pwd
+    /cm/shared/courses/dbarshis/barshislab/KatieP/taxons/Montipora_grisea/2023-Mgri-NMSAS/bam
+    
+    [kpark049@turing1 bam]$ ls
+    23313Brs_2023-ASGWAS-S08deep-Mgri-01_R24069.sorted.bam  23313Brs_2023-ASGWAS-S08deep-Mgri-07_R24074.sorted.bam
+    23313Brs_2023-ASGWAS-S08deep-Mgri-01_R24073.sorted.bam  23313Brs_2023-ASGWAS-S08midd-Mgri-02_R24069.sorted.bam
+    23313Brs_2023-ASGWAS-S08deep-Mgri-01_R24074.sorted.bam  23313Brs_2023-ASGWAS-S08midd-Mgri-02_R24073.sorted.bam
+    23313Brs_2023-ASGWAS-S08deep-Mgri-02_R24069.sorted.bam  23313Brs_2023-ASGWAS-S08midd-Mgri-02_R24074.sorted.bam
+    23313Brs_2023-ASGWAS-S08deep-Mgri-02_R24073.sorted.bam  23313Brs_2023-ASGWAS-S08midd-Mgri-05_R24069.sorted.bam
+    23313Brs_2023-ASGWAS-S08deep-Mgri-02_R24074.sorted.bam  23313Brs_2023-ASGWAS-S08midd-Mgri-05_R24073.sorted.bam
+    23313Brs_2023-ASGWAS-S08deep-Mgri-03_R24069.sorted.bam  23313Brs_2023-ASGWAS-S08midd-Mgri-05_R24074.sorted.bam
+    23313Brs_2023-ASGWAS-S08deep-Mgri-03_R24073.sorted.bam  23313Brs_2023-ASGWAS-S08shall-Mgri-01_R24069.sorted.bam
+    23313Brs_2023-ASGWAS-S08deep-Mgri-03_R24074.sorted.bam  23313Brs_2023-ASGWAS-S08shall-Mgri-01_R24073.sorted.bam
+    23313Brs_2023-ASGWAS-S08deep-Mgri-04_R24069.sorted.bam  23313Brs_2023-ASGWAS-S08shall-Mgri-01_R24074.sorted.bam
+    23313Brs_2023-ASGWAS-S08deep-Mgri-04_R24073.sorted.bam  23313Brs_2023-ASGWAS-S08shall-Mgri-02_R24069.sorted.bam
+    23313Brs_2023-ASGWAS-S08deep-Mgri-04_R24074.sorted.bam  23313Brs_2023-ASGWAS-S08shall-Mgri-02_R24073.sorted.bam
+    23313Brs_2023-ASGWAS-S08deep-Mgri-05_R24069.sorted.bam  23313Brs_2023-ASGWAS-S08shall-Mgri-02_R24074.sorted.bam
+    23313Brs_2023-ASGWAS-S08deep-Mgri-05_R24073.sorted.bam  23313Brs_2023-ASGWAS-S08shall-Mgri-06_R24069.sorted.bam
+    23313Brs_2023-ASGWAS-S08deep-Mgri-05_R24074.sorted.bam  23313Brs_2023-ASGWAS-S08shall-Mgri-06_R24073.sorted.bam
+    23313Brs_2023-ASGWAS-S08deep-Mgri-07_R24069.sorted.bam  23313Brs_2023-ASGWAS-S08shall-Mgri-06_R24074.sorted.bam
+    23313Brs_2023-ASGWAS-S08deep-Mgri-07_R24073.sorted.bam
+
+    [kpark049@turing1 scripts]$ pwd
+    /cm/shared/courses/dbarshis/barshislab/KatieP/taxons/Montipora_grisea/2023-Mgri-NMSAS/scripts
+    
+    [kpark049@turing1 scripts]$ nano parse_bowtie_output.sh
+
+    #!/bin/bash
+
+    ls *hologenome_mapping*.err > mapping_errfile_list.txt
+
+    # create data file and add header if it is empty
+    header="jobid\tsample\tconcordantly_0_times\tconcordantly_1_time\tconcordantly_2_or_more_times\toverall_rate" #assign header value
+    outfile="2026-03-24_bowtie_mapping_summary.tsv"
+
+    if [ ! -s "$outfile" ]; then
+      # file is empty or does not exist
+        echo -e "$header" > "$outfile"
+    fi
+
+    for FILE in `cat mapping_errfile_list.txt`; do
+        # parse mapping rates from botwtie2 otuput
+        jobid=$(echo $FILE | cut -d "_" -f1,2)
+        sample=$(head -3 $jobid'_hologenome_mapping.out' | tail -1)
+        con0=$(grep -oP '\d+\.\d+%?' $jobid'_hologenome_mapping.err' | head -2 | tail -1)
+        con1=$(grep -oP '\d+\.\d+%?' $jobid'_hologenome_mapping.err' | head -3 | tail -1)
+        con2=$(grep -oP '\d+\.\d+%?' $jobid'_hologenome_mapping.err' | head -4 | tail -1)
+        overall=$(grep -oP '\d+\.\d+%? overall alignment rate' $jobid'_hologenome_mapping.err' | cut -d" " -f1)
+
+        # Append data to output file
+        echo -e "$jobid\t$sample\t$con0\t$con1\t$con2\t$overall" >> "$outfile"
+
+    done
+
+    [kpark049@turing1 scripts]$ salloc
+    salloc: Pending job allocation 10791509
+    salloc: job 10791509 queued and waiting for resources
+    salloc: job 10791509 has been allocated resources
+    salloc: Granted job allocation 10791509
+    salloc: Nodes coreV3-23-027 are ready for job
+    
+    [kpark049@coreV3-23-027 scripts]$ sbatch parse_bowtie_output.sh
+    Submitted batch job 10791510
+
+submitted @ 1:44PM 
+
+[kpark049@coreV3-23-027 scripts]$ cat bowtie_mapping_summary.tsv
+
+
+| jobid | sample | concordantly_0_times | concordantly_1_time | concordantly_2_or_more_times | overall_rate |
+| ----- | ------ | -------------------- | ------------------- | ---------------------------- | ------------- |
+| 10790004_10 | Finished 23313Brs_2023-ASGWAS-S08deep-Mgri-04_R24069 | 88.30% | 1.05% | 10.66% | 13.84% |
+| 10790004_11 | Finished 23313Brs_2023-ASGWAS-S08deep-Mgri-04_R24073 | 88.96% | 1.10% | 9.94% | 12.98% |
+| 10790004_12 | Finished 23313Brs_2023-ASGWAS-S08deep-Mgri-04_R24074 | 88.82% | 1.10% | 10.08% | 13.14% |
+| 10790004_13 | Finished 23313Brs_2023-ASGWAS-S08deep-Mgri-05_R24069 | 91.65% | 2.56% | 5.79% | 10.47% |
+| 10790004_14 | Finished 23313Brs_2023-ASGWAS-S08deep-Mgri-05_R24073 | 91.73% | 2.60% | 5.67% | 10.24% |
+| 10790004_15 | Finished 23313Brs_2023-ASGWAS-S08deep-Mgri-05_R24074 | 91.70% | 2.60% | 5.69% | 10.25% |
+| 10790004_16 | Finished 23313Brs_2023-ASGWAS-S08deep-Mgri-07_R24069 | 82.46% | 1.93% | 15.61% | 19.97% |
+| 10790004_17 | Finished 23313Brs_2023-ASGWAS-S08deep-Mgri-07_R24073 | 83.30% | 2.00% | 14.70% | 18.89% |
+| 10790004_18 | Finished 23313Brs_2023-ASGWAS-S08deep-Mgri-07_R24074 | 82.98% | 2.01% | 15.02% | 19.24% |
+| 10790004_19 | Finished 23313Brs_2023-ASGWAS-S08midd-Mgri-02_R24069 | 91.35% | 1.46% | 7.19% | 10.89% |
+| 10790004_1 | Finished 23313Brs_2023-ASGWAS-S08deep-Mgri-01_R24069 | 83.76% | 1.10% | 15.14% | 18.02% |
+| 10790004_20 | Finished 23313Brs_2023-ASGWAS-S08midd-Mgri-02_R24073 | 91.87% | 1.50% | 6.62% | 10.22% |
+| 10790004_21 | Finished 23313Brs_2023-ASGWAS-S08midd-Mgri-02_R24074 | 91.58% | 1.50% | 6.92% | 10.53% |
+| 10790004_22 | Finished 23313Brs_2023-ASGWAS-S08midd-Mgri-05_R24069 | 92.16% | 2.12% | 5.73% | 9.95% |
+| 10790004_23 | Finished 23313Brs_2023-ASGWAS-S08midd-Mgri-05_R24073 | 92.29% | 2.19% | 5.52% | 9.62% |
+| 10790004_24 | Finished 23313Brs_2023-ASGWAS-S08midd-Mgri-05_R24074 | 92.20% | 2.19% | 5.61% | 9.73% |
+| 10790004_25 | Finished 23313Brs_2023-ASGWAS-S08shall-Mgri-01_R24069 | 80.37% | 3.85% | 15.78% | 22.26% |
+| 10790004_26 | Finished 23313Brs_2023-ASGWAS-S08shall-Mgri-01_R24073 | 81.08% | 3.94% | 14.99% | 21.32% |
+| 10790004_27 | Finished 23313Brs_2023-ASGWAS-S08shall-Mgri-01_R24074 | 80.78% | 3.92% | 15.30% | 21.65% |
+| 10790004_28 | Finished 23313Brs_2023-ASGWAS-S08shall-Mgri-02_R24069 | 87.99% | 2.13% | 9.88% | 14.50% |
+| 10790004_29 | Finished 23313Brs_2023-ASGWAS-S08shall-Mgri-02_R24073 | 88.54% | 2.21% | 9.25% | 13.76% |
+| 10790004_2 | Finished 23313Brs_2023-ASGWAS-S08deep-Mgri-01_R24073 | 84.77% | 1.16% | 14.07% | 16.84% |
+| 10790004_30 | Finished 23313Brs_2023-ASGWAS-S08shall-Mgri-02_R24074 | 88.27% | 2.21% | 9.52% | 14.05% |
+| 10790004_31 | Finished 23313Brs_2023-ASGWAS-S08shall-Mgri-06_R24069 | 85.85% | 3.35% | 10.80% | 17.38% |
+| 10790004_32 | Finished 23313Brs_2023-ASGWAS-S08shall-Mgri-06_R24073 | 86.27% | 3.51% | 10.22% | 16.68% |
+| 10790004_33 | Finished 23313Brs_2023-ASGWAS-S08shall-Mgri-06_R24074 | 85.97% | 3.50% | 10.52% | 17.00% |
+| 10790004_3 | Finished 23313Brs_2023-ASGWAS-S08deep-Mgri-01_R24074 | 84.77% | 1.16% | 14.07% | 16.83% |
+| 10790004_4 | Finished 23313Brs_2023-ASGWAS-S08deep-Mgri-02_R24069 | 90.66% | 3.18% | 6.16% | 11.58% |
+| 10790004_5 | Finished 23313Brs_2023-ASGWAS-S08deep-Mgri-02_R24073 | 90.64% | 3.23% | 6.12% | 11.45% |
+| 10790004_6 | Finished 23313Brs_2023-ASGWAS-S08deep-Mgri-02_R24074 | 90.68% | 3.24% | 6.08% | 11.39% |
+| 10790004_7 | Finished 23313Brs_2023-ASGWAS-S08deep-Mgri-03_R24069 | 52.96% | 1.03% | 46.02% | 50.20% |
+| 10790004_8 | Finished 23313Brs_2023-ASGWAS-S08deep-Mgri-03_R24073 | 54.30% | 1.08% | 44.62% | 48.74% |
+| 10790004_9 | Finished 23313Brs_2023-ASGWAS-S08deep-Mgri-03_R24074 | 55.14% | 1.11% | 43.75% | 47.75% |
+

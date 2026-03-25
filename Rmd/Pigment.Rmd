@@ -175,20 +175,21 @@ labels <- c(
 
 total_pigment <- ggplot(pigment_plot_per_cm2, aes(x = Depth, y = ug_cm2_pigment, fill = Depth)) +
   geom_boxplot() + 
-  scale_fill_manual(values = c('darkblue', 'dodgerblue3', '#6BAED6')) +
-  facet_wrap(~Pigment, labeller = as_labeller(labels, label_parsed)) +
-  theme_bw() +
+  scale_fill_manual(values = c('darkblue', 'dodgerblue3', '#6BAED6'),
+                    labels = c( "Deep", "Middle", "Shallow")) +
+  facet_wrap(~Pigment, labeller = as_labeller(labels, label_parsed), scales = "free_y") +
+  
   #scale_y_continuous(limits = c(0,1.25), expand = c(0,0)) +
-  ylab(expression(mu*g~pigment/cm^2)) +
+  ylab(expression("Pigment" * " " *~(mu*g/cm^2))) +
+  theme_bw() +
   theme(legend.title = element_blank(),
-        legend.position = "bottom",
+        legend.position = "none",
         strip.text = element_text(size = 11),
         axis.text.y = element_text(size = 10),
-        axis.text.x = element_blank(),
         axis.title.x = element_blank(), 
         legend.text = element_text(size = 10),
         panel.spacing = unit(0.75, "lines"),
-        legend.background = element_rect(fill = "transparent"))
+        legend.background = element_rect(fill = "transparent")) 
 
 ggsave(
   filename = "Plots/Pigment/total_pigment.pdf",  # Name of the output file
@@ -203,6 +204,8 @@ ggsave(
   width = 5,                            # Width in inches
   height = 4                           # Height in inches
 )
+
+saveRDS(total_pigment, file = "Plots/Pigment/total_pigment.rds")
 
 ```
 

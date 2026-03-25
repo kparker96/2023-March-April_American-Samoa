@@ -18,7 +18,6 @@ library(writexl)
 library(vegan)
 ```
 
-
 # Relative Abundance
 ```{r read raw data and Fig S4}
 raw_lines <- readLines("data/ITS2/its2_type_profiles/553_20250131T130103_DBV_20250201T092521.profiles.relative.abund_and_meta.txt")
@@ -72,7 +71,8 @@ rel_abund_ITS2 <- ggplot(relabund_long, aes(x = sample_name,y = relative_abundan
   facet_wrap(~Depth, scales = "free_x") +
   scale_y_continuous(expand = c(0, 0)) +
   coord_cartesian(ylim = c(0, 1)) +
-  scale_fill_manual(values = c( "lightblue1","#1F5C99","#123a61", "#0b2238", "#C5E384")) +
+  scale_fill_manual(values = c( "lightblue1","#1F5C99","#c795ed", "#4f1c75", "#C5E384")) +
+  guides(fill=guide_legend(ncol=3)) +
   theme_bw() +
   labs(y = "Relative Abundance", fill = "Type Profile") +
   theme(axis.text.x = element_blank(),
@@ -99,6 +99,8 @@ ggsave(
   width = 7,                            # Width in inches
   height = 5                            # Height in inches
 )
+
+saveRDS(rel_abund_ITS2, file = "Plots/ITS2/rel_abund_ITS2.rds")
 ```
 
 # Bray Curtis Dissimilarity

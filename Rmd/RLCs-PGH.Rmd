@@ -25,28 +25,28 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Install Packages 
 ```{r packages}
-install.packages("sp")
+#install.packages("sp")
 
-install.packages("rdgal")
+#install.packages("rdgal")
 # install.packages("https://cran.r-project.org/src/contrib/Archive/rgdal/rgdal_1.6-6.tar.gz", repos=NULL, type="source")
 
-install.packages("terra")
+#install.packages("terra")
 # install.packages("https://cran.r-project.org/src/contrib/Archive/terra/terra_1.7-37.tar.gz", repos=NULL, type="source")
 
-install.packages("raster")
+#install.packages("raster")
 # install.packages("https://cran.r-project.org/src/contrib/Archive/raster/raster_3.6-14.tar.gz", repos=NULL, type="source")
 
-install.packages("https://cran.r-project.org/src/contrib/Archive/insol/insol_1.2.tar.gz", repos=NULL, type="source")
+#install.packages("https://cran.r-project.org/src/contrib/Archive/insol/insol_1.2.tar.gz", repos=NULL, type="source")
 
-install.packages("https://cran.r-project.org/src/contrib/Archive/deSolve/deSolve_1.34.tar.gz", repos=NULL, type="source")
+#install.packages("https://cran.r-project.org/src/contrib/Archive/deSolve/deSolve_1.34.tar.gz", repos=NULL, type="source")
 
-install.packages("rootSolve")
+#install.packages("rootSolve")
 
-install.packages("https://cran.r-project.org/src/contrib/Archive/coda/coda_0.19-3.tar.gz", repos=NULL, type="source")
+#install.packages("https://cran.r-project.org/src/contrib/Archive/coda/coda_0.19-3.tar.gz", repos=NULL, type="source")
 
-install.packages("https://cran.r-project.org/src/contrib/Archive/FME/FME_1.3.tar.gz", repos=NULL, type="source")
+#install.packages("https://cran.r-project.org/src/contrib/Archive/FME/FME_1.3.tar.gz", repos=NULL, type="source")
 
-install.packages("https://cran.r-project.org/src/contrib/Archive/phytotools/phytotools_1.0.tar.gz", repos=NULL, type="source", dependencies = FALSE)
+#install.packages("https://cran.r-project.org/src/contrib/Archive/phytotools/phytotools_1.0.tar.gz", repos=NULL, type="source", dependencies = FALSE)
 ```
 
 # Load Libraries
@@ -359,7 +359,7 @@ rlc.summary.pop <- rlc.predictions %>%
 PGH_pop_fits <- ggplot(rlc.summary.pop, aes(x = par_bin, y = etr_mean, color = id)) +
   geom_point(size = 3, show.legend = FALSE) + # Averaged data
   geom_errorbar(aes(ymin = (etr_mean - etr_se),
-                  ymax = (etr_mean + etr_se))) +
+                  ymax = (etr_mean + etr_se), width = 100)) +
   geom_line(data = rlc.predictions.pop, aes(y = fit.pop), linewidth = 1, alpha = 0.7) + # Fitted model
   geom_vline(data = vertical_lines, aes(xintercept = Ek, color = id), linewidth = 0.75, alpha = 0.7, 
              linetype = "longdash", show.legend = FALSE) +
@@ -409,6 +409,8 @@ ggsave(
   height = 3                            # Height in inches
 )
 
+saveRDS(PGH_pop_fits, file = "Plots/rlcs/PGH_model_fits.rds")
+
 ```
 
 # Stats
@@ -436,7 +438,7 @@ TukeyHSD(Ek_anova)
 
 # Plot Depth Fits Figure
 ```{r}
-rlcs_all <- ggplot(rlc.predictions, aes(x = par, y = etr, color = id)) +
+rlcs_all <- ggplot(rlc.predictions, aes(x = par_bin, y = etr, color = id)) +
   geom_point(size = 3, alpha = 0.75, show.legend = FALSE) + # Observed data
   geom_line(data = rlc.predictions.pop, aes(y = fit.pop), size = 1.75) + # Fitted model
   geom_vline(data = vertical_lines, aes(xintercept = Ek, color = id), size = 1.5, 

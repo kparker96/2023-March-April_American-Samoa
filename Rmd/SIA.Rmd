@@ -11,6 +11,8 @@ library(readxl)
 library(car)
 library(FSA)
 library(writexl)
+library(SIBER)
+
 ```
 
 # Load SIA Data
@@ -154,8 +156,8 @@ rep_comp %>%
   )
 ```
 
-# Plot Mean SIA data
-```{r}
+# Plot Mean SIA data (Filtered)
+```{r sia_df_means}
 sia_df_means <- rep_comp_sd %>%
   mutate(mean_d13C = (R1_d13C + R2_d13C)/2) %>%
   mutate(mean_d15N = (R1_d15N + R2_d15N)/2) %>%
@@ -232,8 +234,8 @@ ggsave(
 )
 ```
 
-# Host vs Zoox Carbon
-```{r}
+# Host vs Zoox Carbon (Filtered)
+```{r sia_df_combo}
 sia_df_combo <-  sia_df_means %>% 
   mutate(Depth_Geno = substring(Sample_ID, first = 13)) %>%
   select(Sample_ID, Depth, Depth_Geno, Type, mean_d13C, mean_d15N, mean_CN_ratio) %>%
@@ -241,17 +243,17 @@ sia_df_combo <-  sia_df_means %>%
     id_cols = c(Sample_ID, Depth),
     names_from = Type,
     values_from = starts_with("mean_"),
-    names_sep = "_"
-  )
+    names_sep = "_")
 
 ggplot(sia_df_combo, aes(x = mean_d13C_Host, y = mean_d13C_Zoox, color = Depth)) +
   geom_point(size = 5) +
-   scale_color_manual(values = c("#00004C", "#11569B", "#56A9DC"))
+  scale_color_manual(values = c("#00004C", "#11569B", "#56A9DC")) +
+  geom_abline(intercept = 0, slope = 1, linetype = "dashed", color = "black") 
 
 ```
 
-# CN Stats on all means
-```{r}
+# CN Stats on all means (Filtered)
+```{r sia_df_host & sia_df_zoox} 
 # Host C:N 
 sia_df_host <- sia_df_means %>%
   filter(Type == "Host")
@@ -282,8 +284,8 @@ oneway.test(mean_CN_ratio ~ Depth, data = sia_df_zoox, var.equal = FALSE)
 
 ```
 
-# Holobiont means 
-```{r}
+# Holobiont means (filtered)
+```{r holo_means}
 holo_means <- rep_comp_sd %>%
   pivot_wider(
     id_cols = c(Sample_ID, Depth),
@@ -311,7 +313,6 @@ ggplot(holo_means, aes(x = mean_d13C, y = mean_d15N, color = Depth, shape = Dept
   ggtitle("Holobiont SIA")
 
 ```
-
 
 # C:N Stats Comparison on filtered data
 ```{r}
@@ -341,3 +342,212 @@ zoox_anova <- aov(mean_CN_ratio ~ Depth, data = sia_df_clean_zoox)
 
 summary(zoox_anova) # not sig effect of depth on C:N
 ```
+
+# Comparing SIA to depth (filtered)
+```{r}
+sample_data <- read_xlsx(path = "data/frag_data/2023-AS_NMS_Mgris_collections.xlsx") %>%
+  select(Sample_ID = Frag_ID, Depth_Group, Colony_Depth_m) %>%
+  filter(!(Sample_ID %in% c("1", "2", "3", "4")))
+
+sia_df_depths <- left_join(sia_df_means, sample_data, by = "Sample_ID")
+
+# Function to calculate standard error
+standard_error <- function(x) {
+  sd(x) / sqrt(length(x))
+}
+
+sia_df_means_summary <- sia_df_depths %>%
+  group_by(Depth, Type) %>%
+  summarize(
+    mean_d13C = mean(c(R1_d13C, R2_d13C)),
+    se_d13C = standard_error(c(R1_d13C, R2_d13C)),
+    mean_d15N = mean(c(R1_d15N, R2_d15N)),
+    se_d15N = standard_error(c(R1_d15N, R2_d15N)),
+    mean_Colony_Depth = mean(Colony_Depth_m))
+
+ggplot(sia_df_means_summary, aes(x = mean_Colony_Depth, y = mean_d13C, color = Type)) +
+  geom_point() +
+  geom_errorbar(aes(ymin = mean_d13C - se_d13C, ymax = mean_d13C + se_d13C), width = 0.2) +
+  ggtitle("Filtered for SD > 1 between replicates")
+  theme_minimal() +
+  labs(x = "Mean Colony Depth", y = "Mean d13C", color = "Depth", shape = "Type")
+  
+```
+
+# # Comparing SIA to depth (unfiltered)
+```{r}
+sia_df_depths_unfiltered <- left_join(rep_comp, sample_data, by = "Sample_ID")
+
+sia_df_depths_unfiltered_summary <- sia_df_depths_unfiltered %>%
+  group_by(Depth, Type) %>%
+  summarize(
+    mean_d13C = mean(c(R1_d13C, R2_d13C)),
+    se_d13C = standard_error(c(R1_d13C, R2_d13C)),
+    mean_d15N = mean(c(R1_d15N, R2_d15N)),
+    se_d15N = standard_error(c(R1_d15N, R2_d15N)),
+    mean_Colony_Depth = mean(Colony_Depth_m))
+
+ggplot(sia_df_depths_unfiltered_summary, aes(x = mean_Colony_Depth, y = mean_d13C, color = Type)) +
+  geom_point() +
+   geom_smooth(method=lm, se=FALSE) +
+  geom_errorbar(aes(ymin = mean_d13C - se_d13C, ymax = mean_d13C + se_d13C), width = 0.2) +
+  theme_minimal() +
+  labs(x = "Mean Colony Depth", y = "Mean d13C", color = "Depth", shape = "Type")
+
+sia_df_depths_means_unfiltered <- sia_df_depths_unfiltered %>%
+  group_by(Sample_ID, Type) %>%
+  mutate(mean_d13C = mean(c(R1_d13C, R2_d13C)),
+    se_d13C = standard_error(c(R1_d13C, R2_d13C)),
+    mean_d15N = mean(c(R1_d15N, R2_d15N)),
+    se_d15N = standard_error(c(R1_d15N, R2_d15N))) %>%
+  ungroup() 
+
+
+ggplot(sia_df_depths_means_unfiltered, aes(x = Colony_Depth_m, y = mean_d13C, color = Type)) +
+  geom_point() +
+  geom_smooth(method = lm)
+
+```
+
+# SIBER Analysis (Filtered)
+```{r}
+# Deep 
+siber_df_deep <- sia_df_means %>%
+  filter(Depth == "Deep") %>%
+  select(iso1 = mean_d13C, iso2= mean_d15N, group = Type,
+         community = Depth)
+
+siber_df_deep <- as.data.frame(siber_df_deep)
+
+siber_object_deep <- createSiberObject(siber_df_deep)
+
+siber_object_deep_plot <- siber_object_deep$raw.data$Deep
+
+
+ggplot(siber_object_deep_plot, aes(x = iso1, y = iso2, color = group, fill = group)) +
+  
+  stat_ellipse(
+    geom = "polygon",
+    alpha = 0.2,
+    level = 0.40) +
+  
+  geom_point(size = 3) +
+  
+  scale_color_manual(values = c("Host" = "pink2",
+                                "Zoox" = "darkgreen")) +
+  scale_fill_manual(values = c("Host" = "pink2",
+                               "Zoox" = "darkgreen")) +
+  
+  labs(
+    x = expression(delta^13*C~"\u2030"),
+    y = expression(delta^15*N~"\u2030")
+  ) +
+  
+  theme_classic()
+```
+
+```{r}
+# Middle 
+siber_df_midd <- sia_df_means %>%
+  filter(Depth == "Middle") %>%
+  select(iso1 = mean_d13C, iso2= mean_d15N, group = Type,
+         community = Depth)
+
+siber_df_midd <- as.data.frame(siber_df_midd)
+
+siber_object_midd <- createSiberObject(siber_df_midd)
+
+siber_object_midd_plot <- siber_object_midd$raw.data$Middle
+
+ggplot(siber_object_midd_plot, aes(x = iso1, y = iso2, color = group, fill = group)) +
+  
+  stat_ellipse(
+    geom = "polygon",
+    alpha = 0.2,
+    level = 0.40) +
+  
+  geom_point(size = 3) +
+  
+  scale_color_manual(values = c("Host" = "pink2",
+                                "Zoox" = "darkgreen")) +
+  scale_fill_manual(values = c("Host" = "pink2",
+                               "Zoox" = "darkgreen")) +
+  
+  labs(
+    x = expression(delta^13*C~"\u2030"),
+    y = expression(delta^15*N~"\u2030")
+  ) +
+  
+  theme_classic()
+```
+
+```{r}
+# Shallow 
+siber_df_shal <- sia_df_means %>%
+  filter(Depth == "Shallow") %>%
+  select(iso1 = mean_d13C, iso2= mean_d15N, group = Type,
+         community = Depth)
+
+siber_df_shal <- as.data.frame(siber_df_shal)
+
+siber_object_shal <- createSiberObject(siber_df_shal)
+
+siber_object_shal_plot <- siber_object_shal$raw.data$Shallow
+
+ggplot(siber_object_shal_plot, aes(x = iso1, y = iso2, color = group, fill = group)) +
+  
+  stat_ellipse(
+    geom = "polygon",
+    alpha = 0.2,
+    level = 0.40) +
+  
+  geom_point(size = 3) +
+  
+  scale_color_manual(values = c("Host" = "pink2",
+                                "Zoox" = "darkgreen")) +
+  scale_fill_manual(values = c("Host" = "pink2",
+                               "Zoox" = "darkgreen")) +
+  
+  labs(
+    x = expression(delta^13*C~"\u2030"),
+    y = expression(delta^15*N~"\u2030")
+  ) +
+  
+  theme_classic()
+```
+
+```{r}
+siber_df_all <- sia_df_means %>%
+  select(iso1 = mean_d13C, iso2= mean_d15N, group = Type,
+         community = Depth)
+
+siber_df_all <- as.data.frame(siber_df_all)
+
+siber_object_all <- createSiberObject(siber_df_all)
+
+siber_object_all_plot <- siber_object_all$original.data
+
+ggplot(siber_object_all_plot, aes(x = iso1, y = iso2, color = community, fill = community, shape = group)) +
+  
+  stat_ellipse(
+    
+    geom = "polygon",
+    alpha = 0.2,
+    linetype = group,
+    level = 0.40) +
+  
+  geom_point(size = 3) 
+  
+  scale_color_manual(values = c("Host" = "pink2",
+                                "Zoox" = "darkgreen")) +
+  scale_fill_manual(values = c("Host" = "pink2",
+                               "Zoox" = "darkgreen")) +
+  
+  labs(
+    x = expression(delta^13*C~"\u2030"),
+    y = expression(delta^15*N~"\u2030")
+  ) +
+  
+  theme_classic()
+```
+

@@ -1,0 +1,475 @@
+---
+title: "PvsE"
+output: html_document
+date: "2026-03-17"
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Load libraries 
+```{r libraries}
+library(tidyverse)     # install.packages("tidyverse")
+library(readxl)
+library(writexl)
+library(minpack.lm)
+library(car)
+```
+
+# Load RespR output files
+```{r deep mid and shall df}
+# Deep #
+deep_file_list <- list.files(path = "data/respirometry/deep/final_rates", pattern = "*.csv", full.names = T)
+
+# Compile data from all light intensities
+deep_df <- sapply(deep_file_list, read_delim, simplify=FALSE) %>% 
+  bind_rows(.id = "id") %>%
+  dplyr::select(Sample_name, intercept_b0, slope_b1, rsq, o2, light, rate.output) %>%
+  mutate(depth = "Deep") %>% 
+  filter(Sample_name != "Gen08") # remove blank chamber 
+
+
+# Midd # 
+midd_file_list <- list.files(path = "data/respirometry/middle/final_rates", pattern = "*.csv", full.names = T)
+
+# Compile data from all light intensities
+midd_df <- sapply(midd_file_list, read_delim, simplify=FALSE) %>% 
+  bind_rows(.id = "id") %>%
+  dplyr::select(Sample_name, intercept_b0, slope_b1, rsq, o2, light, rate.output) %>%
+  mutate(depth ="Middle") %>% 
+  filter(Sample_name != "Gen07") # remove blank chamber 
+
+# Shall # 
+shall_file_list <- list.files(path = "data/respirometry/shallow/final_rates", pattern = "*.csv", full.names = T)
+
+# Compile data from all light intensities
+shall_df <- sapply(shall_file_list, read_delim, simplify=FALSE) %>% 
+  bind_rows(.id = "id") %>%
+  dplyr::select(Sample_name, intercept_b0, slope_b1, rsq, o2, light, rate.output) %>%
+  mutate(depth ="Shallow") %>% 
+  filter(Sample_name != "Gen07") # remove blank chamber 
+
+```
+
+# Make Master df
+```{r master_df}
+df <- rbind(deep_df, midd_df, shall_df)
+
+df_clean <- df %>%
+  rename(geno = Sample_name) %>%
+  mutate(sample_name = paste0(geno, "_", light, "_", depth)) %>%
+  mutate(unique_id = paste0(sample_name, "_", o2)) %>%
+  mutate(rate.output.adjusted = rate.output/10000) %>%
+  dplyr::select(sample_name, geno, light, depth, o2, intercept_b0,
+         slope_b1, rate.output.adjusted, rsq, unique_id) %>%
+  mutate(rate.output.adjusted = ifelse(
+    light == 0 & o2 == "Photosynthesis",0 ,
+    rate.output.adjusted))
+
+# df_filter <- df_clean %>%
+# filter(rsq > 0.8) # filter out bad samples and blanks 
+
+# bad_data <- as.data.frame(setdiff(df_clean$unique_id, df_filter$unique_id))
+
+master_df <- df_clean %>%
+  dplyr::select(-unique_id) %>%
+  pivot_wider(id_cols = c(sample_name, geno, light, depth),
+              names_from = o2,
+              values_from = c(intercept_b0, slope_b1, rsq,
+                              rate.output.adjusted), 
+              names_sep = "_") %>%
+  rename(respiration_intercept_b0 = intercept_b0_Respiration,
+         respiration_slope_b1 = slope_b1_Respiration,
+         respiration_rsq = rsq_Respiration,
+         respiration = rate.output.adjusted_Respiration,
+         photosynthesis_intercept_b0 = intercept_b0_Photosynthesis,
+         photosynthesis_slope_b1 = slope_b1_Photosynthesis,
+         photosynthesis_rsq = rsq_Photosynthesis) %>%
+  mutate(net_photosynthesis = rate.output.adjusted_Photosynthesis +
+           respiration,
+         gross_photosynthesis = rate.output.adjusted_Photosynthesis +
+           abs(respiration)) %>% 
+  mutate(light_depth = paste0(light, "_", depth)) %>%
+  # removing non-biological outliers 
+  filter(gross_photosynthesis < 0.6) %>%
+  filter(net_photosynthesis < 0.6) 
+  
+  
+  
+  #filter(sample_name != "Gen01_300_Deep")
+```
+
+```{r model fitting - Webb 1974 (Exponential Model)}
+
+# Deep 
+deep_df <- master_df %>% 
+  filter(depth == "Deep") %>%
+  arrange(by = light)
+
+deep_means <- deep_df %>%
+  group_by(light) %>%
+  summarise(P = mean(gross_photosynthesis, na.rm = TRUE)) %>%
+  arrange(light)
+
+deep_Pmax_start <- max(deep_df$gross_photosynthesis, na.rm = TRUE)
+deep_alpha_start <- (deep_means$P[3] - deep_means$P[2]) /
+               (deep_means$light[3] - deep_means$light[2])
+
+deep_fit <- nlsLM(
+  gross_photosynthesis ~ Pmax * (1 - exp(-alpha * light / Pmax)),
+  data = deep_df,
+  start = list(Pmax = deep_Pmax_start, alpha = deep_alpha_start),
+  control = nls.lm.control(maxiter = 200))
+
+deep_coefs <- data.frame(
+  Pmax = coef(deep_fit)["Pmax"],
+  alpha = coef(deep_fit)["alpha"],
+  depth = "Deep",
+  row.names = NULL) %>%
+  mutate(Ek = Pmax/alpha) %>%
+  dplyr::select(depth, Pmax, alpha, Ek)
+
+deep_I <-  seq(0, 800, length.out = 200)
+
+deep_pred_df <- tibble(
+  light = deep_I,
+  deep_P_pred = predict(deep_fit, newdata = tibble(light = deep_I))) %>%
+  mutate(depth = "Deep")
+
+# ---------------------------------------------------------------------------- #
+
+# Middle 
+midd_df <- master_df %>% 
+  filter(depth == "Middle") %>%
+  arrange(by = light)
+
+midd_means <- midd_df %>%
+  group_by(light) %>%
+  summarise(P = mean(gross_photosynthesis, na.rm = TRUE)) %>%
+  arrange(light)
+
+midd_Pmax_start <- max(midd_df$gross_photosynthesis, na.rm = TRUE)
+midd_alpha_start <- (midd_means$P[3] - midd_means$P[2]) /
+               (midd_means$light[3] - midd_means$light[2])
+
+midd_fit <- nlsLM(
+  gross_photosynthesis ~ Pmax * (1 - exp(-alpha * light / Pmax)),
+  data = midd_df,
+  start = list(Pmax = midd_Pmax_start, alpha = midd_alpha_start),
+  control = nls.lm.control(maxiter = 200))
+
+midd_coefs <- data.frame(
+  Pmax = coef(midd_fit)["Pmax"],
+  alpha = coef(midd_fit)["alpha"],
+  depth = "Middle",
+  row.names = NULL) %>%
+  mutate(Ek = Pmax/alpha) %>%
+  dplyr::select(depth, Pmax, alpha, Ek)
+
+midd_I <-  seq(0, 800, length.out = 200)
+
+midd_pred_df <- tibble(
+  light = midd_I,
+  midd_P_pred = predict(midd_fit, newdata = tibble(light = midd_I))) %>%
+  mutate(depth = "Middle")
+
+# ---------------------------------------------------------------------------- #
+
+# Shallow
+shall_df <- master_df %>% 
+  filter(depth == "Shallow") %>%
+  arrange(by = light)
+
+shall_means <- shall_df %>%
+  group_by(light) %>%
+  summarise(P = mean(gross_photosynthesis, na.rm = TRUE)) %>%
+  arrange(light)
+
+shall_Pmax_start <- max(shall_df$gross_photosynthesis, na.rm = TRUE)
+shall_alpha_start <- (shall_means$P[3] - shall_means$P[2]) /
+               (shall_means$light[3] - shall_means$light[2])
+
+shall_fit <- nlsLM(
+  gross_photosynthesis ~ Pmax * (1 - exp(-alpha * light / Pmax)),
+  data = shall_df,
+  start = list(Pmax = shall_Pmax_start, alpha = shall_alpha_start),
+  control = nls.lm.control(maxiter = 200))
+
+shall_coefs <- data.frame(
+  Pmax = coef(shall_fit)["Pmax"],
+  alpha = coef(shall_fit)["alpha"],
+  depth = "Shallow",
+  row.names = NULL) %>%
+  mutate(Ek = Pmax/alpha) %>%
+  dplyr::select(depth, Pmax, alpha, Ek)
+
+shall_I <-  seq(0, 800, length.out = 200)
+
+shall_pred_df <- tibble(
+  light = shall_I,
+  shall_P_pred = predict(shall_fit, newdata = tibble(light = shall_I))) %>%
+  mutate(depth = "Shallow")
+
+coefs_df <- rbind(shall_coefs, midd_coefs, deep_coefs)
+```
+
+# Average Gross Photosynthesis 
+```{r}
+avg_gross_photosynthesis <- master_df %>%
+  group_by(light_depth) %>%
+  summarize(
+    mean_gross_photosynthesis = mean(gross_photosynthesis, na.rm = TRUE),
+    sd_gross_photosynthesis = sd(gross_photosynthesis, na.rm = TRUE),
+    n = n(),
+    se_gross_photosynthesis = sd_gross_photosynthesis / sqrt(n)
+  ) %>%
+  mutate(light = sub("_.*", "", light_depth)) %>%
+  mutate(depth = sub(".*_", "", light_depth))
+
+avg_gross_photosynthesis$light <- as.numeric(avg_gross_photosynthesis$light)
+
+ggplot(avg_gross_photosynthesis, aes(x = light, 
+                                     y = mean_gross_photosynthesis,
+                                     color = depth)) +
+         geom_point()
+```
+
+# Plot Model Fits with Average Data points 
+```{r}
+pop_gross_PS <- 
+  ggplot(avg_gross_photosynthesis, aes(x = light, 
+                                       y = mean_gross_photosynthesis, 
+                                       color = depth)) +
+  geom_point(size = 3) + # plot the means as points
+  geom_errorbar(aes(ymin = (mean_gross_photosynthesis -se_gross_photosynthesis),
+                  ymax = (mean_gross_photosynthesis + se_gross_photosynthesis))) +
+  
+  # Deep model and Ek
+  geom_line(data = deep_pred_df, aes(x = light, y = deep_P_pred), 
+            color = 'darkblue', linewidth = 1, alpha = 0.7) +
+  geom_vline(data = deep_coefs, aes(xintercept = Ek), linetype = "longdash",
+             color = "darkblue", linewidth = 0.75, alpha = 0.7) +
+  
+  # Middle model and Ek
+  geom_line(data = midd_pred_df, aes(x = light, y = midd_P_pred),
+            color = 'dodgerblue3', linewidth = 1, alpha = 0.7) +
+  geom_vline(data = midd_coefs, aes(xintercept = Ek), linetype = "longdash",
+             color = "dodgerblue3", linewidth = 0.75, alpha = 0.7) +
+  
+  # Shallow model and Ek
+  geom_line(data = shall_pred_df, aes(x = light, y = shall_P_pred), 
+            color = '#6BAED6', linewidth = 1, alpha = 0.7) +
+ geom_vline(data = shall_coefs, aes(xintercept = Ek), linetype = "longdash",
+            color = "#6BAED6", linewidth = 0.75,alpha = 0.7) +
+  
+  scale_color_manual(values=c('darkblue', 'dodgerblue3', '#6BAED6')) +
+  labs(y = expression("P"["gross"]~(mu * mol ~ O[2] / min / cm^2)),
+    x = "PAR (µmol m-2s-1)") +
+  scale_y_continuous(limits = c(0,0.32), expand = c(0,0)) +
+  scale_x_continuous(expand = c(0,0)) +
+  theme_bw() +
+  theme(legend.title = element_blank(),
+        legend.position = "none",
+        strip.text = element_text(size = 11),
+        axis.text = element_text(size = 10),
+        legend.text = element_text(size = 10),
+        panel.spacing = unit(0.75, "lines"),
+        legend.background = element_rect(fill = "transparent"),
+        legend.margin = margin(t = -10, r = 0, b = 0, l = 0)) +
+  facet_wrap(~depth)
+
+ggsave(
+  filename = "Plots/PvsI/pop_gross_PS.pdf",  # Name of the output file
+  plot = pop_gross_PS,                      # Specify the plot to save
+  width = 8.5,                            # Width in inches
+  height = 3                            # Height in inches
+)
+
+ggsave(
+  filename = "Plots/PvsI/pop_gross_PS.png",  # Name of the output file
+  plot = pop_gross_PS,                      # Specify the plot to save
+  width = 8.5,                            # Width in inches
+  height = 3                            # Height in inches
+)
+
+saveRDS(pop_gross_PS, file = "Plots/PvsI/pop_gross_PS.rds")
+
+# Coefficients
+shall_coefs
+midd_coefs
+deep_coefs
+
+rbind(shall_coefs, midd_coefs, deep_coefs)
+
+```
+
+# Check goodness of fit for model
+```{r}
+# Function to get residuals for a depth
+get_residuals <- function(df, fit) {
+  df %>%
+    mutate(P_pred = predict(fit, newdata = tibble(light = light)),
+           residual = gross_photosynthesis - P_pred)
+}
+
+# Apply for each depth
+deep_resid <- get_residuals(master_df %>% filter(depth == "Deep"), deep_fit)
+midd_resid <- get_residuals(master_df %>% filter(depth == "Middle"), midd_fit)
+shall_resid <- get_residuals(master_df %>% filter(depth == "Shallow"), shall_fit)
+
+# Combine
+residuals_df <- bind_rows(deep_resid, midd_resid, shall_resid)
+
+summary(residuals_df$residual)
+
+# Residual plot
+ggplot(residuals_df, aes(x = light, y = residual, color = depth)) +
+  geom_point(alpha = 0.6) +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  theme_minimal()
+
+fit_metrics <- residuals_df %>%
+  group_by(depth) %>%
+  summarise(
+    RMSE = sqrt(mean(residual^2)),
+    relative_RMSE = RMSE / sd(gross_photosynthesis), 
+    RSS = sum(residual^2),
+    TSS = sum((gross_photosynthesis - mean(gross_photosynthesis))^2),
+    R2 = 1 - RSS / TSS)
+
+
+```
+
+# Summary Table for Individual Fits 
+```{r}
+results_df <- master_df %>%
+  select(sample_name, light, depth, geno, gross_photosynthesis) %>%
+  group_by(geno, depth) %>%
+  arrange(light, .by_group = TRUE) %>%
+  group_modify(~{
+
+    df <- .x
+    I <- df$light
+    P <- df$gross_photosynthesis
+
+    # starting values
+    Pmax_start <- max(P, na.rm = TRUE)
+
+    # use 50–100 µmol slope
+    idx_50  <- which(I == 50)
+    idx_100 <- which(I == 100)
+
+    alpha_start <- if(length(idx_50) == 1 & length(idx_100) == 1){
+      (P[idx_100] - P[idx_50]) / (100 - 50)
+    } else {
+      1e-4
+    }
+
+    fit <- tryCatch({
+      nlsLM(
+        P ~ Pmax * (1 - exp(-alpha * I / Pmax)),
+        start = list(Pmax = Pmax_start, alpha = alpha_start),
+        lower = c(0, 0),
+        control = nls.lm.control(maxiter = 200)
+      )
+    }, error = function(e) return(NULL))
+
+    if(!is.null(fit)){
+      coefs <- coef(fit)
+      tibble(
+        Pmax = coefs["Pmax"],
+        alpha = coefs["alpha"],
+        Ek = coefs["Pmax"]/coefs["alpha"]
+      )
+    } else {
+      tibble(Pmax = NA, alpha = NA, Ek = NA)
+    }
+
+  }) %>%
+  ungroup()
+
+pe_summary <- results_df %>%
+  group_by(depth) %>%
+  summarise(
+    Pmax_mean = mean(Pmax, na.rm = TRUE),
+    Pmax_se   = sd(Pmax, na.rm = TRUE)/sqrt(n()),
+
+    alpha_mean = mean(alpha, na.rm = TRUE),
+    alpha_se   = sd(alpha, na.rm = TRUE)/sqrt(n()),
+
+    Ek_mean = mean(Ek, na.rm = TRUE),
+    Ek_se   = sd(Ek, na.rm = TRUE)/sqrt(n()),
+
+    n = n())
+
+pe_table <- pe_summary %>%
+  mutate(
+    `Pmax (µmol O2 cm⁻² min⁻¹)` = sprintf("%.3f ± %.3f", Pmax_mean, Pmax_se),
+    `α` = sprintf("%.4f ± %.4f", alpha_mean, alpha_se),
+    `Ek (µmol quanta m⁻² s⁻¹)` = sprintf("%.1f ± %.1f", Ek_mean, Ek_se)
+  ) %>%
+  select(
+    depth,
+    `Pmax (µmol O2 cm⁻² min⁻¹)`,  # ← FIXED
+    `α`,
+    `Ek (µmol quanta m⁻² s⁻¹)`,
+    n
+  )
+
+library(rempsyc)
+
+pe_table_nice <- nice_table(pe_table)
+save_as_docx(pe_table_nice, path = "Plots/Fig_2/Table_1_PE.docx")
+```
+
+# Parameter Stats 
+```{r Ek} 
+# Shapiro-Wilk Test for Normality
+shapiro.test(results_df$Ek[results_df$depth == "Deep"])
+shapiro.test(results_df$Ek[results_df$depth == "Middle"])
+shapiro.test(results_df$Ek[results_df$depth == "Shallow"])
+
+# Levene Test for Homogeneity fo Variances
+leveneTest(Ek ~ depth, data = results_df)
+
+# ANOVA
+anova_result_ek <- aov(Ek ~ depth, data = results_df)
+summary(anova_result_ek)
+
+# Tukey 
+TukeyHSD(anova_result_ek)
+```
+
+```{r Pmax}
+# Shapiro-Wilk Test for Normality
+shapiro.test(results_df$Pmax[results_df$depth == "Deep"])
+shapiro.test(results_df$Pmax[results_df$depth == "Middle"])
+shapiro.test(results_df$Pmax[results_df$depth == "Shallow"])
+
+# Levene Test for Homogeneity fo Variances
+leveneTest(Pmax ~ depth, data = results_df)
+
+# ANOVA
+anova_result_Pmax <- aov(Pmax ~ depth, data = results_df)
+summary(anova_result_Pmax)
+
+# Tukey 
+TukeyHSD(anova_result_Pmax)
+```
+
+```{r alpha - no significance}
+# Shapiro-Wilk Test for Normality
+shapiro.test(results_df$alpha[results_df$depth == "Deep"])
+shapiro.test(results_df$alpha[results_df$depth == "Middle"])
+shapiro.test(results_df$alpha[results_df$depth == "Shallow"])
+
+# Levene Test for Homogeneity fo Variances
+leveneTest(alpha ~ depth, data = results_df)
+
+# ANOVA
+anova_result_alpha <- aov(alpha ~ depth, data = results_df)
+summary(anova_result_alpha)
+```

@@ -251,7 +251,7 @@ pop_gross_PS <-
             color = "#6BAED6", linewidth = 0.75,alpha = 0.7) +
   
   scale_color_manual(values=c('darkblue', 'dodgerblue3', '#6BAED6')) +
-  labs(y = expression(paste(µ*mol~O[2] / min / cm^2)),
+    labs(y = expression("P"["gross"]~(mu * mol ~ O[2] / min / cm^2)),
      x = "PAR (µmol)") +
   scale_y_continuous(limits = c(0,0.32), expand = c(0,0)) +
   scale_x_continuous(expand = c(0,0)) +
@@ -279,6 +279,8 @@ ggsave(
   width = 8.5,                            # Width in inches
   height = 3                            # Height in inches
 )
+
+saveRDS(pop_gross_PS, file = "Plots/PvsI/pop_gross_PS.rds")
 
 # Coefficients
 shall_coefs
@@ -341,6 +343,7 @@ fit_metrics
 
 ```
 
+
 # Net Photosynthesis
 ```{r}
 zero_points_net <- master_df %>%
@@ -351,7 +354,15 @@ zero_points_net <- master_df %>%
   mutate(net_photosynthesis = respiration)
 
 net_photosynthesis <- master_df %>%
-  select(sample_name, light, depth, light_depth, net_photosynthesis, respiration)
+  select(sample_name, light, depth, light_depth, net_photosynthesis, respiration) %>% 
+  mutate(Geno = substr(sample_name, 1, 5))
+
+ggplot(net_photosynthesis, aes(x = light, y = net_photosynthesis, color  = Geno)) +
+  geom_point() + 
+  facet_wrap(~depth)
+
+
+
 
 net_photosynthesis_df <- rbind(net_photosynthesis, zero_points_net)
 
@@ -389,7 +400,7 @@ deep_df_net <- avg_net_photosynthesis %>%
 deep_P_net <- deep_df_net$mean_net_photosynthesis
 
 deep_Pmax_start_net  <- max(deep_P_net)
-deep_alpha_start_net <- (deep_P_net[3] - deep_P_net[2]) / (I[3] - I[2]) 
+deep_alpha_start_net <- (deep_P_net[4] - deep_P_net[3]) / (I[4] - I[3]) 
 
 deep_fit_net <- nlsLM(
   deep_P_net ~ Pmax * (1 - exp(-alpha * I / Pmax)),
@@ -422,7 +433,7 @@ midd_df_net <- avg_net_photosynthesis %>%
 midd_P_net <- midd_df_net$mean_net_photosynthesis
 
 midd_Pmax_start_net  <- max(midd_P_net)
-midd_alpha_start_net <- (midd_P_net[3] - midd_P_net[2]) / (I[3] - I[2]) 
+midd_alpha_start_net <- (midd_P_net[5] - midd_P_net[4]) / (I[5] - I[4]) 
 
 midd_fit_net <- nlsLM(
   midd_P_net ~ Pmax * (1 - exp(-alpha * I / Pmax)),
@@ -489,14 +500,22 @@ ggplot(avg_net_photosynthesis,
   geom_point(size = 3) + # plot the means as points
  geom_errorbar(aes(ymin = (mean_net_photosynthesis -se_net_photosynthesis),
                   ymax = (mean_net_photosynthesis + se_net_photosynthesis))) +
+  facet_wrap(~depth)
+
+
+
+
+
+
+
 
 # Deep model and Ek
   geom_line(data = deep_pred_df_net, aes(x = light, 
                                          y = deep_P_pred_net), 
-            color = 'darkblue', linewidth = 1, alpha = 0.7) +
+            color = 'darkblue', linewidth = 1, alpha = 0.7) 
   geom_vline(data = deep_coefs_net, aes(xintercept = Ek), 
              linetype = "longdash",
-             color = "darkblue", linewidth = 0.75, alpha = 0.7) 
+             color = "darkblue", linewidth = 0.75, alpha = 0.7) +
   
   # Middle model and Ek
   geom_line(data = midd_pred_df, aes(x = light, y = midd_P_pred),

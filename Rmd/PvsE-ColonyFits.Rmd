@@ -269,11 +269,42 @@ avg_gross_photosynthesis <- master_df %>%
 avg_gross_photosynthesis$light <- as.numeric(avg_gross_photosynthesis$light)
 
 ggplot(avg_gross_photosynthesis, aes(x = light, 
-                                     y = mean_gross_photosynthesis)) +
+                                     y = mean_gross_photosynthesis,
+                                     color = depth)) +
          geom_point()
 ```
 
 ```{r}
+pe_table <- results_df %>%
+  group_by(depth) %>%
+  summarise(
+    Pmax_mean = mean(Pmax, na.rm = TRUE),
+    Pmax_se = sd(Pmax, na.rm = TRUE)/sqrt(n()),
 
+    alpha_mean = mean(alpha, na.rm = TRUE),
+    alpha_se = sd(alpha, na.rm = TRUE)/sqrt(n()),
+
+    Ek_mean = mean(Ek, na.rm = TRUE),
+    Ek_se = sd(Ek, na.rm = TRUE)/sqrt(n()),
+
+    n = n()
+  )
+
+pe_table_formatted <- pe_table %>%
+  mutate(
+    `Pmax (µmol O2 cm⁻² min⁻¹)` =
+      sprintf("%.3f ± %.3f", Pmax_mean, Pmax_se),
+
+    `α` =
+      sprintf("%.4f ± %.4f", alpha_mean, alpha_se),
+
+    `Ek (µmol quanta m⁻² s⁻¹)` =
+      sprintf("%.1f ± %.1f", Ek_mean, Ek_se)
+  ) %>%
+  select(depth,
+         `Pmax (µmol O2 cm⁻² min⁻¹)`,
+         `α`,
+         `Ek (µmol quanta m⁻² s⁻¹)`,
+         n)
 ```
 

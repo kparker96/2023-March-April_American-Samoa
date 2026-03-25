@@ -1,0 +1,544 @@
+---
+title: "Untitled"
+output: html_document
+date: "2026-03-17"
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(dplyr)
+library(minpack.lm)  
+library(readxl)
+library(ggplot2)
+library(car)
+library(rempsyc)
+```
+
+# Load Data
+```{r rlc_data}
+rlc_Deep <- read_xlsx("data/raw_RLCs/2023-03-31_Deep_Mgris_RLCs.xlsx")
+
+rlc_Deep_data <- data.frame(
+  par = rlc_Deep$PAR,
+  etr = rlc_Deep$ETR,
+  id = c(rep("Deep", 7)),
+  individual = paste(rlc_Deep$Depth, rlc_Deep$Geno, sep = "_"),
+  stringsAsFactors=FALSE
+)
+
+rlc_Midd <- read_xlsx("data/raw_RLCs/2023-04-01_Midd_Mgris_RLCs.xlsx")
+
+rlc_Midd_data <- data.frame(
+  par = rlc_Midd$PAR,
+  etr = rlc_Midd$ETR,
+  id = c(rep("Midd", 6)),
+  individual = paste(rlc_Midd$Depth, rlc_Midd$Geno, sep = "_"),
+  stringsAsFactors=FALSE
+)
+
+rlc_Shall <- read_xlsx("data/raw_RLCs/2023-04-05_Shall_Mgris_RLCs.xlsx")
+
+rlc_Shall_data <- data.frame(
+  par = rlc_Shall$PAR,
+  etr = rlc_Shall$ETR,
+  id = c(rep("Shall", 6)),
+  individual = paste(rlc_Shall$Depth, rlc_Shall$Geno, sep = "_"),
+  stringsAsFactors=FALSE
+)
+```
+
+# Bin PAR values
+```{r rlc_data}
+# Define target PAR values
+target_par <- c(0, 25, 45, 66, 91, 126, 191, 286, 423, 632, 825, 1155, 1506)
+
+# Function to round to nearest target PAR
+nearest_par <- function(x, targets) {
+  targets[which.min(abs(x - targets))]
+}
+
+# Apply to rlc_data
+rlc_data <- rbind(rlc_Deep_data, rlc_Midd_data, rlc_Shall_data) %>%
+  mutate(par_binned = vapply(par, nearest_par, numeric(1), targets = target_par)) %>%
+  dplyr::select(par = par_binned, etr, id, individual)
+
+# Check the result
+unique(rlc_data$par)
+```
+
+# Fit Population - Level Models
+```{r}
+#Deep 
+
+# Filter Deep population and order by PAR
+deep_df <- rlc_data %>%
+  filter(id == "Deep") %>%
+  arrange(par)
+
+# Calculate light-level means for starting values
+deep_means <- deep_df %>%
+  group_by(par) %>%
+  summarise(etr_mean = mean(etr, na.rm = TRUE), .groups = "drop")
+
+# Starting values
+deep_ps_start    <- max(deep_means$etr_mean, na.rm = TRUE)  # PGH potential max
+deep_alpha_start <- (deep_means$etr_mean[3] - deep_means$etr_mean[2]) / 
+                    (deep_means$par[3] - deep_means$par[2])
+deep_beta_start  <- 0.0001  # small initial photoinhibition
+
+# Fit PGH 1980 model: etr ~ ps * (1 - exp(-alpha * par / ps)) * exp(-beta * par / ps)
+deep_fit <- nlsLM(
+  etr ~ ps * (1 - exp(-alpha * par / ps)) * exp(-beta * par / ps),
+  data = deep_df,
+  start = list(
+    ps    = deep_ps_start,
+    alpha = deep_alpha_start,
+    beta  = deep_beta_start
+  ),
+  control = nls.lm.control(maxiter = 200)
+)
+
+# Extract coefficients
+deep_coefs <- data.frame(
+  ps    = coef(deep_fit)["ps"],
+  alpha = coef(deep_fit)["alpha"],
+  beta  = coef(deep_fit)["beta"],
+  depth = "Deep",
+  row.names = NULL
+) %>%
+  # Calculate derived ETRmax (real observed peak) and Ek (saturation irradiance)
+  mutate(
+    ETRmax = ps * (alpha / (alpha + beta)) * (beta / (alpha + beta))^(beta / alpha),
+    Ek     = ETRmax / alpha
+  ) %>%
+  dplyr::select(depth, ps, alpha, beta, ETRmax, Ek)
+
+# Sequence of light intensities for predictions
+deep_I <- seq(0, 1506, length.out = 200)
+
+# Predicted ETR across light intensities
+deep_pred_df <- tibble(
+  par      = deep_I,
+  etr_pred = predict(deep_fit, newdata = tibble(par = deep_I))
+) %>%
+  mutate(depth = "Deep")
+
+# ---------------------------------------------------------------------------- #
+# Middle 
+
+# Filter Middle population and order by PAR
+midd_df <- rlc_data %>%
+  filter(id == "Midd") %>%
+  arrange(par)
+
+# Calculate light-level means for starting values
+midd_means <- midd_df %>%
+  group_by(par) %>%
+  summarise(etr_mean = mean(etr, na.rm = TRUE), .groups = "drop")
+
+# Starting values
+midd_ps_start    <- max(midd_means$etr_mean, na.rm = TRUE)  # PGH potential max
+midd_alpha_start <- (midd_means$etr_mean[3] - midd_means$etr_mean[2]) / 
+                    (midd_means$par[3] - midd_means$par[2])
+midd_beta_start  <- 0.0001  # small initial photoinhibition
+
+# Fit PGH 1980 model: etr ~ ps * (1 - exp(-alpha * par / ps)) * exp(-beta * par / ps)
+midd_fit <- nlsLM(
+  etr ~ ps * (1 - exp(-alpha * par / ps)) * exp(-beta * par / ps),
+  data = midd_df,
+  start = list(
+    ps    = midd_ps_start,
+    alpha = midd_alpha_start,
+    beta  = midd_beta_start
+  ),
+  control = nls.lm.control(maxiter = 200)
+)
+
+# Extract coefficients
+midd_coefs <- data.frame(
+  ps    = coef(midd_fit)["ps"],
+  alpha = coef(midd_fit)["alpha"],
+  beta  = coef(midd_fit)["beta"],
+  depth = "Middle",
+  row.names = NULL
+) %>%
+  # Calculate derived ETRmax (real observed peak) and Ek (saturation irradiance)
+  mutate(
+    ETRmax = ps * (alpha / (alpha + beta)) * (beta / (alpha + beta))^(beta / alpha),
+    Ek     = ETRmax / alpha
+  ) %>%
+  dplyr::select(depth, ps, alpha, beta, ETRmax, Ek)
+
+# Sequence of light intensities for predictions
+midd_I <- seq(0, 1506, length.out = 200)
+
+# Predicted ETR across light intensities
+midd_pred_df <- tibble(
+  par      = midd_I,
+  etr_pred = predict(midd_fit, newdata = tibble(par = midd_I))
+) %>%
+  mutate(depth = "Middle")
+
+# ---------------------------------------------------------------------------- #
+# Shallow
+
+# Filter Shallow population and order by PAR
+shall_df <- rlc_data %>%
+  filter(id == "Shall") %>%
+  arrange(par)
+
+# Calculate light-level means for starting values
+shall_means <- shall_df %>%
+  group_by(par) %>%
+  summarise(etr_mean = mean(etr, na.rm = TRUE), .groups = "drop")
+
+# Starting values
+shall_ps_start    <- max(shall_means$etr_mean, na.rm = TRUE)  # PGH potential max
+shall_alpha_start <- (shall_means$etr_mean[3] - shall_means$etr_mean[2]) / 
+                     (shall_means$par[3] - shall_means$par[2])
+shall_beta_start  <- 0.0001  # small initial photoinhibition
+
+# Fit PGH 1980 model: etr ~ ps * (1 - exp(-alpha * par / ps)) * exp(-beta * par / ps)
+shall_fit <- nlsLM(
+  etr ~ ps * (1 - exp(-alpha * par / ps)) * exp(-beta * par / ps),
+  data = shall_df,
+  start = list(
+    ps    = shall_ps_start,
+    alpha = shall_alpha_start,
+    beta  = shall_beta_start
+  ),
+  control = nls.lm.control(maxiter = 200)
+)
+
+# Extract coefficients
+shall_coefs <- data.frame(
+  ps    = coef(shall_fit)["ps"],
+  alpha = coef(shall_fit)["alpha"],
+  beta  = coef(shall_fit)["beta"],
+  depth = "Shallow",
+  row.names = NULL
+) %>%
+  # Calculate derived ETRmax (real observed peak) and Ek (saturation irradiance)
+  mutate(
+    ETRmax = ps * (alpha / (alpha + beta)) * (beta / (alpha + beta))^(beta / alpha),
+    Ek     = ETRmax / alpha
+  ) %>%
+  dplyr::select(depth, ps, alpha, beta, ETRmax, Ek)
+
+# Sequence of light intensities for predictions
+shall_I <- seq(0, 1506, length.out = 200)
+
+# Predicted ETR across light intensities
+shall_pred_df <- tibble(
+  par      = shall_I,
+  etr_pred = predict(shall_fit, newdata = tibble(par = shall_I))
+) %>%
+  mutate(depth = "Shallow")
+
+coefs_df <- rbind(shall_coefs, midd_coefs, deep_coefs)
+```
+
+# Average ETRs
+```{r avg_etr}
+avg_etr <- rlc_data %>%
+  mutate(light_depth = paste0(par, "_", id)) %>%
+  dplyr::select(par, etr, depth = id, Geno = individual, light_depth) %>%
+  group_by(light_depth) %>%
+  summarize(
+    mean_etr = mean(etr, na.rm = TRUE),
+    sd_etr = sd(etr, na.rm = TRUE),
+    n = n(),
+    se_etr = sd_etr / sqrt(n)) %>%
+  mutate(par = sub("_.*", "", light_depth)) %>%
+  mutate(depth = sub(".*_", "", light_depth)) %>%
+  mutate(depth = case_when(depth == "Midd"  ~ "Middle", 
+                           depth == "Shall" ~ "Shallow", 
+                           TRUE ~ depth))
+
+avg_etr$par <- as.numeric(avg_etr$par)
+
+```
+
+# Plot Fig 2A
+```{r PGH_pop_fits}
+PGH_pop_fits <- ggplot(avg_etr, aes(x = par, y = mean_etr, color = depth)) +
+  geom_point(size = 3) + # plot the means as points
+  geom_errorbar(aes(ymin = (mean_etr -se_etr),
+                  ymax = (mean_etr + se_etr),
+                  width = 100)) +
+  # Deep model and Ek
+  geom_line(data = deep_pred_df, aes(x = par, y = etr_pred), 
+            color = 'darkblue', linewidth = 1, alpha = 0.7) +
+  geom_vline(data = deep_coefs, aes(xintercept = Ek), linetype = "longdash",
+             color = "darkblue", linewidth = 0.75, alpha = 0.7) +
+
+# Middle model and Ek
+  geom_line(data = midd_pred_df, aes(x = par, y = etr_pred),
+            color = 'dodgerblue3', linewidth = 1, alpha = 0.7) +
+  geom_vline(data = midd_coefs, aes(xintercept = Ek), linetype = "longdash",
+             color = "dodgerblue3", linewidth = 0.75, alpha = 0.7) +
+  
+  # Shallow model and Ek
+  geom_line(data = shall_pred_df, aes(x = par, y = etr_pred), 
+            color = '#6BAED6', linewidth = 1, alpha = 0.7) +
+ geom_vline(data = shall_coefs, aes(xintercept = Ek), linetype = "longdash",
+            color = "#6BAED6", linewidth = 0.75,alpha = 0.7) +
+  scale_color_manual(values=c('darkblue', 'dodgerblue3', '#6BAED6')) +
+  facet_wrap(~depth, ncol = 3) +
+  scale_y_continuous(limits = c(-3,90), expand = c(0,0), breaks = c(0,20,40,60,80)) +
+  scale_x_continuous(expand = c(0,25)) +
+  labs(x = "PAR (µmol m-2s-1)",
+       y = "ETR (µmol electrons m-2s-1)") +
+  theme_bw() +
+  theme(legend.title = element_blank(),
+        legend.position = "none",
+        strip.text = element_text(size = 11),
+        axis.text = element_text(size = 10),
+        legend.text = element_text(size = 10),
+        panel.spacing = unit(0.75, "lines"),
+        legend.background = element_rect(fill = "transparent"),
+        legend.margin = margin(t = -10, r = 0, b = 0, l = 0))
+
+ggsave(
+  filename = "Plots/rlcs/PGH_model_fits.pdf",  # Name of the output file
+  plot = PGH_pop_fits,                      # Specify the plot to save
+  width = 8.5,                            # Width in inches
+  height = 3                            # Height in inches
+)
+
+ggsave(
+  filename = "Plots/rlcs/PGH_model_fits.png",  # Name of the output file
+  plot = PGH_pop_fits,                      # Specify the plot to save
+  width = 8.5,                            # Width in inches
+  height = 3                            # Height in inches
+)
+
+saveRDS(PGH_pop_fits, file = "Plots/rlcs/PGH_model_fits.rds")
+
+```
+
+# Check goodness of fit for model
+```{r metrics df}
+
+get_residuals <- function(df, fit) {
+  df %>%
+    mutate(
+      P_pred = predict(fit, newdata = tibble(par = par)),
+      residual = etr - P_pred
+    )
+}
+
+# Apply for each depth
+deep_resid  <- get_residuals(rlc_data %>% filter(id == "Deep"), deep_fit)
+midd_resid  <- get_residuals(rlc_data %>% filter(id == "Midd"), midd_fit)
+shall_resid <- get_residuals(rlc_data %>% filter(id == "Shall"), shall_fit)
+
+# Combine
+residuals_df <- bind_rows(deep_resid, midd_resid, shall_resid)
+
+summary(residuals_df$residual)
+
+# Residual plot
+ggplot(residuals_df, aes(x = par, y = residual, color = id)) +
+  geom_point(alpha = 0.6) +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  theme_minimal()
+
+fit_metrics <- residuals_df %>%
+  group_by(id) %>%
+  summarise(
+    RMSE = sqrt(mean(residual^2)),
+    relative_RMSE = RMSE / sd(etr), 
+    RSS = sum(residual^2),
+    TSS = sum((etr - mean(etr))^2),
+    R2 = 1 - RSS / TSS)
+
+```
+
+# Fit Colony - Level Models
+```{r etr_table}
+
+etr_results <- rlc_data %>%
+  dplyr::select(id, par, individual, etr) %>%
+  group_by(individual, id) %>%
+  arrange(par, .by_group = TRUE) %>%
+  group_modify(~{
+    
+    df <- .x
+    I <- df$par
+    E <- df$etr
+    
+    # Starting values 
+    ps_start <- max(E, na.rm = TRUE)
+    
+    nonzero_I <- sort(unique(I[I > 0]))
+    
+    alpha_start <- if(length(nonzero_I) >= 2){
+      low  <- nonzero_I[1]
+      high <- nonzero_I[2]
+      (E[I == high][1] - E[I == low][1]) / (high - low)
+    } else {
+      1e-4
+    }
+    
+    beta_start <- 0.001  # small photoinhibition
+    
+    # Fit PGH model 
+    fit <- tryCatch({
+      nlsLM(
+        etr ~ ps * (1 - exp(-alpha * par / ps)) * exp(-beta * par / ps),
+        data = df,
+        start = list(ps = ps_start, alpha = alpha_start, beta = beta_start),
+        lower = c(0, 0, 0),
+        control = nls.lm.control(maxiter = 200)
+      )
+    }, error = function(e) return(NULL))
+    
+    # Extract coefficients 
+    if(!is.null(fit)){
+      coefs <- coef(fit)
+      
+      ps    <- as.numeric(coefs["ps"])
+      alpha <- as.numeric(coefs["alpha"])
+      beta  <- as.numeric(coefs["beta"])
+      
+      # TRUE ETRmax (PGH formula)
+      ETRmax <- ps * (alpha / (alpha + beta)) *
+        (beta / (alpha + beta))^(beta / alpha)
+      
+      Ek <- ETRmax / alpha
+      
+      tibble(
+        ps = ps,
+        alpha = alpha,
+        beta = beta,
+        ETRmax = ETRmax,
+        Ek = Ek
+      )
+      
+    } else {
+      tibble(
+        ps = NA_real_,
+        alpha = NA_real_,
+        beta = NA_real_,
+        ETRmax = NA_real_,
+        Ek = NA_real_
+      )
+    }
+    
+  }) %>%
+  ungroup()
+   
+
+etr_summary <- etr_results %>%
+  group_by(id) %>%
+  summarise(
+    ps_mean = mean(ps, na.rm = TRUE),
+    ps_se   = sd(ps, na.rm = TRUE) / sqrt(n()),
+    
+    alpha_mean = mean(alpha, na.rm = TRUE),
+    alpha_se   = sd(alpha, na.rm = TRUE) / sqrt(n()),
+    
+    beta_mean = mean(beta, na.rm = TRUE),
+    beta_se   = sd(beta, na.rm = TRUE) / sqrt(n()),
+    
+    Ek_mean = mean(Ek, na.rm = TRUE),
+    Ek_se   = sd(Ek, na.rm = TRUE) / sqrt(n()),
+    
+    n = n(),
+    .groups = "drop"
+  )
+
+etr_table <- etr_summary %>%
+  mutate(
+    `ETRmax (µmol e⁻ m⁻² s⁻¹)` = sprintf("%.2f ± %.2f", ps_mean, ps_se),
+    `α` = sprintf("%.4f ± %.4f", alpha_mean, alpha_se),
+    `Ek (µmol quanta m⁻² s⁻¹)` = sprintf("%.1f ± %.1f", Ek_mean, Ek_se),
+    `β` = sprintf("%.4f ± %.4f", beta_mean, beta_se)   # added beta with SE
+  ) %>%
+  rename(depth = id) %>%
+  mutate(depth = case_when(
+    depth == "Midd"  ~ "Middle", 
+    depth == "Shall" ~ "Shallow", 
+    TRUE ~ depth
+  )) %>%
+  dplyr::select(depth,
+                `ETRmax (µmol e⁻ m⁻² s⁻¹)`,
+                `α`,
+                `β`,                       # include beta column
+                `Ek (µmol quanta m⁻² s⁻¹)`,
+                n)
+
+
+
+etr_table_nice <- nice_table(etr_table)
+save_as_docx(etr_table_nice, path = "Plots/Fig_2/Table_1_ETR.docx")
+```
+
+# Parameter Stats 
+```{r Ek} 
+# Shapiro-Wilk Test for Normality
+shapiro.test(etr_results$Ek[etr_results$id == "Deep"])
+shapiro.test(etr_results$Ek[etr_results$id == "Midd"])
+shapiro.test(etr_results$Ek[etr_results$id == "Shall"])
+
+# Levene Test for Homogeneity fo Variances
+leveneTest(Ek ~ id, data = etr_results)
+
+# ANOVA
+anova_result_ek <- aov(Ek ~ id, data = etr_results)
+summary(anova_result_ek)
+
+# Tukey 
+TukeyHSD(anova_result_ek)
+```
+
+```{r ETRmax}
+# Shapiro-Wilk Test for Normality
+shapiro.test(etr_results$ETRmax[etr_results$id == "Deep"])
+shapiro.test(etr_results$ETRmax[etr_results$id == "Midd"])
+shapiro.test(etr_results$ETRmax[etr_results$id == "Shall"])
+
+# Levene Test for Homogeneity fo Variances
+leveneTest(ETRmax ~ id, data = etr_results)
+
+# ANOVA
+anova_result_ETRmax <- aov(ETRmax ~ id, data = etr_results)
+summary(anova_result_ETRmax)
+
+# Tukey 
+TukeyHSD(anova_result_ETRmax)
+```
+
+```{r alpha - no significance}
+# Shapiro-Wilk Test for Normality
+shapiro.test(etr_results$alpha[etr_results$id == "Deep"])
+shapiro.test(etr_results$alpha[etr_results$id == "Midd"])
+shapiro.test(etr_results$alpha[etr_results$id == "Shall"])
+
+# Levene Test for Homogeneity fo Variances
+leveneTest(alpha ~ id, data = etr_results)
+
+# ANOVA
+anova_result_alpha <- aov(alpha ~ id, data = etr_results)
+summary(anova_result_alpha)
+```
+
+```{r beta - no significance}
+# Shapiro-Wilk Test for Normality
+shapiro.test(etr_results$beta[etr_results$id == "Deep"])
+shapiro.test(etr_results$beta[etr_results$id == "Midd"])
+shapiro.test(etr_results$beta[etr_results$id == "Shall"])
+
+# Levene Test for Homogeneity fo Variances
+leveneTest(beta ~ id, data = etr_results)
+
+# ANOVA
+anova_result_beta <- aov(beta ~ id, data = etr_results)
+summary(anova_result_beta)
+```

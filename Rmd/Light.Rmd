@@ -249,6 +249,35 @@ ggplot(daily_max_all,
   )
 ```
 
+# Calculate KdPAR
+```{r}
+# meters between shallow and deep loggers
+depth_diff <- 25  
+
+kd_daily <- daily_max_2022 %>%
+  select(Date, depth, max_PAR) %>%
+  pivot_wider(names_from = depth, values_from = max_PAR) %>%
+  filter(!is.na(Shallow), !is.na(Deep)) %>% 
+  mutate(kdPAR = (log(Shallow) - log(Deep)) / depth_diff)
+
+kd_daily_summary <- kd_daily %>%
+  summarise(
+    mean_kd = mean(kdPAR, na.rm = TRUE),
+    sd_kd = sd(kdPAR, na.rm = TRUE),
+    min_kd = min(kdPAR, na.rm = TRUE),
+    max_kd = max(kdPAR, na.rm = TRUE)
+  )
+
+kd <- 0.0737
+depths <- c(13, 38)  # shallow and deep
+percent_light <- 100 * exp(-kd * depths)
+percent_light
+
+  
+
+```
+
+
 # Incorporate Sunrise/Sunset Times
 ```{r}
 shallow_2022 <- shallow_2022_light %>%
