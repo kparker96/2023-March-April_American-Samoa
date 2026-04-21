@@ -12,7 +12,8 @@ library(car)
 library(FSA)
 library(writexl)
 library(SIBER)
-library(ggh4x)
+library(devtools)
+library(ggpubr)
 ```
 
 # Load SIA Data
@@ -205,9 +206,10 @@ ggplot(sia_df_means_filtersd2.5,
 Type_labels <- labeller(Type = c("Host" = "Host", "Zoox" = "Symbiont"))
 
 CN_ratio <- ggplot(sia_df_means_filtersd2.5, 
-                   aes(x = Depth, y = mean_CN_ratio, fill = Depth)) +
-  geom_boxplot(position = position_dodge(1)) +
-  scale_fill_manual(values = c("#00004C", "#11569B", "#56A9DC")) +
+                   aes(x = Depth, y = mean_CN_ratio, color = Depth)) +
+  geom_boxplot(position = position_dodge(1), linewidth = 0.75) +
+  geom_point(size =2) +
+  scale_color_manual(values = c("#00004C", "#11569B", "#56A9DC")) +
   theme_bw() +
   theme(axis.title.x = element_blank(),
         legend.position = "none",
@@ -337,7 +339,36 @@ ggplot(holo_means_filtersd2.5, aes(x = mean_d13C, y = mean_d15N, color = Depth, 
 ```
 
 # Comparing d13C to colony depth (Filtered) (Figure Plot 2)
-```{r}
+```{r model parameters}
+# Carbon 
+# Host only
+lm_host_C <- lm(mean_d13C ~ Colony_Depth_m, 
+              data = subset(sia_df_depths_filtersd2.5, Type == "Host"))
+
+summary(lm_host_C)
+
+# Symbiont only
+lm_sym <- lm(mean_d13C ~ Colony_Depth_m, 
+             data = subset(sia_df_depths_filtersd2.5, Type == "Zoox"))
+
+summary(lm_sym_C)
+
+# Nitrogen 
+# Host only
+lm_host_N <- lm(mean_d15N ~ Colony_Depth_m, 
+              data = subset(sia_df_depths_filtersd2.5, Type == "Host"))
+
+summary(lm_host_N)
+
+# Symbiont only
+lm_sym_N <- lm(mean_d15N ~ Colony_Depth_m, 
+             data = subset(sia_df_depths_filtersd2.5, Type == "Zoox"))
+
+summary(lm_sym_N)
+
+```
+
+```{r d13CvDepth}
 sample_data <- read_xlsx(path = "data/frag_data/2023-AS_NMS_Mgris_collections.xlsx") %>%
   select(Sample_ID = Frag_ID, Depth_Group, Colony_Depth_m) %>%
   filter(!(Sample_ID %in% c("1", "2", "3", "4")))
@@ -372,11 +403,15 @@ sia_df_means_sum_filtersd2.5 <- sia_df_depths_filtersd2.5 %>%
 d13CvDepth <- ggplot(sia_df_depths_filtersd2.5, 
        aes(x = Colony_Depth_m, y = mean_d13C, 
            color = Type, shape = Type)) +
-  geom_point(size = 3) +
-  geom_smooth(method = lm, se = FALSE) +
+  geom_smooth(method = lm, se = TRUE, formula= y~x, aes(fill = Type), alpha = 0.15) +
+    geom_point(size = 3) +
+  stat_regline_equation(label.x = 18, size = 3) +
+  stat_cor(aes(label = paste(..rr.label.., ..p.label.., sep = "~`,`~")), label.x = 33, size = 3) +
   labs(x = "Colony Depth (m)", 
        y = expression(delta^{13}*C)) +
-  scale_color_manual(values = c("pink2", "darkgreen"),  
+  scale_color_manual(values = c("#E46AA7", "darkgreen"),  
+                     labels = c("Host", "Symbiont")) +
+  scale_fill_manual(values = c("#E46AA7", "darkgreen"),  
                      labels = c("Host", "Symbiont")) +
   scale_shape_manual(
     values = c("Host" = 16, "Zoox" = 17),  # pick any shapes you like
@@ -406,7 +441,7 @@ ggsave(
 ```
 
 # SIBER Analysis (Filtered < 2.5)
-```{r}
+```{r siber_df_deep}
 # Deep 
 siber_df_deep_filtersd2.5 <- sia_df_means_filtersd2.5 %>%
   filter(Depth == "Deep") %>%
@@ -442,7 +477,7 @@ ggplot(siber_object_deep_plot_filtersd2.5, aes(x = iso1, y = iso2, color = group
   theme_classic()
 ```
 
-```{r}
+```{r siber_df_midd}
 # Middle 
 siber_df_midd_filtersd2.5 <- sia_df_means_filtersd2.5 %>%
   filter(Depth == "Middle") %>%
@@ -477,7 +512,7 @@ ggplot(siber_object_midd_plot_filtersd2.5, aes(x = iso1, y = iso2, color = group
   theme_classic()
 ```
 
-```{r}
+```{r siber_df_shal}
 # Shallow 
 siber_df_shal_filtersd2.5 <- sia_df_means_filtersd2.5 %>%
   filter(Depth == "Shallow") %>%
@@ -512,7 +547,7 @@ ggplot(siber_object_shal_plot_filtersd2.5, aes(x = iso1, y = iso2, color = group
   theme_classic()
 ```
 
-```{r}
+```{r siber_df_all}
 siber_df_all <- sia_df_means_filtersd2.5 %>%
   select(iso1 = mean_d13C, iso2= mean_d15N, group = Type,
          community = Depth)
@@ -528,17 +563,18 @@ siber_plot <- ggplot(siber_object_all_plot, aes(x = iso1, y = iso2, color = grou
   stat_ellipse(geom = "polygon",
     alpha = 0.2,
     level = 0.40) + 
-  scale_color_manual(values = c("Host" = "pink2",
+  
+  scale_color_manual(values = c("Host" = "#E46AA7",
                                 "Zoox" = "darkgreen"),
                      labels = c("Host", "Symbiont")) +
-  scale_fill_manual(values = c("Host" = "pink2",
+  scale_fill_manual(values = c("Host" = "#E46AA7",
                                "Zoox" = "darkgreen"),
                                labels = c("Host", "Symbiont")) + 
   labs(
     x = expression(delta^13*C~"\u2030"),
     y = expression(delta^15*N~"\u2030")) + 
   theme_bw() +
-  facet_wrap(~community) +
+  #facet_wrap(~community) +
   theme(legend.position = "bottom",
         legend.title = element_blank(),
         axis.text = element_text(size = 10),
@@ -561,7 +597,25 @@ ggsave(
 
 ```
 
-```{r}
+```{r SIBER stats}
+SEA_values <- groupMetricsML(siber_object_all)
+
+library(vegan)
+
+iso_matrix <- cbind(
+  sia_df_means_filtersd2.5$mean_d13C,
+  sia_df_means_filtersd2.5$mean_d15N
+)
+
+adonis2(iso_matrix ~ Depth + Type, 
+        data = sia_df_means_filtersd2.5,
+        method = "euclidean",
+        by = "margin")
+
+```
+
+# Plot Figure 3 Pieces Together
+```{r Fig_3}
 library(ggpubr)
 
 top <- ggarrange(CN_ratio,d13CvDepth,
@@ -588,5 +642,35 @@ ggsave(
   width = 8,                            # Width in inches
   height = 6.5                            # Height in inches
 )
+```
+
+# Host - Symbiont   
+```{r}
+HS_df_depths_filtersd2.5 <- sia_df_depths_filtersd2.5 %>%
+  select(Sample_ID, Type, Depth, Colony_Depth_m, mean_d13C, mean_d15N) %>%
+   pivot_wider(
+    names_from = Type,
+    values_from = c(mean_d13C, mean_d15N),
+    names_glue = "{Type}_{.value}") %>%
+# remove missing samples 
+  filter(!is.na(Host_mean_d13C),
+         !is.na(Zoox_mean_d13C)) %>%
+  mutate(HS_d13C = Host_mean_d13C - Zoox_mean_d13C,
+         HS_d15N = Host_mean_d15N - Zoox_mean_d15N)
+
+ggplot(HS_df_depths_filtersd2.5, aes(x = Colony_Depth_m, y = HS_d13C)) +
+  geom_point() +
+  geom_smooth(method = lm, se = TRUE, formula= y~x,  alpha = 0.15)
+
+ggplot(HS_df_depths_filtersd2.5, aes(x = Colony_Depth_m, y = HS_d15N)) +
+  geom_point()
+
+
+ggplot(HS_df_depths_filtersd2.5, aes(x = HS_d13C, y = HS_d15N, color = Depth)) +
+  geom_point() 
+
+
+
+  
 ```
 

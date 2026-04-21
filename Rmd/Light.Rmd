@@ -51,6 +51,29 @@ FT_40_light <- read.delim("./data/environmental/light/2023-FagateleDeepPAR_40m/C
   # remove first row with units 
   slice(-1)
 
+# ----------------------------------------------------------------- #
+
+# 2023 Midd Light
+FT_20_light <- read_xlsx("./data/environmental/light/2023-FagateleMiddPAR_20m/FG20_A.xlsx") 
+
+offset <- as.Date("2023-01-26") - as.Date("2020-01-16")
+
+FT_20_light_date_correction <- FT_20_light %>%
+  mutate(date = date + offset) %>%
+  mutate(datetime = date + (time - as.POSIXct("1899-12-31 00:00:00", tz = "UTC"))) %>%
+   mutate(
+    DateTime = with_tz(datetime, tzone = "Pacific/Pago_Pago"),
+    Date = as.Date(DateTime),
+    Time = format(DateTime, "%H:%M:%S"),
+    Year = year(DateTime)
+  )
+
+midd_light_df <- FT_20_light_date_correction %>%
+  select(DateTime, Date, Time, Year, PAR) %>%
+    mutate(depth = "Middle",
+           sensor.depth = "20m",
+           Year_depth = "2023_Middle")
+
 ```
 
 # Combine Shallow and Deep 
@@ -260,7 +283,19 @@ kd_daily <- daily_max_2022 %>%
   filter(!is.na(Shallow), !is.na(Deep)) %>% 
   mutate(kdPAR = (log(Shallow) - log(Deep)) / depth_diff)
 
-kd_daily_summary <- kd_daily %>%
+kd_midday <- light_df %>%
+  filter(DateTime > start_date_2022 & DateTime < end_date_2022) %>%
+  mutate(DateTime_round = round_date(DateTime, "10 minutes")) %>%
+  filter(hour(DateTime_round) >= 10,
+         hour(DateTime_round) <= 14) %>%
+  group_by(DateTime_round, depth) %>%
+  summarise(PAR = mean(PAR, na.rm = TRUE), .groups = "drop") %>%
+  pivot_wider(names_from = depth, values_from = PAR) %>%
+  filter(!is.na(Shallow), !is.na(Deep), Shallow > 0, Deep > 0) %>%
+  mutate(kdPAR = (log(Shallow) - log(Deep)) / depth_diff) %>%
+  filter(kdPAR > 0)
+
+kd_midday_summary <- kd_midday %>%
   summarise(
     mean_kd = mean(kdPAR, na.rm = TRUE),
     sd_kd = sd(kdPAR, na.rm = TRUE),
@@ -268,12 +303,21 @@ kd_daily_summary <- kd_daily %>%
     max_kd = max(kdPAR, na.rm = TRUE)
   )
 
-kd <- 0.0737
-depths <- c(13, 38)  # shallow and deep
+kd <- 0.0744 
+depths <- c(6.15, 13, 22.7, 38,  44.06)  # shallow and deep
 percent_light <- 100 * exp(-kd * depths)
 percent_light
 
-  
+z10 <- log(0.10) / -kd
+z1  <- log(0.01) / -kd 
+z.01  <- log(0.001) / -kd 
+
+# Back Calculating Middle KDpar based on Middle light data from 2023
+I_z <- 115.11
+I0  <- 630   # adjust if you want a different reference
+
+Z_percent <- (I_z / I0) * 100
+Z_percent
 
 ```
 
@@ -315,6 +359,27 @@ ggplot(test, aes(x = Samoa.Standard.Time, y = PAR)) +
   geom_point()
   
 
+```
+
+# Loner Middle Figure (Supplemental)
+
+```{r}
+midd_daily_max <- midd_light_df %>%
+  group_by(Date) %>%
+  slice_max(PAR, n = 1, with_ties = FALSE)
+
+midd_average_max <- mean(midd_daily_max$PAR)
+
+midd_light_series <- ggplot(midd_daily_max, aes(x = Date, y = PAR)) +
+   geom_point(size = 0.7) +
+  geom_line(color = "dodgerblue3", linewidth = 0.7) +
+  geom_hline(yintercept  = midd_average_max, linewidth = 0.7, linetype = "dashed", color = "dodgerblue3") +
+  labs(y = expression(paste("Maximum Daily PAR (", µ*mol / s / m^2,
+                            ")")), x = "") +
+  scale_y_continuous(breaks = c(0,200,400, 600, 800, 1000), limits = c(0,1000),  expand = c(0,0)) +
+  theme_bw()
+
+ggarrange(p_light_series, midd_light_series, align = "hv")
 ```
 
 

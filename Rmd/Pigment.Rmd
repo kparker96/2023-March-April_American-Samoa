@@ -171,7 +171,7 @@ write.xlsx(pigment_plot_per_cm2, "data/frag_data/pigment_per_cm2.xlsx")
 labels <- c(
   "Chl_a_per_cm2" = "Chlorophyll~italic(a)",
   "Chl_c_per_cm2" = "Chlorophyll~italic(c)",
-  "Perid_per_cm2"    = "Peridinium")
+  "Perid_per_cm2"    = "Peridinin")
 
 total_pigment <- ggplot(pigment_plot_per_cm2, aes(x = Depth, y = ug_cm2_pigment, fill = Depth)) +
   geom_boxplot() + 
@@ -232,5 +232,22 @@ anova_Perid <- aov(Perid_per_cm2 ~ Depth, data = pigment_stats)
 summary(anova_Perid)
 TukeyHSD(anova_Perid)
 
+```
+
+# Chlorophyll C:A ratios
+```{r}
+C_A_ratio <- pigment_plot_per_cm2 %>%
+  pivot_wider(names_from = "Pigment",
+              values_from = "ug_cm2_pigment") %>%
+  mutate(ratio_CA = Chl_c_per_cm2/Chl_a_per_cm2)
+
+C_A_ratio %>%
+  group_by(Depth) %>%
+  summarise(mean(ratio_CA))
+
+shapiro.test(C_A_ratio$ratio_CA)
+leveneTest(data = C_A_ratio, ratio_CA ~ Depth)
+
+kruskal.test(ratio_CA ~ Depth, data = C_A_ratio)
 ```
 

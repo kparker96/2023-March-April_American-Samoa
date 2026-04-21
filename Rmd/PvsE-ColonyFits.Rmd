@@ -159,6 +159,8 @@ results_df <- master_df %>%
 results_df <- results_df %>%
   mutate(depth = str_sub(geno_depth, start = 7), 
          geno = str_sub(geno_depth, end = 5))
+
+write_xlsx(results_df, path = "data/respirometry/PvsI_colony_parameters.xlsx")
   
 
 # Create a sequence of light values for prediction
@@ -223,7 +225,6 @@ ggplot() +
 ```
 
 ```{r}
-
 # Pmax
 leveneTest(Pmax ~ depth, data = results_df)
 

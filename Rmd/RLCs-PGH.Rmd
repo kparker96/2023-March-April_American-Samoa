@@ -425,15 +425,23 @@ rlc.stats <- rlc.parameters %>%
 # Homogeneity of Variances 
 leveneTest(ETRmax ~ id, data = rlc.stats)
 leveneTest(Ek ~ id, data = rlc.stats)
+leveneTest(alpha ~id, data = rlc.stats)
+leveneTest(beta ~id, data = rlc.stats)
 
 ETRmax_anova <- aov(ETRmax ~ id, data = rlc.stats)
 Ek_anova <- aov(Ek ~ id, data = rlc.stats)
+alpha_anova <- aov(alpha ~ id, data = rlc.stats)
+beta_anova <- aov(beta ~ id, data = rlc.stats)
 
 summary(ETRmax_anova)
 summary(Ek_anova)
+summary(alpha_anova)
+summary(beta_anova)
 
 TukeyHSD(ETRmax_anova)
 TukeyHSD(Ek_anova)
+TukeyHSD(alpha_anova)
+
 ```
 
 # Plot Depth Fits Figure

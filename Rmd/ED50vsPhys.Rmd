@@ -27,6 +27,8 @@ ITS2 <- read_xlsx("data/ITS2/ITS2_type_relabund.xlsx")
 pigment <- read_xlsx("data/frag_data/pigment_per_cm2.xlsx")
 
 SIA <- read_xlsx("data/SIA/sia_means_df_clean.xlsx")
+
+PvsE <- read_xlsx("data/respirometry/PvsI_colony_parameters.xlsx")
 ```
 
 # Make master dataframe 
@@ -54,11 +56,22 @@ SIA_df <- SIA %>%
   mutate(depth_Geno = substring(Sample_ID, first = 13)) %>%
   select(-Sample_ID, -Depth)
 
+PvsE_df <- PvsE %>%
+  select(Pmax, alpha, Ek, depth, geno) %>%
+  mutate(depth = case_when(depth == "Middle" ~ "Midd",
+                           depth == "Shallow" ~ "Shall",
+                           depth == "Deep" ~ "Deep"),
+         Geno = substring(geno, first = 4),
+         depth_Geno = paste0(depth, "_", Geno)) %>%
+  select(depth_Geno, Pmax, alpha, Ek)
+  
+
 master_df <- EDs %>%
   left_join(metadata, by = "depth_Geno") %>%
   left_join(ITS2_abun, by = "depth_Geno") %>%
   left_join(pigment_df, by = "depth_Geno") %>%
-  left_join(SIA_df, by = "depth_Geno")
+  left_join(SIA_df, by = "depth_Geno") %>%
+  left_join(PvsE_df, by = "depth_Geno")
   
 ```
 
@@ -131,5 +144,78 @@ ggplot(scores, aes(PC1, PC2, color = depth)) +
   theme_minimal()
 
 round(pca_res$rotation[,1:3], 3)
+```
+
+
+```{r}
+
+ITS2_condensed <- ITS2_abun %>%
+  pivot_longer(cols = c("C15_C15vd_C15ev_C15ww", "C3", 
+                        "C3_C115d_C1", "C15_C15vd_C15ev", 
+                        "D4_D1ab_D1_D6_D1ns_D1nt"),
+               names_to = "ITS2_type",
+               values_to = "ITS2_abund") %>%
+  filter(ITS2_abund > 0) %>%
+  mutate(ITS2_dom = case_when(grepl("^C", ITS2_type) & ITS2_abund > 0.5 ~ "Cladocopium", TRUE ~ "Durusdinium"))
+
+pigment_df_condensed <- pigment_df %>%
+  pivot_longer(cols = c("Chl_a_per_cm2", "Chl_c_per_cm2", "Perid_per_cm2"),
+               names_to = "Pigment",
+               values_to = "Pigment_conct")
+
+master_df_condensed <- master_df %>%
+  select(Geno:sample_name, Type:Ek) %>%
+  left_join(ITS2_condensed, by = "depth_Geno") %>%
+  left_join(pigment_df_condensed, by = "depth_Geno")
+
+ggplot(master_df_condensed, aes(x = ITS2_abund, y = ED50)) +
+  geom_point() +
+  facet_wrap(~ITS2_type)
+
+
+ggplot(master_df_condensed, aes(x = Pmax, y = ED50, color = ITS2_dom)) +
+  geom_point()
+
+Deep_master <- master_df_condensed %>%
+  select(depth:colony_depth, Type, Pmax:Ek, ITS2_dom) %>%
+  filter(depth == "Deep",
+         Type == "Host") %>%
+  dplyr::distinct(depth_Geno, .keep_all = TRUE)
+
+
+shapiro.test(Deep_master$ED50[Deep_master$ITS2_dom == "Cladocopium"])
+shapiro.test(Deep_master$ED50[Deep_master$ITS2_dom == "Durusdinium"])
+
+t.test(ED50 ~ ITS2_dom, data = Deep_master)
+t.test(alpha ~ ITS2_dom, data = Deep_master)
+
+```
+
+# I don't know trying to see what works 
+```{r}
+host_df <- master_df %>% filter(Type == "Host")
+
+lm(data = host_df, ED50 ~ Chl_a_per_cm2 + Chl_c_per_cm2 + Perid_per_cm2)
+
+its2_pca <- prcomp(
+  host_df[, c("C15_C15vd_C15ev_C15ww",
+              "C3",
+              "C3_C115d_C1",
+              "C15_C15vd_C15ev",
+              "D4_D1ab_D1_D6_D1ns_D1nt")],
+  scale. = TRUE
+)
+
+host_df$ITS2_PC1 <- its2_pca$x[,1]
+host_df$ITS2_PC2 <- its2_pca$x[,2]
+
+lm(Pmax ~ ITS2_PC1 + ITS2_PC2, data = host_df)
+summary(lm(Pmax ~ ITS2_PC1 + ITS2_PC2, data = host_df))
+its2_pca$rotation
+
+summary(lm(Pmax ~ ITS2_PC1 + ITS2_PC2 + depth, data = host_df))
+
+ggplot(host_df, aes(ITS2_PC1, Pmax)) +
+  geom_point()
 ```
 

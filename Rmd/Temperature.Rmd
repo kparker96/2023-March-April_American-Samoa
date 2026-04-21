@@ -17,6 +17,7 @@ library(hms)
 library(FSA)
 library(car)
 library(rcompanion)
+library(lme4)
 ```
 
 # Load Fagatele Buoy Data
@@ -44,6 +45,14 @@ Fagatele_clean<- Fagatele %>%
   select(utc_timestamp, Date, Time, Depth = sensor_position, Temperature = value) %>%
   filter(Temperature > 0)
 ```
+
+# Fagatele Clean Stats
+```{r}
+model <- lmer(Temperature ~ Depth + (1 | Date), data = Fagatele_clean)
+summary(model)
+
+```
+
 
 # Calculate Fagatele Buoy Hourly Average 
 ```{r}
@@ -79,6 +88,25 @@ p_temp_series <- ggplot(Fagatele_hourly, aes(x = Date, group = Depth, color = De
         legend.position = "bottom") 
 
 saveRDS(p_temp_series, "Plots/Fig_1/p_temp_series.rds")
+```
+
+```{r}
+Fagatele_daily <- Fagatele_clean %>%
+  group_by(Date, Depth) %>%
+  summarise(Temperature = mean(Temperature, na.rm = TRUE), .groups = "drop")
+
+Fagatele_wide <- Fagatele_daily %>%
+  pivot_wider(names_from = Depth, values_from = Temperature)
+
+library(lmerTest)
+
+model <- lmer(Temperature ~ Depth + (1 | Date), data = Fagatele_daily)
+
+summary(model)
+
+library(emmeans)
+
+emmeans(model, pairwise ~ Depth)
 ```
 
 # Calculate and Plot Fagatele Buoy Data Daily Range

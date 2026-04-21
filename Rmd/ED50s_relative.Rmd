@@ -222,6 +222,31 @@ hill_max_summary <- bind_rows(hill_tidy, max_tidy) %>%
   select(Parameter, Shall = estimate1, Deep = estimate2, estimate, statistic, p.value, conf.low, conf.high)
 
 hill_max_summary
+
+# SEs
+se_hill_shall <- sd(Shalldrc_relative_geno_df$hill) / sqrt(nrow(Shalldrc_relative_geno_df))
+se_hill_deep  <- sd(Deepdrc_relative_geno_df$hill) / sqrt(nrow(Deepdrc_relative_geno_df))
+
+se_max_shall <- sd(Shalldrc_relative_geno_df$max) / sqrt(nrow(Shalldrc_relative_geno_df))
+se_max_deep  <- sd(Deepdrc_relative_geno_df$max) / sqrt(nrow(Deepdrc_relative_geno_df))
+
+hill_max_formatted <- hill_max_summary %>%
+  mutate(
+    Shallow = case_when(
+      Parameter == "Hill" ~ sprintf("%.2f ± %.2f", Shall, se_hill_shall),
+      Parameter == "Max"  ~ sprintf("%.3f ± %.3f", Shall, se_max_shall)
+    ),
+    Deep = case_when(
+      Parameter == "Hill" ~ sprintf("%.2f ± %.2f", Deep, se_hill_deep),
+      Parameter == "Max"  ~ sprintf("%.3f ± %.3f", Deep, se_max_deep)
+    ),
+    t = statistic,
+    df = ifelse(Parameter == "Hill", ShallvDeep_hill$parameter, ShallvDeep_max$parameter),
+    p = signif(p.value, 3),
+    ED = Parameter   # rename to match ED column
+  ) %>%
+  select(ED, Shallow, Deep, t, df, p)
+
 ```
 
 # Individual Model Fits
@@ -376,6 +401,58 @@ ED95_param_table <- data.frame(
   CI_lower = c(CI_Shall_ED95[1], CI_Deep_ED95[1]),
   CI_upper = c(CI_Shall_ED95[2], CI_Deep_ED95[2])
 )
+
+ED_summary <- bind_rows(
+
+  data.frame(
+    ED = "ED05",
+    Shallow_mean = mean_Shall_ED05,
+    Shallow_SE = se_Shall_ED05,
+    Deep_mean = mean_Deep_ED05,
+    Deep_SE = se_Deep_ED05,
+    t = ShallvDeep_ED05$statistic,
+    df = ShallvDeep_ED05$parameter,
+    p = ShallvDeep_ED05$p.value,
+    CI_low = ShallvDeep_ED05$conf.int[1],
+    CI_high = ShallvDeep_ED05$conf.int[2]
+  ),
+
+  data.frame(
+    ED = "ED50",
+    Shallow_mean = mean_Shall_ED50,
+    Shallow_SE = se_Shall_ED50,
+    Deep_mean = mean_Deep_ED50,
+    Deep_SE = se_Deep_ED50,
+    t = ShallvDeep_ED50$statistic,
+    df = ShallvDeep_ED50$parameter,
+    p = ShallvDeep_ED50$p.value,
+    CI_low = ShallvDeep_ED50$conf.int[1],
+    CI_high = ShallvDeep_ED50$conf.int[2]
+  ),
+
+  data.frame(
+    ED = "ED95",
+    Shallow_mean = mean_Shall_ED95,
+    Shallow_SE = se_Shall_ED95,
+    Deep_mean = mean_Deep_ED95,
+    Deep_SE = se_Deep_ED95,
+    t = ShallvDeep_ED95$statistic,
+    df = ShallvDeep_ED95$parameter,
+    p = ShallvDeep_ED95$p.value,
+    CI_low = ShallvDeep_ED95$conf.int[1],
+    CI_high = ShallvDeep_ED95$conf.int[2]
+  )
+)
+
+ED_summary <- ED_summary %>%
+  mutate(
+    Shallow = sprintf("%.2f ± %.2f", Shallow_mean, Shallow_SE),
+    Deep = sprintf("%.2f ± %.2f", Deep_mean, Deep_SE),
+    p = signif(p, 3)
+  ) %>%
+  select(ED, Shallow, Deep, t, df, p)
+
+final_summary <- bind_rows(ED_summary, hill_max_formatted)
 ```
 
 ```{r model predictions}
