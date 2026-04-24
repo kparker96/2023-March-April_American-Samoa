@@ -1399,7 +1399,8 @@ First need to index new genome
 
 Submitted 2026-02-26 @ 2:46PM 
 
-##2026-03-24 Check mapping
+##2026-03-24 Check mapping  
+
     [kpark049@turing1 bam]$ pwd
     /cm/shared/courses/dbarshis/barshislab/KatieP/taxons/Montipora_grisea/2023-Mgri-NMSAS/bam
     
@@ -1504,4 +1505,99 @@ submitted @ 1:44PM
 | 10790004_7 | Finished 23313Brs_2023-ASGWAS-S08deep-Mgri-03_R24069 | 52.96% | 1.03% | 46.02% | 50.20% |
 | 10790004_8 | Finished 23313Brs_2023-ASGWAS-S08deep-Mgri-03_R24073 | 54.30% | 1.08% | 44.62% | 48.74% |
 | 10790004_9 | Finished 23313Brs_2023-ASGWAS-S08deep-Mgri-03_R24074 | 55.14% | 1.11% | 43.75% | 47.75% |
+
+# 2026-04-21: Merging BAM Files for deduplication (Mapped to Hologenome)
+
+    [kpark049@turing1 bam]$ pwd
+    /cm/shared/courses/dbarshis/barshislab/KatieP/taxons/Montipora_grisea/2023-Mgri-NMSAS/bam
+    [kpark049@turing1 bam]$ ls
+    23313Brs_2023-ASGWAS-S08deep-Mgri-01_R24069.sorted.bam  23313Brs_2023-ASGWAS-S08deep-Mgri-07_R24074.sorted.bam
+    23313Brs_2023-ASGWAS-S08deep-Mgri-01_R24073.sorted.bam  23313Brs_2023-ASGWAS-S08midd-Mgri-02_R24069.sorted.bam
+    23313Brs_2023-ASGWAS-S08deep-Mgri-01_R24074.sorted.bam  23313Brs_2023-ASGWAS-S08midd-Mgri-02_R24073.sorted.bam
+    23313Brs_2023-ASGWAS-S08deep-Mgri-02_R24069.sorted.bam  23313Brs_2023-ASGWAS-S08midd-Mgri-02_R24074.sorted.bam
+    23313Brs_2023-ASGWAS-S08deep-Mgri-02_R24073.sorted.bam  23313Brs_2023-ASGWAS-S08midd-Mgri-05_R24069.sorted.bam
+    23313Brs_2023-ASGWAS-S08deep-Mgri-02_R24074.sorted.bam  23313Brs_2023-ASGWAS-S08midd-Mgri-05_R24073.sorted.bam
+    23313Brs_2023-ASGWAS-S08deep-Mgri-03_R24069.sorted.bam  23313Brs_2023-ASGWAS-S08midd-Mgri-05_R24074.sorted.bam
+    23313Brs_2023-ASGWAS-S08deep-Mgri-03_R24073.sorted.bam  23313Brs_2023-ASGWAS-S08shall-Mgri-01_R24069.sorted.bam
+    23313Brs_2023-ASGWAS-S08deep-Mgri-03_R24074.sorted.bam  23313Brs_2023-ASGWAS-S08shall-Mgri-01_R24073.sorted.bam
+    23313Brs_2023-ASGWAS-S08deep-Mgri-04_R24069.sorted.bam  23313Brs_2023-ASGWAS-S08shall-Mgri-01_R24074.sorted.bam
+    23313Brs_2023-ASGWAS-S08deep-Mgri-04_R24073.sorted.bam  23313Brs_2023-ASGWAS-S08shall-Mgri-02_R24069.sorted.bam
+    23313Brs_2023-ASGWAS-S08deep-Mgri-04_R24074.sorted.bam  23313Brs_2023-ASGWAS-S08shall-Mgri-02_R24073.sorted.bam
+    23313Brs_2023-ASGWAS-S08deep-Mgri-05_R24069.sorted.bam  23313Brs_2023-ASGWAS-S08shall-Mgri-02_R24074.sorted.bam
+    23313Brs_2023-ASGWAS-S08deep-Mgri-05_R24073.sorted.bam  23313Brs_2023-ASGWAS-S08shall-Mgri-06_R24069.sorted.bam
+    23313Brs_2023-ASGWAS-S08deep-Mgri-05_R24074.sorted.bam  23313Brs_2023-ASGWAS-S08shall-Mgri-06_R24073.sorted.bam
+    23313Brs_2023-ASGWAS-S08deep-Mgri-07_R24069.sorted.bam  23313Brs_2023-ASGWAS-S08shall-Mgri-06_R24074.sorted.bam
+    23313Brs_2023-ASGWAS-S08deep-Mgri-07_R24073.sorted.bam
+    
+    [kpark049@turing1 bam]$ ls *.sorted.bam | sed -E 's/_R[0-9]+\.sorted\.bam$//' | sort | uniq | wc -l
+    11
+    
+    [kpark049@turing1 bam]$ mkdir merged_bams
+    
+    [kpark049@turing1 scripts]$ pwd
+    /cm/shared/courses/dbarshis/barshislab/KatieP/taxons/Montipora_grisea/2023-Mgri-NMSAS/scripts
+    
+    [kpark049@turing1 scripts]$ nano 2026-04-21_merge_bams.slurm
+
+    #SBATCH --job-name=merge_bams_by_sample_2026-04-21
+    #SBATCH --output=%A_%a_%x.out
+    #SBATCH --error=%A_%a_%x.err
+    #SBATCH --mail-type=ALL
+    #SBATCH --mail-user=kpark049@odu.edu
+    #SBATCH --partition=main
+    #SBATCH --array=1-11
+    #SBATCH --ntasks=1
+    #SBATCH --mem=30G
+    #SBATCH --time=2-00:00:00
+
+    ## Load modules
+    module load container_env samtools
+
+    ## Define directories
+    BASEDIR=/cm/shared/courses/dbarshis/barshislab/KatieP/taxons/Montipora_grisea/2023-Mgri-NMSAS
+    BAMDIR=$BASEDIR/bam
+    OUTDIR=$BAMDIR/merged_bams
+
+    mkdir -p "$OUTDIR"
+
+    ## Build sample list by stripping lane/run + suffix
+    SAMPLELIST=($(ls $BAMDIR/*.sorted.bam \
+      | sed -E 's/_R[0-9]+\.sorted\.bam$//' \
+      | sort | uniq))
+
+    ## Get sample for this array task
+    SAMPLE="${SAMPLELIST[$SLURM_ARRAY_TASK_ID-1]}"
+
+    echo "Processing sample: $SAMPLE"
+    echo "SLURM job ID: $SLURM_JOB_ID"
+
+    ## List BAM files belonging to this sample
+    BAMFILES=$(ls ${SAMPLE}_R*.sorted.bam)
+
+    echo "Input BAMs:"
+    echo "$BAMFILES"
+
+    ## Define merged BAM name
+    MERGEDBAM=$OUTDIR/$(basename "$SAMPLE").merged.bam
+
+    ## Merge
+    echo "Merging into $MERGEDBAM..."
+    crun.samtools samtools merge -f -@ 16 "$MERGEDBAM" $BAMFILES
+
+    ## Index merged BAM
+    crun.samtools samtools index "$MERGEDBAM"
+
+    echo "Merging complete for $SAMPLE"
+
+    [kpark049@turing1 scripts]$ salloc
+    salloc: Pending job allocation 10793499
+    salloc: job 10793499 queued and waiting for resources
+    salloc: job 10793499 has been allocated resources
+    salloc: Granted job allocation 10793499
+    salloc: Nodes coreV3-23-003 are ready for job
+    
+    [kpark049@coreV3-23-003 scripts]$ sbatch 2026-04-21_merge_bams.slurm
+    Submitted batch job 10793522
+
+Submitted @2:55pm 3036-04-21
 
